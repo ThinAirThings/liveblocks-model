@@ -1,0 +1,28 @@
+{
+  "name": "@thinairthings/liveblocks-model",
+  "version": "1.0.0",
+  "description": "Thin Air Liveblocks Model",
+  "main": "dist/liveblocks-model/src/index.js",
+  "types": "dist/liveblocks-model/src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThinAirThings/liveblocks-model.git"
+  },
+  "scripts": {
+    "npmpub": "tsc && git add . && git commit -m \"mod\" && git push && npm version patch && npm publish"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "keywords": [],
+  "author": "Dan Lannan",
+  "dependencies": {
+    "@liveblocks/client": "^1.1.0",
+    "@thinairthings/zoom-utils": "^1.0.7",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.2"
+  }
+}
