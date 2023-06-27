@@ -2,8 +2,8 @@
   "name": "@thinairthings/liveblocks-model",
   "version": "1.0.2",
   "description": "Thin Air Liveblocks Model",
-  "main": "dist/liveblocks-model/src/index.js",
-  "types": "dist/liveblocks-model/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/ThinAirThings/liveblocks-model.git"
