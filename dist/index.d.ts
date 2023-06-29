@@ -48,6 +48,6 @@ export type LiveblocksPresence = {
         selectionActive: boolean;
         absoluteSelectionBounds: ScreenState | null;
     };
-    selectedNodes: string[];
-    focusedNode: string | null;
+    selectedNodeIds: string[];
+    focusedNodeId: string | null;
 };
