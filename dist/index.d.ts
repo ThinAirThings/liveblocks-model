@@ -1,5 +1,5 @@
 import { LiveMap, LiveObject, LsonObject } from "@liveblocks/client";
-import { ContainerState } from "@thinairthings/zoom-utils";
+import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
 export type NodeTypeIndex = {
     browser: {
         type: 'browser';
@@ -39,4 +39,15 @@ export declare const createAirNode: <T extends LsonObject = {}>({ type, state }:
 }) => AirNode<T>;
 export type LiveblocksStorageModel = {
     nodeMap: LiveMap<string, AirNode<{}>>;
+};
+export type LiveblocksPresence = {
+    displayName: string;
+    absoluteCursorState: Point | null;
+    viewportState: ViewportState;
+    mouseSelectionState: {
+        selectionActive: boolean;
+        absoluteSelectionBounds: ScreenState | null;
+    };
+    selectedNodes: string[];
+    focusedNode: string | null;
 };
