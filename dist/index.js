@@ -10,6 +10,9 @@ const createAirNode = ({ type, state }) => new client_1.LiveObject({
         ...state,
         containerState: new client_1.LiveObject(state.containerState)
     }),
+    // state: new LiveObject(Object.fromEntries(Object.entries(state).map(([key, value]) => {
+    //     return [key, new LiveObject(value)]
+    // }))),
     children: new client_1.LiveMap()
 });
 exports.createAirNode = createAirNode;

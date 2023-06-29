@@ -7,6 +7,7 @@ export type NodeTypeIndex = {
         typeDisplayIcon: string;
         defaultProps: {
             url: string;
+            cursor: string;
         };
     };
     rectangle: {

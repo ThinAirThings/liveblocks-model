@@ -9,6 +9,7 @@ export type NodeTypeIndex = {
         typeDisplayIcon: string
         defaultProps: {
             url: string
+            cursor: string
         }
     }
     rectangle: {
@@ -23,8 +24,8 @@ export type NodeId = string
 export type AirNode<T extends {[key: string]: any}={}> = LiveObject<{
     nodeId: string
     type: keyof NodeTypeIndex
-    state: LiveObject<T&
-        {containerState: LiveObject<ContainerState>
+    state: LiveObject<T&{
+        containerState: LiveObject<ContainerState>
     }>
     children: LiveMap<string, AirNode<any>>
 }>
@@ -43,6 +44,9 @@ export const createAirNode = <T extends LsonObject={}> ({
         ...state,
         containerState: new LiveObject(state.containerState)
     }),
+    // state: new LiveObject(Object.fromEntries(Object.entries(state).map(([key, value]) => {
+    //     return [key, new LiveObject(value)]
+    // }))),
     children: new LiveMap()
 })
 
