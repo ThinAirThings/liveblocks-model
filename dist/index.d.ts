@@ -8,6 +8,7 @@ export type NodeTypeIndex = {
         defaultProps: {
             url: string;
             cursor: string;
+            readyToConnect: boolean;
         };
     };
     rectangle: {
