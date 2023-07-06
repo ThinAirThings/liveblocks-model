@@ -17,6 +17,15 @@ export type NodeTypeIndex = {
         typeDisplayIcon: string;
         defaultProps: {};
     };
+    vsCode: {
+        type: 'vsCode';
+        typeDisplayName: string;
+        typeDisplayIcon: string;
+        defaultProps: {
+            readyToConnect: boolean;
+            cursor: string;
+        };
+    };
 };
 export type NodeId = string;
 export type AirNode<T extends {

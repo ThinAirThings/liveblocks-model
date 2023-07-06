@@ -18,6 +18,15 @@ export type NodeTypeIndex = {
         typeDisplayName: string
         typeDisplayIcon: string
         defaultProps: {}
+    },
+    vsCode: {
+        type: 'vsCode'
+        typeDisplayName: string
+        typeDisplayIcon: string
+        defaultProps: {
+            readyToConnect: boolean
+            cursor: string
+        }
     }
 }
 
