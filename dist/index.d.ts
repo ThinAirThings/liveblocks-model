@@ -26,6 +26,14 @@ export type NodeTypeIndex = {
             cursor: string;
         };
     };
+    textBox: {
+        type: 'textBox';
+        typeDisplayName: string;
+        typeDisplayIcon: string;
+        defaultProps: {
+            content: string;
+        };
+    };
 };
 export type NodeId = string;
 export type AirNode<T extends {

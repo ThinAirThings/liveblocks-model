@@ -27,6 +27,14 @@ export type NodeTypeIndex = {
             readyToConnect: boolean
             cursor: string
         }
+    },
+    textBox: {
+        type: 'textBox'
+        typeDisplayName: string
+        typeDisplayIcon: string
+        defaultProps: {
+            content: string
+        }
     }
 }
 
