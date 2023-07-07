@@ -1,23 +1,26 @@
 import { LiveMap, LiveObject, LsonObject } from "@liveblocks/client";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
+type CommonProps = {
+    renderer: 'pixi' | 'dom';
+    typeDisplayName: string;
+    typeDisplayIcon: string;
+};
 export type NodeTypeIndex = {
-    browser: {
+    browser: CommonProps & {
         type: 'browser';
-        typeDisplayName: string;
-        typeDisplayIcon: string;
         defaultProps: {
             url: string;
             cursor: string;
             readyToConnect: boolean;
         };
     };
-    rectangle: {
+    rectangle: CommonProps & {
         type: 'rectangle';
         typeDisplayName: string;
         typeDisplayIcon: string;
         defaultProps: {};
     };
-    vsCode: {
+    vsCode: CommonProps & {
         type: 'vsCode';
         typeDisplayName: string;
         typeDisplayIcon: string;
@@ -26,7 +29,7 @@ export type NodeTypeIndex = {
             cursor: string;
         };
     };
-    textBox: {
+    textBox: CommonProps & {
         type: 'textBox';
         typeDisplayName: string;
         typeDisplayIcon: string;
@@ -69,3 +72,4 @@ export type LiveblocksPresence = {
     selectedNodeIds: string[];
     focusedNodeId: string | null;
 };
+export {};
