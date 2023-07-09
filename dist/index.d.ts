@@ -37,6 +37,12 @@ export type NodeTypeIndex = {
             content: string;
         };
     };
+    domBox: CommonProps & {
+        type: 'domBox';
+        typeDisplayName: string;
+        typeDisplayIcon: string;
+        defaultProps: {};
+    };
 };
 export type NodeId = string;
 export type AirNode<T extends {

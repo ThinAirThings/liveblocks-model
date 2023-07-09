@@ -38,7 +38,13 @@ export type NodeTypeIndex = {
         defaultProps: {
             content: string
         }
-    }
+    },
+    domBox: CommonProps&{
+        type: 'domBox'
+        typeDisplayName: string
+        typeDisplayIcon: string
+        defaultProps: {}
+    },
 }
 
 export type NodeId = string
