@@ -85,6 +85,7 @@ export type LiveblocksPresence = {
     absoluteCursorState: Point | null
     viewportState: ViewportState
     mouseSelectionState: {
+        isTransforming: boolean
         selectionActive: boolean
         absoluteSelectionBounds: ScreenState | null
     }
