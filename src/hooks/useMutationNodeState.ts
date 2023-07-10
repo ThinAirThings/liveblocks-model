@@ -1,5 +1,6 @@
-import { ImmutableAirNode, LiveblocksPresence, LiveblocksStorageModel, NodeTypeIndex } from ".."
+import {  LiveblocksPresence, LiveblocksStorageModel, NodeTypeIndex } from ".."
 import {createRoomContext} from "@liveblocks/react"
+
 export const useMutationNodeState = <
     T extends keyof NodeTypeIndex,
     K extends keyof NodeTypeIndex[T]['defaultProps']

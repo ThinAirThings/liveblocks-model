@@ -79,3 +79,4 @@ export type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 export * from './hooks/useMutationNodeState';
+export * from './hooks/useStorageNodeState';
