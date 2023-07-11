@@ -34,3 +34,4 @@ __exportStar(require("./hooks/useMutationDeleteNode"), exports);
 __exportStar(require("./hooks/useMutationContainerState"), exports);
 __exportStar(require("./hooks/useStorageContainerState"), exports);
 __exportStar(require("./hooks/useStorageContainerStateMap"), exports);
+__exportStar(require("./hooks/useStorageNodeMap"), exports);
