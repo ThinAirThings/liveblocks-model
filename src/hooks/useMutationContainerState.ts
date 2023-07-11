@@ -6,7 +6,7 @@ export const useMutationContainerState = (useMutation: MutationHook) => {
         storage.get("nodeMap")!.get(nodeId)?.get("state").get("containerState").update(
             Object.fromEntries(
                 Object.entries(containerState).map(
-                    ([key, value]) => [key, Math.round(value as number)]
+                    ([key, value]) => [key, key!=="scale"?Math.round(value as number):value]
                 )
             )
         )
