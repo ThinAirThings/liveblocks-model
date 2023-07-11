@@ -20,7 +20,7 @@
   "dependencies": {
     "@liveblocks/client": "^1.1.2",
     "@liveblocks/react": "^1.1.2",
-    "@thinairthings/zoom-utils": "^1.0.7",
+    "@thinairthings/zoom-utils": "^1.0.12",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
