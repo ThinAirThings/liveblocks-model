@@ -8,7 +8,7 @@ type CommonProps = {
     typeDisplayIcon: string
 }
 export type NodeTypeIndex = {
-    browser: CommonProps&{
+    "browser": CommonProps&{
         type: 'browser'
         defaultProps: {
             url: string
@@ -16,13 +16,13 @@ export type NodeTypeIndex = {
             readyToConnect: boolean
         }
     }
-    rectangle: CommonProps&{
+    "rectangle": CommonProps&{
         type: 'rectangle'
         typeDisplayName: string
         typeDisplayIcon: string
         defaultProps: {}
     },
-    vsCode: CommonProps&{
+    "vsCode": CommonProps&{
         type: 'vsCode'
         typeDisplayName: string
         typeDisplayIcon: string
@@ -31,7 +31,7 @@ export type NodeTypeIndex = {
             cursor: string
         }
     },
-    textBox: CommonProps&{
+    "textBox": CommonProps&{
         type: 'textBox'
         typeDisplayName: string
         typeDisplayIcon: string
@@ -39,7 +39,7 @@ export type NodeTypeIndex = {
             content: string
         }
     },
-    domBox: CommonProps&{
+    "domBox": CommonProps&{
         type: 'domBox'
         typeDisplayName: string
         typeDisplayIcon: string
