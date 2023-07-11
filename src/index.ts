@@ -71,9 +71,6 @@ export const createAirNode = <T extends LsonObject={}> ({
         ...state,
         containerState: new LiveObject(state.containerState)
     }),
-    // state: new LiveObject(Object.fromEntries(Object.entries(state).map(([key, value]) => {
-    //     return [key, new LiveObject(value)]
-    // }))),
     children: new LiveMap()
 })
 
