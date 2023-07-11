@@ -5,10 +5,10 @@ export const useStorageNodeState = <
     T extends keyof NodeTypeIndex,
     K extends keyof NodeTypeIndex[T]['defaultProps']
 >(
-    useStorage: ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage'],
+    useStorage: StorageHook,
     nodeId: string,
     key: K
-) => {
+):  NodeTypeIndex[T]['defaultProps'][K]=> {
     return useStorage(root => {
         return (root.nodeMap.get(nodeId)! as unknown as ImmutableAirNode<NodeTypeIndex[T]['defaultProps']>)?.state[key]
     })
