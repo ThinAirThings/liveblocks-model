@@ -21,9 +21,11 @@
     "@liveblocks/client": "^1.1.2",
     "@liveblocks/react": "^1.1.2",
     "@thinairthings/zoom-utils": "^1.0.12",
+    "lodash.isequal": "^4.5.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/lodash.isequal": "^4.5.6",
     "@types/react": "^18.2.14",
     "@types/uuid": "^9.0.2"
   }

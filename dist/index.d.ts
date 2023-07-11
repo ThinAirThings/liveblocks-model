@@ -87,3 +87,4 @@ export * from './hooks/useMutationCreateNode';
 export * from './hooks/useMutationDeleteNode';
 export * from './hooks/useMutationContainerState';
 export * from './hooks/useStorageContainerState';
+export * from './hooks/useStorageContainerStateMap';
