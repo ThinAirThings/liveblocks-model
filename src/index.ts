@@ -79,10 +79,6 @@ export type LiveblocksStorageModel = {
     nodeMap: LiveMap<string, AirNode<{}>>
 }
 
-createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(createClient({
-    authEndpoint: "http://localhost:3000/api/liveblocks/auth"
-}))
-
 
 export type LiveblocksPresence = {
     displayName: string
