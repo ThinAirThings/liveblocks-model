@@ -49,7 +49,6 @@ export type AirNode<T extends {
     [key: string]: any;
 } = {}> = LiveObject<{
     nodeId: string;
-    type: keyof NodeTypeIndex;
     state: LiveObject<T & {
         containerState: LiveObject<ContainerState>;
     }>;
@@ -58,8 +57,7 @@ export type AirNode<T extends {
 export type ImmutableAirNode<T extends {
     [key: string]: any;
 } = {}> = ReturnType<AirNode<T>["toImmutable"]>;
-export declare const createAirNode: <T extends LsonObject = {}>({ type, state }: {
-    type: keyof NodeTypeIndex;
+export declare const createAirNode: <T extends LsonObject = {}>({ state }: {
     state: T & {
         containerState: ContainerState;
     };

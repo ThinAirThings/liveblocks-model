@@ -51,7 +51,7 @@ export type NodeTypeIndex = {
 export type NodeId = string
 export type AirNode<T extends {[key: string]: any}={}> = LiveObject<{
     nodeId: string
-    type: keyof NodeTypeIndex
+    // type: keyof NodeTypeIndex
     state: LiveObject<T&{
         containerState: LiveObject<ContainerState>
     }>
@@ -60,14 +60,14 @@ export type AirNode<T extends {[key: string]: any}={}> = LiveObject<{
 export type ImmutableAirNode<T extends {[key: string]: any}={}> = ReturnType<AirNode<T>["toImmutable"]>
 
 export const createAirNode = <T extends LsonObject={}> ({
-    type,
+    // type,
     state
 }: {
-    type: keyof NodeTypeIndex
+    // type: keyof NodeTypeIndex
     state: T&{containerState: ContainerState}
 }): AirNode<T> => new LiveObject({
     nodeId: uuidv4(),
-    type,
+    // type,
     state: new LiveObject({
         ...state,
         containerState: new LiveObject(state.containerState)
@@ -79,9 +79,9 @@ export type LiveblocksStorageModel = {
     nodeMap: LiveMap<string, AirNode<{}>>
 }
 
-// createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(createClient({
-//     authEndpoint: "http://localhost:3000/api/liveblocks/auth"
-// }))
+createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(createClient({
+    authEndpoint: "http://localhost:3000/api/liveblocks/auth"
+}))
 
 
 export type LiveblocksPresence = {
