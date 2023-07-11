@@ -1,4 +1,5 @@
-import { LiveMap, LiveObject, LsonObject } from "@liveblocks/client"
+import { LiveMap, LiveObject, LsonObject, createClient } from "@liveblocks/client"
+import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
@@ -77,6 +78,12 @@ export const createAirNode = <T extends LsonObject={}> ({
 export type LiveblocksStorageModel = {
     nodeMap: LiveMap<string, AirNode<{}>>
 }
+
+// createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(createClient({
+//     authEndpoint: "http://localhost:3000/api/liveblocks/auth"
+// }))
+
+
 export type LiveblocksPresence = {
     displayName: string
     absoluteCursorState: Point | null
