@@ -1,10 +1,11 @@
 import { ImmutableAirNode, NodeTypeIndex, StorageHook } from "..";
 
 export const useStorageNodeState = <
+    H extends StorageHook,
     T extends keyof NodeTypeIndex,
     K extends keyof NodeTypeIndex[T]['defaultProps']
 >(
-    useStorage: StorageHook,
+    useStorage: H,
     nodeId: string,
     key: K
 ) => {
