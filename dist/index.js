@@ -29,3 +29,5 @@ const createAirNode = ({ type, state }) => new client_1.LiveObject({
 exports.createAirNode = createAirNode;
 __exportStar(require("./hooks/useMutationNodeState"), exports);
 __exportStar(require("./hooks/useStorageNodeState"), exports);
+__exportStar(require("./hooks/useMutationCreateNode"), exports);
+__exportStar(require("./hooks/useMutationDeleteNode"), exports);

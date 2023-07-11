@@ -80,3 +80,5 @@ export type LiveblocksPresence = {
 };
 export * from './hooks/useMutationNodeState';
 export * from './hooks/useStorageNodeState';
+export * from './hooks/useMutationCreateNode';
+export * from './hooks/useMutationDeleteNode';
