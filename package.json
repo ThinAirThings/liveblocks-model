@@ -18,8 +18,8 @@
   "keywords": [],
   "author": "Dan Lannan",
   "dependencies": {
-    "@liveblocks/client": "^1.1.0",
-    "@liveblocks/react": "^1.1.0",
+    "@liveblocks/client": "^1.1.2",
+    "@liveblocks/react": "^1.1.2",
     "@thinairthings/zoom-utils": "^1.0.7",
     "uuid": "^9.0.0"
   },
