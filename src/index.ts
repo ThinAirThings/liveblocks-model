@@ -79,7 +79,6 @@ export type LiveblocksStorageModel = {
     nodeMap: LiveMap<string, AirNode<{}>>
 }
 
-
 export type LiveblocksPresence = {
     displayName: string
     absoluteCursorState: Point | null
