@@ -1,7 +1,6 @@
-import { createRoomContext } from "@liveblocks/react"
-import { LiveblocksPresence, LiveblocksStorageModel, createAirNode } from ".."
+import { MutationHook, createAirNode } from ".."
 
-export const useMutationCreateNode = (useMutation: ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation']) => {
+export const useMutationCreateNode = (useMutation: MutationHook) => {
     return useMutation(({storage}, {type, state}: Parameters<typeof createAirNode>[0]) => {
         const node = createAirNode({type, state})
         const nodeId = node.get("nodeId")

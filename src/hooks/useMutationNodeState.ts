@@ -1,11 +1,10 @@
-import {  LiveblocksPresence, LiveblocksStorageModel, NodeTypeIndex } from ".."
-import {createRoomContext} from "@liveblocks/react"
+import { MutationHook, NodeTypeIndex } from ".."
 
 export const useMutationNodeState = <
     T extends keyof NodeTypeIndex,
     K extends keyof NodeTypeIndex[T]['defaultProps']
 ,>(
-    useMutation: ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation'],
+    useMutation: MutationHook,
     nodeId: string,
     key: K
 ) => {

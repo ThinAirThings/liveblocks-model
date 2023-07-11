@@ -1,6 +1,5 @@
-import { createRoomContext } from "@liveblocks/react";
-import { LiveblocksPresence, LiveblocksStorageModel, NodeTypeIndex } from "..";
-export declare const useStorageNodeState: <T extends keyof NodeTypeIndex, K extends keyof NodeTypeIndex[T]["defaultProps"]>(useStorage: ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage'], nodeId: string, key: K) => (import("@liveblocks/core").LiveObject<NodeTypeIndex[T]["defaultProps"] & {
+import { NodeTypeIndex, StorageHook } from "..";
+export declare const useStorageNodeState: <T extends keyof NodeTypeIndex, K extends keyof NodeTypeIndex[T]["defaultProps"]>(useStorage: StorageHook, nodeId: string, key: K) => (import("@liveblocks/core").LiveObject<NodeTypeIndex[T]["defaultProps"] & {
     containerState: import("@liveblocks/core").LiveObject<import("@thinairthings/zoom-utils").ContainerState>;
 }> extends infer T_1 ? T_1 extends import("@liveblocks/core").LiveObject<NodeTypeIndex[T]["defaultProps"] & {
     containerState: import("@liveblocks/core").LiveObject<import("@thinairthings/zoom-utils").ContainerState>;

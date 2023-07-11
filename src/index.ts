@@ -91,7 +91,8 @@ export type LiveblocksPresence = {
     selectedNodeIds: string[]
     focusedNodeId: string | null
 }
-
+export type StorageHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage']
+export type MutationHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation']
 export * from './hooks/useMutationNodeState'
 export * from './hooks/useStorageNodeState'
 export * from './hooks/useMutationCreateNode'

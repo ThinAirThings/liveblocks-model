@@ -1,8 +1,7 @@
-import { createRoomContext } from "@liveblocks/react"
-import { LiveblocksPresence, LiveblocksStorageModel } from ".."
+import { MutationHook } from ".."
 
 export const useMutationDeleteNode = (
-    useMutation: ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation']
+    useMutation: MutationHook
 ) => {
     return useMutation(({storage}, nodeId: string) => {
         storage.get("nodeMap").delete(nodeId)
