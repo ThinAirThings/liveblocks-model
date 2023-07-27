@@ -15,12 +15,19 @@ type NodeDataType = {
     }
 }
 
+export type DefaultBoxSize = {
+    defaultBoxSize: {
+        width: number
+        height: number
+    }
+}
+
 export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
 
 export const NodeDataTypeIndex:  {
-    "chrome": NodeDataType & {
+    "chrome": DefaultBoxSize & {
         type: 'dom',
         key: 'chrome',
         defaultProps: {
@@ -30,21 +37,21 @@ export const NodeDataTypeIndex:  {
             url: string
         },
     },
-    "vsCode": NodeDataType & {
+    "vsCode": DefaultBoxSize & {
         type: 'dom',
         key: 'vsCode',
         defaultProps: {
             cursor: string
         }
     }
-    "textBox": NodeDataType &{
+    "textBox": DefaultBoxSize & {
         type: 'dom',
         key: 'textBox',
         defaultProps: {
             content: string
         }
     }
-    "rectangle": NodeDataType & {
+    "rectangle": DefaultBoxSize & {
         type: 'pixi',
         key: 'rectangle',
         defaultProps: {},

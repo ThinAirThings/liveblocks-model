@@ -1,16 +1,6 @@
 import { MutationHook, NodeDataTypeIndex } from "..";
 export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
-    chrome: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
         defaultProps: {
@@ -20,67 +10,27 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
             url: string;
         };
     };
-    vsCode: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
         defaultProps: {
             cursor: string;
         };
     };
-    textBox: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    textBox: import("..").DefaultBoxSize & {
         type: "dom";
         key: "textBox";
         defaultProps: {
             content: string;
         };
     };
-    rectangle: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    rectangle: import("..").DefaultBoxSize & {
         type: "pixi";
         key: "rectangle";
         defaultProps: {};
     };
 }[K]["defaultProps"]) => (value: {
-    chrome: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
         defaultProps: {
@@ -90,67 +40,27 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
             url: string;
         };
     };
-    vsCode: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
         defaultProps: {
             cursor: string;
         };
     };
-    textBox: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    textBox: import("..").DefaultBoxSize & {
         type: "dom";
         key: "textBox";
         defaultProps: {
             content: string;
         };
     };
-    rectangle: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    rectangle: import("..").DefaultBoxSize & {
         type: "pixi";
         key: "rectangle";
         defaultProps: {};
     };
 }[K]["defaultProps"][keyof {
-    chrome: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
         defaultProps: {
@@ -160,51 +70,21 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
             url: string;
         };
     };
-    vsCode: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
         defaultProps: {
             cursor: string;
         };
     };
-    textBox: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    textBox: import("..").DefaultBoxSize & {
         type: "dom";
         key: "textBox";
         defaultProps: {
             content: string;
         };
     };
-    rectangle: {
-        type: "pixi" | "dom";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-        defaultBoxSize: {
-            width: number;
-            height: number;
-        };
-    } & {
+    rectangle: import("..").DefaultBoxSize & {
         type: "pixi";
         key: "rectangle";
         defaultProps: {};
