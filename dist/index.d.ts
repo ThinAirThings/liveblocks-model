@@ -32,7 +32,7 @@ export declare const NodeDataTypeIndex: {
         key: 'chrome';
         defaultProps: {
             appDataId: string;
-            lifecycleState: 'alive' | 'dead';
+            lifecycleState: ('alive' | 'dead');
             cursor: string;
             url: string;
         };
@@ -42,7 +42,7 @@ export declare const NodeDataTypeIndex: {
         key: 'vsCode';
         defaultProps: {
             appDataId: string;
-            lifecycleState: 'alive' | 'dead';
+            lifecycleState: ('alive' | 'dead');
             cursor: string;
         };
     };
