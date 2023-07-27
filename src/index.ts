@@ -3,48 +3,31 @@ import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
-type CommonProps = {
-    renderer: 'pixi' | 'dom'
-    typeDisplayName: string
-    typeDisplayIcon: string
-}
+
 export type NodeTypeIndex = {
-    "browser": CommonProps&{
-        type: 'browser'
+    "chrome": {
+        type: 'process'
+        key: 'chrome'
         defaultProps: {
             url: string
-            cursor: string
-            readyToConnect: boolean
         }
     }
-    "rectangle": CommonProps&{
-        type: 'rectangle'
-        typeDisplayName: string
-        typeDisplayIcon: string
+    "rectangle": {
+        type: 'pixi'
+        key: 'rectangle'
         defaultProps: {}
     },
-    "vsCode": CommonProps&{
-        type: 'vsCode'
-        typeDisplayName: string
-        typeDisplayIcon: string
-        defaultProps: {
-            readyToConnect: boolean
-            cursor: string
-        }
+    "vsCode": {
+        type: 'process'
+        key: 'vsCode'
+        defaultProps: {}
     },
-    "textBox": CommonProps&{
-        type: 'textBox'
-        typeDisplayName: string
-        typeDisplayIcon: string
+    "textBox": {
+        type: 'pixi'
+        key: 'textBox'
         defaultProps: {
             content: string
         }
-    },
-    "domBox": CommonProps&{
-        type: 'domBox'
-        typeDisplayName: string
-        typeDisplayIcon: string
-        defaultProps: {}
     },
 }
 
