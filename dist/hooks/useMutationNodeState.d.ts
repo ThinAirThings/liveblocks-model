@@ -3,21 +3,14 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: {
-            appDataId: string;
-            lifecycleState: "alive" | "dead";
-            cursor: string;
+        defaultProps: import("..").WindowProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: {
-            appDataId: string;
-            lifecycleState: "alive" | "dead";
-            cursor: string;
-        };
+        defaultProps: import("..").WindowProps;
     };
     textBox: import("..").DefaultBoxSize & {
         type: "dom";
@@ -35,21 +28,14 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: {
-            appDataId: string;
-            lifecycleState: "alive" | "dead";
-            cursor: string;
+        defaultProps: import("..").WindowProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: {
-            appDataId: string;
-            lifecycleState: "alive" | "dead";
-            cursor: string;
-        };
+        defaultProps: import("..").WindowProps;
     };
     textBox: import("..").DefaultBoxSize & {
         type: "dom";
@@ -67,21 +53,14 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: {
-            appDataId: string;
-            lifecycleState: "alive" | "dead";
-            cursor: string;
+        defaultProps: import("..").WindowProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: {
-            appDataId: string;
-            lifecycleState: "alive" | "dead";
-            cursor: string;
-        };
+        defaultProps: import("..").WindowProps;
     };
     textBox: import("..").DefaultBoxSize & {
         type: "dom";

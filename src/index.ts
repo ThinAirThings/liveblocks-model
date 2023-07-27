@@ -34,21 +34,14 @@ export const NodeDataTypeIndex:  {
     "chrome": DefaultBoxSize & {
         type: 'dom',
         key: 'chrome',
-        defaultProps:  {
-            appDataId: string
-            lifecycleState: ('alive' | 'dead')
-            cursor: string,
+        defaultProps: WindowProps & {
             url: string
         },
     },
     "vsCode": DefaultBoxSize & {
         type: 'dom',
         key: 'vsCode',
-        defaultProps: {
-            appDataId: string
-            lifecycleState: ('alive' | 'dead')
-            cursor: string,
-        }
+        defaultProps: WindowProps
     }
     "textBox": DefaultBoxSize & {
         type: 'dom',
