@@ -33,7 +33,7 @@ exports.NodeDataTypeIndex = {
         defaultProps: {}
     },
     "textBox": {
-        type: 'pixi',
+        type: 'dom',
         key: 'textBox',
         isCreatedBy: 'any',
         defaultProps: {

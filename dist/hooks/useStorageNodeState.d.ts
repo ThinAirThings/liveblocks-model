@@ -42,7 +42,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "pixi";
+        type: "dom";
         key: "textBox";
         isCreatedBy: "any";
         defaultProps: {
@@ -111,7 +111,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "pixi";
+        type: "dom";
         key: "textBox";
         isCreatedBy: "any";
         defaultProps: {
@@ -180,7 +180,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "pixi";
+        type: "dom";
         key: "textBox";
         isCreatedBy: "any";
         defaultProps: {

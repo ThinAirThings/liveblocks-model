@@ -35,7 +35,7 @@ export declare const NodeDataTypeIndex: {
         defaultProps: {};
     };
     "textBox": NodeDataType & RenderedNode & {
-        type: 'pixi';
+        type: 'dom';
         key: 'textBox';
         isCreatedBy: 'any';
         defaultProps: {
