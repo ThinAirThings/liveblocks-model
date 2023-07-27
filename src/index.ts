@@ -5,7 +5,6 @@ import {v4 as uuidv4} from 'uuid'
 
 type NodeDataType = {
     type: 'applicationWindow' | 'pixi' | 'dom'
-    isCreatedBy: 'user' | 'system' | 'any'
     key: string
     defaultProps: {
         [key: string]: any
@@ -24,7 +23,6 @@ export const NodeDataTypeIndex:  {
     "chrome": NodeDataType & {
         type: 'applicationWindow',
         key: 'chrome',
-        isCreatedBy: 'any',
         defaultProps: {
             dataId: string
             lifeCycle: 'alive' | 'dead'
@@ -35,7 +33,6 @@ export const NodeDataTypeIndex:  {
     "vsCode": NodeDataType & {
         type: 'applicationWindow',
         key: 'vsCode',
-        isCreatedBy: 'any',
         defaultProps: {
             cursor: string
         }
@@ -43,7 +40,6 @@ export const NodeDataTypeIndex:  {
     "textBox": NodeDataType &{
         type: 'dom',
         key: 'textBox',
-        isCreatedBy: 'any',
         defaultProps: {
             content: string
         }
@@ -51,7 +47,6 @@ export const NodeDataTypeIndex:  {
     "rectangle": NodeDataType & {
         type: 'pixi',
         key: 'rectangle',
-        isCreatedBy: 'any',
         defaultProps: {},
     }
     // End of Types
@@ -59,7 +54,6 @@ export const NodeDataTypeIndex:  {
     "chrome": {
         type: 'applicationWindow',
         key: 'chrome',
-        isCreatedBy: 'any',
         defaultProps: {
             dataId: "default",
             lifeCycle: 'dead',
@@ -74,7 +68,6 @@ export const NodeDataTypeIndex:  {
     "vsCode": {
         type: 'applicationWindow',
         key: 'vsCode',
-        isCreatedBy: 'any',
         defaultProps: {
             cursor: "default"
         },
@@ -86,7 +79,6 @@ export const NodeDataTypeIndex:  {
     "textBox": {
         type: 'dom',
         key: 'textBox',
-        isCreatedBy: 'any',
         defaultProps: {
             content: "Hello World"
         },
@@ -98,7 +90,6 @@ export const NodeDataTypeIndex:  {
     "rectangle": {
         type: 'pixi',
         key: 'rectangle',
-        isCreatedBy: 'any',
         defaultProps: {},
         defaultBoxSize: {
             width: 100,

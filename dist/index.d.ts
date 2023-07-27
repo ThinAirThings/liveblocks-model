@@ -3,7 +3,6 @@ import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
 type NodeDataType = {
     type: 'applicationWindow' | 'pixi' | 'dom';
-    isCreatedBy: 'user' | 'system' | 'any';
     key: string;
     defaultProps: {
         [key: string]: any;
@@ -20,7 +19,6 @@ export declare const NodeDataTypeIndex: {
     "chrome": NodeDataType & {
         type: 'applicationWindow';
         key: 'chrome';
-        isCreatedBy: 'any';
         defaultProps: {
             dataId: string;
             lifeCycle: 'alive' | 'dead';
@@ -31,7 +29,6 @@ export declare const NodeDataTypeIndex: {
     "vsCode": NodeDataType & {
         type: 'applicationWindow';
         key: 'vsCode';
-        isCreatedBy: 'any';
         defaultProps: {
             cursor: string;
         };
@@ -39,7 +36,6 @@ export declare const NodeDataTypeIndex: {
     "textBox": NodeDataType & {
         type: 'dom';
         key: 'textBox';
-        isCreatedBy: 'any';
         defaultProps: {
             content: string;
         };
@@ -47,7 +43,6 @@ export declare const NodeDataTypeIndex: {
     "rectangle": NodeDataType & {
         type: 'pixi';
         key: 'rectangle';
-        isCreatedBy: 'any';
         defaultProps: {};
     };
 };

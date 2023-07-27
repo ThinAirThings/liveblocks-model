@@ -21,7 +21,6 @@ exports.NodeDataTypeIndex = {
     "chrome": {
         type: 'applicationWindow',
         key: 'chrome',
-        isCreatedBy: 'any',
         defaultProps: {
             dataId: "default",
             lifeCycle: 'dead',
@@ -36,7 +35,6 @@ exports.NodeDataTypeIndex = {
     "vsCode": {
         type: 'applicationWindow',
         key: 'vsCode',
-        isCreatedBy: 'any',
         defaultProps: {
             cursor: "default"
         },
@@ -48,7 +46,6 @@ exports.NodeDataTypeIndex = {
     "textBox": {
         type: 'dom',
         key: 'textBox',
-        isCreatedBy: 'any',
         defaultProps: {
             content: "Hello World"
         },
@@ -60,7 +57,6 @@ exports.NodeDataTypeIndex = {
     "rectangle": {
         type: 'pixi',
         key: 'rectangle',
-        isCreatedBy: 'any',
         defaultProps: {},
         defaultBoxSize: {
             width: 100,
