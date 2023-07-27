@@ -3,19 +3,16 @@ import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
-type RenderedNode = {
-    type: 'pixi' | 'dom'
-    defaultBoxSize: {
-        width: number
-        height: number
-    }
-}
 type NodeDataType = {
-    type: 'process' | 'pixi' | 'dom'
+    type: 'applicationWindow' | 'pixi' | 'dom'
     isCreatedBy: 'user' | 'system' | 'any'
     key: string
     defaultProps: {
         [key: string]: any
+    }
+    defaultBoxSize: {
+        width: number
+        height: number
     }
 }
 
@@ -25,29 +22,23 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 
 export const NodeDataTypeIndex:  {
     "chrome": NodeDataType & {
-        type: 'process',
+        type: 'applicationWindow',
         key: 'chrome',
         isCreatedBy: 'any',
         defaultProps: {
+            cursor: string,
             url: string
-        }
-    }
-    "vsCode": NodeDataType &{
-        type: 'process',
+        },
+    },
+    "vsCode": NodeDataType & {
+        type: 'applicationWindow',
         key: 'vsCode',
         isCreatedBy: 'any',
-        defaultProps: {}
-    }
-    "applicationWindow": NodeDataType &RenderedNode & {
-        type: 'dom',
-        key: 'applicationWindow',
-        isCreatedBy: 'system',
         defaultProps: {
-            applicationType: 'chrome' | 'vsCode'
             cursor: string
         }
     }
-    "textBox": NodeDataType &RenderedNode &{
+    "textBox": NodeDataType &{
         type: 'dom',
         key: 'textBox',
         isCreatedBy: 'any',
@@ -55,7 +46,7 @@ export const NodeDataTypeIndex:  {
             content: string
         }
     }
-    "rectangle": NodeDataType &RenderedNode & {
+    "rectangle": NodeDataType & {
         type: 'pixi',
         key: 'rectangle',
         isCreatedBy: 'any',
@@ -64,30 +55,28 @@ export const NodeDataTypeIndex:  {
     // End of Types
 } = {
     "chrome": {
-        type: 'process',
+        type: 'applicationWindow',
         key: 'chrome',
         isCreatedBy: 'any',
         defaultProps: {
+            cursor: "default",
             url: "https://google.com"
-        }
-    },
-    "vsCode": {
-        type: 'process',
-        key: 'vsCode',
-        isCreatedBy: 'any',
-        defaultProps: {}
-    },
-    "applicationWindow": {
-        type: 'dom',
-        key: 'applicationWindow',
-        isCreatedBy: 'system',
-        defaultProps: {
-            applicationType: 'chrome',
-            cursor: "default"
         },
         defaultBoxSize: {
             width: 836,
             height: 600
+        }
+    },
+    "vsCode": {
+        type: 'applicationWindow',
+        key: 'vsCode',
+        isCreatedBy: 'any',
+        defaultProps: {
+            cursor: "default"
+        },
+        defaultBoxSize: {
+            width: 200,
+            height: 50
         }
     },
     "textBox": {

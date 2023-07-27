@@ -19,30 +19,28 @@ const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
 exports.NodeDataTypeIndex = {
     "chrome": {
-        type: 'process',
+        type: 'applicationWindow',
         key: 'chrome',
         isCreatedBy: 'any',
         defaultProps: {
+            cursor: "default",
             url: "https://google.com"
-        }
-    },
-    "vsCode": {
-        type: 'process',
-        key: 'vsCode',
-        isCreatedBy: 'any',
-        defaultProps: {}
-    },
-    "applicationWindow": {
-        type: 'dom',
-        key: 'applicationWindow',
-        isCreatedBy: 'system',
-        defaultProps: {
-            applicationType: 'chrome',
-            cursor: "default"
         },
         defaultBoxSize: {
             width: 836,
             height: 600
+        }
+    },
+    "vsCode": {
+        type: 'applicationWindow',
+        key: 'vsCode',
+        isCreatedBy: 'any',
+        defaultProps: {
+            cursor: "default"
+        },
+        defaultBoxSize: {
+            width: 200,
+            height: 50
         }
     },
     "textBox": {

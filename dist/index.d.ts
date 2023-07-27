@@ -1,19 +1,16 @@
 import { LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
-type RenderedNode = {
-    type: 'pixi' | 'dom';
-    defaultBoxSize: {
-        width: number;
-        height: number;
-    };
-};
 type NodeDataType = {
-    type: 'process' | 'pixi' | 'dom';
+    type: 'applicationWindow' | 'pixi' | 'dom';
     isCreatedBy: 'user' | 'system' | 'any';
     key: string;
     defaultProps: {
         [key: string]: any;
+    };
+    defaultBoxSize: {
+        width: number;
+        height: number;
     };
 };
 export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
@@ -21,29 +18,23 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
     "chrome": NodeDataType & {
-        type: 'process';
+        type: 'applicationWindow';
         key: 'chrome';
         isCreatedBy: 'any';
         defaultProps: {
+            cursor: string;
             url: string;
         };
     };
     "vsCode": NodeDataType & {
-        type: 'process';
+        type: 'applicationWindow';
         key: 'vsCode';
         isCreatedBy: 'any';
-        defaultProps: {};
-    };
-    "applicationWindow": NodeDataType & RenderedNode & {
-        type: 'dom';
-        key: 'applicationWindow';
-        isCreatedBy: 'system';
         defaultProps: {
-            applicationType: 'chrome' | 'vsCode';
             cursor: string;
         };
     };
-    "textBox": NodeDataType & RenderedNode & {
+    "textBox": NodeDataType & {
         type: 'dom';
         key: 'textBox';
         isCreatedBy: 'any';
@@ -51,7 +42,7 @@ export declare const NodeDataTypeIndex: {
             content: string;
         };
     };
-    "rectangle": NodeDataType & RenderedNode & {
+    "rectangle": NodeDataType & {
         type: 'pixi';
         key: 'rectangle';
         isCreatedBy: 'any';
