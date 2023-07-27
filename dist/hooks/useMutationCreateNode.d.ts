@@ -2,11 +2,13 @@ import { MutationHook } from "..";
 export declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
     type: "applicationWindow" | "pixi" | "dom";
     key: "chrome" | "vsCode" | "textBox" | "rectangle";
-    state: {
+    state: ({
         [key: string]: any;
     } | ({
         [key: string]: any;
     } & {
+        dataId: string;
+        lifeCycle: "alive" | "dead";
         cursor: string;
         url: string;
     }) | ({
@@ -17,5 +19,7 @@ export declare const useMutationCreateNode: (useMutation: MutationHook) => (args
         [key: string]: any;
     } & {
         content: string;
-    });
+    })) & {
+        containerState: import("@thinairthings/zoom-utils").ContainerState;
+    };
 }) => string;

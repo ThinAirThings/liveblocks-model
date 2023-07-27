@@ -23,6 +23,8 @@ exports.NodeDataTypeIndex = {
         key: 'chrome',
         isCreatedBy: 'any',
         defaultProps: {
+            dataId: "default",
+            lifeCycle: 'dead',
             cursor: "default",
             url: "https://google.com"
         },

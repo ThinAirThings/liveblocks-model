@@ -22,6 +22,8 @@ export declare const NodeDataTypeIndex: {
         key: 'chrome';
         isCreatedBy: 'any';
         defaultProps: {
+            dataId: string;
+            lifeCycle: 'alive' | 'dead';
             cursor: string;
             url: string;
         };
@@ -56,7 +58,7 @@ export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     key: typeof NodeDataTypeIndex[K]['key'];
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom') ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom' | 'applicationWindow') ? {
         containerState: LiveObject<ContainerState>;
     } : {})>;
 }>;
@@ -66,7 +68,7 @@ export declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>(
     key: typeof NodeDataTypeIndex[K]['key'];
     state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' | 'applicationWindow' ? {
         containerState: ContainerState;
     } : {});
 }): AirNode<K>;

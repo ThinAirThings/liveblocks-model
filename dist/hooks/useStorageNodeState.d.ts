@@ -16,6 +16,8 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         key: "chrome";
         isCreatedBy: "any";
         defaultProps: {
+            dataId: string;
+            lifeCycle: "alive" | "dead";
             cursor: string;
             url: string;
         };
@@ -92,6 +94,8 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         key: "chrome";
         isCreatedBy: "any";
         defaultProps: {
+            dataId: string;
+            lifeCycle: "alive" | "dead";
             cursor: string;
             url: string;
         };
@@ -168,6 +172,8 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         key: "chrome";
         isCreatedBy: "any";
         defaultProps: {
+            dataId: string;
+            lifeCycle: "alive" | "dead";
             cursor: string;
             url: string;
         };
