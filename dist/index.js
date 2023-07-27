@@ -18,16 +18,6 @@ exports.createAirNode = exports.NodeDataTypeIndex = void 0;
 const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
 exports.NodeDataTypeIndex = {
-    "applicationWindow": {
-        type: 'dom',
-        key: 'applicationWindow',
-        isCreatedBy: 'system',
-        defaultProps: {},
-        defaultBoxSize: {
-            width: 836,
-            height: 600
-        }
-    },
     "chrome": {
         type: 'process',
         key: 'chrome',
@@ -41,6 +31,18 @@ exports.NodeDataTypeIndex = {
         key: 'vsCode',
         isCreatedBy: 'any',
         defaultProps: {}
+    },
+    "applicationWindow": {
+        type: 'dom',
+        key: 'applicationWindow',
+        isCreatedBy: 'system',
+        defaultProps: {
+            cursor: "default"
+        },
+        defaultBoxSize: {
+            width: 836,
+            height: 600
+        }
     },
     "textBox": {
         type: 'dom',

@@ -1,13 +1,6 @@
 import { MutationHook, NodeDataTypeIndex } from "..";
 export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "applicationWindow" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     chrome: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "process";
         key: "chrome";
         isCreatedBy: "any";
@@ -16,26 +9,12 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         };
     };
     vsCode: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
         defaultProps: {};
     };
     applicationWindow: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -45,16 +24,11 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         type: "dom";
         key: "applicationWindow";
         isCreatedBy: "system";
-        defaultProps: {};
+        defaultProps: {
+            cursor: string;
+        };
     };
     textBox: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -69,13 +43,6 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         };
     };
     rectangle: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -89,13 +56,6 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
     };
 }[K]["defaultProps"]) => (value: {
     chrome: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "process";
         key: "chrome";
         isCreatedBy: "any";
@@ -104,26 +64,12 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         };
     };
     vsCode: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
         defaultProps: {};
     };
     applicationWindow: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -133,16 +79,11 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         type: "dom";
         key: "applicationWindow";
         isCreatedBy: "system";
-        defaultProps: {};
+        defaultProps: {
+            cursor: string;
+        };
     };
     textBox: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -157,13 +98,6 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         };
     };
     rectangle: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -177,13 +111,6 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
     };
 }[K]["defaultProps"][keyof {
     chrome: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "process";
         key: "chrome";
         isCreatedBy: "any";
@@ -192,26 +119,12 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         };
     };
     vsCode: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
         defaultProps: {};
     };
     applicationWindow: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -221,16 +134,11 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         type: "dom";
         key: "applicationWindow";
         isCreatedBy: "system";
-        defaultProps: {};
+        defaultProps: {
+            cursor: string;
+        };
     };
     textBox: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -245,13 +153,6 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         };
     };
     rectangle: {
-        type: "pixi" | "dom" | "process";
-        isCreatedBy: "any" | "user" | "system";
-        key: string;
-        defaultProps: {
-            [key: string]: any;
-        };
-    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;

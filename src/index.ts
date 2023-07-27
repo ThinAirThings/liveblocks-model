@@ -24,7 +24,7 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 }[keyof typeof NodeDataTypeIndex];
 
 export const NodeDataTypeIndex:  {
-    "chrome": NodeDataType & {
+    "chrome": {
         type: 'process',
         key: 'chrome',
         isCreatedBy: 'any',
@@ -32,19 +32,21 @@ export const NodeDataTypeIndex:  {
             url: string
         }
     }
-    "vsCode": NodeDataType & {
+    "vsCode": {
         type: 'process',
         key: 'vsCode',
         isCreatedBy: 'any',
         defaultProps: {}
     }
-    "applicationWindow": NodeDataType & RenderedNode & {
+    "applicationWindow": RenderedNode & {
         type: 'dom',
         key: 'applicationWindow',
         isCreatedBy: 'system',
-        defaultProps: {}
+        defaultProps: {
+            cursor: string
+        }
     }
-    "textBox": NodeDataType & RenderedNode &{
+    "textBox": RenderedNode &{
         type: 'dom',
         key: 'textBox',
         isCreatedBy: 'any',
@@ -52,7 +54,7 @@ export const NodeDataTypeIndex:  {
             content: string
         }
     }
-    "rectangle": NodeDataType & RenderedNode & {
+    "rectangle": RenderedNode & {
         type: 'pixi',
         key: 'rectangle',
         isCreatedBy: 'any',
@@ -60,16 +62,6 @@ export const NodeDataTypeIndex:  {
     }
     // End of Types
 } = {
-    "applicationWindow": {
-        type: 'dom',
-        key: 'applicationWindow',
-        isCreatedBy: 'system',
-        defaultProps: {},
-        defaultBoxSize: {
-            width: 836,
-            height: 600
-        }
-    },
     "chrome": {
         type: 'process',
         key: 'chrome',
@@ -83,6 +75,18 @@ export const NodeDataTypeIndex:  {
         key: 'vsCode',
         isCreatedBy: 'any',
         defaultProps: {}
+    },
+    "applicationWindow": {
+        type: 'dom',
+        key: 'applicationWindow',
+        isCreatedBy: 'system',
+        defaultProps: {
+            cursor: "default"
+        },
+        defaultBoxSize: {
+            width: 836,
+            height: 600
+        }
     },
     "textBox": {
         type: 'dom',

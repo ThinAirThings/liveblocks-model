@@ -20,7 +20,7 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
-    "chrome": NodeDataType & {
+    "chrome": {
         type: 'process';
         key: 'chrome';
         isCreatedBy: 'any';
@@ -28,19 +28,21 @@ export declare const NodeDataTypeIndex: {
             url: string;
         };
     };
-    "vsCode": NodeDataType & {
+    "vsCode": {
         type: 'process';
         key: 'vsCode';
         isCreatedBy: 'any';
         defaultProps: {};
     };
-    "applicationWindow": NodeDataType & RenderedNode & {
+    "applicationWindow": RenderedNode & {
         type: 'dom';
         key: 'applicationWindow';
         isCreatedBy: 'system';
-        defaultProps: {};
+        defaultProps: {
+            cursor: string;
+        };
     };
-    "textBox": NodeDataType & RenderedNode & {
+    "textBox": RenderedNode & {
         type: 'dom';
         key: 'textBox';
         isCreatedBy: 'any';
@@ -48,7 +50,7 @@ export declare const NodeDataTypeIndex: {
             content: string;
         };
     };
-    "rectangle": NodeDataType & RenderedNode & {
+    "rectangle": RenderedNode & {
         type: 'pixi';
         key: 'rectangle';
         isCreatedBy: 'any';
