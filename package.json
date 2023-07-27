@@ -1,6 +1,6 @@
 {
   "name": "@thinairthings/liveblocks-model",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "description": "Thin Air Liveblocks Model",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
