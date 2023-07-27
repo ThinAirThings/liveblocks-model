@@ -37,6 +37,7 @@ exports.NodeDataTypeIndex = {
         key: 'applicationWindow',
         isCreatedBy: 'system',
         defaultProps: {
+            applicationType: 'chrome',
             cursor: "default"
         },
         defaultBoxSize: {

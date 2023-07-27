@@ -11,6 +11,7 @@ export declare const useMutationCreateNode: (useMutation: MutationHook) => (args
     }) | ({
         [key: string]: any;
     } & {
+        applicationType: "chrome" | "vsCode";
         cursor: string;
     }) | ({
         [key: string]: any;

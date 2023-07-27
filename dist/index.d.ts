@@ -39,6 +39,7 @@ export declare const NodeDataTypeIndex: {
         key: 'applicationWindow';
         isCreatedBy: 'system';
         defaultProps: {
+            applicationType: 'chrome' | 'vsCode';
             cursor: string;
         };
     };

@@ -43,6 +43,7 @@ export const NodeDataTypeIndex:  {
         key: 'applicationWindow',
         isCreatedBy: 'system',
         defaultProps: {
+            applicationType: 'chrome' | 'vsCode'
             cursor: string
         }
     }
@@ -81,6 +82,7 @@ export const NodeDataTypeIndex:  {
         key: 'applicationWindow',
         isCreatedBy: 'system',
         defaultProps: {
+            applicationType: 'chrome',
             cursor: "default"
         },
         defaultBoxSize: {

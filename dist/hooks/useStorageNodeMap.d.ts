@@ -10,6 +10,7 @@ export declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap
         readonly url: string;
     } | {
         readonly [x: string]: any;
+        readonly applicationType: "chrome" | "vsCode";
         readonly cursor: string;
     } | {
         readonly [x: string]: any;

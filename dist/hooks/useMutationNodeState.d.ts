@@ -46,6 +46,7 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         key: "applicationWindow";
         isCreatedBy: "system";
         defaultProps: {
+            applicationType: "chrome" | "vsCode";
             cursor: string;
         };
     };
@@ -136,6 +137,7 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         key: "applicationWindow";
         isCreatedBy: "system";
         defaultProps: {
+            applicationType: "chrome" | "vsCode";
             cursor: string;
         };
     };
@@ -226,6 +228,7 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "app
         key: "applicationWindow";
         isCreatedBy: "system";
         defaultProps: {
+            applicationType: "chrome" | "vsCode";
             cursor: string;
         };
     };
