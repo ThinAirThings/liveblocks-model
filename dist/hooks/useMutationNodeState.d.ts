@@ -1,5 +1,5 @@
 import { MutationHook, NodeDataTypeIndex } from "..";
-export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
+export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "applicationWindow" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     chrome: {
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
@@ -26,6 +26,25 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
+        defaultProps: {};
+    };
+    applicationWindow: {
+        type: "pixi" | "dom" | "process";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
+        type: "pixi" | "dom";
+        defaultBoxSize: {
+            width: number;
+            height: number;
+        };
+    } & {
+        type: "dom";
+        key: "applicationWindow";
+        isCreatedBy: "system";
         defaultProps: {};
     };
     textBox: {
@@ -97,6 +116,25 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
         isCreatedBy: "any";
         defaultProps: {};
     };
+    applicationWindow: {
+        type: "pixi" | "dom" | "process";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
+        type: "pixi" | "dom";
+        defaultBoxSize: {
+            width: number;
+            height: number;
+        };
+    } & {
+        type: "dom";
+        key: "applicationWindow";
+        isCreatedBy: "system";
+        defaultProps: {};
+    };
     textBox: {
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
@@ -164,6 +202,25 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
+        defaultProps: {};
+    };
+    applicationWindow: {
+        type: "pixi" | "dom" | "process";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
+        type: "pixi" | "dom";
+        defaultBoxSize: {
+            width: number;
+            height: number;
+        };
+    } & {
+        type: "dom";
+        key: "applicationWindow";
+        isCreatedBy: "system";
         defaultProps: {};
     };
     textBox: {

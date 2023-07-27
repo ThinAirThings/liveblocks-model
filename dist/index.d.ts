@@ -34,6 +34,12 @@ export declare const NodeDataTypeIndex: {
         isCreatedBy: 'any';
         defaultProps: {};
     };
+    "applicationWindow": NodeDataType & RenderedNode & {
+        type: 'dom';
+        key: 'applicationWindow';
+        isCreatedBy: 'system';
+        defaultProps: {};
+    };
     "textBox": NodeDataType & RenderedNode & {
         type: 'dom';
         key: 'textBox';

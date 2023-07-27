@@ -38,6 +38,12 @@ export const NodeDataTypeIndex:  {
         isCreatedBy: 'any',
         defaultProps: {}
     }
+    "applicationWindow": NodeDataType & RenderedNode & {
+        type: 'dom',
+        key: 'applicationWindow',
+        isCreatedBy: 'system',
+        defaultProps: {}
+    }
     "textBox": NodeDataType & RenderedNode &{
         type: 'dom',
         key: 'textBox',
@@ -54,6 +60,16 @@ export const NodeDataTypeIndex:  {
     }
     // End of Types
 } = {
+    "applicationWindow": {
+        type: 'dom',
+        key: 'applicationWindow',
+        isCreatedBy: 'system',
+        defaultProps: {},
+        defaultBoxSize: {
+            width: 836,
+            height: 600
+        }
+    },
     "chrome": {
         type: 'process',
         key: 'chrome',
