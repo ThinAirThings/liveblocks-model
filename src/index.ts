@@ -139,16 +139,17 @@ export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
         } : {}
     )
 }): AirNode<K> {
-    const optLiveContainerState = typeof state.containerState !== 'undefined' ? {
-        containerState: new LiveObject(state.containerState)
-    } : {}
     return new LiveObject({
         nodeId: uuidv4(),
         type,
         key,
         state: new LiveObject({
             ...state,
-            ...optLiveContainerState
+            ...typeof state.containerState !== 'undefined' 
+            ? {
+                containerState: new LiveObject(state.containerState)
+            } 
+            : {}
         }),
         children: new LiveMap()
     }) as AirNode<K>

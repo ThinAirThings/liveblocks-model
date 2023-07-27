@@ -68,16 +68,17 @@ exports.NodeDataTypeIndex = {
     },
 };
 function createAirNode({ type, key, state }) {
-    const optLiveContainerState = typeof state.containerState !== 'undefined' ? {
-        containerState: new client_1.LiveObject(state.containerState)
-    } : {};
     return new client_1.LiveObject({
         nodeId: (0, uuid_1.v4)(),
         type,
         key,
         state: new client_1.LiveObject({
             ...state,
-            ...optLiveContainerState
+            ...typeof state.containerState !== 'undefined'
+                ? {
+                    containerState: new client_1.LiveObject(state.containerState)
+                }
+                : {}
         }),
         children: new client_1.LiveMap()
     });
