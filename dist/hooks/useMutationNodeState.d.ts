@@ -3,14 +3,19 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: "alive" | "dead";
+            cursor: string;
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: "alive" | "dead";
             cursor: string;
         };
     };
@@ -30,14 +35,19 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: "alive" | "dead";
+            cursor: string;
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: "alive" | "dead";
             cursor: string;
         };
     };
@@ -57,14 +67,19 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: "alive" | "dead";
+            cursor: string;
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: "alive" | "dead";
             cursor: string;
         };
     };

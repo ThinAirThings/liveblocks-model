@@ -30,14 +30,19 @@ export declare const NodeDataTypeIndex: {
     "chrome": DefaultBoxSize & {
         type: 'dom';
         key: 'chrome';
-        defaultProps: WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: 'alive' | 'dead';
+            cursor: string;
             url: string;
         };
     };
     "vsCode": DefaultBoxSize & {
         type: 'dom';
         key: 'vsCode';
-        defaultProps: WindowProps & {
+        defaultProps: {
+            appDataId: string;
+            lifecycleState: 'alive' | 'dead';
             cursor: string;
         };
     };
