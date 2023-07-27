@@ -1,6 +1,6 @@
 import { MutationHook } from "..";
 export declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
-    type: "applicationWindow" | "pixi" | "dom";
+    type: "pixi" | "dom";
     key: "chrome" | "vsCode" | "textBox" | "rectangle";
     state: ({
         [key: string]: any;

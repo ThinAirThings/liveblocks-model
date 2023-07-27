@@ -2,7 +2,7 @@ import { LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
 type NodeDataType = {
-    type: 'applicationWindow' | 'pixi' | 'dom';
+    type: 'pixi' | 'dom';
     key: string;
     defaultProps: {
         [key: string]: any;
@@ -17,7 +17,7 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
     "chrome": NodeDataType & {
-        type: 'applicationWindow';
+        type: 'dom';
         key: 'chrome';
         defaultProps: {
             dataId: string;
@@ -27,7 +27,7 @@ export declare const NodeDataTypeIndex: {
         };
     };
     "vsCode": NodeDataType & {
-        type: 'applicationWindow';
+        type: 'dom';
         key: 'vsCode';
         defaultProps: {
             cursor: string;
@@ -53,7 +53,7 @@ export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     key: typeof NodeDataTypeIndex[K]['key'];
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom' | 'applicationWindow') ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom') ? {
         containerState: LiveObject<ContainerState>;
     } : {})>;
 }>;
@@ -63,7 +63,7 @@ export declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>(
     key: typeof NodeDataTypeIndex[K]['key'];
     state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' | 'applicationWindow' ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
         containerState: ContainerState;
     } : {});
 }): AirNode<K>;

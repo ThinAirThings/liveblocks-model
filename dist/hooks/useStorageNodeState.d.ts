@@ -1,7 +1,7 @@
 import { NodeDataTypeIndex, StorageHook } from "..";
 export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "textBox" | "rectangle">(useStorage: StorageHook, nodeId: string, propKey: keyof {
     chrome: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -11,7 +11,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "applicationWindow";
+        type: "dom";
         key: "chrome";
         defaultProps: {
             dataId: string;
@@ -21,7 +21,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         };
     };
     vsCode: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -31,14 +31,14 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "applicationWindow";
+        type: "dom";
         key: "vsCode";
         defaultProps: {
             cursor: string;
         };
     };
     textBox: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -55,7 +55,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         };
     };
     rectangle: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -71,7 +71,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
     };
 }[K]["defaultProps"]) => {
     chrome: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -81,7 +81,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "applicationWindow";
+        type: "dom";
         key: "chrome";
         defaultProps: {
             dataId: string;
@@ -91,7 +91,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         };
     };
     vsCode: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -101,14 +101,14 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "applicationWindow";
+        type: "dom";
         key: "vsCode";
         defaultProps: {
             cursor: string;
         };
     };
     textBox: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -125,7 +125,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         };
     };
     rectangle: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -141,7 +141,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
     };
 }[K]["defaultProps"][keyof {
     chrome: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -151,7 +151,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "applicationWindow";
+        type: "dom";
         key: "chrome";
         defaultProps: {
             dataId: string;
@@ -161,7 +161,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         };
     };
     vsCode: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -171,14 +171,14 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
             height: number;
         };
     } & {
-        type: "applicationWindow";
+        type: "dom";
         key: "vsCode";
         defaultProps: {
             cursor: string;
         };
     };
     textBox: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;
@@ -195,7 +195,7 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         };
     };
     rectangle: {
-        type: "applicationWindow" | "pixi" | "dom";
+        type: "pixi" | "dom";
         key: string;
         defaultProps: {
             [key: string]: any;

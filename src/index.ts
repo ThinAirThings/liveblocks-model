@@ -4,7 +4,7 @@ import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthing
 import {v4 as uuidv4} from 'uuid'
 
 type NodeDataType = {
-    type: 'applicationWindow' | 'pixi' | 'dom'
+    type: 'pixi' | 'dom'
     key: string
     defaultProps: {
         [key: string]: any
@@ -21,7 +21,7 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 
 export const NodeDataTypeIndex:  {
     "chrome": NodeDataType & {
-        type: 'applicationWindow',
+        type: 'dom',
         key: 'chrome',
         defaultProps: {
             dataId: string
@@ -31,7 +31,7 @@ export const NodeDataTypeIndex:  {
         },
     },
     "vsCode": NodeDataType & {
-        type: 'applicationWindow',
+        type: 'dom',
         key: 'vsCode',
         defaultProps: {
             cursor: string
@@ -52,7 +52,7 @@ export const NodeDataTypeIndex:  {
     // End of Types
 } = {
     "chrome": {
-        type: 'applicationWindow',
+        type: 'dom',
         key: 'chrome',
         defaultProps: {
             dataId: "default",
@@ -66,7 +66,7 @@ export const NodeDataTypeIndex:  {
         }
     },
     "vsCode": {
-        type: 'applicationWindow',
+        type: 'dom',
         key: 'vsCode',
         defaultProps: {
             cursor: "default"
@@ -105,7 +105,7 @@ export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     key: typeof NodeDataTypeIndex[K]['key']
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
     & (
-        typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom' | 'applicationWindow') ? {
+        typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom' ) ? {
             containerState: LiveObject<ContainerState>
         } : {}
     )>
@@ -120,7 +120,7 @@ export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
     key: typeof NodeDataTypeIndex[K]['key']
     state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
     & (
-        typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' | 'applicationWindow' ? {
+        typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
             containerState: ContainerState
         } : {}
     )

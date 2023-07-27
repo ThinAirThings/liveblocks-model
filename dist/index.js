@@ -19,7 +19,7 @@ const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
 exports.NodeDataTypeIndex = {
     "chrome": {
-        type: 'applicationWindow',
+        type: 'dom',
         key: 'chrome',
         defaultProps: {
             dataId: "default",
@@ -33,7 +33,7 @@ exports.NodeDataTypeIndex = {
         }
     },
     "vsCode": {
-        type: 'applicationWindow',
+        type: 'dom',
         key: 'vsCode',
         defaultProps: {
             cursor: "default"
