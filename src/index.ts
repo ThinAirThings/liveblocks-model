@@ -1,72 +1,121 @@
-import { LiveMap, LiveObject, LsonObject, createClient } from "@liveblocks/client"
+import { LiveMap, LiveObject } from "@liveblocks/client"
 import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
-export type NodeType = {
-    type: 'process' | 'pixi' | 'dom'
-    key: string
-    defaultProps: {
-        [key: string]: any
+type RenderedNode = {
+    type: 'pixi' | 'dom'
+    defaultBoxSize: {
+        width: number
+        height: number
     }
 }
 
-export type NodeTypeIndex = {
+export const NodeDataTypeIndex: {
     "chrome": {
-        type: 'process'
-        key: 'chrome'
+        type: 'process',
+        key: 'chrome',
         defaultProps: {
             url: string
         }
     }
-    "rectangle": {
-        type: 'pixi'
-        key: 'rectangle'
+    "vsCode": {
+        type: 'process',
+        key: 'vsCode',
         defaultProps: {}
+    }
+    "textBox": RenderedNode &{
+        type: 'pixi',
+        key: 'textBox',
+        defaultProps: {
+            content: string
+        }
+    }
+    "rectangle": RenderedNode & {
+        type: 'pixi',
+        key: 'rectangle',
+        defaultProps: {},
+    }
+    // End of Types
+} = {
+    "chrome": {
+        type: 'process',
+        key: 'chrome',
+        defaultProps: {
+            url: "https://google.com"
+        }
     },
     "vsCode": {
-        type: 'process'
-        key: 'vsCode'
+        type: 'process',
+        key: 'vsCode',
         defaultProps: {}
     },
     "textBox": {
-        type: 'pixi'
-        key: 'textBox'
+        type: 'pixi',
+        key: 'textBox',
         defaultProps: {
-            content: string
+            content: "Hello World"
+        },
+        defaultBoxSize: {
+            width: 200,
+            height: 50
+        }
+    },
+    "rectangle": {
+        type: 'pixi',
+        key: 'rectangle',
+        defaultProps: {},
+        defaultBoxSize: {
+            width: 100,
+            height: 100
         }
     },
 }
 
 export type NodeId = string
-export type AirNode<T extends {[key: string]: any}={}> = LiveObject<{
+export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     nodeId: string
-    type: keyof NodeTypeIndex
-    state: LiveObject<T&{
-        containerState: LiveObject<ContainerState>
-    }>
-    children: LiveMap<string, AirNode<any>>
+    type: typeof NodeDataTypeIndex[K]['type']
+    key: typeof NodeDataTypeIndex[K]['key']
+    state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
+    & (
+        typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom') ? {
+            containerState: LiveObject<ContainerState>
+        } : {}
+    )>
 }>
-export type ImmutableAirNode<T extends {[key: string]: any}={}> = ReturnType<AirNode<T>["toImmutable"]>
-
-export const createAirNode = <T extends LsonObject={}> ({
+export type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>
+export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
     type,
+    key,
     state
 }: {
-    type: keyof NodeTypeIndex
-    state: T&{containerState: ContainerState}
-}): AirNode<T> => new LiveObject({
-    nodeId: uuidv4(),
-    type,
-    state: new LiveObject({
-        ...state,
+    type: typeof NodeDataTypeIndex[K]['type']
+    key: typeof NodeDataTypeIndex[K]['key']
+    state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
+    & (
+        typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
+            containerState: ContainerState
+        } : {}
+    )
+}): AirNode<K> {
+    const optLiveContainerState = typeof state.containerState !== 'undefined' ? {
         containerState: new LiveObject(state.containerState)
-    }),
-    children: new LiveMap()
-})
+    } : {}
+    return new LiveObject({
+        nodeId: uuidv4(),
+        type,
+        key,
+        state: new LiveObject({
+            ...state,
+            ...optLiveContainerState
+        }),
+        children: new LiveMap()
+    }) as AirNode<K>
+}
 
 export type LiveblocksStorageModel = {
-    nodeMap: LiveMap<string, AirNode<{}>>
+    nodeMap: LiveMap<string, AirNode<any>>
 }
 
 export type LiveblocksPresence = {

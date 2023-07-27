@@ -1,14 +1,14 @@
-import { LiveMap, LiveObject, LsonObject } from "@liveblocks/client";
+import { LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
-export type NodeType = {
-    type: 'process' | 'pixi' | 'dom';
-    key: string;
-    defaultProps: {
-        [key: string]: any;
+type RenderedNode = {
+    type: 'pixi' | 'dom';
+    defaultBoxSize: {
+        width: number;
+        height: number;
     };
 };
-export type NodeTypeIndex = {
+export declare const NodeDataTypeIndex: {
     "chrome": {
         type: 'process';
         key: 'chrome';
@@ -16,46 +16,47 @@ export type NodeTypeIndex = {
             url: string;
         };
     };
-    "rectangle": {
-        type: 'pixi';
-        key: 'rectangle';
-        defaultProps: {};
-    };
     "vsCode": {
         type: 'process';
         key: 'vsCode';
         defaultProps: {};
     };
-    "textBox": {
+    "textBox": RenderedNode & {
         type: 'pixi';
         key: 'textBox';
         defaultProps: {
             content: string;
         };
     };
+    "rectangle": RenderedNode & {
+        type: 'pixi';
+        key: 'rectangle';
+        defaultProps: {};
+    };
 };
 export type NodeId = string;
-export type AirNode<T extends {
-    [key: string]: any;
-} = {}> = LiveObject<{
+export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     nodeId: string;
-    type: keyof NodeTypeIndex;
-    state: LiveObject<T & {
+    type: typeof NodeDataTypeIndex[K]['type'];
+    key: typeof NodeDataTypeIndex[K]['key'];
+    state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
+        [key: string]: any;
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom') ? {
         containerState: LiveObject<ContainerState>;
-    }>;
-    children: LiveMap<string, AirNode<any>>;
+    } : {})>;
 }>;
-export type ImmutableAirNode<T extends {
-    [key: string]: any;
-} = {}> = ReturnType<AirNode<T>["toImmutable"]>;
-export declare const createAirNode: <T extends LsonObject = {}>({ type, state }: {
-    type: keyof NodeTypeIndex;
-    state: T & {
+export type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>;
+export declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>({ type, key, state }: {
+    type: typeof NodeDataTypeIndex[K]['type'];
+    key: typeof NodeDataTypeIndex[K]['key'];
+    state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
+        [key: string]: any;
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
         containerState: ContainerState;
-    };
-}) => AirNode<T>;
+    } : {});
+}): AirNode<K>;
 export type LiveblocksStorageModel = {
-    nodeMap: LiveMap<string, AirNode<{}>>;
+    nodeMap: LiveMap<string, AirNode<any>>;
 };
 export type LiveblocksPresence = {
     displayName: string;

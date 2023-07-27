@@ -1,14 +1,13 @@
-import { MutationHook, NodeTypeIndex } from ".."
+import { MutationHook, NodeDataTypeIndex } from ".."
 
 export const useMutationNodeState = <
-    T extends keyof NodeTypeIndex,
-    K extends keyof NodeTypeIndex[T]['defaultProps']
+    K extends keyof typeof NodeDataTypeIndex
 ,>(
     useMutation: MutationHook,
     nodeId: string,
-    key: K
+    propKey: keyof typeof NodeDataTypeIndex[K]['defaultProps']
 ) => {
-    return useMutation(({storage}, value: NodeTypeIndex[T]['defaultProps'][K]) => {
-        storage.get("nodeMap")!.get(nodeId)!.get("state")!.set(key as any, value)
+    return useMutation(({storage}, value: typeof NodeDataTypeIndex[K]['defaultProps'][typeof propKey]) => {
+        storage.get("nodeMap")!.get(nodeId)!.get("state")!.set(propKey, value)
     }, [])
 }

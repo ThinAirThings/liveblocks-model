@@ -1,15 +1,14 @@
 import { createRoomContext } from "@liveblocks/react";
-import { ImmutableAirNode, LiveblocksPresence, LiveblocksStorageModel, NodeTypeIndex, StorageHook } from "..";
+import { ImmutableAirNode, LiveblocksPresence, LiveblocksStorageModel, NodeDataTypeIndex, StorageHook } from "..";
 
 export const useStorageNodeState = <
-    T extends keyof NodeTypeIndex,
-    K extends keyof NodeTypeIndex[T]['defaultProps']
+    K extends keyof typeof NodeDataTypeIndex,
 >(
     useStorage: StorageHook,
     nodeId: string,
-    key: K
-):  NodeTypeIndex[T]['defaultProps'][K]=> {
+    propKey: keyof typeof NodeDataTypeIndex[K]['defaultProps']
+):  typeof NodeDataTypeIndex[K]['defaultProps'][typeof propKey]=> {
     return useStorage(root => {
-        return (root.nodeMap.get(nodeId)! as unknown as ImmutableAirNode<NodeTypeIndex[T]['defaultProps']>)?.state[key]
+        return (root.nodeMap.get(nodeId)! as unknown as ImmutableAirNode<K>)?.state[propKey]
     })
 }

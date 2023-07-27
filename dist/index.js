@@ -14,18 +14,58 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createAirNode = void 0;
+exports.createAirNode = exports.NodeDataTypeIndex = void 0;
 const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
-const createAirNode = ({ type, state }) => new client_1.LiveObject({
-    nodeId: (0, uuid_1.v4)(),
-    type,
-    state: new client_1.LiveObject({
-        ...state,
+exports.NodeDataTypeIndex = {
+    "chrome": {
+        type: 'process',
+        key: 'chrome',
+        defaultProps: {
+            url: "https://google.com"
+        }
+    },
+    "vsCode": {
+        type: 'process',
+        key: 'vsCode',
+        defaultProps: {}
+    },
+    "textBox": {
+        type: 'pixi',
+        key: 'textBox',
+        defaultProps: {
+            content: "Hello World"
+        },
+        defaultBoxSize: {
+            width: 200,
+            height: 50
+        }
+    },
+    "rectangle": {
+        type: 'pixi',
+        key: 'rectangle',
+        defaultProps: {},
+        defaultBoxSize: {
+            width: 100,
+            height: 100
+        }
+    },
+};
+function createAirNode({ type, key, state }) {
+    const optLiveContainerState = typeof state.containerState !== 'undefined' ? {
         containerState: new client_1.LiveObject(state.containerState)
-    }),
-    children: new client_1.LiveMap()
-});
+    } : {};
+    return new client_1.LiveObject({
+        nodeId: (0, uuid_1.v4)(),
+        type,
+        key,
+        state: new client_1.LiveObject({
+            ...state,
+            ...optLiveContainerState
+        }),
+        children: new client_1.LiveMap()
+    });
+}
 exports.createAirNode = createAirNode;
 __exportStar(require("./hooks/useMutationNodeState"), exports);
 __exportStar(require("./hooks/useStorageNodeState"), exports);
