@@ -3,6 +3,13 @@ import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
+export type NodeType = {
+    type: 'process' | 'pixi' | 'dom'
+    key: string
+    defaultProps: {
+        [key: string]: any
+    }
+}
 
 export type NodeTypeIndex = {
     "chrome": {

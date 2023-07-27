@@ -1,6 +1,13 @@
 import { LiveMap, LiveObject, LsonObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
+export type NodeType = {
+    type: 'process' | 'pixi' | 'dom';
+    key: string;
+    defaultProps: {
+        [key: string]: any;
+    };
+};
 export type NodeTypeIndex = {
     "chrome": {
         type: 'process';
