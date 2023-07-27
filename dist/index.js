@@ -21,6 +21,7 @@ exports.NodeDataTypeIndex = {
     "chrome": {
         type: 'process',
         key: 'chrome',
+        isCreatedBy: 'any',
         defaultProps: {
             url: "https://google.com"
         }
@@ -28,11 +29,13 @@ exports.NodeDataTypeIndex = {
     "vsCode": {
         type: 'process',
         key: 'vsCode',
+        isCreatedBy: 'any',
         defaultProps: {}
     },
     "textBox": {
         type: 'pixi',
         key: 'textBox',
+        isCreatedBy: 'any',
         defaultProps: {
             content: "Hello World"
         },
@@ -44,6 +47,7 @@ exports.NodeDataTypeIndex = {
     "rectangle": {
         type: 'pixi',
         key: 'rectangle',
+        isCreatedBy: 'any',
         defaultProps: {},
         defaultBoxSize: {
             width: 100,

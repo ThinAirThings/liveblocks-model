@@ -10,30 +10,38 @@ type RenderedNode = {
         height: number
     }
 }
-
-export const NodeDataTypeIndex: {
-    "chrome": {
+type NodeDataType = {
+    type: 'process' | 'pixi' | 'dom'
+    isCreatedBy: 'user' | 'system' | 'any'
+    key: string
+}
+export const NodeDataTypeIndex:  {
+    "chrome": NodeDataType & {
         type: 'process',
         key: 'chrome',
+        isCreatedBy: 'any',
         defaultProps: {
             url: string
         }
     }
-    "vsCode": {
+    "vsCode": NodeDataType & {
         type: 'process',
         key: 'vsCode',
+        isCreatedBy: 'any',
         defaultProps: {}
     }
-    "textBox": RenderedNode &{
+    "textBox": NodeDataType & RenderedNode &{
         type: 'pixi',
         key: 'textBox',
+        isCreatedBy: 'any',
         defaultProps: {
             content: string
         }
     }
-    "rectangle": RenderedNode & {
+    "rectangle": NodeDataType & RenderedNode & {
         type: 'pixi',
         key: 'rectangle',
+        isCreatedBy: 'any',
         defaultProps: {},
     }
     // End of Types
@@ -41,6 +49,7 @@ export const NodeDataTypeIndex: {
     "chrome": {
         type: 'process',
         key: 'chrome',
+        isCreatedBy: 'any',
         defaultProps: {
             url: "https://google.com"
         }
@@ -48,11 +57,13 @@ export const NodeDataTypeIndex: {
     "vsCode": {
         type: 'process',
         key: 'vsCode',
+        isCreatedBy: 'any',
         defaultProps: {}
     },
     "textBox": {
         type: 'pixi',
         key: 'textBox',
+        isCreatedBy: 'any',
         defaultProps: {
             content: "Hello World"
         },
@@ -64,6 +75,7 @@ export const NodeDataTypeIndex: {
     "rectangle": {
         type: 'pixi',
         key: 'rectangle',
+        isCreatedBy: 'any',
         defaultProps: {},
         defaultBoxSize: {
             width: 100,
