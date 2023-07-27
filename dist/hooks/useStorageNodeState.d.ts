@@ -4,6 +4,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "process";
         key: "chrome";
@@ -16,6 +19,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "process";
         key: "vsCode";
@@ -26,6 +32,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
@@ -44,6 +53,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
@@ -61,6 +73,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "process";
         key: "chrome";
@@ -73,6 +88,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "process";
         key: "vsCode";
@@ -83,6 +101,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
@@ -101,6 +122,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
@@ -118,6 +142,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "process";
         key: "chrome";
@@ -130,6 +157,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "process";
         key: "vsCode";
@@ -140,6 +170,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
@@ -158,6 +191,9 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "pixi" | "dom" | "process";
         isCreatedBy: "any" | "user" | "system";
         key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
     } & {
         type: "pixi" | "dom";
         defaultBoxSize: {

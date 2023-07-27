@@ -14,7 +14,15 @@ type NodeDataType = {
     type: 'process' | 'pixi' | 'dom'
     isCreatedBy: 'user' | 'system' | 'any'
     key: string
+    defaultProps: {
+        [key: string]: any
+    }
 }
+
+export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
+    [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
+}[keyof typeof NodeDataTypeIndex];
+
 export const NodeDataTypeIndex:  {
     "chrome": NodeDataType & {
         type: 'process',
