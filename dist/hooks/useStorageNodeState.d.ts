@@ -3,17 +3,14 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: {
-            dataId: string;
-            lifeCycle: "alive" | "dead";
-            cursor: string;
+        defaultProps: import("..").WindowProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: {
+        defaultProps: import("..").WindowProps & {
             cursor: string;
         };
     };
@@ -33,17 +30,14 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: {
-            dataId: string;
-            lifeCycle: "alive" | "dead";
-            cursor: string;
+        defaultProps: import("..").WindowProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: {
+        defaultProps: import("..").WindowProps & {
             cursor: string;
         };
     };
@@ -63,17 +57,14 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: {
-            dataId: string;
-            lifeCycle: "alive" | "dead";
-            cursor: string;
+        defaultProps: import("..").WindowProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: {
+        defaultProps: import("..").WindowProps & {
             cursor: string;
         };
     };

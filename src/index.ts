@@ -21,7 +21,11 @@ export type DefaultBoxSize = {
         height: number
     }
 }
-
+export type WindowProps = {
+    appDataId: string
+    lifecycleState: 'alive' | 'dead'
+    cursor: string,
+}
 export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
@@ -30,17 +34,14 @@ export const NodeDataTypeIndex:  {
     "chrome": DefaultBoxSize & {
         type: 'dom',
         key: 'chrome',
-        defaultProps: {
-            dataId: string
-            lifeCycle: 'alive' | 'dead'
-            cursor: string,
+        defaultProps: WindowProps & {
             url: string
         },
     },
     "vsCode": DefaultBoxSize & {
         type: 'dom',
         key: 'vsCode',
-        defaultProps: {
+        defaultProps: WindowProps & {
             cursor: string
         }
     }
@@ -62,8 +63,8 @@ export const NodeDataTypeIndex:  {
         type: 'dom',
         key: 'chrome',
         defaultProps: {
-            dataId: "default",
-            lifeCycle: 'dead',
+            appDataId: "default",
+            lifecycleState: 'dead',
             cursor: "default",
             url: "https://google.com"
         },
@@ -76,6 +77,8 @@ export const NodeDataTypeIndex:  {
         type: 'dom',
         key: 'vsCode',
         defaultProps: {
+            appDataId: "default",
+            lifecycleState: 'dead',
             cursor: "default"
         },
         defaultBoxSize: {

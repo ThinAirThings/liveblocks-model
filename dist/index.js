@@ -22,8 +22,8 @@ exports.NodeDataTypeIndex = {
         type: 'dom',
         key: 'chrome',
         defaultProps: {
-            dataId: "default",
-            lifeCycle: 'dead',
+            appDataId: "default",
+            lifecycleState: 'dead',
             cursor: "default",
             url: "https://google.com"
         },
@@ -36,6 +36,8 @@ exports.NodeDataTypeIndex = {
         type: 'dom',
         key: 'vsCode',
         defaultProps: {
+            appDataId: "default",
+            lifecycleState: 'dead',
             cursor: "default"
         },
         defaultBoxSize: {
