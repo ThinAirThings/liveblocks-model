@@ -20,7 +20,7 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
-    "chrome": {
+    "chrome": NodeDataType & {
         type: 'process';
         key: 'chrome';
         isCreatedBy: 'any';
@@ -28,13 +28,13 @@ export declare const NodeDataTypeIndex: {
             url: string;
         };
     };
-    "vsCode": {
+    "vsCode": NodeDataType & {
         type: 'process';
         key: 'vsCode';
         isCreatedBy: 'any';
         defaultProps: {};
     };
-    "applicationWindow": RenderedNode & {
+    "applicationWindow": NodeDataType & RenderedNode & {
         type: 'dom';
         key: 'applicationWindow';
         isCreatedBy: 'system';
@@ -42,7 +42,7 @@ export declare const NodeDataTypeIndex: {
             cursor: string;
         };
     };
-    "textBox": RenderedNode & {
+    "textBox": NodeDataType & RenderedNode & {
         type: 'dom';
         key: 'textBox';
         isCreatedBy: 'any';
@@ -50,7 +50,7 @@ export declare const NodeDataTypeIndex: {
             content: string;
         };
     };
-    "rectangle": RenderedNode & {
+    "rectangle": NodeDataType & RenderedNode & {
         type: 'pixi';
         key: 'rectangle';
         isCreatedBy: 'any';
@@ -79,7 +79,7 @@ export declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>(
     } : {});
 }): AirNode<K>;
 export type LiveblocksStorageModel = {
-    nodeMap: LiveMap<string, AirNode<any>>;
+    nodeMap: LiveMap<string, AirNode<keyof typeof NodeDataTypeIndex>>;
 };
 export type LiveblocksPresence = {
     displayName: string;

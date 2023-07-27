@@ -1,6 +1,13 @@
 import { NodeDataTypeIndex, StorageHook } from "..";
 export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "applicationWindow" | "textBox" | "rectangle">(useStorage: StorageHook, nodeId: string, propKey: keyof {
     chrome: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "process";
         key: "chrome";
         isCreatedBy: "any";
@@ -9,12 +16,26 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     vsCode: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
         defaultProps: {};
     };
     applicationWindow: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -29,6 +50,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     textBox: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -43,6 +71,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     rectangle: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -56,6 +91,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
     };
 }[K]["defaultProps"]) => {
     chrome: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "process";
         key: "chrome";
         isCreatedBy: "any";
@@ -64,12 +106,26 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     vsCode: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
         defaultProps: {};
     };
     applicationWindow: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -84,6 +140,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     textBox: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -98,6 +161,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     rectangle: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -111,6 +181,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
     };
 }[K]["defaultProps"][keyof {
     chrome: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "process";
         key: "chrome";
         isCreatedBy: "any";
@@ -119,12 +196,26 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     vsCode: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "process";
         key: "vsCode";
         isCreatedBy: "any";
         defaultProps: {};
     };
     applicationWindow: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -139,6 +230,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     textBox: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
@@ -153,6 +251,13 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "appl
         };
     };
     rectangle: {
+        type: "process" | "pixi" | "dom";
+        isCreatedBy: "any" | "user" | "system";
+        key: string;
+        defaultProps: {
+            [key: string]: any;
+        };
+    } & {
         type: "pixi" | "dom";
         defaultBoxSize: {
             width: number;
