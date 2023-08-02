@@ -3,14 +3,14 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: import("..").ApplicationProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: import("..").WindowProps;
+        defaultProps: import("..").ApplicationProps;
     };
     textBox: import("..").DefaultBoxSize & {
         type: "dom";
@@ -28,14 +28,14 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: import("..").ApplicationProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: import("..").WindowProps;
+        defaultProps: import("..").ApplicationProps;
     };
     textBox: import("..").DefaultBoxSize & {
         type: "dom";
@@ -53,14 +53,14 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
     chrome: import("..").DefaultBoxSize & {
         type: "dom";
         key: "chrome";
-        defaultProps: import("..").WindowProps & {
+        defaultProps: import("..").ApplicationProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
         type: "dom";
         key: "vsCode";
-        defaultProps: import("..").WindowProps;
+        defaultProps: import("..").ApplicationProps;
     };
     textBox: import("..").DefaultBoxSize & {
         type: "dom";

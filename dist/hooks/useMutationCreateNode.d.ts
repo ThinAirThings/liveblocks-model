@@ -2,7 +2,7 @@ import { MutationHook } from "..";
 export declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
     type: "dom" | "pixi";
     key: "chrome" | "vsCode" | "textBox" | "rectangle";
-    state: ({} | import("..").WindowProps | (import("..").WindowProps & {
+    state: ({} | import("..").ApplicationProps | (import("..").ApplicationProps & {
         url: string;
     }) | {
         content: string;

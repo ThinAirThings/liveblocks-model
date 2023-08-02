@@ -21,7 +21,7 @@ export type DefaultBoxSize = {
         height: number
     }
 }
-export type WindowProps = {
+export type ApplicationProps = {
     appDataId: string
 }
 export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
@@ -32,14 +32,14 @@ export const NodeDataTypeIndex:  {
     "chrome": DefaultBoxSize & {
         type: 'dom',
         key: 'chrome',
-        defaultProps: WindowProps & {
+        defaultProps: ApplicationProps & {
             url: string
         },
     },
     "vsCode": DefaultBoxSize & {
         type: 'dom',
         key: 'vsCode',
-        defaultProps: WindowProps
+        defaultProps: ApplicationProps
     }
     "textBox": DefaultBoxSize & {
         type: 'dom',
