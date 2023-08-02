@@ -2,7 +2,8 @@ import { LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
 type NodeDataType = {
-    type: 'pixi' | 'dom';
+    type: 'application' | 'widget' | 'whiteboard';
+    renderer: 'pixi' | 'dom';
     key: string;
     defaultProps: {
         [key: string]: any;
@@ -26,26 +27,30 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
     "chrome": DefaultBoxSize & {
-        type: 'dom';
+        type: 'application';
+        renderer: 'dom';
         key: 'chrome';
         defaultProps: ApplicationProps & {
             url: string;
         };
     };
     "vsCode": DefaultBoxSize & {
-        type: 'dom';
+        type: 'application';
+        renderer: 'dom';
         key: 'vsCode';
         defaultProps: ApplicationProps;
     };
     "textBox": DefaultBoxSize & {
-        type: 'dom';
+        type: 'whiteboard';
+        renderer: 'dom';
         key: 'textBox';
         defaultProps: {
             content: string;
         };
     };
     "rectangle": DefaultBoxSize & {
-        type: 'pixi';
+        type: 'whiteboard';
+        renderer: 'pixi';
         key: 'rectangle';
         defaultProps: {};
     };
@@ -57,7 +62,7 @@ export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     key: typeof NodeDataTypeIndex[K]['key'];
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom') ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['renderer'] extends ('pixi' | 'dom') ? {
         containerState: LiveObject<ContainerState>;
     } : {})>;
 }>;
@@ -67,7 +72,7 @@ export declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>(
     key: typeof NodeDataTypeIndex[K]['key'];
     state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['renderer'] extends 'pixi' | 'dom' ? {
         containerState: ContainerState;
     } : {});
 }): AirNode<K>;

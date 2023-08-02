@@ -4,7 +4,8 @@ import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthing
 import {v4 as uuidv4} from 'uuid'
 
 type NodeDataType = {
-    type: 'pixi' | 'dom'
+    type: 'application' | 'widget' | 'whiteboard'
+    renderer: 'pixi' | 'dom'
     key: string
     defaultProps: {
         [key: string]: any
@@ -30,33 +31,38 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 
 export const NodeDataTypeIndex:  {
     "chrome": DefaultBoxSize & {
-        type: 'dom',
+        type: 'application',
+        renderer: 'dom'
         key: 'chrome',
         defaultProps: ApplicationProps & {
             url: string
         },
     },
     "vsCode": DefaultBoxSize & {
-        type: 'dom',
+        type: 'application',
+        renderer: 'dom'
         key: 'vsCode',
         defaultProps: ApplicationProps
     }
     "textBox": DefaultBoxSize & {
-        type: 'dom',
+        type: 'whiteboard',
+        renderer: 'dom'
         key: 'textBox',
         defaultProps: {
             content: string
         }
     }
     "rectangle": DefaultBoxSize & {
-        type: 'pixi',
+        type: 'whiteboard',
+        renderer: 'pixi',
         key: 'rectangle',
         defaultProps: {},
     }
     // End of Types
 } = {
     "chrome": {
-        type: 'dom',
+        type: 'application',
+        renderer: 'dom',
         key: 'chrome',
         defaultProps: {
             appDataId: "default",
@@ -68,7 +74,8 @@ export const NodeDataTypeIndex:  {
         }
     },
     "vsCode": {
-        type: 'dom',
+        type: 'application',
+        renderer: 'dom',
         key: 'vsCode',
         defaultProps: {
             appDataId: "default",
@@ -79,7 +86,8 @@ export const NodeDataTypeIndex:  {
         }
     },
     "textBox": {
-        type: 'dom',
+        type: 'whiteboard',
+        renderer: 'dom',
         key: 'textBox',
         defaultProps: {
             content: "Hello World"
@@ -90,7 +98,8 @@ export const NodeDataTypeIndex:  {
         }
     },
     "rectangle": {
-        type: 'pixi',
+        type: 'whiteboard',
+        renderer: 'pixi',
         key: 'rectangle',
         defaultProps: {},
         defaultBoxSize: {
@@ -107,7 +116,7 @@ export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     key: typeof NodeDataTypeIndex[K]['key']
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
     & (
-        typeof NodeDataTypeIndex[K]['type'] extends ('pixi' | 'dom' ) ? {
+        typeof NodeDataTypeIndex[K]['renderer'] extends ('pixi' | 'dom' ) ? {
             containerState: LiveObject<ContainerState>
         } : {}
     )>
@@ -122,7 +131,7 @@ export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
     key: typeof NodeDataTypeIndex[K]['key']
     state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
     & (
-        typeof NodeDataTypeIndex[K]['type'] extends 'pixi' | 'dom' ? {
+        typeof NodeDataTypeIndex[K]['renderer'] extends 'pixi' | 'dom' ? {
             containerState: ContainerState
         } : {}
     )

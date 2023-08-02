@@ -19,7 +19,8 @@ const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
 exports.NodeDataTypeIndex = {
     "chrome": {
-        type: 'dom',
+        type: 'application',
+        renderer: 'dom',
         key: 'chrome',
         defaultProps: {
             appDataId: "default",
@@ -31,7 +32,8 @@ exports.NodeDataTypeIndex = {
         }
     },
     "vsCode": {
-        type: 'dom',
+        type: 'application',
+        renderer: 'dom',
         key: 'vsCode',
         defaultProps: {
             appDataId: "default",
@@ -42,7 +44,8 @@ exports.NodeDataTypeIndex = {
         }
     },
     "textBox": {
-        type: 'dom',
+        type: 'whiteboard',
+        renderer: 'dom',
         key: 'textBox',
         defaultProps: {
             content: "Hello World"
@@ -53,7 +56,8 @@ exports.NodeDataTypeIndex = {
         }
     },
     "rectangle": {
-        type: 'pixi',
+        type: 'whiteboard',
+        renderer: 'pixi',
         key: 'rectangle',
         defaultProps: {},
         defaultBoxSize: {
