@@ -19,9 +19,9 @@ const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
 exports.NodeDataTypeIndex = {
     "chrome": {
+        key: 'chrome',
         type: 'application',
         renderer: 'dom',
-        key: 'chrome',
         defaultProps: {
             appDataId: "default",
             url: "https://google.com"
@@ -66,11 +66,13 @@ exports.NodeDataTypeIndex = {
         }
     },
 };
-function createAirNode({ type, key, state }) {
+function createAirNode({ key, state }) {
+    const t = key;
     return new client_1.LiveObject({
         nodeId: (0, uuid_1.v4)(),
-        type,
-        key,
+        key: exports.NodeDataTypeIndex[key].key,
+        type: exports.NodeDataTypeIndex[key].type,
+        renderer: exports.NodeDataTypeIndex[key].renderer,
         state: new client_1.LiveObject({
             ...state,
             ...typeof state.containerState !== 'undefined'

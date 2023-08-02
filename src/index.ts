@@ -31,39 +31,39 @@ export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
 
 export const NodeDataTypeIndex:  {
     "chrome": DefaultBoxSize & {
+        key: 'chrome',
         type: 'application',
         renderer: 'dom'
-        key: 'chrome',
         defaultProps: ApplicationProps & {
             url: string
         },
     },
     "vsCode": DefaultBoxSize & {
+        key: 'vsCode',
         type: 'application',
         renderer: 'dom'
-        key: 'vsCode',
         defaultProps: ApplicationProps
     }
     "textBox": DefaultBoxSize & {
+        key: 'textBox',
         type: 'whiteboard',
         renderer: 'dom'
-        key: 'textBox',
         defaultProps: {
             content: string
         }
     }
     "rectangle": DefaultBoxSize & {
+        key: 'rectangle',
         type: 'whiteboard',
         renderer: 'pixi',
-        key: 'rectangle',
         defaultProps: {},
     }
     // End of Types
 } = {
     "chrome": {
+        key: 'chrome',
         type: 'application',
         renderer: 'dom',
-        key: 'chrome',
         defaultProps: {
             appDataId: "default",
             url: "https://google.com"
@@ -112,8 +112,9 @@ export const NodeDataTypeIndex:  {
 export type NodeId = string
 export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     nodeId: string
-    type: typeof NodeDataTypeIndex[K]['type']
     key: typeof NodeDataTypeIndex[K]['key']
+    type: typeof NodeDataTypeIndex[K]['type']
+    renderer: typeof NodeDataTypeIndex[K]['renderer']
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
     & (
         typeof NodeDataTypeIndex[K]['renderer'] extends ('pixi' | 'dom' ) ? {
@@ -123,12 +124,10 @@ export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
 }>
 export type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>
 export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
-    type,
     key,
     state
 }: {
-    type: typeof NodeDataTypeIndex[K]['type']
-    key: typeof NodeDataTypeIndex[K]['key']
+    key: K
     state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
     & (
         typeof NodeDataTypeIndex[K]['renderer'] extends 'pixi' | 'dom' ? {
@@ -136,10 +135,12 @@ export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
         } : {}
     )
 }): AirNode<K> {
+    const t = key
     return new LiveObject({
         nodeId: uuidv4(),
-        type,
-        key,
+        key: NodeDataTypeIndex[key].key,
+        type: NodeDataTypeIndex[key].type,
+        renderer: NodeDataTypeIndex[key].renderer,
         state: new LiveObject({
             ...state,
             ...typeof state.containerState !== 'undefined' 
@@ -149,7 +150,7 @@ export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
             : {}
         }),
         children: new LiveMap()
-    }) as AirNode<K>
+    }) as unknown as AirNode<K>
 }
 
 export type LiveblocksStorageModel = {

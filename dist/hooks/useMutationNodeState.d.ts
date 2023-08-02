@@ -1,89 +1,89 @@
 import { MutationHook, NodeDataTypeIndex } from "..";
 export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     chrome: import("..").DefaultBoxSize & {
+        key: "chrome";
         type: "application";
         renderer: "dom";
-        key: "chrome";
         defaultProps: import("..").ApplicationProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
+        key: "vsCode";
         type: "application";
         renderer: "dom";
-        key: "vsCode";
         defaultProps: import("..").ApplicationProps;
     };
     textBox: import("..").DefaultBoxSize & {
+        key: "textBox";
         type: "whiteboard";
         renderer: "dom";
-        key: "textBox";
         defaultProps: {
             content: string;
         };
     };
     rectangle: import("..").DefaultBoxSize & {
+        key: "rectangle";
         type: "whiteboard";
         renderer: "pixi";
-        key: "rectangle";
         defaultProps: {};
     };
 }[K]["defaultProps"]) => (value: {
     chrome: import("..").DefaultBoxSize & {
+        key: "chrome";
         type: "application";
         renderer: "dom";
-        key: "chrome";
         defaultProps: import("..").ApplicationProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
+        key: "vsCode";
         type: "application";
         renderer: "dom";
-        key: "vsCode";
         defaultProps: import("..").ApplicationProps;
     };
     textBox: import("..").DefaultBoxSize & {
+        key: "textBox";
         type: "whiteboard";
         renderer: "dom";
-        key: "textBox";
         defaultProps: {
             content: string;
         };
     };
     rectangle: import("..").DefaultBoxSize & {
+        key: "rectangle";
         type: "whiteboard";
         renderer: "pixi";
-        key: "rectangle";
         defaultProps: {};
     };
 }[K]["defaultProps"][keyof {
     chrome: import("..").DefaultBoxSize & {
+        key: "chrome";
         type: "application";
         renderer: "dom";
-        key: "chrome";
         defaultProps: import("..").ApplicationProps & {
             url: string;
         };
     };
     vsCode: import("..").DefaultBoxSize & {
+        key: "vsCode";
         type: "application";
         renderer: "dom";
-        key: "vsCode";
         defaultProps: import("..").ApplicationProps;
     };
     textBox: import("..").DefaultBoxSize & {
+        key: "textBox";
         type: "whiteboard";
         renderer: "dom";
-        key: "textBox";
         defaultProps: {
             content: string;
         };
     };
     rectangle: import("..").DefaultBoxSize & {
+        key: "rectangle";
         type: "whiteboard";
         renderer: "pixi";
-        key: "rectangle";
         defaultProps: {};
     };
 }[K]["defaultProps"]]) => void;
