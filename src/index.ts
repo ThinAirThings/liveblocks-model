@@ -81,8 +81,8 @@ export const NodeDataTypeIndex:  {
             appDataId: "default",
         },
         defaultBoxSize: {
-            width: 200,
-            height: 50
+            width: 836,
+            height: 600
         }
     },
     "textBox": {
