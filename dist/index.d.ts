@@ -20,8 +20,6 @@ export type DefaultBoxSize = {
 };
 export type WindowProps = {
     appDataId: string;
-    lifecycleState: 'alive' | 'dead';
-    cursor: string;
 };
 export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;

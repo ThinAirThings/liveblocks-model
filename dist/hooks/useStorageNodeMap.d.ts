@@ -13,8 +13,6 @@ export declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap
         };
     } | {
         readonly appDataId: string;
-        readonly lifecycleState: "alive" | "dead";
-        readonly cursor: string;
         readonly containerState: {
             readonly x: number;
             readonly y: number;
@@ -24,8 +22,6 @@ export declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap
         };
     } | {
         readonly appDataId: string;
-        readonly lifecycleState: "alive" | "dead";
-        readonly cursor: string;
         readonly url: string;
         readonly containerState: {
             readonly x: number;
