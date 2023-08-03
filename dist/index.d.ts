@@ -2,7 +2,7 @@ import { LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
 type NodeDataType = {
-    type: 'application' | 'widget' | 'whiteboard';
+    type: 'application' | 'widget' | 'whiteboard' | 'window';
     renderer: 'pixi' | 'dom';
     key: string;
     defaultProps: {
@@ -39,6 +39,12 @@ export declare const NodeDataTypeIndex: {
         type: 'application';
         renderer: 'dom';
         defaultProps: ApplicationProps;
+    };
+    'secondaryWindow': DefaultBoxSize & {
+        key: 'secondaryWindow';
+        type: 'window';
+        renderer: 'dom';
+        defaultProps: {};
     };
     "textBox": DefaultBoxSize & {
         key: 'textBox';

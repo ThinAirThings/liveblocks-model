@@ -1,8 +1,8 @@
 import { StorageHook } from "..";
 export declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string, {
     readonly nodeId: string;
-    readonly key: "chrome" | "vsCode" | "textBox" | "rectangle";
-    readonly type: "application" | "whiteboard";
+    readonly key: "chrome" | "vsCode" | "secondaryWindow" | "textBox" | "rectangle";
+    readonly type: "window" | "application" | "whiteboard";
     readonly renderer: "dom" | "pixi";
     readonly state: {
         readonly containerState: {

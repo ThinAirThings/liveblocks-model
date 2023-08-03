@@ -1,5 +1,5 @@
 import { NodeDataTypeIndex, StorageHook } from "..";
-export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "textBox" | "rectangle">(useStorage: StorageHook, nodeId: string, propKey: keyof {
+export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "secondaryWindow" | "textBox" | "rectangle">(useStorage: StorageHook, nodeId: string, propKey: keyof {
     chrome: import("..").DefaultBoxSize & {
         key: "chrome";
         type: "application";
@@ -13,6 +13,12 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "application";
         renderer: "dom";
         defaultProps: import("..").ApplicationProps;
+    };
+    secondaryWindow: import("..").DefaultBoxSize & {
+        key: "secondaryWindow";
+        type: "window";
+        renderer: "dom";
+        defaultProps: {};
     };
     textBox: import("..").DefaultBoxSize & {
         key: "textBox";
@@ -43,6 +49,12 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         renderer: "dom";
         defaultProps: import("..").ApplicationProps;
     };
+    secondaryWindow: import("..").DefaultBoxSize & {
+        key: "secondaryWindow";
+        type: "window";
+        renderer: "dom";
+        defaultProps: {};
+    };
     textBox: import("..").DefaultBoxSize & {
         key: "textBox";
         type: "whiteboard";
@@ -71,6 +83,12 @@ export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "text
         type: "application";
         renderer: "dom";
         defaultProps: import("..").ApplicationProps;
+    };
+    secondaryWindow: import("..").DefaultBoxSize & {
+        key: "secondaryWindow";
+        type: "window";
+        renderer: "dom";
+        defaultProps: {};
     };
     textBox: import("..").DefaultBoxSize & {
         key: "textBox";

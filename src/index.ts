@@ -4,7 +4,7 @@ import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthing
 import {v4 as uuidv4} from 'uuid'
 
 type NodeDataType = {
-    type: 'application' | 'widget' | 'whiteboard'
+    type: 'application' | 'widget' | 'whiteboard' | 'window'
     renderer: 'pixi' | 'dom'
     key: string
     defaultProps: {
@@ -44,6 +44,12 @@ export const NodeDataTypeIndex:  {
         renderer: 'dom'
         defaultProps: ApplicationProps
     }
+    'secondaryWindow': DefaultBoxSize & {
+        key: 'secondaryWindow',
+        type: 'window',
+        renderer: 'dom'
+        defaultProps: {}
+    }
     "textBox": DefaultBoxSize & {
         key: 'textBox',
         type: 'whiteboard',
@@ -62,7 +68,7 @@ export const NodeDataTypeIndex:  {
 } = {
     "chrome": {
         key: 'chrome',
-        type: 'application',
+        type: 'application' ,
         renderer: 'dom',
         defaultProps: {
             appDataId: "default",
@@ -80,6 +86,16 @@ export const NodeDataTypeIndex:  {
         defaultProps: {
             appDataId: "default",
         },
+        defaultBoxSize: {
+            width: 836,
+            height: 600
+        }
+    },
+    'secondaryWindow': {
+        type: 'window',
+        renderer: 'dom',
+        key: 'secondaryWindow',
+        defaultProps: {},
         defaultBoxSize: {
             width: 836,
             height: 600

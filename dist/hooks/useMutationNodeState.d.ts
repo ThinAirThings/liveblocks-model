@@ -1,5 +1,5 @@
 import { MutationHook, NodeDataTypeIndex } from "..";
-export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
+export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "secondaryWindow" | "textBox" | "rectangle">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     chrome: import("..").DefaultBoxSize & {
         key: "chrome";
         type: "application";
@@ -13,6 +13,12 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
         type: "application";
         renderer: "dom";
         defaultProps: import("..").ApplicationProps;
+    };
+    secondaryWindow: import("..").DefaultBoxSize & {
+        key: "secondaryWindow";
+        type: "window";
+        renderer: "dom";
+        defaultProps: {};
     };
     textBox: import("..").DefaultBoxSize & {
         key: "textBox";
@@ -43,6 +49,12 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
         renderer: "dom";
         defaultProps: import("..").ApplicationProps;
     };
+    secondaryWindow: import("..").DefaultBoxSize & {
+        key: "secondaryWindow";
+        type: "window";
+        renderer: "dom";
+        defaultProps: {};
+    };
     textBox: import("..").DefaultBoxSize & {
         key: "textBox";
         type: "whiteboard";
@@ -71,6 +83,12 @@ export declare const useMutationNodeState: <K extends "chrome" | "vsCode" | "tex
         type: "application";
         renderer: "dom";
         defaultProps: import("..").ApplicationProps;
+    };
+    secondaryWindow: import("..").DefaultBoxSize & {
+        key: "secondaryWindow";
+        type: "window";
+        renderer: "dom";
+        defaultProps: {};
     };
     textBox: import("..").DefaultBoxSize & {
         key: "textBox";

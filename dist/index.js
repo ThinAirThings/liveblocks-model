@@ -43,6 +43,16 @@ exports.NodeDataTypeIndex = {
             height: 600
         }
     },
+    'secondaryWindow': {
+        type: 'window',
+        renderer: 'dom',
+        key: 'secondaryWindow',
+        defaultProps: {},
+        defaultBoxSize: {
+            width: 836,
+            height: 600
+        }
+    },
     "textBox": {
         type: 'whiteboard',
         renderer: 'dom',
