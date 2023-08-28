@@ -1,18 +1,6 @@
 import { LiveMap, LiveObject } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils";
-type NodeDataType = {
-    type: 'application' | 'widget' | 'whiteboard' | 'window';
-    renderer: 'pixi' | 'dom';
-    key: string;
-    defaultProps: {
-        [key: string]: any;
-    };
-    defaultBoxSize: {
-        width: number;
-        height: number;
-    };
-};
 export type DefaultBoxSize = {
     defaultBoxSize: {
         width: number;
@@ -22,56 +10,32 @@ export type DefaultBoxSize = {
 export type ApplicationProps = {
     appDataId: string;
 };
-export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
+export type FilterNodeKeysByProperty<P> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
-    "chrome": DefaultBoxSize & {
-        key: 'chrome';
-        type: 'application';
-        renderer: 'dom';
-        defaultProps: ApplicationProps & {
-            url: string;
+    readonly rootThought: {
+        readonly renderer: "pixi";
+        readonly key: "rootThought";
+        readonly defaultProps: {
+            readonly rawPrompt: "";
         };
-    };
-    "vsCode": DefaultBoxSize & {
-        key: 'vsCode';
-        type: 'application';
-        renderer: 'dom';
-        defaultProps: ApplicationProps;
-    };
-    'secondaryWindow': DefaultBoxSize & {
-        key: 'secondaryWindow';
-        type: 'window';
-        renderer: 'dom';
-        defaultProps: {};
-    };
-    "textBox": DefaultBoxSize & {
-        key: 'textBox';
-        type: 'whiteboard';
-        renderer: 'dom';
-        defaultProps: {
-            content: string;
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
         };
-    };
-    "rectangle": DefaultBoxSize & {
-        key: 'rectangle';
-        type: 'whiteboard';
-        renderer: 'pixi';
-        defaultProps: {};
     };
 };
 export type NodeId = string;
 export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     nodeId: string;
     key: typeof NodeDataTypeIndex[K]['key'];
-    type: typeof NodeDataTypeIndex[K]['type'];
     renderer: typeof NodeDataTypeIndex[K]['renderer'];
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
         [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['renderer'] extends ('pixi' | 'dom') ? {
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & {
         containerState: LiveObject<ContainerState>;
-    } : {})>;
+    }>;
 }>;
 export type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>;
 export declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>({ key, state }: {

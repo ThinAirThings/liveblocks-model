@@ -1,11 +1,9 @@
 import { MutationHook } from "..";
 export declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
-    key: "chrome" | "vsCode" | "secondaryWindow" | "textBox" | "rectangle";
-    state: ({} | import("..").ApplicationProps | (import("..").ApplicationProps & {
-        url: string;
-    }) | {
-        content: string;
-    }) & {
+    key: "rootThought";
+    state: {
+        readonly rawPrompt: "";
+    } & {
         containerState: import("@thinairthings/zoom-utils").ContainerState;
     };
 }) => string;

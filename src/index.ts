@@ -3,18 +3,6 @@ import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
-type NodeDataType = {
-    type: 'application' | 'widget' | 'whiteboard' | 'window'
-    renderer: 'pixi' | 'dom'
-    key: string
-    defaultProps: {
-        [key: string]: any
-    }
-    defaultBoxSize: {
-        width: number
-        height: number
-    }
-}
 
 export type DefaultBoxSize = {
     defaultBoxSize: {
@@ -25,118 +13,33 @@ export type DefaultBoxSize = {
 export type ApplicationProps = {
     appDataId: string
 }
-export type FilterNodeKeysByProperty<P extends Partial<NodeDataType>> = {
+export type FilterNodeKeysByProperty<P> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
 
-export const NodeDataTypeIndex:  {
-    "chrome": DefaultBoxSize & {
-        key: 'chrome',
-        type: 'application',
-        renderer: 'dom'
-        defaultProps: ApplicationProps & {
-            url: string
-        },
-    },
-    "vsCode": DefaultBoxSize & {
-        key: 'vsCode',
-        type: 'application',
-        renderer: 'dom'
-        defaultProps: ApplicationProps
-    }
-    'secondaryWindow': DefaultBoxSize & {
-        key: 'secondaryWindow',
-        type: 'window',
-        renderer: 'dom'
-        defaultProps: {}
-    }
-    "textBox": DefaultBoxSize & {
-        key: 'textBox',
-        type: 'whiteboard',
-        renderer: 'dom'
-        defaultProps: {
-            content: string
-        }
-    }
-    "rectangle": DefaultBoxSize & {
-        key: 'rectangle',
-        type: 'whiteboard',
+export const NodeDataTypeIndex = {
+    "rootThought": {
         renderer: 'pixi',
-        defaultProps: {},
-    }
-    // End of Types
-} = {
-    "chrome": {
-        key: 'chrome',
-        type: 'application' ,
-        renderer: 'dom',
+        key: 'rootThought',
         defaultProps: {
-            appDataId: "default",
-            url: "https://google.com"
+            rawPrompt: ''
         },
         defaultBoxSize: {
-            width: 836,
-            height: 600
+            width: 400,
+            height: 400
         }
     },
-    "vsCode": {
-        type: 'application',
-        renderer: 'dom',
-        key: 'vsCode',
-        defaultProps: {
-            appDataId: "default",
-        },
-        defaultBoxSize: {
-            width: 836,
-            height: 600
-        }
-    },
-    'secondaryWindow': {
-        type: 'window',
-        renderer: 'dom',
-        key: 'secondaryWindow',
-        defaultProps: {},
-        defaultBoxSize: {
-            width: 836,
-            height: 600
-        }
-    },
-    "textBox": {
-        type: 'whiteboard',
-        renderer: 'dom',
-        key: 'textBox',
-        defaultProps: {
-            content: "Hello World"
-        },
-        defaultBoxSize: {
-            width: 200,
-            height: 50
-        }
-    },
-    "rectangle": {
-        type: 'whiteboard',
-        renderer: 'pixi',
-        key: 'rectangle',
-        defaultProps: {},
-        defaultBoxSize: {
-            width: 100,
-            height: 100
-        }
-    },
-}
+} as const 
 
 export type NodeId = string
 export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
     nodeId: string
     key: typeof NodeDataTypeIndex[K]['key']
-    type: typeof NodeDataTypeIndex[K]['type']
     renderer: typeof NodeDataTypeIndex[K]['renderer']
     state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {[key: string]: any} ? typeof NodeDataTypeIndex[K]['defaultProps'] : never)
-    & (
-        typeof NodeDataTypeIndex[K]['renderer'] extends ('pixi' | 'dom' ) ? {
-            containerState: LiveObject<ContainerState>
-        } : {}
-    )>
+    & {
+        containerState: LiveObject<ContainerState>
+    }>
 }>
 export type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>
 export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
@@ -151,21 +54,14 @@ export function createAirNode<K extends keyof typeof NodeDataTypeIndex>({
         } : {}
     )
 }): AirNode<K> {
-    const t = key
     return new LiveObject({
         nodeId: uuidv4(),
         key: NodeDataTypeIndex[key].key,
-        type: NodeDataTypeIndex[key].type,
         renderer: NodeDataTypeIndex[key].renderer,
         state: new LiveObject({
             ...state,
-            ...typeof state.containerState !== 'undefined' 
-            ? {
-                containerState: new LiveObject(state.containerState)
-            } 
-            : {}
+            containerState: new LiveObject(state.containerState)
         }),
-        children: new LiveMap()
     }) as unknown as AirNode<K>
 }
 

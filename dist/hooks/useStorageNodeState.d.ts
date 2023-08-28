@@ -1,107 +1,38 @@
 import { NodeDataTypeIndex, StorageHook } from "..";
-export declare const useStorageNodeState: <K extends "chrome" | "vsCode" | "secondaryWindow" | "textBox" | "rectangle">(useStorage: StorageHook, nodeId: string, propKey: keyof {
-    chrome: import("..").DefaultBoxSize & {
-        key: "chrome";
-        type: "application";
-        renderer: "dom";
-        defaultProps: import("..").ApplicationProps & {
-            url: string;
+export declare const useStorageNodeState: <K extends "rootThought">(useStorage: StorageHook, nodeId: string, propKey: keyof {
+    readonly rootThought: {
+        readonly renderer: "pixi";
+        readonly key: "rootThought";
+        readonly defaultProps: {
+            readonly rawPrompt: "";
         };
-    };
-    vsCode: import("..").DefaultBoxSize & {
-        key: "vsCode";
-        type: "application";
-        renderer: "dom";
-        defaultProps: import("..").ApplicationProps;
-    };
-    secondaryWindow: import("..").DefaultBoxSize & {
-        key: "secondaryWindow";
-        type: "window";
-        renderer: "dom";
-        defaultProps: {};
-    };
-    textBox: import("..").DefaultBoxSize & {
-        key: "textBox";
-        type: "whiteboard";
-        renderer: "dom";
-        defaultProps: {
-            content: string;
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
         };
-    };
-    rectangle: import("..").DefaultBoxSize & {
-        key: "rectangle";
-        type: "whiteboard";
-        renderer: "pixi";
-        defaultProps: {};
     };
 }[K]["defaultProps"]) => {
-    chrome: import("..").DefaultBoxSize & {
-        key: "chrome";
-        type: "application";
-        renderer: "dom";
-        defaultProps: import("..").ApplicationProps & {
-            url: string;
+    readonly rootThought: {
+        readonly renderer: "pixi";
+        readonly key: "rootThought";
+        readonly defaultProps: {
+            readonly rawPrompt: "";
         };
-    };
-    vsCode: import("..").DefaultBoxSize & {
-        key: "vsCode";
-        type: "application";
-        renderer: "dom";
-        defaultProps: import("..").ApplicationProps;
-    };
-    secondaryWindow: import("..").DefaultBoxSize & {
-        key: "secondaryWindow";
-        type: "window";
-        renderer: "dom";
-        defaultProps: {};
-    };
-    textBox: import("..").DefaultBoxSize & {
-        key: "textBox";
-        type: "whiteboard";
-        renderer: "dom";
-        defaultProps: {
-            content: string;
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
         };
-    };
-    rectangle: import("..").DefaultBoxSize & {
-        key: "rectangle";
-        type: "whiteboard";
-        renderer: "pixi";
-        defaultProps: {};
     };
 }[K]["defaultProps"][keyof {
-    chrome: import("..").DefaultBoxSize & {
-        key: "chrome";
-        type: "application";
-        renderer: "dom";
-        defaultProps: import("..").ApplicationProps & {
-            url: string;
+    readonly rootThought: {
+        readonly renderer: "pixi";
+        readonly key: "rootThought";
+        readonly defaultProps: {
+            readonly rawPrompt: "";
         };
-    };
-    vsCode: import("..").DefaultBoxSize & {
-        key: "vsCode";
-        type: "application";
-        renderer: "dom";
-        defaultProps: import("..").ApplicationProps;
-    };
-    secondaryWindow: import("..").DefaultBoxSize & {
-        key: "secondaryWindow";
-        type: "window";
-        renderer: "dom";
-        defaultProps: {};
-    };
-    textBox: import("..").DefaultBoxSize & {
-        key: "textBox";
-        type: "whiteboard";
-        renderer: "dom";
-        defaultProps: {
-            content: string;
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
         };
-    };
-    rectangle: import("..").DefaultBoxSize & {
-        key: "rectangle";
-        type: "whiteboard";
-        renderer: "pixi";
-        defaultProps: {};
     };
 }[K]["defaultProps"]];
