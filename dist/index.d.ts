@@ -15,7 +15,7 @@ export type FilterNodeKeysByProperty<P> = {
 }[keyof typeof NodeDataTypeIndex];
 export declare const NodeDataTypeIndex: {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";

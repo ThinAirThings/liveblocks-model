@@ -19,7 +19,7 @@ const client_1 = require("@liveblocks/client");
 const uuid_1 = require("uuid");
 exports.NodeDataTypeIndex = {
     "rootThought": {
-        renderer: 'pixi',
+        renderer: 'dom',
         key: 'rootThought',
         defaultProps: {
             rawPrompt: ''

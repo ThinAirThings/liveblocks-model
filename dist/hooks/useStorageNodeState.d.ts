@@ -1,7 +1,7 @@
 import { NodeDataTypeIndex, StorageHook } from "..";
 export declare const useStorageNodeState: <K extends "rootThought">(useStorage: StorageHook, nodeId: string, propKey: keyof {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";
@@ -13,7 +13,7 @@ export declare const useStorageNodeState: <K extends "rootThought">(useStorage: 
     };
 }[K]["defaultProps"]) => {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";
@@ -25,7 +25,7 @@ export declare const useStorageNodeState: <K extends "rootThought">(useStorage: 
     };
 }[K]["defaultProps"][keyof {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";

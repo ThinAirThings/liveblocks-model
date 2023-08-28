@@ -1,7 +1,7 @@
 import { MutationHook, NodeDataTypeIndex } from "..";
 export declare const useMutationNodeState: <K extends "rootThought">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";
@@ -13,7 +13,7 @@ export declare const useMutationNodeState: <K extends "rootThought">(useMutation
     };
 }[K]["defaultProps"]) => (value: {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";
@@ -25,7 +25,7 @@ export declare const useMutationNodeState: <K extends "rootThought">(useMutation
     };
 }[K]["defaultProps"][keyof {
     readonly rootThought: {
-        readonly renderer: "pixi";
+        readonly renderer: "dom";
         readonly key: "rootThought";
         readonly defaultProps: {
             readonly rawPrompt: "";

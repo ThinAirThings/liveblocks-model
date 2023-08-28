@@ -19,7 +19,7 @@ export type FilterNodeKeysByProperty<P> = {
 
 export const NodeDataTypeIndex = {
     "rootThought": {
-        renderer: 'pixi',
+        renderer: 'dom',
         key: 'rootThought',
         defaultProps: {
             rawPrompt: ''

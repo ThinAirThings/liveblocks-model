@@ -2,7 +2,7 @@ import { StorageHook } from "..";
 export declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string, {
     readonly nodeId: string;
     readonly key: "rootThought";
-    readonly renderer: "pixi";
+    readonly renderer: "dom";
     readonly state: {
         readonly rawPrompt: "";
         readonly containerState: {
