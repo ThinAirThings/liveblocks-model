@@ -54,6 +54,7 @@ export const LiveblocksRoomProvider = ({
         })).body) as {
             token: string
         }
+        console.log(response)
         return response
     }, [])
     return (
