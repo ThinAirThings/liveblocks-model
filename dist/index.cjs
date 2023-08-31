@@ -133,18 +133,18 @@ var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 var import_jsx_runtime = require("react/jsx-runtime");
 var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
-  suspense: {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useOthers,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext
-  }
+  // suspense: {
+  useRoom,
+  useMyPresence,
+  useUpdateMyPresence,
+  useOthersMapped,
+  useOthers,
+  useStorage,
+  RoomProvider,
+  useMutation,
+  useSelf,
+  RoomContext
+  // }
 } = (0, import_react.createRoomContext)((0, import_client.createClient)({
   polyfills: {
     WebSocket: import_ws.default

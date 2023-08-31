@@ -9,7 +9,7 @@ import {LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
 
 const secretsClient = new SecretsManagerClient({region: "us-east-1"});
 export const {
-    suspense: {
+    // suspense: {
         useRoom,
         useMyPresence,
         useUpdateMyPresence,
@@ -20,7 +20,7 @@ export const {
         useMutation,
         useSelf,
         RoomContext
-    }
+    // }
 } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(createClient({
     polyfills: {
         WebSocket: nodeWebsocket

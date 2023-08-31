@@ -49,7 +49,7 @@ export declare const useRoom: () => import("@liveblocks/core").Room<LiveblocksPr
             };
         };
     }>;
-}) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined) => T, RoomProvider: (props: {
+}) => T, isEqual?: ((prev: T | null, curr: T | null) => boolean) | undefined) => T | null, RoomProvider: (props: {
     id: string;
     children: ReactNode;
     shouldInitiallyConnect?: boolean | undefined;
@@ -57,8 +57,8 @@ export declare const useRoom: () => import("@liveblocks/core").Room<LiveblocksPr
     initialPresence: LiveblocksPresence | ((roomId: string) => LiveblocksPresence);
     initialStorage?: LiveblocksStorageModel | ((roomId: string) => LiveblocksStorageModel) | undefined;
 }) => JSX.Element, useMutation: <F extends (context: import("@liveblocks/react").MutationContext<LiveblocksPresence, LiveblocksStorageModel, import("@liveblocks/core").BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never, useSelf: {
-    (): import("@liveblocks/core").User<LiveblocksPresence, import("@liveblocks/core").BaseUserMeta>;
-    <T>(selector: (me: import("@liveblocks/core").User<LiveblocksPresence, import("@liveblocks/core").BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T;
+    (): import("@liveblocks/core").User<LiveblocksPresence, import("@liveblocks/core").BaseUserMeta> | null;
+    <T>(selector: (me: import("@liveblocks/core").User<LiveblocksPresence, import("@liveblocks/core").BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T | null;
 }, RoomContext: import("react").Context<import("@liveblocks/core").Room<LiveblocksPresence, LiveblocksStorageModel, import("@liveblocks/core").BaseUserMeta, never> | null>;
 export declare const LiveblocksRoomProvider: ({ userId, spaceId, serverName, children }: {
     userId: string;
