@@ -184,7 +184,7 @@ var LiveblocksRoomProvider = ({
         selectedNodeIds: [],
         focusedNodeId: null
       },
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.Suspense, { children })
+      children
     }
   );
 };

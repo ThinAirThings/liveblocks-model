@@ -1,5 +1,5 @@
 import { LiveMap, createClient } from '@liveblocks/client'
-import {createRoomContext} from '@liveblocks/react'
+import {createRoomContext, ClientSideSuspense} from '@liveblocks/react'
 import nodeWebsocket from "ws";
 import { authorize } from "@liveblocks/node";
 import { ReactNode, Suspense, useCallback } from 'react';
@@ -71,9 +71,7 @@ export const LiveblocksRoomProvider = ({
                 focusedNodeId: null,
             }}
         >
-            <Suspense>
-                {children}
-            </Suspense> 
+            {children}
         </RoomProvider>
     )
 }

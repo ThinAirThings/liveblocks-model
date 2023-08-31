@@ -74,7 +74,7 @@ import { createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import nodeWebsocket from "ws";
 import { authorize } from "@liveblocks/node";
-import { Suspense, useCallback } from "react";
+import { useCallback } from "react";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 import { jsx } from "react/jsx-runtime";
 var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
@@ -130,7 +130,7 @@ var LiveblocksRoomProvider = ({
         selectedNodeIds: [],
         focusedNodeId: null
       },
-      children: /* @__PURE__ */ jsx(Suspense, { children })
+      children
     }
   );
 };
