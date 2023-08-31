@@ -9,6 +9,9 @@
         "import": "./dist/index.js",
         "require": "./dist/index.cjs"
     },
+    "files": [
+        "dist"
+    ],
     "dependencies": {
         "@aws-sdk/client-secrets-manager": "^3.398.0",
         "@liveblocks/client": "^1.2.4",
