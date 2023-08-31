@@ -104,6 +104,7 @@ var LiveblocksRoomProvider = ({
   serverName,
   children
 }) => {
+  console.log("Room provider");
   authorizationCallback = useCallback(async () => {
     const response = JSON.parse((await authorize({
       room: spaceId,

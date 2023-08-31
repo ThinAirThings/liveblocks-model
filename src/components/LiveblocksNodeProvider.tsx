@@ -43,6 +43,7 @@ export const LiveblocksRoomProvider = ({
     serverName: string
     children: ReactNode
 }) => {
+    console.log("Room provider")
     authorizationCallback = useCallback( async () => {
         const response =  JSON.parse((await authorize({
             room: spaceId,

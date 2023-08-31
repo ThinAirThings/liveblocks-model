@@ -158,6 +158,7 @@ var LiveblocksRoomProvider = ({
   serverName,
   children
 }) => {
+  console.log("Room provider");
   authorizationCallback = (0, import_react2.useCallback)(async () => {
     const response = JSON.parse((await (0, import_node.authorize)({
       room: spaceId,
