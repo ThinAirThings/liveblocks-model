@@ -1,4 +1,4 @@
-import { MutationHook } from ".."
+import { MutationHook } from "../index.js"
 
 export const useMutationDeleteNode = (
     useMutation: MutationHook

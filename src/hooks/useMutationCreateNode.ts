@@ -1,4 +1,4 @@
-import { MutationHook, createAirNode } from ".."
+import { MutationHook, createAirNode } from "../index.js"
 
 export const useMutationCreateNode = (useMutation: MutationHook) => {
     return useMutation(({storage}, {key, state}: Parameters<typeof createAirNode>[0]) => {

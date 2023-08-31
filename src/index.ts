@@ -3,7 +3,6 @@ import { createRoomContext } from "@liveblocks/react"
 import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import {v4 as uuidv4} from 'uuid'
 
-
 export type DefaultBoxSize = {
     defaultBoxSize: {
         width: number
@@ -29,6 +28,33 @@ export const NodeDataTypeIndex = {
             height: 400
         }
     },
+    "thought": {
+        renderer: 'dom',
+        key: 'thought',
+        defaultProps: {
+            timestamp: '',
+            rawThought: '',
+            mainIdea: '',
+            keyPoints: [] as string[],
+            abstract: '',
+            trainOfThought:  [] as string[],
+        },
+        defaultBoxSize: {
+            width: 400,
+            height: 400
+        }
+    },
+    "basicStockChart": {
+        renderer: 'dom',
+        key: 'basicStockChart',
+        defaultProps: {
+            data: [] as Array<{time: string, value: number}>
+        },
+        defaultBoxSize: {
+            width: 600,
+            height: 400
+        }
+    }
 } as const 
 
 export type NodeId = string
@@ -83,11 +109,12 @@ export type LiveblocksPresence = {
 export type StorageHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage']
 export type MutationHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation']
 
-export * from './hooks/useMutationNodeState'
-export * from './hooks/useStorageNodeState'
-export * from './hooks/useMutationCreateNode'
-export * from './hooks/useMutationDeleteNode'
-export * from './hooks/useMutationContainerState'
-export * from './hooks/useStorageContainerState'
-export * from './hooks/useStorageContainerStateMap'
-export * from './hooks/useStorageNodeMap'
+export * from './hooks/useMutationNodeState.js'
+export * from './hooks/useStorageNodeState.js'
+export * from './hooks/useMutationCreateNode.js'
+export * from './hooks/useMutationDeleteNode.js'
+export * from './hooks/useMutationContainerState.js'
+export * from './hooks/useStorageContainerState.js'
+export * from './hooks/useStorageContainerStateMap.js'
+export * from './hooks/useStorageNodeMap.js'
+export * from './components/LiveblocksNodeProvider.js'

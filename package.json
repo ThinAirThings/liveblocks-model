@@ -1,32 +1,43 @@
 {
-  "name": "@thinairthings/liveblocks-model",
-  "version": "1.0.69",
-  "description": "Thin Air Liveblocks Model",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ThinAirThings/liveblocks-model.git"
-  },
-  "scripts": {
-    "npmpub": "tsc && git add . && git commit -m \"mod\" && git push && npm version patch && npm publish"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
-  },
-  "keywords": [],
-  "author": "Dan Lannan",
-  "dependencies": {
-    "@liveblocks/client": "^1.1.4",
-    "@liveblocks/react": "^1.1.4",
-    "@thinairthings/zoom-utils": "^1.0.12",
-    "lodash.isequal": "^4.5.0",
-    "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "@types/lodash.isequal": "^4.5.6",
-    "@types/react": "^18.2.14",
-    "@types/uuid": "^9.0.2"
-  }
+    "name": "@thinairthings/liveblocks-model",
+    "version": "1.0.69",
+    "description": "Thin Air Liveblocks Model",
+    "types": "dist/index.d.ts",
+    "type": "module",
+    "exports": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "require": "./dist/index.cjs"
+    },
+    "dependencies": {
+        "@aws-sdk/client-secrets-manager": "^3.398.0",
+        "@liveblocks/client": "^1.2.4",
+        "@liveblocks/node": "^1.2.4",
+        "@liveblocks/react": "^1.2.4",
+        "@thinairthings/zoom-utils": "^1.0.12",
+        "lodash.isequal": "^4.5.0",
+        "uuid": "^9.0.0",
+        "ws": "^8.13.0"
+    },
+    "devDependencies": {
+        "@types/lodash.isequal": "^4.5.6",
+        "@types/react": "^18.2.14",
+        "@types/uuid": "^9.0.2",
+        "@types/ws": "^8.5.5",
+        "esbuild": "^0.19.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ThinAirThings/liveblocks-model.git"
+    },
+    "scripts": {
+        "build": "node ./esbuild.mjs && tsc --emitDeclarationOnly",
+        "npmpub": "npm run build && git add . && git commit -m \"mod\" && git push && npm version patch && npm publish"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/",
+        "access": "restricted"
+    },
+    "keywords": [],
+    "author": "Dan Lannan"
 }

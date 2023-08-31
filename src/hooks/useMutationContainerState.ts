@@ -1,5 +1,5 @@
 import { ContainerState } from "@thinairthings/zoom-utils"
-import { MutationHook } from ".."
+import { MutationHook } from "../index.js"
 
 export const useMutationContainerState = (useMutation: MutationHook) => {
     return useMutation(({storage}, nodeId: string, containerState: Partial<ContainerState>) => {

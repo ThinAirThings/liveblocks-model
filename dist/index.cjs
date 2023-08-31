@@ -1,6 +1,60 @@
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
 // src/index.ts
-import { LiveObject } from "@liveblocks/client";
-import { v4 as uuidv4 } from "uuid";
+var src_exports = {};
+__export(src_exports, {
+  LiveblocksRoomProvider: () => LiveblocksRoomProvider,
+  NodeDataTypeIndex: () => NodeDataTypeIndex,
+  RoomContext: () => RoomContext,
+  RoomProvider: () => RoomProvider,
+  createAirNode: () => createAirNode,
+  useMutation: () => useMutation,
+  useMutationContainerState: () => useMutationContainerState,
+  useMutationCreateNode: () => useMutationCreateNode,
+  useMutationDeleteNode: () => useMutationDeleteNode,
+  useMutationNodeState: () => useMutationNodeState,
+  useMyPresence: () => useMyPresence,
+  useOthers: () => useOthers,
+  useOthersMapped: () => useOthersMapped,
+  useRoom: () => useRoom,
+  useSelf: () => useSelf,
+  useStorage: () => useStorage,
+  useStorageContainerState: () => useStorageContainerState,
+  useStorageContainerStateMap: () => useStorageContainerStateMap,
+  useStorageNodeMap: () => useStorageNodeMap,
+  useStorageNodeState: () => useStorageNodeState,
+  useUpdateMyPresence: () => useUpdateMyPresence
+});
+module.exports = __toCommonJS(src_exports);
+var import_client2 = require("@liveblocks/client");
+var import_uuid = require("uuid");
 
 // src/hooks/useMutationNodeState.ts
 var useMutationNodeState = (useMutation2, nodeId, propKey) => {
@@ -50,7 +104,7 @@ var useMutationContainerState = (useMutation2) => {
 var useStorageContainerState = (useStorage2, nodeId) => useStorage2((root) => root.nodeMap.get(nodeId)?.state.containerState);
 
 // src/hooks/useStorageContainerStateMap.ts
-import _isEqual from "lodash.isequal";
+var import_lodash = __toESM(require("lodash.isequal"), 1);
 var useStorageContainerStateMap = (useStorage2, nodeIds) => {
   return useStorage2(
     (root) => {
@@ -60,7 +114,7 @@ var useStorageContainerStateMap = (useStorage2, nodeIds) => {
         })
       );
     },
-    (a, b) => _isEqual(a, b)
+    (a, b) => (0, import_lodash.default)(a, b)
   );
 };
 
@@ -70,14 +124,14 @@ var useStorageNodeMap = (useStorage2) => {
 };
 
 // src/components/LiveblocksNodeProvider.tsx
-import { createClient } from "@liveblocks/client";
-import { createRoomContext } from "@liveblocks/react";
-import nodeWebsocket from "ws";
-import { authorize } from "@liveblocks/node";
-import { Suspense, useCallback } from "react";
-import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
-import { jsx } from "react/jsx-runtime";
-var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
+var import_client = require("@liveblocks/client");
+var import_react = require("@liveblocks/react");
+var import_ws = __toESM(require("ws"), 1);
+var import_node = require("@liveblocks/node");
+var import_react2 = require("react");
+var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
+var import_jsx_runtime = require("react/jsx-runtime");
+var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
   suspense: {
     useRoom,
@@ -91,9 +145,9 @@ var {
     useSelf,
     RoomContext
   }
-} = createRoomContext(createClient({
+} = (0, import_react.createRoomContext)((0, import_client.createClient)({
   polyfills: {
-    WebSocket: nodeWebsocket
+    WebSocket: import_ws.default
   },
   authEndpoint: async () => authorizationCallback?.()
 }));
@@ -104,18 +158,18 @@ var LiveblocksRoomProvider = ({
   serverName,
   children
 }) => {
-  authorizationCallback = useCallback(async () => {
-    const response = JSON.parse((await authorize({
+  authorizationCallback = (0, import_react2.useCallback)(async () => {
+    const response = JSON.parse((await (0, import_node.authorize)({
       room: spaceId,
       userId,
       // secret: process.env.LIVEBLOCKS_API_KEY!
-      secret: (await secretsClient.send(new GetSecretValueCommand({
+      secret: (await secretsClient.send(new import_client_secrets_manager.GetSecretValueCommand({
         SecretId: "LiveblocksToken-dev"
       }))).SecretString
     })).body);
     return response;
   }, []);
-  return /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
     RoomProvider,
     {
       id: spaceId,
@@ -130,7 +184,7 @@ var LiveblocksRoomProvider = ({
         selectedNodeIds: [],
         focusedNodeId: null
       },
-      children: /* @__PURE__ */ jsx(Suspense, { children })
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.Suspense, { children })
     }
   );
 };
@@ -180,17 +234,18 @@ function createAirNode({
   key,
   state
 }) {
-  return new LiveObject({
-    nodeId: uuidv4(),
+  return new import_client2.LiveObject({
+    nodeId: (0, import_uuid.v4)(),
     key: NodeDataTypeIndex[key].key,
     renderer: NodeDataTypeIndex[key].renderer,
-    state: new LiveObject({
+    state: new import_client2.LiveObject({
       ...state,
-      containerState: new LiveObject(state.containerState)
+      containerState: new import_client2.LiveObject(state.containerState)
     })
   });
 }
-export {
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
   LiveblocksRoomProvider,
   NodeDataTypeIndex,
   RoomContext,
@@ -212,4 +267,4 @@ export {
   useStorageNodeMap,
   useStorageNodeState,
   useUpdateMyPresence
-};
+});

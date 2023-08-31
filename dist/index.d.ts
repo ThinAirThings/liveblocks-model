@@ -25,6 +25,36 @@ export declare const NodeDataTypeIndex: {
             readonly height: 400;
         };
     };
+    readonly thought: {
+        readonly renderer: "dom";
+        readonly key: "thought";
+        readonly defaultProps: {
+            readonly timestamp: "";
+            readonly rawThought: "";
+            readonly mainIdea: "";
+            readonly keyPoints: string[];
+            readonly abstract: "";
+            readonly trainOfThought: string[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly basicStockChart: {
+        readonly renderer: "dom";
+        readonly key: "basicStockChart";
+        readonly defaultProps: {
+            readonly data: {
+                time: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 };
 export type NodeId = string;
 export type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
@@ -62,11 +92,12 @@ export type LiveblocksPresence = {
 };
 export type StorageHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage'];
 export type MutationHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation'];
-export * from './hooks/useMutationNodeState';
-export * from './hooks/useStorageNodeState';
-export * from './hooks/useMutationCreateNode';
-export * from './hooks/useMutationDeleteNode';
-export * from './hooks/useMutationContainerState';
-export * from './hooks/useStorageContainerState';
-export * from './hooks/useStorageContainerStateMap';
-export * from './hooks/useStorageNodeMap';
+export * from './hooks/useMutationNodeState.js';
+export * from './hooks/useStorageNodeState.js';
+export * from './hooks/useMutationCreateNode.js';
+export * from './hooks/useMutationDeleteNode.js';
+export * from './hooks/useMutationContainerState.js';
+export * from './hooks/useStorageContainerState.js';
+export * from './hooks/useStorageContainerStateMap.js';
+export * from './hooks/useStorageNodeMap.js';
+export * from './components/LiveblocksNodeProvider.js';

@@ -1,4 +1,4 @@
-import { ImmutableAirNode, NodeDataTypeIndex, StorageHook } from "..";
+import { ImmutableAirNode, NodeDataTypeIndex, StorageHook } from "../index.js";
 
 export const useStorageNodeState = <
     K extends keyof typeof NodeDataTypeIndex,

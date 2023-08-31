@@ -1,5 +1,5 @@
-import { MutationHook, NodeDataTypeIndex } from "..";
-export declare const useMutationNodeState: <K extends "rootThought">(useMutation: MutationHook, nodeId: string, propKey: keyof {
+import { MutationHook, NodeDataTypeIndex } from "../index.js";
+export declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basicStockChart">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     readonly rootThought: {
         readonly renderer: "dom";
         readonly key: "rootThought";
@@ -8,6 +8,36 @@ export declare const useMutationNodeState: <K extends "rootThought">(useMutation
         };
         readonly defaultBoxSize: {
             readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly thought: {
+        readonly renderer: "dom";
+        readonly key: "thought";
+        readonly defaultProps: {
+            readonly timestamp: "";
+            readonly rawThought: "";
+            readonly mainIdea: "";
+            readonly keyPoints: string[];
+            readonly abstract: "";
+            readonly trainOfThought: string[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly basicStockChart: {
+        readonly renderer: "dom";
+        readonly key: "basicStockChart";
+        readonly defaultProps: {
+            readonly data: {
+                time: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
             readonly height: 400;
         };
     };
@@ -23,6 +53,36 @@ export declare const useMutationNodeState: <K extends "rootThought">(useMutation
             readonly height: 400;
         };
     };
+    readonly thought: {
+        readonly renderer: "dom";
+        readonly key: "thought";
+        readonly defaultProps: {
+            readonly timestamp: "";
+            readonly rawThought: "";
+            readonly mainIdea: "";
+            readonly keyPoints: string[];
+            readonly abstract: "";
+            readonly trainOfThought: string[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly basicStockChart: {
+        readonly renderer: "dom";
+        readonly key: "basicStockChart";
+        readonly defaultProps: {
+            readonly data: {
+                time: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 }[K]["defaultProps"][keyof {
     readonly rootThought: {
         readonly renderer: "dom";
@@ -32,6 +92,36 @@ export declare const useMutationNodeState: <K extends "rootThought">(useMutation
         };
         readonly defaultBoxSize: {
             readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly thought: {
+        readonly renderer: "dom";
+        readonly key: "thought";
+        readonly defaultProps: {
+            readonly timestamp: "";
+            readonly rawThought: "";
+            readonly mainIdea: "";
+            readonly keyPoints: string[];
+            readonly abstract: "";
+            readonly trainOfThought: string[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly basicStockChart: {
+        readonly renderer: "dom";
+        readonly key: "basicStockChart";
+        readonly defaultProps: {
+            readonly data: {
+                time: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
             readonly height: 400;
         };
     };
