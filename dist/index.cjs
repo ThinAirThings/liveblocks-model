@@ -46,6 +46,7 @@ __export(src_exports, {
   useOthersMapped: () => useOthersMapped,
   useRoom: () => useRoom,
   useSelf: () => useSelf,
+  useStatus: () => useStatus,
   useStorage: () => useStorage,
   useStorageContainerState: () => useStorageContainerState,
   useStorageContainerStateMap: () => useStorageContainerStateMap,
@@ -135,6 +136,7 @@ var import_jsx_runtime = require("react/jsx-runtime");
 var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
+  useStatus,
   useErrorListener,
   useRoom,
   useMyPresence,
@@ -265,6 +267,7 @@ function createAirNode({
   useOthersMapped,
   useRoom,
   useSelf,
+  useStatus,
   useStorage,
   useStorageContainerState,
   useStorageContainerStateMap,

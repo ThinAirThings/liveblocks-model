@@ -335,6 +335,7 @@ declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string
     };
 }>;
 
+declare const useStatus: () => _liveblocks_core.Status;
 declare const useErrorListener: (callback: (err: Error) => void) => void;
 declare const useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta, never>;
 declare const useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
@@ -504,4 +505,4 @@ type LiveblocksPresence = {
 type StorageHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage'];
 type MutationHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation'];
 
-export { AirNode, ApplicationProps, DefaultBoxSize, FilterNodeKeysByProperty, ImmutableAirNode, LiveblocksNodeRoomProvider, LiveblocksPresence, LiveblocksStorageModel, MutationHook, NodeDataTypeIndex, NodeId, RoomContext, RoomProvider, StorageHook, createAirNode, useErrorListener, useMutation, useMutationContainerState, useMutationCreateNode, useMutationDeleteNode, useMutationNodeState, useMyPresence, useOthers, useOthersMapped, useRoom, useSelf, useStorage, useStorageContainerState, useStorageContainerStateMap, useStorageNodeMap, useStorageNodeState, useUpdateMyPresence };
+export { AirNode, ApplicationProps, DefaultBoxSize, FilterNodeKeysByProperty, ImmutableAirNode, LiveblocksNodeRoomProvider, LiveblocksPresence, LiveblocksStorageModel, MutationHook, NodeDataTypeIndex, NodeId, RoomContext, RoomProvider, StorageHook, createAirNode, useErrorListener, useMutation, useMutationContainerState, useMutationCreateNode, useMutationDeleteNode, useMutationNodeState, useMyPresence, useOthers, useOthersMapped, useRoom, useSelf, useStatus, useStorage, useStorageContainerState, useStorageContainerStateMap, useStorageNodeMap, useStorageNodeState, useUpdateMyPresence };

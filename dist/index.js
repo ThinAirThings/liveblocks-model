@@ -80,6 +80,7 @@ import { jsx } from "react/jsx-runtime";
 var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
+  useStatus,
   useErrorListener,
   useRoom,
   useMyPresence,
@@ -209,6 +210,7 @@ export {
   useOthersMapped,
   useRoom,
   useSelf,
+  useStatus,
   useStorage,
   useStorageContainerState,
   useStorageContainerStateMap,
