@@ -134,6 +134,7 @@ var LiveblocksNodeRoomProvider = ({
         selectedNodeIds: [],
         focusedNodeId: null
       },
+      shouldInitiallyConnect: true,
       children
     }
   );

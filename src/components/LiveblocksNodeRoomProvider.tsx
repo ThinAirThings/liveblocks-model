@@ -74,6 +74,7 @@ export const LiveblocksNodeRoomProvider = ({
                 selectedNodeIds: [],
                 focusedNodeId: null,
             }}
+            shouldInitiallyConnect={true}
         >
             {children}
         </RoomProvider>
