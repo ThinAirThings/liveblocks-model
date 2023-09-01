@@ -1,6 +1,60 @@
-// src/index.ts
+// src/model/data-model.ts
 import { LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
+var NodeDataTypeIndex = {
+  "rootThought": {
+    renderer: "dom",
+    key: "rootThought",
+    defaultProps: {
+      rawPrompt: ""
+    },
+    defaultBoxSize: {
+      width: 400,
+      height: 400
+    }
+  },
+  "thought": {
+    renderer: "dom",
+    key: "thought",
+    defaultProps: {
+      timestamp: "",
+      rawThought: "",
+      mainIdea: "",
+      keyPoints: [],
+      abstract: "",
+      trainOfThought: []
+    },
+    defaultBoxSize: {
+      width: 400,
+      height: 400
+    }
+  },
+  "basicStockChart": {
+    renderer: "dom",
+    key: "basicStockChart",
+    defaultProps: {
+      data: []
+    },
+    defaultBoxSize: {
+      width: 600,
+      height: 400
+    }
+  }
+};
+function createAirNode({
+  key,
+  state
+}) {
+  return new LiveObject({
+    nodeId: uuidv4(),
+    key: NodeDataTypeIndex[key].key,
+    renderer: NodeDataTypeIndex[key].renderer,
+    state: new LiveObject({
+      ...state,
+      containerState: new LiveObject(state.containerState)
+    })
+  });
+}
 
 // src/hooks/useMutationNodeState.ts
 var useMutationNodeState = (useMutation2, nodeId, propKey) => {
@@ -78,7 +132,6 @@ import { useCallback } from "react";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 import { Fragment, jsx } from "react/jsx-runtime";
 var {
-  // suspense: {
   useLostConnectionListener,
   useStatus,
   useErrorListener,
@@ -92,7 +145,6 @@ var {
   useMutation,
   useSelf,
   RoomContext
-  // }
 } = createRoomContext(
   createClient({
     polyfills: {
@@ -137,62 +189,6 @@ var LiveblocksNodeRoomProvider = ({
     }
   );
 };
-
-// src/index.ts
-var NodeDataTypeIndex = {
-  "rootThought": {
-    renderer: "dom",
-    key: "rootThought",
-    defaultProps: {
-      rawPrompt: ""
-    },
-    defaultBoxSize: {
-      width: 400,
-      height: 400
-    }
-  },
-  "thought": {
-    renderer: "dom",
-    key: "thought",
-    defaultProps: {
-      timestamp: "",
-      rawThought: "",
-      mainIdea: "",
-      keyPoints: [],
-      abstract: "",
-      trainOfThought: []
-    },
-    defaultBoxSize: {
-      width: 400,
-      height: 400
-    }
-  },
-  "basicStockChart": {
-    renderer: "dom",
-    key: "basicStockChart",
-    defaultProps: {
-      data: []
-    },
-    defaultBoxSize: {
-      width: 600,
-      height: 400
-    }
-  }
-};
-function createAirNode({
-  key,
-  state
-}) {
-  return new LiveObject({
-    nodeId: uuidv4(),
-    key: NodeDataTypeIndex[key].key,
-    renderer: NodeDataTypeIndex[key].renderer,
-    state: new LiveObject({
-      ...state,
-      containerState: new LiveObject(state.containerState)
-    })
-  });
-}
 export {
   LiveblocksNodeRoomProvider,
   NodeDataTypeIndex,

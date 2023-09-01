@@ -1,12 +1,90 @@
-import { LiveObject, LiveMap } from '@liveblocks/client';
 import * as _liveblocks_react from '@liveblocks/react';
 import { createRoomContext } from '@liveblocks/react';
+import { LiveObject, LiveMap } from '@liveblocks/client';
 import * as _thinairthings_zoom_utils from '@thinairthings/zoom-utils';
 import { ContainerState, Point, ViewportState, ScreenState } from '@thinairthings/zoom-utils';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
+
+declare const NodeDataTypeIndex: {
+    readonly rootThought: {
+        readonly renderer: "dom";
+        readonly key: "rootThought";
+        readonly defaultProps: {
+            readonly rawPrompt: "";
+        };
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly thought: {
+        readonly renderer: "dom";
+        readonly key: "thought";
+        readonly defaultProps: {
+            readonly timestamp: "";
+            readonly rawThought: "";
+            readonly mainIdea: "";
+            readonly keyPoints: string[];
+            readonly abstract: "";
+            readonly trainOfThought: string[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 400;
+            readonly height: 400;
+        };
+    };
+    readonly basicStockChart: {
+        readonly renderer: "dom";
+        readonly key: "basicStockChart";
+        readonly defaultProps: {
+            readonly data: {
+                time: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
+};
+type NodeId = string;
+type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
+    nodeId: string;
+    key: typeof NodeDataTypeIndex[K]['key'];
+    renderer: typeof NodeDataTypeIndex[K]['renderer'];
+    state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
+        [key: string]: any;
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & {
+        containerState: LiveObject<ContainerState>;
+    }>;
+}>;
+type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>;
+declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>({ key, state }: {
+    key: K;
+    state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
+        [key: string]: any;
+    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['renderer'] extends 'pixi' | 'dom' ? {
+        containerState: ContainerState;
+    } : {});
+}): AirNode<K>;
+type LiveblocksStorageModel = {
+    nodeMap: LiveMap<string, AirNode<keyof typeof NodeDataTypeIndex>>;
+};
+type LiveblocksPresence = {
+    displayName: string;
+    absoluteCursorState: Point | null;
+    viewportState: ViewportState;
+    mouseSelectionState: {
+        selectionActive: boolean;
+        absoluteSelectionBounds: ScreenState | null;
+    };
+    selectedNodeIds: string[];
+    focusedNodeId: string | null;
+};
 
 declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basicStockChart">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     readonly rootThought: {
@@ -414,96 +492,10 @@ declare const LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, childr
     children: () => ReactNode;
 }) => react_jsx_runtime.JSX.Element;
 
-type DefaultBoxSize = {
-    defaultBoxSize: {
-        width: number;
-        height: number;
-    };
-};
-type ApplicationProps = {
-    appDataId: string;
-};
 type FilterNodeKeysByProperty<P> = {
     [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
 }[keyof typeof NodeDataTypeIndex];
-declare const NodeDataTypeIndex: {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-};
-type NodeId = string;
-type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
-    nodeId: string;
-    key: typeof NodeDataTypeIndex[K]['key'];
-    renderer: typeof NodeDataTypeIndex[K]['renderer'];
-    state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
-        [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & {
-        containerState: LiveObject<ContainerState>;
-    }>;
-}>;
-type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>;
-declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>({ key, state }: {
-    key: K;
-    state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
-        [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['renderer'] extends 'pixi' | 'dom' ? {
-        containerState: ContainerState;
-    } : {});
-}): AirNode<K>;
-type LiveblocksStorageModel = {
-    nodeMap: LiveMap<string, AirNode<keyof typeof NodeDataTypeIndex>>;
-};
-type LiveblocksPresence = {
-    displayName: string;
-    absoluteCursorState: Point | null;
-    viewportState: ViewportState;
-    mouseSelectionState: {
-        selectionActive: boolean;
-        absoluteSelectionBounds: ScreenState | null;
-    };
-    selectedNodeIds: string[];
-    focusedNodeId: string | null;
-};
 type StorageHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage'];
 type MutationHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation'];
 
-export { AirNode, ApplicationProps, DefaultBoxSize, FilterNodeKeysByProperty, ImmutableAirNode, LiveblocksNodeRoomProvider, LiveblocksPresence, LiveblocksStorageModel, MutationHook, NodeDataTypeIndex, NodeId, RoomContext, RoomProvider, StorageHook, createAirNode, useErrorListener, useLostConnectionListener, useMutation, useMutationContainerState, useMutationCreateNode, useMutationDeleteNode, useMutationNodeState, useMyPresence, useOthers, useOthersMapped, useRoom, useSelf, useStatus, useStorage, useStorageContainerState, useStorageContainerStateMap, useStorageNodeMap, useStorageNodeState, useUpdateMyPresence };
+export { AirNode, FilterNodeKeysByProperty, ImmutableAirNode, LiveblocksNodeRoomProvider, LiveblocksPresence, LiveblocksStorageModel, MutationHook, NodeDataTypeIndex, NodeId, RoomContext, RoomProvider, StorageHook, createAirNode, useErrorListener, useLostConnectionListener, useMutation, useMutationContainerState, useMutationCreateNode, useMutationDeleteNode, useMutationNodeState, useMyPresence, useOthers, useOthersMapped, useRoom, useSelf, useStatus, useStorage, useStorageContainerState, useStorageContainerStateMap, useStorageNodeMap, useStorageNodeState, useUpdateMyPresence };

@@ -56,8 +56,64 @@ __export(src_exports, {
   useUpdateMyPresence: () => useUpdateMyPresence
 });
 module.exports = __toCommonJS(src_exports);
-var import_client2 = require("@liveblocks/client");
+
+// src/model/data-model.ts
+var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
+var NodeDataTypeIndex = {
+  "rootThought": {
+    renderer: "dom",
+    key: "rootThought",
+    defaultProps: {
+      rawPrompt: ""
+    },
+    defaultBoxSize: {
+      width: 400,
+      height: 400
+    }
+  },
+  "thought": {
+    renderer: "dom",
+    key: "thought",
+    defaultProps: {
+      timestamp: "",
+      rawThought: "",
+      mainIdea: "",
+      keyPoints: [],
+      abstract: "",
+      trainOfThought: []
+    },
+    defaultBoxSize: {
+      width: 400,
+      height: 400
+    }
+  },
+  "basicStockChart": {
+    renderer: "dom",
+    key: "basicStockChart",
+    defaultProps: {
+      data: []
+    },
+    defaultBoxSize: {
+      width: 600,
+      height: 400
+    }
+  }
+};
+function createAirNode({
+  key,
+  state
+}) {
+  return new import_client.LiveObject({
+    nodeId: (0, import_uuid.v4)(),
+    key: NodeDataTypeIndex[key].key,
+    renderer: NodeDataTypeIndex[key].renderer,
+    state: new import_client.LiveObject({
+      ...state,
+      containerState: new import_client.LiveObject(state.containerState)
+    })
+  });
+}
 
 // src/hooks/useMutationNodeState.ts
 var useMutationNodeState = (useMutation2, nodeId, propKey) => {
@@ -127,7 +183,7 @@ var useStorageNodeMap = (useStorage2) => {
 };
 
 // src/components/LiveblocksNodeRoomProvider.tsx
-var import_client = require("@liveblocks/client");
+var import_client2 = require("@liveblocks/client");
 var import_react = require("@liveblocks/react");
 var import_ws = __toESM(require("ws"), 1);
 var import_node = require("@liveblocks/node");
@@ -135,7 +191,6 @@ var import_react2 = require("react");
 var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 var import_jsx_runtime = require("react/jsx-runtime");
 var {
-  // suspense: {
   useLostConnectionListener,
   useStatus,
   useErrorListener,
@@ -149,9 +204,8 @@ var {
   useMutation,
   useSelf,
   RoomContext
-  // }
 } = (0, import_react.createRoomContext)(
-  (0, import_client.createClient)({
+  (0, import_client2.createClient)({
     polyfills: {
       WebSocket: import_ws.default
     },
@@ -194,62 +248,6 @@ var LiveblocksNodeRoomProvider = ({
     }
   );
 };
-
-// src/index.ts
-var NodeDataTypeIndex = {
-  "rootThought": {
-    renderer: "dom",
-    key: "rootThought",
-    defaultProps: {
-      rawPrompt: ""
-    },
-    defaultBoxSize: {
-      width: 400,
-      height: 400
-    }
-  },
-  "thought": {
-    renderer: "dom",
-    key: "thought",
-    defaultProps: {
-      timestamp: "",
-      rawThought: "",
-      mainIdea: "",
-      keyPoints: [],
-      abstract: "",
-      trainOfThought: []
-    },
-    defaultBoxSize: {
-      width: 400,
-      height: 400
-    }
-  },
-  "basicStockChart": {
-    renderer: "dom",
-    key: "basicStockChart",
-    defaultProps: {
-      data: []
-    },
-    defaultBoxSize: {
-      width: 600,
-      height: 400
-    }
-  }
-};
-function createAirNode({
-  key,
-  state
-}) {
-  return new import_client2.LiveObject({
-    nodeId: (0, import_uuid.v4)(),
-    key: NodeDataTypeIndex[key].key,
-    renderer: NodeDataTypeIndex[key].renderer,
-    state: new import_client2.LiveObject({
-      ...state,
-      containerState: new import_client2.LiveObject(state.containerState)
-    })
-  });
-}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   LiveblocksNodeRoomProvider,

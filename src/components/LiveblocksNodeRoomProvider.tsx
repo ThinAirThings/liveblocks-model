@@ -7,21 +7,19 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 import {LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
 
 export const {
-    // suspense: {
-        useLostConnectionListener,
-        useStatus,
-        useErrorListener,
-        useRoom,
-        useMyPresence,
-        useUpdateMyPresence,
-        useOthersMapped,
-        useOthers,
-        useStorage,
-        RoomProvider,
-        useMutation,
-        useSelf,
-        RoomContext
-    // }
+    useLostConnectionListener,
+    useStatus,
+    useErrorListener,
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useOthers,
+    useStorage,
+    RoomProvider,
+    useMutation,
+    useSelf,
+    RoomContext
 } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(
         createClient({
             polyfills: {
