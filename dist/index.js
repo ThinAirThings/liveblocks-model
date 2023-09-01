@@ -69,7 +69,7 @@ var useStorageNodeMap = (useStorage2) => {
   return useStorage2((root) => root.nodeMap);
 };
 
-// src/components/LiveblocksNodeProvider.tsx
+// src/components/LiveblocksNodeRoomProvider.tsx
 import { createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import nodeWebsocket from "ws";
@@ -80,6 +80,7 @@ import { jsx } from "react/jsx-runtime";
 var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
+  useErrorListener,
   useRoom,
   useMyPresence,
   useUpdateMyPresence,
@@ -98,13 +99,12 @@ var {
   authEndpoint: async () => authorizationCallback?.()
 }));
 var authorizationCallback;
-var LiveblocksRoomProvider = ({
+var LiveblocksNodeRoomProvider = ({
   userId,
   spaceId,
   serverName,
   children
 }) => {
-  console.log("Room provider");
   authorizationCallback = useCallback(async () => {
     const response = JSON.parse((await authorize({
       room: spaceId,
@@ -193,11 +193,12 @@ function createAirNode({
   });
 }
 export {
-  LiveblocksRoomProvider,
+  LiveblocksNodeRoomProvider,
   NodeDataTypeIndex,
   RoomContext,
   RoomProvider,
   createAirNode,
+  useErrorListener,
   useMutation,
   useMutationContainerState,
   useMutationCreateNode,

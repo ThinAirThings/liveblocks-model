@@ -10,6 +10,7 @@ import {LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
 const secretsClient = new SecretsManagerClient({region: "us-east-1"});
 export const {
     // suspense: {
+        useErrorListener,
         useRoom,
         useMyPresence,
         useUpdateMyPresence,
@@ -32,7 +33,7 @@ let authorizationCallback: (() => Promise<{
     token: string
 }>)
 
-export const LiveblocksRoomProvider = ({
+export const LiveblocksNodeRoomProvider = ({
     userId,
     spaceId,
     serverName,
@@ -43,7 +44,6 @@ export const LiveblocksRoomProvider = ({
     serverName: string
     children: ReactNode
 }) => {
-    console.log("Room provider")
     authorizationCallback = useCallback( async () => {
         const response =  JSON.parse((await authorize({
             room: spaceId,

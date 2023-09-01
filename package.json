@@ -27,14 +27,15 @@
         "@types/react": "^18.2.14",
         "@types/uuid": "^9.0.2",
         "@types/ws": "^8.5.5",
-        "esbuild": "^0.19.2"
+        "esbuild": "^0.19.2",
+        "tsup": "^7.2.0"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/ThinAirThings/liveblocks-model.git"
     },
     "scripts": {
-        "build": "node ./esbuild.mjs && tsc --emitDeclarationOnly",
+        "build": "tsup-node",
         "npmpub": "npm run build && git add . && git commit -m \"mod\" && git push && npm version patch && npm publish"
     },
     "publishConfig": {

@@ -30,11 +30,12 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  LiveblocksRoomProvider: () => LiveblocksRoomProvider,
+  LiveblocksNodeRoomProvider: () => LiveblocksNodeRoomProvider,
   NodeDataTypeIndex: () => NodeDataTypeIndex,
   RoomContext: () => RoomContext,
   RoomProvider: () => RoomProvider,
   createAirNode: () => createAirNode,
+  useErrorListener: () => useErrorListener,
   useMutation: () => useMutation,
   useMutationContainerState: () => useMutationContainerState,
   useMutationCreateNode: () => useMutationCreateNode,
@@ -123,7 +124,7 @@ var useStorageNodeMap = (useStorage2) => {
   return useStorage2((root) => root.nodeMap);
 };
 
-// src/components/LiveblocksNodeProvider.tsx
+// src/components/LiveblocksNodeRoomProvider.tsx
 var import_client = require("@liveblocks/client");
 var import_react = require("@liveblocks/react");
 var import_ws = __toESM(require("ws"), 1);
@@ -134,6 +135,7 @@ var import_jsx_runtime = require("react/jsx-runtime");
 var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
+  useErrorListener,
   useRoom,
   useMyPresence,
   useUpdateMyPresence,
@@ -152,13 +154,12 @@ var {
   authEndpoint: async () => authorizationCallback?.()
 }));
 var authorizationCallback;
-var LiveblocksRoomProvider = ({
+var LiveblocksNodeRoomProvider = ({
   userId,
   spaceId,
   serverName,
   children
 }) => {
-  console.log("Room provider");
   authorizationCallback = (0, import_react2.useCallback)(async () => {
     const response = JSON.parse((await (0, import_node.authorize)({
       room: spaceId,
@@ -248,11 +249,12 @@ function createAirNode({
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  LiveblocksRoomProvider,
+  LiveblocksNodeRoomProvider,
   NodeDataTypeIndex,
   RoomContext,
   RoomProvider,
   createAirNode,
+  useErrorListener,
   useMutation,
   useMutationContainerState,
   useMutationCreateNode,
