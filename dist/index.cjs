@@ -134,7 +134,6 @@ var import_node = require("@liveblocks/node");
 var import_react2 = require("react");
 var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 var import_jsx_runtime = require("react/jsx-runtime");
-var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
   useLostConnectionListener,
@@ -151,12 +150,14 @@ var {
   useSelf,
   RoomContext
   // }
-} = (0, import_react.createRoomContext)((0, import_client.createClient)({
-  polyfills: {
-    WebSocket: import_ws.default
-  },
-  authEndpoint: async () => authorizationCallback?.()
-}));
+} = (0, import_react.createRoomContext)(
+  (0, import_client.createClient)({
+    polyfills: {
+      WebSocket: import_ws.default
+    },
+    authEndpoint: async () => authorizationCallback?.()
+  })
+);
 var authorizationCallback;
 var LiveblocksNodeRoomProvider = ({
   userId,
@@ -165,15 +166,14 @@ var LiveblocksNodeRoomProvider = ({
   children
 }) => {
   authorizationCallback = (0, import_react2.useCallback)(async () => {
-    const response = JSON.parse((await (0, import_node.authorize)({
-      room: spaceId,
-      userId,
-      // secret: process.env.LIVEBLOCKS_API_KEY!
-      secret: (await secretsClient.send(new import_client_secrets_manager.GetSecretValueCommand({
+    const liveblocksClient = new import_node.Liveblocks({
+      secret: (await new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" }).send(new import_client_secrets_manager.GetSecretValueCommand({
         SecretId: "LiveblocksToken-dev"
       }))).SecretString
-    })).body);
-    return response;
+    });
+    const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
+    console.log(body);
+    return body;
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
     RoomProvider,
