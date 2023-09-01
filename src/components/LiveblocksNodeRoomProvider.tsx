@@ -69,7 +69,9 @@ export const LiveblocksNodeRoomProvider = ({
         // })).body) as {
         //     token: string
         // }
-        return body as any
+        return JSON.parse(body) as {
+            token: string
+        }
     }, [])
     return (
        <RoomProvider

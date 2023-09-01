@@ -173,7 +173,7 @@ var LiveblocksNodeRoomProvider = ({
     });
     const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
     console.log(body);
-    return body;
+    return JSON.parse(body);
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
     RoomProvider,
