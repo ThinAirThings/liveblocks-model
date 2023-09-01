@@ -10,6 +10,7 @@ import {LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
 const secretsClient = new SecretsManagerClient({region: "us-east-1"});
 export const {
     // suspense: {
+        useLostConnectionListener,
         useStatus,
         useErrorListener,
         useRoom,

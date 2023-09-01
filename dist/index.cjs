@@ -36,6 +36,7 @@ __export(src_exports, {
   RoomProvider: () => RoomProvider,
   createAirNode: () => createAirNode,
   useErrorListener: () => useErrorListener,
+  useLostConnectionListener: () => useLostConnectionListener,
   useMutation: () => useMutation,
   useMutationContainerState: () => useMutationContainerState,
   useMutationCreateNode: () => useMutationCreateNode,
@@ -136,6 +137,7 @@ var import_jsx_runtime = require("react/jsx-runtime");
 var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
+  useLostConnectionListener,
   useStatus,
   useErrorListener,
   useRoom,
@@ -257,6 +259,7 @@ function createAirNode({
   RoomProvider,
   createAirNode,
   useErrorListener,
+  useLostConnectionListener,
   useMutation,
   useMutationContainerState,
   useMutationCreateNode,

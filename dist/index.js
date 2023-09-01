@@ -80,6 +80,7 @@ import { jsx } from "react/jsx-runtime";
 var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
 var {
   // suspense: {
+  useLostConnectionListener,
   useStatus,
   useErrorListener,
   useRoom,
@@ -200,6 +201,7 @@ export {
   RoomProvider,
   createAirNode,
   useErrorListener,
+  useLostConnectionListener,
   useMutation,
   useMutationContainerState,
   useMutationCreateNode,
