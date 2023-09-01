@@ -71,29 +71,29 @@ var useStorageNodeMap = (useStorage2) => {
 
 // src/components/LiveblocksNodeRoomProvider.tsx
 import { createClient } from "@liveblocks/client";
-import { createRoomContext } from "@liveblocks/react";
+import { createRoomContext, ClientSideSuspense } from "@liveblocks/react";
 import nodeWebsocket from "ws";
 import { authorize } from "@liveblocks/node";
 import { useCallback } from "react";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
-import { jsx } from "react/jsx-runtime";
+import { Fragment, jsx } from "react/jsx-runtime";
 var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
 var {
-  // suspense: {
-  useLostConnectionListener,
-  useStatus,
-  useErrorListener,
-  useRoom,
-  useMyPresence,
-  useUpdateMyPresence,
-  useOthersMapped,
-  useOthers,
-  useStorage,
-  RoomProvider,
-  useMutation,
-  useSelf,
-  RoomContext
-  // }
+  suspense: {
+    useLostConnectionListener,
+    useStatus,
+    useErrorListener,
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useOthers,
+    useStorage,
+    RoomProvider,
+    useMutation,
+    useSelf,
+    RoomContext
+  }
 } = createRoomContext(createClient({
   polyfills: {
     WebSocket: nodeWebsocket
@@ -105,7 +105,7 @@ var LiveblocksNodeRoomProvider = ({
   userId,
   spaceId,
   serverName,
-  children
+  Children
 }) => {
   authorizationCallback = useCallback(async () => {
     const response = JSON.parse((await authorize({
@@ -135,7 +135,7 @@ var LiveblocksNodeRoomProvider = ({
         focusedNodeId: null
       },
       shouldInitiallyConnect: true,
-      children
+      children: /* @__PURE__ */ jsx(ClientSideSuspense, { fallback: /* @__PURE__ */ jsx(Fragment, {}), children: () => /* @__PURE__ */ jsx(Children, {}) })
     }
   );
 };

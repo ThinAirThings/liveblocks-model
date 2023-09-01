@@ -136,21 +136,21 @@ var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 var import_jsx_runtime = require("react/jsx-runtime");
 var secretsClient = new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" });
 var {
-  // suspense: {
-  useLostConnectionListener,
-  useStatus,
-  useErrorListener,
-  useRoom,
-  useMyPresence,
-  useUpdateMyPresence,
-  useOthersMapped,
-  useOthers,
-  useStorage,
-  RoomProvider,
-  useMutation,
-  useSelf,
-  RoomContext
-  // }
+  suspense: {
+    useLostConnectionListener,
+    useStatus,
+    useErrorListener,
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useOthers,
+    useStorage,
+    RoomProvider,
+    useMutation,
+    useSelf,
+    RoomContext
+  }
 } = (0, import_react.createRoomContext)((0, import_client.createClient)({
   polyfills: {
     WebSocket: import_ws.default
@@ -162,7 +162,7 @@ var LiveblocksNodeRoomProvider = ({
   userId,
   spaceId,
   serverName,
-  children
+  Children
 }) => {
   authorizationCallback = (0, import_react2.useCallback)(async () => {
     const response = JSON.parse((await (0, import_node.authorize)({
@@ -192,7 +192,7 @@ var LiveblocksNodeRoomProvider = ({
         focusedNodeId: null
       },
       shouldInitiallyConnect: true,
-      children
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children: () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Children, {}) })
     }
   );
 };

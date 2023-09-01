@@ -9,7 +9,7 @@ import {LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
 
 const secretsClient = new SecretsManagerClient({region: "us-east-1"});
 export const {
-    // suspense: {
+    suspense: {
         useLostConnectionListener,
         useStatus,
         useErrorListener,
@@ -23,7 +23,7 @@ export const {
         useMutation,
         useSelf,
         RoomContext
-    // }
+    }
 } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel>(createClient({
     polyfills: {
         WebSocket: nodeWebsocket
@@ -39,12 +39,12 @@ export const LiveblocksNodeRoomProvider = ({
     userId,
     spaceId,
     serverName,
-    children
+    Children
 }: {
     userId: string
     spaceId: string
     serverName: string
-    children: ReactNode
+    Children: () => ReactNode
 }) => {
     authorizationCallback = useCallback( async () => {
         const response =  JSON.parse((await authorize({
@@ -76,7 +76,9 @@ export const LiveblocksNodeRoomProvider = ({
             }}
             shouldInitiallyConnect={true}
         >
-            {children}
+            <ClientSideSuspense fallback={<></>}>
+                {() => <Children/>}
+            </ClientSideSuspense>
         </RoomProvider>
     )
 }
