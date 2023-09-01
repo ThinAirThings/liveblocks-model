@@ -57,7 +57,6 @@ export const LiveblocksNodeRoomProvider = ({
         })).body) as {
             token: string
         }
-        console.log(response)
         return response
     }, [])
     return (

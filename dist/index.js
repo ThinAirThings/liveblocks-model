@@ -116,7 +116,6 @@ var LiveblocksNodeRoomProvider = ({
         SecretId: "LiveblocksToken-dev"
       }))).SecretString
     })).body);
-    console.log(response);
     return response;
   }, []);
   return /* @__PURE__ */ jsx(
