@@ -1,6 +1,4 @@
-import { LiveMap, LiveObject } from "@liveblocks/client"
 import { createRoomContext } from "@liveblocks/react"
-import { ContainerState, Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 import { LiveblocksPresence, LiveblocksStorageModel, NodeDataTypeIndex } from "./model/data-model.js"
 
 
