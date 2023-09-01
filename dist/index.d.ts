@@ -392,7 +392,7 @@ declare const useStorage: <T>(selector: (root: {
             };
         };
     }>;
-}) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined) => T;
+}) => T, isEqual?: ((prev: T | null, curr: T | null) => boolean) | undefined) => T | null;
 declare const RoomProvider: (props: {
     id: string;
     children: ReactNode;
@@ -403,8 +403,8 @@ declare const RoomProvider: (props: {
 }) => JSX.Element;
 declare const useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
 declare const useSelf: {
-    (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
-    <T>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T;
+    (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta> | null;
+    <T>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T | null;
 };
 declare const RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta, never> | null>;
 declare const LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {

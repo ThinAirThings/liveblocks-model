@@ -79,21 +79,21 @@ import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-sec
 import { Fragment, jsx } from "react/jsx-runtime";
 var secretsClient = new SecretsManagerClient({ region: "us-east-1" });
 var {
-  suspense: {
-    useLostConnectionListener,
-    useStatus,
-    useErrorListener,
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useOthers,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext
-  }
+  // suspense: {
+  useLostConnectionListener,
+  useStatus,
+  useErrorListener,
+  useRoom,
+  useMyPresence,
+  useUpdateMyPresence,
+  useOthersMapped,
+  useOthers,
+  useStorage,
+  RoomProvider,
+  useMutation,
+  useSelf,
+  RoomContext
+  // }
 } = createRoomContext(createClient({
   polyfills: {
     WebSocket: nodeWebsocket
