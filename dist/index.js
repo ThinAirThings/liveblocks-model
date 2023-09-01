@@ -115,7 +115,6 @@ var LiveblocksNodeRoomProvider = ({
       }))).SecretString
     });
     const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
-    console.log(body);
     return JSON.parse(body);
   }, []);
   return /* @__PURE__ */ jsx(

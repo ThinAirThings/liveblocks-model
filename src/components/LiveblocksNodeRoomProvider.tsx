@@ -58,17 +58,6 @@ export const LiveblocksNodeRoomProvider = ({
         const {body} = await liveblocksClient.prepareSession(userId)
             .allow(spaceId, ["room:write", "comments:write"])
             .authorize()
-        console.log(body)
-        // const response =  JSON.parse((await authorize({
-        //     room: spaceId,
-        //     userId: userId,
-        //     // secret: process.env.LIVEBLOCKS_API_KEY!
-        //     secret: (await secretsClient.send(new GetSecretValueCommand({
-        //         SecretId: "LiveblocksToken-dev"
-        //     }))).SecretString!
-        // })).body) as {
-        //     token: string
-        // }
         return JSON.parse(body) as {
             token: string
         }
