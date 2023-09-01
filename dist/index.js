@@ -105,7 +105,7 @@ var LiveblocksNodeRoomProvider = ({
   userId,
   spaceId,
   serverName,
-  Children
+  children
 }) => {
   authorizationCallback = useCallback(async () => {
     const response = JSON.parse((await authorize({
@@ -135,7 +135,7 @@ var LiveblocksNodeRoomProvider = ({
         focusedNodeId: null
       },
       shouldInitiallyConnect: true,
-      children: /* @__PURE__ */ jsx(ClientSideSuspense, { fallback: /* @__PURE__ */ jsx(Fragment, {}), children: () => /* @__PURE__ */ jsx(Children, {}) })
+      children: /* @__PURE__ */ jsx(ClientSideSuspense, { fallback: /* @__PURE__ */ jsx(Fragment, {}), children })
     }
   );
 };

@@ -162,7 +162,7 @@ var LiveblocksNodeRoomProvider = ({
   userId,
   spaceId,
   serverName,
-  Children
+  children
 }) => {
   authorizationCallback = (0, import_react2.useCallback)(async () => {
     const response = JSON.parse((await (0, import_node.authorize)({
@@ -192,7 +192,7 @@ var LiveblocksNodeRoomProvider = ({
         focusedNodeId: null
       },
       shouldInitiallyConnect: true,
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children: () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Children, {}) })
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children })
     }
   );
 };

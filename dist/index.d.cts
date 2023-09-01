@@ -407,11 +407,11 @@ declare const useSelf: {
     <T>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T;
 };
 declare const RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta, never> | null>;
-declare const LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, Children }: {
+declare const LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
     userId: string;
     spaceId: string;
     serverName: string;
-    Children: () => ReactNode;
+    children: () => ReactNode;
 }) => react_jsx_runtime.JSX.Element;
 
 type DefaultBoxSize = {

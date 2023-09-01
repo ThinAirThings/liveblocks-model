@@ -39,12 +39,12 @@ export const LiveblocksNodeRoomProvider = ({
     userId,
     spaceId,
     serverName,
-    Children
+    children
 }: {
     userId: string
     spaceId: string
     serverName: string
-    Children: () => ReactNode
+    children: () => ReactNode
 }) => {
     authorizationCallback = useCallback( async () => {
         const response =  JSON.parse((await authorize({
@@ -77,7 +77,7 @@ export const LiveblocksNodeRoomProvider = ({
             shouldInitiallyConnect={true}
         >
             <ClientSideSuspense fallback={<></>}>
-                {() => <Children/>}
+                {children}
             </ClientSideSuspense>
         </RoomProvider>
     )
