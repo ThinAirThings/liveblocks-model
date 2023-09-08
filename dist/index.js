@@ -39,6 +39,20 @@ var NodeDataTypeIndex = {
       width: 600,
       height: 400
     }
+  },
+  "SimpleLineChart": {
+    renderer: "dom",
+    key: "SimpleLineChart",
+    defaultProps: {
+      chartTitle: "",
+      xLabel: "",
+      yLabel: "",
+      data: []
+    },
+    defaultBoxSize: {
+      width: 600,
+      height: 400
+    }
   }
 };
 function createAirNode({

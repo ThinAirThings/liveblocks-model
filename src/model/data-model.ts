@@ -40,6 +40,20 @@ export const NodeDataTypeIndex = {
             width: 600,
             height: 400
         }
+    },
+    "SimpleLineChart": {
+        renderer: 'dom',
+        key: 'SimpleLineChart',
+        defaultProps: {
+            chartTitle: '' as string,
+            xLabel: '' as string,
+            yLabel: '' as string,
+            data: [] as Array<{x: string, y: number}>
+        },
+        defaultBoxSize: {
+            width: 600,
+            height: 400
+        }
     }
 } as const 
 
