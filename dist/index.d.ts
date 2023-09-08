@@ -74,7 +74,7 @@ declare const NodeDataTypeIndex: {
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -184,7 +184,7 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -258,7 +258,7 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -332,7 +332,7 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -408,7 +408,7 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -482,7 +482,7 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -556,7 +556,7 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -594,7 +594,7 @@ declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
         readonly chartTitle: string;
         readonly data: {
             name: string;
-            value: number;
+            percentage: number;
         }[];
     }) & {
         containerState: _thinairthings_zoom_utils.ContainerState;
@@ -667,7 +667,7 @@ declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string
         readonly chartTitle: string;
         readonly data: {
             name: string;
-            value: number;
+            percentage: number;
         }[];
         readonly containerState: {
             readonly x: number;
@@ -753,7 +753,7 @@ declare const useStorage: <T>(selector: (root: {
             readonly chartTitle: string;
             readonly data: {
                 name: string;
-                value: number;
+                percentage: number;
             }[];
             readonly containerState: {
                 readonly x: number;

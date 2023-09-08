@@ -60,7 +60,7 @@ export const NodeDataTypeIndex = {
         key: 'PieChart',
         defaultProps: {
             chartTitle: '' as string,
-            data: [] as Array<{name: string, value: number}>
+            data: [] as Array<{name: string, percentage: number}>
         },
         defaultBoxSize: {
             width: 600,
