@@ -54,6 +54,18 @@ export const NodeDataTypeIndex = {
             width: 600,
             height: 400
         }
+    },
+    "PieChart": {
+        renderer: 'dom',
+        key: 'PieChart',
+        defaultProps: {
+            chartTitle: '' as string,
+            data: [] as Array<{name: string, value: number}>
+        },
+        defaultBoxSize: {
+            width: 600,
+            height: 400
+        }
     }
 } as const 
 

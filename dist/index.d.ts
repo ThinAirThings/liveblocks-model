@@ -67,6 +67,21 @@ declare const NodeDataTypeIndex: {
             readonly height: 400;
         };
     };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 };
 type NodeId = string;
 type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
@@ -103,7 +118,7 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart">(useMutation: MutationHook, nodeId: string, propKey: keyof {
+declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart">(useMutation: MutationHook, nodeId: string, propKey: keyof {
     readonly rootThought: {
         readonly renderer: "dom";
         readonly key: "rootThought";
@@ -155,6 +170,21 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly data: {
                 x: number;
                 y: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -221,6 +251,21 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly height: 400;
         };
     };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 }[K]["defaultProps"][keyof {
     readonly rootThought: {
         readonly renderer: "dom";
@@ -280,9 +325,24 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly height: 400;
         };
     };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 }[K]["defaultProps"]]) => void;
 
-declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart">(useStorage: StorageHook, nodeId: string, propKey: keyof {
+declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart">(useStorage: StorageHook, nodeId: string, propKey: keyof {
     readonly rootThought: {
         readonly renderer: "dom";
         readonly key: "rootThought";
@@ -334,6 +394,21 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly data: {
                 x: number;
                 y: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
             }[];
         };
         readonly defaultBoxSize: {
@@ -400,6 +475,21 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly height: 400;
         };
     };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 }[K]["defaultProps"][keyof {
     readonly rootThought: {
         readonly renderer: "dom";
@@ -459,10 +549,25 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly height: 400;
         };
     };
+    readonly PieChart: {
+        readonly renderer: "dom";
+        readonly key: "PieChart";
+        readonly defaultProps: {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
+            }[];
+        };
+        readonly defaultBoxSize: {
+            readonly width: 600;
+            readonly height: 400;
+        };
+    };
 }[K]["defaultProps"]];
 
 declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
-    key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart";
+    key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart";
     state: ({
         readonly rawPrompt: "";
     } | {
@@ -485,6 +590,12 @@ declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
             x: number;
             y: number;
         }[];
+    } | {
+        readonly chartTitle: string;
+        readonly data: {
+            name: string;
+            value: number;
+        }[];
     }) & {
         containerState: _thinairthings_zoom_utils.ContainerState;
     };
@@ -500,7 +611,7 @@ declare const useStorageContainerStateMap: (useStorage: StorageHook, nodeIds?: s
 
 declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string, {
     readonly nodeId: string;
-    readonly key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart";
+    readonly key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart";
     readonly renderer: "dom";
     readonly state: {
         readonly rawPrompt: "";
@@ -552,6 +663,19 @@ declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string
             readonly height: number;
             readonly scale: number;
         };
+    } | {
+        readonly chartTitle: string;
+        readonly data: {
+            name: string;
+            value: number;
+        }[];
+        readonly containerState: {
+            readonly x: number;
+            readonly y: number;
+            readonly width: number;
+            readonly height: number;
+            readonly scale: number;
+        };
     };
 }>;
 
@@ -573,7 +697,7 @@ declare const useOthers: {
 declare const useStorage: <T>(selector: (root: {
     readonly nodeMap: ReadonlyMap<string, {
         readonly nodeId: string;
-        readonly key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart";
+        readonly key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart";
         readonly renderer: "dom";
         readonly state: {
             readonly rawPrompt: "";
@@ -617,6 +741,19 @@ declare const useStorage: <T>(selector: (root: {
             readonly data: {
                 x: number;
                 y: number;
+            }[];
+            readonly containerState: {
+                readonly x: number;
+                readonly y: number;
+                readonly width: number;
+                readonly height: number;
+                readonly scale: number;
+            };
+        } | {
+            readonly chartTitle: string;
+            readonly data: {
+                name: string;
+                value: number;
             }[];
             readonly containerState: {
                 readonly x: number;

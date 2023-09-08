@@ -53,6 +53,18 @@ var NodeDataTypeIndex = {
       width: 600,
       height: 400
     }
+  },
+  "PieChart": {
+    renderer: "dom",
+    key: "PieChart",
+    defaultProps: {
+      chartTitle: "",
+      data: []
+    },
+    defaultBoxSize: {
+      width: 600,
+      height: 400
+    }
   }
 };
 function createAirNode({
