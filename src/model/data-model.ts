@@ -48,7 +48,7 @@ export const NodeDataTypeIndex = {
             chartTitle: '' as string,
             xLabel: '' as string,
             yLabel: '' as string,
-            data: [] as Array<{x: string, y: number}>
+            data: [] as Array<{x: number, y: number}>
         },
         defaultBoxSize: {
             width: 600,

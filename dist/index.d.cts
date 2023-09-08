@@ -58,7 +58,7 @@ declare const NodeDataTypeIndex: {
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -153,7 +153,7 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -212,7 +212,7 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -271,7 +271,7 @@ declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basi
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -332,7 +332,7 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -391,7 +391,7 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -450,7 +450,7 @@ declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basic
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
         };
@@ -482,7 +482,7 @@ declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
         readonly xLabel: string;
         readonly yLabel: string;
         readonly data: {
-            x: string;
+            x: number;
             y: number;
         }[];
     }) & {
@@ -542,7 +542,7 @@ declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string
         readonly xLabel: string;
         readonly yLabel: string;
         readonly data: {
-            x: string;
+            x: number;
             y: number;
         }[];
         readonly containerState: {
@@ -615,7 +615,7 @@ declare const useStorage: <T>(selector: (root: {
             readonly xLabel: string;
             readonly yLabel: string;
             readonly data: {
-                x: string;
+                x: number;
                 y: number;
             }[];
             readonly containerState: {
