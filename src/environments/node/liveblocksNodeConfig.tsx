@@ -1,19 +1,20 @@
-import { LiveObject, createClient } from '@liveblocks/client'
+import { createClient } from '@liveblocks/client'
 import {createRoomContext, ClientSideSuspense} from '@liveblocks/react'
 import nodeWebsocket from "ws";
 import { Liveblocks} from "@liveblocks/node";
 import { ReactNode, useCallback } from 'react';
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
-import {LiveNode, LiveNodeShapeUnion, LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
-import {v4 as uuidv4} from 'uuid'
-
-
+import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from '../../index.js';
+import { createLiveAirNodeFactory } from '../shared/createLiveAirNodeFactory.js';
+import { customLiveHooksFactory } from '../shared/customLiveHooksFactory.js';
 
 let authorizationCallback: (() => Promise<{
     token: string
 }>)
 
-export const liveblocksNodeConfig = <LiveNodeUnion extends LiveNode<any, any>,>() => {
+export const liveblocksNodeConfig = <
+    LiveAirNodeUnion extends LiveAirNode<any, any>,
+>() => {
     const {
         useLostConnectionListener,
         useStatus,
@@ -28,7 +29,7 @@ export const liveblocksNodeConfig = <LiveNodeUnion extends LiveNode<any, any>,>(
         useMutation,
         useSelf,
         RoomContext
-    } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel<LiveNodeUnion>>(
+    } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>>(
         createClient({
             polyfills: {
                 WebSocket: nodeWebsocket
@@ -36,30 +37,18 @@ export const liveblocksNodeConfig = <LiveNodeUnion extends LiveNode<any, any>,>(
             authEndpoint: async () => authorizationCallback?.(),
         })
     )
-    const createLiveNode = <T extends LiveNodeShapeUnion<LiveNodeUnion>["type"],>({
-        type,
-        state,
-    }:{
-        type: T,
-        state: (LiveNodeShapeUnion<LiveNodeUnion>&{type: T})['state'],
-    }): LiveNode<T, (LiveNodeShapeUnion<LiveNodeUnion>&{type: T})['state']> => {
-        return new LiveObject({
-            nodeId: uuidv4(),
-            type,
-            state: new LiveObject({
-                ...state,
-            }),
-        })
-    }
-    const useMutationCreateNode = () => useMutation((
-        {storage}, 
-        {type, state}: Parameters<typeof createLiveNode>[0]
-    ) => {
-        const node = createLiveNode({type, state})
-        const nodeId = node.get('nodeId')
-        storage.get('nodeMap').set(nodeId, node as any)
-    }, [])
-
+    const createLiveAirNode = createLiveAirNodeFactory<LiveAirNodeUnion>()
+    const {
+        useStorageGetNodeMap,
+        useStorageGetNode,
+        useMutationCreateNode,
+        useMutationUpdateNode,
+        useMutationDeleteNode,
+    } = customLiveHooksFactory(
+        useStorage,
+        useMutation,
+        createLiveAirNode,
+    )
 
     const LiveblocksNodeRoomProvider = ({
         userId,
@@ -124,12 +113,15 @@ export const liveblocksNodeConfig = <LiveNodeUnion extends LiveNode<any, any>,>(
         useMutation,
         useSelf,
         RoomContext,
-        createLiveNode,
+        createLiveAirNode,
+        useStorageGetNodeMap,
+        useStorageGetNode,
         useMutationCreateNode,
+        useMutationUpdateNode,
+        useMutationDeleteNode,
         LiveblocksNodeRoomProvider
     }
 }
-
 
 
 

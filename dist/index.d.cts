@@ -1,110 +1,26 @@
+import { LsonObject, LiveObject, LiveMap, createClient } from '@liveblocks/client';
+import { Point, ViewportState, ScreenState } from '@thinairthings/zoom-utils';
 import * as _liveblocks_react from '@liveblocks/react';
-import { createRoomContext } from '@liveblocks/react';
-import { LiveObject, LiveMap } from '@liveblocks/client';
-import * as _thinairthings_zoom_utils from '@thinairthings/zoom-utils';
-import { ContainerState, Point, ViewportState, ScreenState } from '@thinairthings/zoom-utils';
-import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
+import * as react_jsx_runtime from 'react/jsx-runtime';
 
-declare const NodeDataTypeIndex: {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
+type LiveAirNodeType<N extends LiveAirNode<any, any>> = N extends LiveAirNode<infer T, any> ? T : never;
+type LiveAirNodeShapeUnion<U extends LiveAirNode<any, any>> = {
+    [Type in LiveAirNodeType<U>]: {
+        type: Type;
+        state: U extends LiveAirNode<Type, infer V> ? V : never;
     };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-};
+}[LiveAirNodeType<U>];
 type NodeId = string;
-type AirNode<K extends keyof typeof NodeDataTypeIndex> = LiveObject<{
+type LiveAirNode<T extends string, V extends LsonObject> = LiveObject<{
     nodeId: string;
-    key: typeof NodeDataTypeIndex[K]['key'];
-    renderer: typeof NodeDataTypeIndex[K]['renderer'];
-    state: LiveObject<(typeof NodeDataTypeIndex[K]['defaultProps'] extends {
-        [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & {
-        containerState: LiveObject<ContainerState>;
-    }>;
+    type: T;
+    state: LiveObject<V>;
 }>;
-type ImmutableAirNode<K extends keyof typeof NodeDataTypeIndex> = ReturnType<AirNode<K>["toImmutable"]>;
-declare function createAirNode<K extends keyof typeof NodeDataTypeIndex>({ key, state }: {
-    key: K;
-    state: (typeof NodeDataTypeIndex[K]['defaultProps'] extends {
-        [key: string]: any;
-    } ? typeof NodeDataTypeIndex[K]['defaultProps'] : never) & (typeof NodeDataTypeIndex[K]['renderer'] extends 'pixi' | 'dom' ? {
-        containerState: ContainerState;
-    } : {});
-}): AirNode<K>;
-type LiveblocksStorageModel = {
-    nodeMap: LiveMap<string, AirNode<keyof typeof NodeDataTypeIndex>>;
+type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any>> = {
+    nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
 type LiveblocksPresence = {
     displayName: string;
@@ -118,678 +34,106 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-declare const useMutationNodeState: <K extends "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart">(useMutation: MutationHook, nodeId: string, propKey: keyof {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
+declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>>(authEndpoint: NonNullable<Parameters<typeof createClient>[0]['authEndpoint']>) => {
+    useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never>;
+    useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
+        addToHistory: boolean;
+    } | undefined) => void];
+    useUpdateMyPresence: () => (patch: Partial<LiveblocksPresence>, options?: {
+        addToHistory: boolean;
+    } | undefined) => void;
+    useOthersMapped: <T>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, itemIsEqual?: ((prev: T, curr: T) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T])[];
+    useStorage: <T_1>(selector: (root: LiveblocksStorageModel<LiveAirNodeUnion> extends infer T_2 ? T_2 extends LiveblocksStorageModel<LiveAirNodeUnion> ? T_2 extends _liveblocks_core.LsonObject ? { readonly [K in keyof T_2]: _liveblocks_core.ToImmutable<Exclude<T_2[K], undefined>> | (undefined extends T_2[K] ? T_2[K] & undefined : never); } : T_2 extends _liveblocks_core.Json ? T_2 : never : never : never) => T_1, isEqual?: ((prev: T_1, curr: T_1) => boolean) | undefined) => T_1;
+    RoomProvider: (props: {
+        id: string;
+        children: react.ReactNode;
+        shouldInitiallyConnect?: boolean | undefined;
+        unstable_batchedUpdates?: ((cb: () => void) => void) | undefined;
+        initialPresence: LiveblocksPresence | ((roomId: string) => LiveblocksPresence);
+        initialStorage?: LiveblocksStorageModel<LiveAirNodeUnion> | ((roomId: string) => LiveblocksStorageModel<LiveAirNodeUnion>) | undefined;
+    }) => JSX.Element;
+    useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
+    useSelf: {
+        (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
+        <T_3>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_3, isEqual?: ((prev: T_3, curr: T_3) => boolean) | undefined): T_3;
     };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-}[K]["defaultProps"]) => (value: {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-}[K]["defaultProps"][keyof {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-}[K]["defaultProps"]]) => void;
-
-declare const useStorageNodeState: <K extends "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart">(useStorage: StorageHook, nodeId: string, propKey: keyof {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-}[K]["defaultProps"]) => {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-}[K]["defaultProps"][keyof {
-    readonly rootThought: {
-        readonly renderer: "dom";
-        readonly key: "rootThought";
-        readonly defaultProps: {
-            readonly rawPrompt: "";
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly thought: {
-        readonly renderer: "dom";
-        readonly key: "thought";
-        readonly defaultProps: {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 400;
-            readonly height: 400;
-        };
-    };
-    readonly basicStockChart: {
-        readonly renderer: "dom";
-        readonly key: "basicStockChart";
-        readonly defaultProps: {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly SimpleLineChart: {
-        readonly renderer: "dom";
-        readonly key: "SimpleLineChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-    readonly PieChart: {
-        readonly renderer: "dom";
-        readonly key: "PieChart";
-        readonly defaultProps: {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-        };
-        readonly defaultBoxSize: {
-            readonly width: 600;
-            readonly height: 400;
-        };
-    };
-}[K]["defaultProps"]];
-
-declare const useMutationCreateNode: (useMutation: MutationHook) => (args_0: {
-    key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart";
-    state: ({
-        readonly rawPrompt: "";
-    } | {
-        readonly timestamp: "";
-        readonly rawThought: "";
-        readonly mainIdea: "";
-        readonly keyPoints: string[];
-        readonly abstract: "";
-        readonly trainOfThought: string[];
-    } | {
-        readonly data: {
-            time: string;
-            value: number;
-        }[];
-    } | {
-        readonly chartTitle: string;
-        readonly xLabel: string;
-        readonly yLabel: string;
-        readonly data: {
-            x: number;
-            y: number;
-        }[];
-    } | {
-        readonly chartTitle: string;
-        readonly data: {
-            name: string;
-            percentage: number;
-        }[];
-    }) & {
-        containerState: _thinairthings_zoom_utils.ContainerState;
-    };
-}) => string;
-
-declare const useMutationDeleteNode: (useMutation: MutationHook) => (nodeId: string) => void;
-
-declare const useMutationContainerState: (useMutation: MutationHook) => (nodeId: string, containerState: Partial<ContainerState>) => void;
-
-declare const useStorageContainerState: (useStorage: StorageHook, nodeId: string) => ContainerState;
-
-declare const useStorageContainerStateMap: (useStorage: StorageHook, nodeIds?: string[]) => Map<string, ContainerState>;
-
-declare const useStorageNodeMap: (useStorage: StorageHook) => ReadonlyMap<string, {
-    readonly nodeId: string;
-    readonly key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart";
-    readonly renderer: "dom";
-    readonly state: {
-        readonly rawPrompt: "";
-        readonly containerState: {
-            readonly x: number;
-            readonly y: number;
-            readonly width: number;
-            readonly height: number;
-            readonly scale: number;
-        };
-    } | {
-        readonly timestamp: "";
-        readonly rawThought: "";
-        readonly mainIdea: "";
-        readonly keyPoints: string[];
-        readonly abstract: "";
-        readonly trainOfThought: string[];
-        readonly containerState: {
-            readonly x: number;
-            readonly y: number;
-            readonly width: number;
-            readonly height: number;
-            readonly scale: number;
-        };
-    } | {
-        readonly data: {
-            time: string;
-            value: number;
-        }[];
-        readonly containerState: {
-            readonly x: number;
-            readonly y: number;
-            readonly width: number;
-            readonly height: number;
-            readonly scale: number;
-        };
-    } | {
-        readonly chartTitle: string;
-        readonly xLabel: string;
-        readonly yLabel: string;
-        readonly data: {
-            x: number;
-            y: number;
-        }[];
-        readonly containerState: {
-            readonly x: number;
-            readonly y: number;
-            readonly width: number;
-            readonly height: number;
-            readonly scale: number;
-        };
-    } | {
-        readonly chartTitle: string;
-        readonly data: {
-            name: string;
-            percentage: number;
-        }[];
-        readonly containerState: {
-            readonly x: number;
-            readonly y: number;
-            readonly width: number;
-            readonly height: number;
-            readonly scale: number;
-        };
-    };
-}>;
-
-declare const useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
-declare const useStatus: () => _liveblocks_core.Status;
-declare const useErrorListener: (callback: (err: Error) => void) => void;
-declare const useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta, never>;
-declare const useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
-    addToHistory: boolean;
-} | undefined) => void];
-declare const useUpdateMyPresence: () => (patch: Partial<LiveblocksPresence>, options?: {
-    addToHistory: boolean;
-} | undefined) => void;
-declare const useOthersMapped: <T>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, itemIsEqual?: ((prev: T, curr: T) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T])[];
-declare const useOthers: {
-    (): _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
-    <T>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T;
+    RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never> | null>;
+    useHistory: () => _liveblocks_core.History;
+    useCanUndo: () => boolean;
+    useUndo: () => () => void;
+    useCanRedo: () => boolean;
+    useRedo: () => () => void;
+    createLiveAirNode: <T_4 extends LiveAirNodeShapeUnion<LiveAirNodeUnion>["type"]>({ type, state, }: {
+        type: T_4;
+        state: (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+            type: T_4;
+        })["state"];
+    }) => LiveAirNode<T_4, (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+        type: T_4;
+    })["state"]>;
+    useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
+    useStorageGetNode: <K_1 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_1];
+    useMutationCreateNode: () => (args_0: {
+        type: any;
+        state: any;
+    }) => void;
+    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_2]) => void;
+    useMutationDeleteNode: () => (nodeId: string) => void;
 };
-declare const useStorage: <T>(selector: (root: {
-    readonly nodeMap: ReadonlyMap<string, {
-        readonly nodeId: string;
-        readonly key: "rootThought" | "thought" | "basicStockChart" | "SimpleLineChart" | "PieChart";
-        readonly renderer: "dom";
-        readonly state: {
-            readonly rawPrompt: "";
-            readonly containerState: {
-                readonly x: number;
-                readonly y: number;
-                readonly width: number;
-                readonly height: number;
-                readonly scale: number;
-            };
-        } | {
-            readonly timestamp: "";
-            readonly rawThought: "";
-            readonly mainIdea: "";
-            readonly keyPoints: string[];
-            readonly abstract: "";
-            readonly trainOfThought: string[];
-            readonly containerState: {
-                readonly x: number;
-                readonly y: number;
-                readonly width: number;
-                readonly height: number;
-                readonly scale: number;
-            };
-        } | {
-            readonly data: {
-                time: string;
-                value: number;
-            }[];
-            readonly containerState: {
-                readonly x: number;
-                readonly y: number;
-                readonly width: number;
-                readonly height: number;
-                readonly scale: number;
-            };
-        } | {
-            readonly chartTitle: string;
-            readonly xLabel: string;
-            readonly yLabel: string;
-            readonly data: {
-                x: number;
-                y: number;
-            }[];
-            readonly containerState: {
-                readonly x: number;
-                readonly y: number;
-                readonly width: number;
-                readonly height: number;
-                readonly scale: number;
-            };
-        } | {
-            readonly chartTitle: string;
-            readonly data: {
-                name: string;
-                percentage: number;
-            }[];
-            readonly containerState: {
-                readonly x: number;
-                readonly y: number;
-                readonly width: number;
-                readonly height: number;
-                readonly scale: number;
-            };
-        };
-    }>;
-}) => T, isEqual?: ((prev: T | null, curr: T | null) => boolean) | undefined) => T | null;
-declare const RoomProvider: (props: {
-    id: string;
-    children: ReactNode;
-    shouldInitiallyConnect?: boolean | undefined;
-    unstable_batchedUpdates?: ((cb: () => void) => void) | undefined;
-    initialPresence: LiveblocksPresence | ((roomId: string) => LiveblocksPresence);
-    initialStorage?: LiveblocksStorageModel | ((roomId: string) => LiveblocksStorageModel) | undefined;
-}) => JSX.Element;
-declare const useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
-declare const useSelf: {
-    (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta> | null;
-    <T>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, isEqual?: ((prev: T, curr: T) => boolean) | undefined): T | null;
+
+declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>>() => {
+    useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
+    useStatus: () => _liveblocks_core.Status;
+    useErrorListener: (callback: (err: Error) => void) => void;
+    useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never>;
+    useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
+        addToHistory: boolean;
+    } | undefined) => void];
+    useUpdateMyPresence: () => (patch: Partial<LiveblocksPresence>, options?: {
+        addToHistory: boolean;
+    } | undefined) => void;
+    useOthersMapped: <T>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, itemIsEqual?: ((prev: T, curr: T) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T])[];
+    useOthers: {
+        (): _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
+        <T_1>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_1, isEqual?: ((prev: T_1, curr: T_1) => boolean) | undefined): T_1;
+    };
+    useStorage: <T_2>(selector: (root: LiveblocksStorageModel<LiveAirNodeUnion> extends infer T_3 ? T_3 extends LiveblocksStorageModel<LiveAirNodeUnion> ? T_3 extends _liveblocks_core.LsonObject ? { readonly [K in keyof T_3]: _liveblocks_core.ToImmutable<Exclude<T_3[K], undefined>> | (undefined extends T_3[K] ? T_3[K] & undefined : never); } : T_3 extends _liveblocks_core.Json ? T_3 : never : never : never) => T_2, isEqual?: ((prev: T_2 | null, curr: T_2 | null) => boolean) | undefined) => T_2 | null;
+    RoomProvider: (props: {
+        id: string;
+        children: ReactNode;
+        shouldInitiallyConnect?: boolean | undefined;
+        unstable_batchedUpdates?: ((cb: () => void) => void) | undefined;
+        initialPresence: LiveblocksPresence | ((roomId: string) => LiveblocksPresence);
+        initialStorage?: LiveblocksStorageModel<LiveAirNodeUnion> | ((roomId: string) => LiveblocksStorageModel<LiveAirNodeUnion>) | undefined;
+    }) => JSX.Element;
+    useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
+    useSelf: {
+        (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta> | null;
+        <T_4>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_4, isEqual?: ((prev: T_4, curr: T_4) => boolean) | undefined): T_4 | null;
+    };
+    RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never> | null>;
+    createLiveAirNode: <T_5 extends LiveAirNodeShapeUnion<LiveAirNodeUnion>["type"]>({ type, state, }: {
+        type: T_5;
+        state: (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+            type: T_5;
+        })["state"];
+    }) => LiveAirNode<T_5, (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+        type: T_5;
+    })["state"]>;
+    useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
+    useStorageGetNode: <K_1 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_1];
+    useMutationCreateNode: () => (args_0: {
+        type: any;
+        state: any;
+    }) => void;
+    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_2]) => void;
+    useMutationDeleteNode: () => (nodeId: string) => void;
+    LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
+        userId: string;
+        spaceId: string;
+        serverName: string;
+        children: () => ReactNode;
+    }) => react_jsx_runtime.JSX.Element;
 };
-declare const RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel, _liveblocks_core.BaseUserMeta, never> | null>;
-declare const LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
-    userId: string;
-    spaceId: string;
-    serverName: string;
-    children: () => ReactNode;
-}) => react_jsx_runtime.JSX.Element;
 
-type FilterNodeKeysByProperty<P> = {
-    [K in keyof typeof NodeDataTypeIndex]: typeof NodeDataTypeIndex[K] extends P ? K : never;
-}[keyof typeof NodeDataTypeIndex];
-type StorageHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useStorage'];
-type MutationHook = ReturnType<typeof createRoomContext<LiveblocksPresence, LiveblocksStorageModel>>['suspense']['useMutation'];
-
-export { AirNode, FilterNodeKeysByProperty, ImmutableAirNode, LiveblocksNodeRoomProvider, LiveblocksPresence, LiveblocksStorageModel, MutationHook, NodeDataTypeIndex, NodeId, RoomContext, RoomProvider, StorageHook, createAirNode, useErrorListener, useLostConnectionListener, useMutation, useMutationContainerState, useMutationCreateNode, useMutationDeleteNode, useMutationNodeState, useMyPresence, useOthers, useOthersMapped, useRoom, useSelf, useStatus, useStorage, useStorageContainerState, useStorageContainerStateMap, useStorageNodeMap, useStorageNodeState, useUpdateMyPresence };
+export { LiveAirNode, LiveAirNodeShapeUnion, LiveAirNodeType, LiveblocksPresence, LiveblocksStorageModel, NodeId, liveblocksBrowserConfig, liveblocksNodeConfig };

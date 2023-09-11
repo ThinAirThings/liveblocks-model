@@ -30,274 +30,235 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
-  LiveblocksNodeRoomProvider: () => LiveblocksNodeRoomProvider,
-  NodeDataTypeIndex: () => NodeDataTypeIndex,
-  RoomContext: () => RoomContext,
-  RoomProvider: () => RoomProvider,
-  createAirNode: () => createAirNode,
-  useErrorListener: () => useErrorListener,
-  useLostConnectionListener: () => useLostConnectionListener,
-  useMutation: () => useMutation,
-  useMutationContainerState: () => useMutationContainerState,
-  useMutationCreateNode: () => useMutationCreateNode,
-  useMutationDeleteNode: () => useMutationDeleteNode,
-  useMutationNodeState: () => useMutationNodeState,
-  useMyPresence: () => useMyPresence,
-  useOthers: () => useOthers,
-  useOthersMapped: () => useOthersMapped,
-  useRoom: () => useRoom,
-  useSelf: () => useSelf,
-  useStatus: () => useStatus,
-  useStorage: () => useStorage,
-  useStorageContainerState: () => useStorageContainerState,
-  useStorageContainerStateMap: () => useStorageContainerStateMap,
-  useStorageNodeMap: () => useStorageNodeMap,
-  useStorageNodeState: () => useStorageNodeState,
-  useUpdateMyPresence: () => useUpdateMyPresence
+  liveblocksBrowserConfig: () => liveblocksBrowserConfig,
+  liveblocksNodeConfig: () => liveblocksNodeConfig
 });
 module.exports = __toCommonJS(src_exports);
 
-// src/model/data-model.ts
-var import_client = require("@liveblocks/client");
-var import_uuid = require("uuid");
-var NodeDataTypeIndex = {
-  "rootThought": {
-    renderer: "dom",
-    key: "rootThought",
-    defaultProps: {
-      rawPrompt: ""
-    },
-    defaultBoxSize: {
-      width: 400,
-      height: 400
-    }
-  },
-  "thought": {
-    renderer: "dom",
-    key: "thought",
-    defaultProps: {
-      timestamp: "",
-      rawThought: "",
-      mainIdea: "",
-      keyPoints: [],
-      abstract: "",
-      trainOfThought: []
-    },
-    defaultBoxSize: {
-      width: 400,
-      height: 400
-    }
-  },
-  "basicStockChart": {
-    renderer: "dom",
-    key: "basicStockChart",
-    defaultProps: {
-      data: []
-    },
-    defaultBoxSize: {
-      width: 600,
-      height: 400
-    }
-  },
-  "SimpleLineChart": {
-    renderer: "dom",
-    key: "SimpleLineChart",
-    defaultProps: {
-      chartTitle: "",
-      xLabel: "",
-      yLabel: "",
-      data: []
-    },
-    defaultBoxSize: {
-      width: 600,
-      height: 400
-    }
-  },
-  "PieChart": {
-    renderer: "dom",
-    key: "PieChart",
-    defaultProps: {
-      chartTitle: "",
-      data: []
-    },
-    defaultBoxSize: {
-      width: 600,
-      height: 400
-    }
-  }
-};
-function createAirNode({
-  key,
-  state
-}) {
-  return new import_client.LiveObject({
-    nodeId: (0, import_uuid.v4)(),
-    key: NodeDataTypeIndex[key].key,
-    renderer: NodeDataTypeIndex[key].renderer,
-    state: new import_client.LiveObject({
-      ...state,
-      containerState: new import_client.LiveObject(state.containerState)
-    })
-  });
-}
-
-// src/hooks/useMutationNodeState.ts
-var useMutationNodeState = (useMutation2, nodeId, propKey) => {
-  return useMutation2(({ storage }, value) => {
-    storage.get("nodeMap").get(nodeId).get("state").set(propKey, value);
-  }, []);
-};
-
-// src/hooks/useStorageNodeState.ts
-var useStorageNodeState = (useStorage2, nodeId, propKey) => {
-  return useStorage2((root) => {
-    return root.nodeMap.get(nodeId)?.state[propKey];
-  });
-};
-
-// src/hooks/useMutationCreateNode.ts
-var useMutationCreateNode = (useMutation2) => {
-  return useMutation2(({ storage }, { key, state }) => {
-    const node = createAirNode({ key, state });
-    const nodeId = node.get("nodeId");
-    storage.get("nodeMap").set(nodeId, node);
-    return nodeId;
-  }, []);
-};
-
-// src/hooks/useMutationDeleteNode.ts
-var useMutationDeleteNode = (useMutation2) => {
-  return useMutation2(({ storage }, nodeId) => {
-    storage.get("nodeMap").delete(nodeId);
-  }, []);
-};
-
-// src/hooks/useMutationContainerState.ts
-var useMutationContainerState = (useMutation2) => {
-  return useMutation2(({ storage }, nodeId, containerState) => {
-    storage.get("nodeMap").get(nodeId)?.get("state").get("containerState").update(
-      Object.fromEntries(
-        Object.entries(containerState).map(
-          ([key, value]) => [key, key !== "scale" ? Math.round(value) : value]
-        )
-      )
-    );
-  }, []);
-};
-
-// src/hooks/useStorageContainerState.ts
-var useStorageContainerState = (useStorage2, nodeId) => useStorage2((root) => root.nodeMap.get(nodeId)?.state.containerState);
-
-// src/hooks/useStorageContainerStateMap.ts
-var import_lodash = __toESM(require("lodash.isequal"), 1);
-var useStorageContainerStateMap = (useStorage2, nodeIds) => {
-  return useStorage2(
-    (root) => {
-      return new Map(
-        [...root.nodeMap].filter(([nodeId]) => nodeIds ? nodeIds.includes(nodeId) : true).map(([nodeId, node]) => {
-          return [nodeId, node.state.containerState];
-        })
-      );
-    },
-    (a, b) => (0, import_lodash.default)(a, b)
-  );
-};
-
-// src/hooks/useStorageNodeMap.ts
-var useStorageNodeMap = (useStorage2) => {
-  return useStorage2((root) => root.nodeMap);
-};
-
-// src/components/LiveblocksNodeRoomProvider.tsx
+// src/environments/browser/liveblocksBrowserConfig.tsx
 var import_client2 = require("@liveblocks/client");
 var import_react = require("@liveblocks/react");
+
+// src/environments/shared/createLiveAirNodeFactory.ts
+var import_client = require("@liveblocks/client");
+var import_uuid = require("uuid");
+var createLiveAirNodeFactory = () => ({
+  type,
+  state
+}) => {
+  return new import_client.LiveObject({
+    nodeId: (0, import_uuid.v4)(),
+    type,
+    state: new import_client.LiveObject({
+      ...state
+    })
+  });
+};
+
+// src/environments/shared/mutations/useMutationCreateNodeFactory.ts
+var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, { type, state }) => {
+  const node = createLiveAirNode({ type, state });
+  const nodeId = node.get("nodeId");
+  storage.get("nodeMap").set(nodeId, node);
+}, []);
+
+// src/environments/shared/mutations/useMutationDeleteNodeFactory.ts
+var useMutationDeleteNodeFactory = (useMutation) => () => useMutation(({ storage }, nodeId) => {
+  storage.get("nodeMap").delete(nodeId);
+}, []);
+
+// src/environments/shared/mutations/useMutationUpdateNodeFactory.ts
+var useMutationUpdateNodeFactory = (useMutation) => (nodeId, key) => useMutation(({ storage }, value) => {
+  const node = storage.get("nodeMap").get(nodeId);
+  node.get("state").set(key, value);
+}, []);
+
+// src/environments/shared/storage/useStorageGetNodeFactory.ts
+var useStorageGetNodeFactory = (useStorage) => (nodeId, key) => useStorage((root) => {
+  return root.nodeMap.get(nodeId).state[key];
+});
+
+// src/environments/shared/storage/useStorageGetNodeMap.ts
+var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {
+  return root.nodeMap;
+});
+
+// src/environments/shared/customLiveHooksFactory.ts
+var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
+  return {
+    useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
+    useStorageGetNode: useStorageGetNodeFactory(useStorage),
+    useMutationCreateNode: useMutationCreateNodeFactory(
+      useMutation,
+      createLiveAirNode
+    ),
+    useMutationUpdateNode: useMutationUpdateNodeFactory(useMutation),
+    useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation)
+  };
+};
+
+// src/environments/browser/liveblocksBrowserConfig.tsx
+var liveblocksBrowserConfig = (authEndpoint) => {
+  const {
+    suspense: {
+      useRoom,
+      useMyPresence,
+      useUpdateMyPresence,
+      useOthersMapped,
+      useStorage,
+      RoomProvider,
+      useMutation,
+      useSelf,
+      RoomContext,
+      useHistory,
+      useCanUndo,
+      useUndo,
+      useCanRedo,
+      useRedo
+    }
+  } = (0, import_react.createRoomContext)((0, import_client2.createClient)({
+    authEndpoint
+  }));
+  const createLiveAirNode = createLiveAirNodeFactory();
+  const {
+    useStorageGetNodeMap,
+    useStorageGetNode,
+    useMutationCreateNode,
+    useMutationUpdateNode,
+    useMutationDeleteNode
+  } = customLiveHooksFactory(
+    useStorage,
+    useMutation,
+    createLiveAirNode
+  );
+  return {
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useStorage,
+    RoomProvider,
+    useMutation,
+    useSelf,
+    RoomContext,
+    useHistory,
+    useCanUndo,
+    useUndo,
+    useCanRedo,
+    useRedo,
+    createLiveAirNode,
+    useStorageGetNodeMap,
+    useStorageGetNode,
+    useMutationCreateNode,
+    useMutationUpdateNode,
+    useMutationDeleteNode
+  };
+};
+
+// src/environments/node/liveblocksNodeConfig.tsx
+var import_client3 = require("@liveblocks/client");
+var import_react2 = require("@liveblocks/react");
 var import_ws = __toESM(require("ws"), 1);
 var import_node = require("@liveblocks/node");
-var import_react2 = require("react");
+var import_react3 = require("react");
 var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 var import_jsx_runtime = require("react/jsx-runtime");
-var {
-  useLostConnectionListener,
-  useStatus,
-  useErrorListener,
-  useRoom,
-  useMyPresence,
-  useUpdateMyPresence,
-  useOthersMapped,
-  useOthers,
-  useStorage,
-  RoomProvider,
-  useMutation,
-  useSelf,
-  RoomContext
-} = (0, import_react.createRoomContext)(
-  (0, import_client2.createClient)({
-    polyfills: {
-      WebSocket: import_ws.default
-    },
-    authEndpoint: async () => authorizationCallback?.()
-  })
-);
 var authorizationCallback;
-var LiveblocksNodeRoomProvider = ({
-  userId,
-  spaceId,
-  serverName,
-  children
-}) => {
-  authorizationCallback = (0, import_react2.useCallback)(async () => {
-    const liveblocksClient = new import_node.Liveblocks({
-      secret: (await new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" }).send(new import_client_secrets_manager.GetSecretValueCommand({
-        SecretId: "LiveblocksToken-dev"
-      }))).SecretString
-    });
-    const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
-    return JSON.parse(body);
-  }, []);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+var liveblocksNodeConfig = () => {
+  const {
+    useLostConnectionListener,
+    useStatus,
+    useErrorListener,
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useOthers,
+    useStorage,
     RoomProvider,
-    {
-      id: spaceId,
-      initialPresence: {
-        displayName: `${serverName}`,
-        absoluteCursorState: null,
-        viewportState: { x: 0, y: 0, scale: 1 },
-        mouseSelectionState: {
-          selectionActive: false,
-          absoluteSelectionBounds: null
-        },
-        selectedNodeIds: [],
-        focusedNodeId: null
+    useMutation,
+    useSelf,
+    RoomContext
+  } = (0, import_react2.createRoomContext)(
+    (0, import_client3.createClient)({
+      polyfills: {
+        WebSocket: import_ws.default
       },
-      shouldInitiallyConnect: true,
-      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children })
-    }
+      authEndpoint: async () => authorizationCallback?.()
+    })
   );
+  const createLiveAirNode = createLiveAirNodeFactory();
+  const {
+    useStorageGetNodeMap,
+    useStorageGetNode,
+    useMutationCreateNode,
+    useMutationUpdateNode,
+    useMutationDeleteNode
+  } = customLiveHooksFactory(
+    useStorage,
+    useMutation,
+    createLiveAirNode
+  );
+  const LiveblocksNodeRoomProvider = ({
+    userId,
+    spaceId,
+    serverName,
+    children
+  }) => {
+    authorizationCallback = (0, import_react3.useCallback)(async () => {
+      const liveblocksClient = new import_node.Liveblocks({
+        secret: (await new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" }).send(new import_client_secrets_manager.GetSecretValueCommand({
+          SecretId: "LiveblocksToken-dev"
+        }))).SecretString
+      });
+      const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
+      return JSON.parse(body);
+    }, []);
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      RoomProvider,
+      {
+        id: spaceId,
+        initialPresence: {
+          displayName: `${serverName}`,
+          absoluteCursorState: null,
+          viewportState: { x: 0, y: 0, scale: 1 },
+          mouseSelectionState: {
+            selectionActive: false,
+            absoluteSelectionBounds: null
+          },
+          selectedNodeIds: [],
+          focusedNodeId: null
+        },
+        shouldInitiallyConnect: true,
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react2.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children })
+      }
+    );
+  };
+  return {
+    useLostConnectionListener,
+    useStatus,
+    useErrorListener,
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useOthers,
+    useStorage,
+    RoomProvider,
+    useMutation,
+    useSelf,
+    RoomContext,
+    createLiveAirNode,
+    useStorageGetNodeMap,
+    useStorageGetNode,
+    useMutationCreateNode,
+    useMutationUpdateNode,
+    useMutationDeleteNode,
+    LiveblocksNodeRoomProvider
+  };
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  LiveblocksNodeRoomProvider,
-  NodeDataTypeIndex,
-  RoomContext,
-  RoomProvider,
-  createAirNode,
-  useErrorListener,
-  useLostConnectionListener,
-  useMutation,
-  useMutationContainerState,
-  useMutationCreateNode,
-  useMutationDeleteNode,
-  useMutationNodeState,
-  useMyPresence,
-  useOthers,
-  useOthersMapped,
-  useRoom,
-  useSelf,
-  useStatus,
-  useStorage,
-  useStorageContainerState,
-  useStorageContainerStateMap,
-  useStorageNodeMap,
-  useStorageNodeState,
-  useUpdateMyPresence
+  liveblocksBrowserConfig,
+  liveblocksNodeConfig
 });
