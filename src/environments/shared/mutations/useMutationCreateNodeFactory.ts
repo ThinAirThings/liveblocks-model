@@ -15,4 +15,5 @@ export const useMutationCreateNodeFactory = <
     const node = createLiveAirNode({type, meta, state})
     const nodeId = node.get('nodeId')
     storage.get('nodeMap').set(nodeId, node as any)
+    return nodeId
 }, [])

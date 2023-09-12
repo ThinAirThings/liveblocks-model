@@ -65,6 +65,7 @@ var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => use
   const node = createLiveAirNode({ type, meta, state });
   const nodeId = node.get("nodeId");
   storage.get("nodeMap").set(nodeId, node);
+  return nodeId;
 }, []);
 
 // src/environments/shared/mutations/useMutationDeleteNodeFactory.ts
