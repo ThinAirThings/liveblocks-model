@@ -57,7 +57,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(key: K_2) => (nodeId: string, value: LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]) => void;
+    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(key: K_2) => (nodeId: string, value: Partial<LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]>) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 

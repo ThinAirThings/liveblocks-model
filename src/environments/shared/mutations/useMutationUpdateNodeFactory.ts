@@ -12,7 +12,7 @@ export const useMutationUpdateNodeFactory = <
 ) => useMutation((
     {storage},
     nodeId: string,
-    value: LiveAirNodeShape<LiveAirNodeUnion>['state'][K],
+    value: Partial<LiveAirNodeShape<LiveAirNodeUnion>['state'][K]>,
 ) => {
     const node = storage.get('nodeMap').get(nodeId)!
     const state = node.get('state')
