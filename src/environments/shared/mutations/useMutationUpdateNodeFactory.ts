@@ -1,6 +1,5 @@
-import { LiveAirNode, LiveAirNodeShape } from "../../../index.node.js"
 import { MutationHook } from "../hook-types.js"
-
+import { LiveAirNode, LiveAirNodeShape } from "../../../model/data-model.js";
 
 export const useMutationUpdateNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>
