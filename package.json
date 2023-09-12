@@ -1,6 +1,6 @@
 {
     "name": "@thinairthings/liveblocks-model",
-    "version": "1.0.99",
+    "version": "1.0.100",
     "description": "Thin Air Liveblocks Model",
     "types": "dist/indexNode.d.ts",
     "type": "module",
@@ -9,7 +9,6 @@
         "browser": "./dist/indexBrowser.js",
         "import": "./dist/indexNode.js",
         "require": "./dist/indexNode.cjs"
-        
     },
     "files": [
         "dist"
