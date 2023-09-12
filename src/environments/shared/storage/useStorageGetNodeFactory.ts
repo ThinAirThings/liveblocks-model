@@ -1,6 +1,5 @@
-import { LiveAirNode, LiveAirNodeShape } from "../../../index.node.js";
 import { StorageHook } from "../hook-types.js";
-
+import { LiveAirNode, LiveAirNodeShape } from "../../../model/data-model.js";
 
 
 export const useStorageGetNodeFactory = <

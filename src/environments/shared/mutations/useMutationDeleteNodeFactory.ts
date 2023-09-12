@@ -1,6 +1,5 @@
-import { LiveAirNode } from "../../../index.node.js"
 import { MutationHook } from "../hook-types.js"
-
+import { LiveAirNode } from "../../../model/data-model.js";
 
 export const useMutationDeleteNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>
