@@ -1,4 +1,4 @@
-import { LiveAirNode } from "../../index.js";
+import { LiveAirNode } from "../../index.node.js";
 import { createLiveAirNodeFactory } from "./createLiveAirNodeFactory.js";
 import { MutationHook, StorageHook } from "./hook-types.js";
 import { useMutationCreateNodeFactory } from "./mutations/useMutationCreateNodeFactory.js";

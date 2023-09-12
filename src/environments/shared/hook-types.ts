@@ -1,5 +1,5 @@
 import { createRoomContext } from "@liveblocks/react"
-import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from "../../index.js"
+import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from "../../index.node.js"
 
 
 export type StorageHook<

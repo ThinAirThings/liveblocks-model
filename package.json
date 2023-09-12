@@ -2,12 +2,13 @@
     "name": "@thinairthings/liveblocks-model",
     "version": "1.0.97",
     "description": "Thin Air Liveblocks Model",
-    "types": "dist/index.d.ts",
+    "types": "dist/indexNode.d.ts",
     "type": "module",
+    "browser": "./dist/indexBrowser.js",
     "exports": {
-        "types": "./dist/index.d.ts",
-        "import": "./dist/index.js",
-        "require": "./dist/index.cjs"
+        "types": "./dist/indexNode.d.ts",
+        "import": "./dist/indexNode.js",
+        "require": "./dist/indexNode.cjs"
     },
     "files": [
         "dist"
@@ -38,7 +39,7 @@
         "url": "https://github.com/ThinAirThings/liveblocks-model.git"
     },
     "scripts": {
-        "build": "tsup-node",
+        "build": "tsup",
         "npmpub": "npm run build && git add . && git commit -m \"mod\" && git push && npm version patch && npm publish"
     },
     "publishConfig": {

@@ -1,5 +1,5 @@
 import { createClient } from "@liveblocks/client";
-import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from "../../index.js";
+import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from "../../index.node.js";
 import { createRoomContext } from "@liveblocks/react";
 import { createLiveAirNodeFactory } from "../shared/createLiveAirNodeFactory.js";
 import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js";
@@ -7,7 +7,6 @@ import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js";
 export const liveblocksBrowserConfig = <LiveAirNodeUnion extends LiveAirNode<any, any>,>(
     authEndpoint: NonNullable<Parameters<typeof createClient>[0]['authEndpoint']>,
 ) => {
-    console.log("HERE")
     const {
         suspense: {
             useRoom,

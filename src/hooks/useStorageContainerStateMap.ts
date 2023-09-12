@@ -1,6 +1,6 @@
 import { ContainerState } from "@thinairthings/zoom-utils"
 import _isEqual from "lodash.isequal"
-import { StorageHook } from "../index.js"
+import { StorageHook } from "../index.node.js"
 
 export const useStorageContainerStateMap = (useStorage: StorageHook, nodeIds?: string[]): Map<string, ContainerState> => {
     return useStorage(root => {

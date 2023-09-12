@@ -1,4 +1,4 @@
-import { AirNode, MutationHook, NodeDataTypeIndex } from "../index.js"
+import { AirNode, MutationHook, NodeDataTypeIndex } from "../index.node.js"
 
 export const useMutationNodeState = <
     K extends keyof typeof NodeDataTypeIndex

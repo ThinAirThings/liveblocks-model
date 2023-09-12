@@ -1,20 +1,60 @@
-// src/environments/browser/liveblocksBrowserConfig.tsx
-import { createClient } from "@liveblocks/client";
-import { createRoomContext } from "@liveblocks/react";
+"use strict";
+var __create = Object.create;
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/index.node.ts
+var index_node_exports = {};
+__export(index_node_exports, {
+  liveblocksNodeConfig: () => liveblocksNodeConfig
+});
+module.exports = __toCommonJS(index_node_exports);
+
+// src/environments/node/liveblocksNodeConfig.tsx
+var import_client2 = require("@liveblocks/client");
+var import_react = require("@liveblocks/react");
+var import_ws = __toESM(require("ws"), 1);
+var import_node = require("@liveblocks/node");
+var import_react2 = require("react");
+var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 
 // src/environments/shared/createLiveAirNodeFactory.ts
-import { LiveObject } from "@liveblocks/client";
-import { v4 as uuidv4 } from "uuid";
+var import_client = require("@liveblocks/client");
+var import_uuid = require("uuid");
 var createLiveAirNodeFactory = () => ({
   type,
   state,
   meta
 }) => {
-  return new LiveObject({
-    nodeId: uuidv4(),
+  return new import_client.LiveObject({
+    nodeId: (0, import_uuid.v4)(),
     type,
     meta,
-    state: new LiveObject({
+    state: new import_client.LiveObject({
       ...state
     })
   });
@@ -62,73 +102,8 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
   };
 };
 
-// src/environments/browser/liveblocksBrowserConfig.tsx
-var liveblocksBrowserConfig = (authEndpoint) => {
-  console.log("HERE");
-  const {
-    suspense: {
-      useRoom,
-      useMyPresence,
-      useUpdateMyPresence,
-      useOthersMapped,
-      useStorage,
-      RoomProvider,
-      useMutation,
-      useSelf,
-      RoomContext,
-      useHistory,
-      useCanUndo,
-      useUndo,
-      useCanRedo,
-      useRedo
-    }
-  } = createRoomContext(createClient({
-    authEndpoint
-  }));
-  const createLiveAirNode = createLiveAirNodeFactory();
-  const {
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
-  } = customLiveHooksFactory(
-    useStorage,
-    useMutation,
-    createLiveAirNode
-  );
-  return {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext,
-    useHistory,
-    useCanUndo,
-    useUndo,
-    useCanRedo,
-    useRedo,
-    createLiveAirNode,
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
-  };
-};
-
 // src/environments/node/liveblocksNodeConfig.tsx
-import { createClient as createClient2 } from "@liveblocks/client";
-import { createRoomContext as createRoomContext2, ClientSideSuspense } from "@liveblocks/react";
-import nodeWebsocket from "ws";
-import { Liveblocks } from "@liveblocks/node";
-import { useCallback } from "react";
-import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
-import { Fragment, jsx } from "react/jsx-runtime";
+var import_jsx_runtime = require("react/jsx-runtime");
 var authorizationCallback;
 var liveblocksNodeConfig = () => {
   const {
@@ -145,10 +120,10 @@ var liveblocksNodeConfig = () => {
     useMutation,
     useSelf,
     RoomContext
-  } = createRoomContext2(
-    createClient2({
+  } = (0, import_react.createRoomContext)(
+    (0, import_client2.createClient)({
       polyfills: {
-        WebSocket: nodeWebsocket
+        WebSocket: import_ws.default
       },
       authEndpoint: async () => authorizationCallback?.()
     })
@@ -171,16 +146,16 @@ var liveblocksNodeConfig = () => {
     serverName,
     children
   }) => {
-    authorizationCallback = useCallback(async () => {
-      const liveblocksClient = new Liveblocks({
-        secret: (await new SecretsManagerClient({ region: "us-east-1" }).send(new GetSecretValueCommand({
+    authorizationCallback = (0, import_react2.useCallback)(async () => {
+      const liveblocksClient = new import_node.Liveblocks({
+        secret: (await new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" }).send(new import_client_secrets_manager.GetSecretValueCommand({
           SecretId: "LiveblocksToken-dev"
         }))).SecretString
       });
       const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
       return JSON.parse(body);
     }, []);
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       RoomProvider,
       {
         id: spaceId,
@@ -196,7 +171,7 @@ var liveblocksNodeConfig = () => {
           focusedNodeId: null
         },
         shouldInitiallyConnect: true,
-        children: /* @__PURE__ */ jsx(ClientSideSuspense, { fallback: /* @__PURE__ */ jsx(Fragment, {}), children })
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children })
       }
     );
   };
@@ -223,7 +198,7 @@ var liveblocksNodeConfig = () => {
     LiveblocksNodeRoomProvider
   };
 };
-export {
-  liveblocksBrowserConfig,
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
   liveblocksNodeConfig
-};
+});

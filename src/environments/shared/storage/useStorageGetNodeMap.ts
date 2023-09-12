@@ -1,5 +1,5 @@
 
-import { LiveAirNode } from "../../../index.js";
+import { LiveAirNode } from "../../../index.node.js";
 import { StorageHook } from "../hook-types.js";
 
 export const useStorageGetNodeMapFactory = <

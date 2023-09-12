@@ -4,7 +4,7 @@ import nodeWebsocket from "ws";
 import { Liveblocks} from "@liveblocks/node";
 import { ReactNode, useCallback } from 'react';
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
-import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from '../../index.js';
+import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from '../../index.node.js';
 import { createLiveAirNodeFactory } from '../shared/createLiveAirNodeFactory.js';
 import { customLiveHooksFactory } from '../shared/customLiveHooksFactory.js';
 

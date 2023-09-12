@@ -1,5 +1,5 @@
 import { LiveObject } from "@liveblocks/client"
-import { LiveAirNode, LiveAirNodeShape } from "../../index.js"
+import { LiveAirNode, LiveAirNodeShape } from "../../index.node.js"
 import {v4 as uuidv4} from 'uuid'
 
 

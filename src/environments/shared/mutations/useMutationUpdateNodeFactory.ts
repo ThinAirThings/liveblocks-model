@@ -1,4 +1,4 @@
-import { LiveAirNode, LiveAirNodeShape } from "../../../index.js"
+import { LiveAirNode, LiveAirNodeShape } from "../../../index.node.js"
 import { MutationHook } from "../hook-types.js"
 
 

@@ -4,7 +4,7 @@ import nodeWebsocket from "ws";
 import { Liveblocks} from "@liveblocks/node";
 import { ReactNode, useCallback } from 'react';
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
-import {LiveNode, LiveNodeShapeUnion, LiveblocksPresence, LiveblocksStorageModel} from "../index.js"
+import {LiveNode, LiveNodeShapeUnion, LiveblocksPresence, LiveblocksStorageModel} from "../index.node.js"
 import {v4 as uuidv4} from 'uuid'
 
 
