@@ -4,11 +4,11 @@
     "description": "Thin Air Liveblocks Model",
     "types": "dist/indexNode.d.ts",
     "type": "module",
-    "browser": "./dist/indexBrowser.js",
     "exports": {
         "types": "./dist/indexNode.d.ts",
         "import": "./dist/indexNode.js",
-        "require": "./dist/indexNode.cjs"
+        "require": "./dist/indexNode.cjs",
+        "browser": "./dist/indexBrowser.js"
     },
     "files": [
         "dist"
