@@ -78,7 +78,7 @@ var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {
 var useStorageGetMetaFactory = (useStorage) => () => useStorage((root) => root.meta);
 
 // src/environments/shared/mutations/useMutationUpdateMetaFactory.ts
-var useMutationUpdateMetaFactory = (useMutation) => useMutation(({ storage }, updater) => {
+var useMutationUpdateMetaFactory = (useMutation) => () => useMutation(({ storage }, updater) => {
   updater(storage.get("meta"));
 }, []);
 

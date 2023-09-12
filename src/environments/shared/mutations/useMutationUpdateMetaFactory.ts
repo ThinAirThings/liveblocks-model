@@ -9,7 +9,7 @@ export const useMutationUpdateMetaFactory = <
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
-) => useMutation((
+) => () => useMutation((
     {storage},
     updater: (meta: Meta) => void
 )=> {
