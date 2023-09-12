@@ -2,13 +2,12 @@
     "name": "@thinairthings/liveblocks-model",
     "version": "1.0.100",
     "description": "Thin Air Liveblocks Model",
-    "types": "dist/indexNode.d.ts",
+    "types": "dist/index.browser.d.ts",
     "type": "module",
     "exports": {
-        "types": "./dist/indexNode.d.ts",
-        "browser": "./dist/indexBrowser.js",
-        "import": "./dist/indexNode.js",
-        "require": "./dist/indexNode.cjs"
+        "types": "./dist/index.browser.d.ts",
+        "import": "./dist/index.browser.js",
+        "require": "./dist/index.browser.cjs"
     },
     "files": [
         "dist"

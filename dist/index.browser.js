@@ -1,3 +1,7 @@
+// src/environments/browser/liveblocksBrowserConfig.tsx
+import { createClient } from "@liveblocks/client";
+import { createRoomContext } from "@liveblocks/react";
+
 // src/environments/shared/createLiveAirNodeFactory.ts
 import { LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
@@ -58,7 +62,63 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
   };
 };
 
+// src/environments/browser/liveblocksBrowserConfig.tsx
+var liveblocksBrowserConfig = (authEndpoint) => {
+  const {
+    suspense: {
+      useRoom,
+      useMyPresence,
+      useUpdateMyPresence,
+      useOthersMapped,
+      useStorage,
+      RoomProvider,
+      useMutation,
+      useSelf,
+      RoomContext,
+      useHistory,
+      useCanUndo,
+      useUndo,
+      useCanRedo,
+      useRedo
+    }
+  } = createRoomContext(createClient({
+    authEndpoint
+  }));
+  const createLiveAirNode = createLiveAirNodeFactory();
+  const {
+    useStorageGetNodeMap,
+    useStorageGetNode,
+    useMutationCreateNode,
+    useMutationUpdateNode,
+    useMutationDeleteNode
+  } = customLiveHooksFactory(
+    useStorage,
+    useMutation,
+    createLiveAirNode
+  );
+  return {
+    useRoom,
+    useMyPresence,
+    useUpdateMyPresence,
+    useOthersMapped,
+    useStorage,
+    RoomProvider,
+    useMutation,
+    useSelf,
+    RoomContext,
+    useHistory,
+    useCanUndo,
+    useUndo,
+    useCanRedo,
+    useRedo,
+    createLiveAirNode,
+    useStorageGetNodeMap,
+    useStorageGetNode,
+    useMutationCreateNode,
+    useMutationUpdateNode,
+    useMutationDeleteNode
+  };
+};
 export {
-  createLiveAirNodeFactory,
-  customLiveHooksFactory
+  liveblocksBrowserConfig
 };
