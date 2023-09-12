@@ -5,9 +5,12 @@
     "types": "dist/index.browser.d.ts",
     "type": "module",
     "exports": {
-        "types": "./dist/index.browser.d.ts",
-        "import": "./dist/index.browser.js",
-        "require": "./dist/index.browser.cjs"
+        "node": {
+            "types": "./dist/index.node.d.ts",
+            "import": "./dist/index.node.js",
+            "require": "./dist/index.node.cjs"
+        },
+        "default": "./dist/index.browser.js"
     },
     "files": [
         "dist"
