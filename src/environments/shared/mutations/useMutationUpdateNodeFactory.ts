@@ -15,8 +15,12 @@ export const useMutationUpdateNodeFactory = <
     value: Partial<LiveAirNodeShape<LiveAirNodeUnion>['state'][K]>,
 ) => {
     const node = storage.get('nodeMap').get(nodeId)!
+    console.log(node)
     const state = node.get('state')
+    console.log(state)
     const oldValue = state.get(key)
+    console.log(oldValue)
+    console.log(value)
     node.get('state').set(key, {
         ...oldValue,
         ...value
