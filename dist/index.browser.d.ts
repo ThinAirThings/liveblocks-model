@@ -1,13 +1,13 @@
-import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape } from './data-model-dd968e4a.js';
-export { d as LiveAirNodeType, N as NodeId } from './data-model-dd968e4a.js';
+import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape } from './data-model-dde4a6ff.js';
+export { d as LiveAirNodeType, N as NodeId } from './data-model-dde4a6ff.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { createClient } from '@liveblocks/client';
+import { Lson, createClient, LsonObject } from '@liveblocks/client';
 import '@thinairthings/zoom-utils';
 
-declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>>(authEndpoint: NonNullable<Parameters<typeof createClient>[0]['authEndpoint']>) => {
-    useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never>;
+declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>, Meta extends Lson>(authEndpoint: NonNullable<Parameters<typeof createClient>[0]['authEndpoint']>) => {
+    useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never>;
     useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;
     } | undefined) => void];
@@ -15,21 +15,21 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
         addToHistory: boolean;
     } | undefined) => void;
     useOthersMapped: <T>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, itemIsEqual?: ((prev: T, curr: T) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T])[];
-    useStorage: <T_1>(selector: (root: LiveblocksStorageModel<LiveAirNodeUnion> extends infer T_2 ? T_2 extends LiveblocksStorageModel<LiveAirNodeUnion> ? T_2 extends _liveblocks_core.LsonObject ? { readonly [K in keyof T_2]: _liveblocks_core.ToImmutable<Exclude<T_2[K], undefined>> | (undefined extends T_2[K] ? T_2[K] & undefined : never); } : T_2 extends _liveblocks_core.Json ? T_2 : never : never : never) => T_1, isEqual?: ((prev: T_1, curr: T_1) => boolean) | undefined) => T_1;
+    useStorage: <T_1>(selector: (root: LiveblocksStorageModel<LiveAirNodeUnion, Meta> extends infer T_2 ? T_2 extends LiveblocksStorageModel<LiveAirNodeUnion, Meta> ? T_2 extends LsonObject ? { readonly [K in keyof T_2]: _liveblocks_core.ToImmutable<Exclude<T_2[K], undefined>> | (undefined extends T_2[K] ? T_2[K] & undefined : never); } : T_2 extends _liveblocks_core.Json ? T_2 : never : never : never) => T_1, isEqual?: ((prev: T_1, curr: T_1) => boolean) | undefined) => T_1;
     RoomProvider: (props: {
         id: string;
         children: react.ReactNode;
         shouldInitiallyConnect?: boolean | undefined;
         unstable_batchedUpdates?: ((cb: () => void) => void) | undefined;
         initialPresence: LiveblocksPresence | ((roomId: string) => LiveblocksPresence);
-        initialStorage?: LiveblocksStorageModel<LiveAirNodeUnion> | ((roomId: string) => LiveblocksStorageModel<LiveAirNodeUnion>) | undefined;
+        initialStorage?: LiveblocksStorageModel<LiveAirNodeUnion, Meta> | ((roomId: string) => LiveblocksStorageModel<LiveAirNodeUnion, Meta>) | undefined;
     }) => JSX.Element;
-    useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
+    useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
     useSelf: {
         (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
         <T_3>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_3, isEqual?: ((prev: T_3, curr: T_3) => boolean) | undefined): T_3;
     };
-    RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never> | null>;
+    RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never> | null>;
     useHistory: () => _liveblocks_core.History;
     useCanUndo: () => boolean;
     useUndo: () => () => void;
@@ -48,14 +48,14 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     })["state"], (LiveAirNodeShape<LiveAirNodeUnion> & {
         type: T_4;
     })["meta"]>;
-    useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
-    useStorageGetNode: <K_1 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShape<LiveAirNodeUnion>["state"][K_1];
+    useStorageGetNodeMap: () => any;
+    useStorageGetNode: <K_1 extends string | number | symbol>(nodeId: string, key: K_1) => any;
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;
         meta: any;
     }) => void;
-    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]) => void;
+    useMutationUpdateNode: <K_2 extends string | number | symbol>(nodeId: string, key: K_2) => (value: any) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 

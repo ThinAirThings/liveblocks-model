@@ -1,9 +1,12 @@
-import { createClient } from "@liveblocks/client";
+import { Lson, LsonObject, createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { createLiveAirNodeFactory } from "../shared/createLiveAirNodeFactory.js";
 import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js";
 import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from "../../model/data-model.js";
-export const liveblocksBrowserConfig = <LiveAirNodeUnion extends LiveAirNode<any, any>,>(
+export const liveblocksBrowserConfig = <
+    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    Meta extends Lson
+>(
     authEndpoint: NonNullable<Parameters<typeof createClient>[0]['authEndpoint']>,
 ) => {
     const {
@@ -25,7 +28,7 @@ export const liveblocksBrowserConfig = <LiveAirNodeUnion extends LiveAirNode<any
         }
     } = createRoomContext<
         LiveblocksPresence, 
-        LiveblocksStorageModel<LiveAirNodeUnion>
+        LiveblocksStorageModel<LiveAirNodeUnion, Meta>
     >(createClient({
         authEndpoint,
     }))

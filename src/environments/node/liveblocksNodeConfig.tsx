@@ -1,4 +1,4 @@
-import { createClient } from '@liveblocks/client'
+import { Lson, createClient } from '@liveblocks/client'
 import {createRoomContext, ClientSideSuspense} from '@liveblocks/react'
 import nodeWebsocket from "ws";
 import { Liveblocks} from "@liveblocks/node";
@@ -14,6 +14,7 @@ let authorizationCallback: (() => Promise<{
 
 export const liveblocksNodeConfig = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
+    Meta extends Lson
 >() => {
     const {
         useLostConnectionListener,
@@ -29,7 +30,7 @@ export const liveblocksNodeConfig = <
         useMutation,
         useSelf,
         RoomContext
-    } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>>(
+    } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>>(
         createClient({
             polyfills: {
                 WebSocket: nodeWebsocket

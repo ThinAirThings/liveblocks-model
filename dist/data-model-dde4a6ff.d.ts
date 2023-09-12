@@ -17,7 +17,8 @@ type LiveAirNode<T extends string, V extends LsonObject, M extends Lson = {}> = 
     meta: M;
     state: LiveObject<V>;
 }>;
-type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any, any>> = {
+type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any, any>, Meta extends Lson> = {
+    meta: Meta;
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
 type LiveblocksPresence = {
