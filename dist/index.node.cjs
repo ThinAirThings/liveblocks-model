@@ -76,7 +76,12 @@ var useMutationDeleteNodeFactory = (useMutation) => () => useMutation(({ storage
 // src/environments/shared/mutations/useMutationUpdateNodeFactory.ts
 var useMutationUpdateNodeFactory = (useMutation) => (key) => useMutation(({ storage }, nodeId, value) => {
   const node = storage.get("nodeMap").get(nodeId);
-  node.get("state").set(key, value);
+  const state = node.get("state");
+  const oldValue = state.get(key);
+  node.get("state").set(key, {
+    ...oldValue,
+    ...value
+  });
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
