@@ -8,10 +8,10 @@ export const useMutationUpdateNodeFactory = <
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
 ) => <K extends keyof LiveAirNodeShape<LiveAirNodeUnion>['state']>(
-    nodeId: string,
     key: K
 ) => useMutation((
-    {storage}, 
+    {storage},
+    nodeId: string,
     value: LiveAirNodeShape<LiveAirNodeUnion>['state'][K]
 ) => {
     const node = storage.get('nodeMap').get(nodeId)!
