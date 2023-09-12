@@ -6,9 +6,10 @@
     "type": "module",
     "exports": {
         "types": "./dist/indexNode.d.ts",
+        "browser": "./dist/indexBrowser.js",
         "import": "./dist/indexNode.js",
-        "require": "./dist/indexNode.cjs",
-        "browser": "./dist/indexBrowser.js"
+        "require": "./dist/indexNode.cjs"
+        
     },
     "files": [
         "dist"
