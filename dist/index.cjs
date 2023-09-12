@@ -101,6 +101,7 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 var liveblocksBrowserConfig = (authEndpoint) => {
+  console.log("HERE");
   const {
     suspense: {
       useRoom,

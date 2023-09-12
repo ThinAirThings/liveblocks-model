@@ -7,6 +7,7 @@ import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js";
 export const liveblocksBrowserConfig = <LiveAirNodeUnion extends LiveAirNode<any, any>,>(
     authEndpoint: NonNullable<Parameters<typeof createClient>[0]['authEndpoint']>,
 ) => {
+    console.log("HERE")
     const {
         suspense: {
             useRoom,
