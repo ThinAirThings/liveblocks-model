@@ -8,6 +8,7 @@ export type LiveAirNodeType<N extends LiveAirNode<any, any, any>> = N extends Li
 
 export type LiveAirNodeShape<U extends LiveAirNode<any, any, any>> = {
     [Type in LiveAirNodeType<U>]: {
+        nodeId: string
         type: Type,
         meta: U extends LiveAirNode<Type, any, infer M> ? M : never,
         state: U extends LiveAirNode<Type, infer V, any> ? V : never
