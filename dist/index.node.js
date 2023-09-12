@@ -1,7 +1,7 @@
 import {
   createLiveAirNodeFactory,
   customLiveHooksFactory
-} from "./chunk-SXSAOFKR.js";
+} from "./chunk-ID5VAPOC.js";
 
 // src/environments/node/liveblocksNodeConfig.tsx
 import { createClient } from "@liveblocks/client";
@@ -37,6 +37,7 @@ var liveblocksNodeConfig = () => {
   );
   const createLiveAirNode = createLiveAirNodeFactory();
   const {
+    useStorageGetMeta,
     useStorageGetNodeMap,
     useStorageGetNode,
     useMutationCreateNode,
@@ -97,6 +98,7 @@ var liveblocksNodeConfig = () => {
     useSelf,
     RoomContext,
     createLiveAirNode,
+    useStorageGetMeta,
     useStorageGetNodeMap,
     useStorageGetNode,
     useMutationCreateNode,

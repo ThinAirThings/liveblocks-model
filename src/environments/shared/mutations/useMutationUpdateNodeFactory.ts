@@ -1,10 +1,12 @@
 import { MutationHook } from "../hook-types.js"
 import { LiveAirNode, LiveAirNodeShape } from "../../../model/data-model.js";
+import { Lson } from "@liveblocks/client";
 
 export const useMutationUpdateNodeFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>
+    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    Meta extends Lson
 >(
-    useMutation: MutationHook<LiveAirNodeUnion>
+    useMutation: MutationHook<LiveAirNodeUnion, Meta>
 ) => <K extends keyof LiveAirNodeShape<LiveAirNodeUnion>['state']>(
     nodeId: string,
     key: K

@@ -25,7 +25,7 @@ export type LiveAirNode<T extends string, V extends LsonObject, M extends Lson={
 
 export type LiveblocksStorageModel<
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,
-    Meta extends Lson
+    Meta extends Lson={}
 > = {
     meta: Meta
     nodeMap: LiveMap<string, LiveAirNodeUnion>

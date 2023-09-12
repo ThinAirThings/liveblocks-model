@@ -1,7 +1,7 @@
 import {
   createLiveAirNodeFactory,
   customLiveHooksFactory
-} from "./chunk-SXSAOFKR.js";
+} from "./chunk-ID5VAPOC.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
@@ -29,6 +29,7 @@ var liveblocksBrowserConfig = (authEndpoint) => {
   }));
   const createLiveAirNode = createLiveAirNodeFactory();
   const {
+    useStorageGetMeta,
     useStorageGetNodeMap,
     useStorageGetNode,
     useMutationCreateNode,
@@ -55,6 +56,7 @@ var liveblocksBrowserConfig = (authEndpoint) => {
     useCanRedo,
     useRedo,
     createLiveAirNode,
+    useStorageGetMeta,
     useStorageGetNodeMap,
     useStorageGetNode,
     useMutationCreateNode,

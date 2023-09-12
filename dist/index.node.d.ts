@@ -1,5 +1,5 @@
-import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape } from './data-model-dde4a6ff.js';
-export { d as LiveAirNodeType, N as NodeId } from './data-model-dde4a6ff.js';
+import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape } from './data-model-e3b26e21.js';
+export { d as LiveAirNodeType, N as NodeId } from './data-model-e3b26e21.js';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -52,14 +52,15 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     })["state"], (LiveAirNodeShape<LiveAirNodeUnion> & {
         type: T_5;
     })["meta"]>;
-    useStorageGetNodeMap: () => any;
-    useStorageGetNode: <K_1 extends string | number | symbol>(nodeId: string, key: K_1) => any;
+    useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
+    useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
+    useStorageGetNode: <K_1 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShape<LiveAirNodeUnion>["state"][K_1];
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;
         meta: any;
     }) => void;
-    useMutationUpdateNode: <K_2 extends string | number | symbol>(nodeId: string, key: K_2) => (value: any) => void;
+    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
         userId: string;

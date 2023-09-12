@@ -40,6 +40,7 @@ export const liveblocksNodeConfig = <
     )
     const createLiveAirNode = createLiveAirNodeFactory<LiveAirNodeUnion>()
     const {
+        useStorageGetMeta,
         useStorageGetNodeMap,
         useStorageGetNode,
         useMutationCreateNode,
@@ -115,6 +116,7 @@ export const liveblocksNodeConfig = <
         useSelf,
         RoomContext,
         createLiveAirNode,
+        useStorageGetMeta,
         useStorageGetNodeMap,
         useStorageGetNode,
         useMutationCreateNode,
