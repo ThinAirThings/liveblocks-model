@@ -15,7 +15,8 @@
     "dependencies": {
         "@thinairthings/zoom-utils": "^1.0.12",
         "lodash.isequal": "^4.5.0",
-        "uuid": "^9.0.0"
+        "uuid": "^9.0.0",
+        "ws": "^8.14.1"
     },
     "peerDependencies": {
         "@liveblocks/client": "^1.3.1",
