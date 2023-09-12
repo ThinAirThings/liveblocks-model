@@ -9,9 +9,9 @@ export const useMutationCreateNodeFactory = <
     createLiveAirNode: ReturnType<typeof createLiveAirNodeFactory>
 ) => () => useMutation((
     {storage}, 
-    {type, state}: Parameters<typeof createLiveAirNode>[0]
+    {type, meta, state}: Parameters<typeof createLiveAirNode>[0]
 ) => {
-    const node = createLiveAirNode({type, state})
+    const node = createLiveAirNode({type, meta, state})
     const nodeId = node.get('nodeId')
     storage.get('nodeMap').set(nodeId, node as any)
 }, [])

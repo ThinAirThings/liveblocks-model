@@ -7,11 +7,13 @@ import { LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
 var createLiveAirNodeFactory = () => ({
   type,
-  state
+  state,
+  meta
 }) => {
   return new LiveObject({
     nodeId: uuidv4(),
     type,
+    meta,
     state: new LiveObject({
       ...state
     })
@@ -19,8 +21,8 @@ var createLiveAirNodeFactory = () => ({
 };
 
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
-var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, { type, state }) => {
-  const node = createLiveAirNode({ type, state });
+var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, { type, meta, state }) => {
+  const node = createLiveAirNode({ type, meta, state });
   const nodeId = node.get("nodeId");
   storage.get("nodeMap").set(nodeId, node);
 }, []);

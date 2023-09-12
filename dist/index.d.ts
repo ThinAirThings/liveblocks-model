@@ -1,4 +1,4 @@
-import { LsonObject, LiveObject, LiveMap, createClient } from '@liveblocks/client';
+import { LsonObject, Lson, LiveObject, LiveMap, createClient } from '@liveblocks/client';
 import { Point, ViewportState, ScreenState } from '@thinairthings/zoom-utils';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
@@ -6,20 +6,22 @@ import { ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
-type LiveAirNodeType<N extends LiveAirNode<any, any>> = N extends LiveAirNode<infer T, any> ? T : never;
-type LiveAirNodeShapeUnion<U extends LiveAirNode<any, any>> = {
+type LiveAirNodeType<N extends LiveAirNode<any, any, any>> = N extends LiveAirNode<infer T, any, any> ? T : never;
+type LiveAirNodeShape<U extends LiveAirNode<any, any, any>> = {
     [Type in LiveAirNodeType<U>]: {
         type: Type;
-        state: U extends LiveAirNode<Type, infer V> ? V : never;
+        meta: U extends LiveAirNode<Type, any, infer M> ? M : never;
+        state: U extends LiveAirNode<Type, infer V, any> ? V : never;
     };
 }[LiveAirNodeType<U>];
 type NodeId = string;
-type LiveAirNode<T extends string, V extends LsonObject> = LiveObject<{
+type LiveAirNode<T extends string, V extends LsonObject, M extends Lson = {}> = LiveObject<{
     nodeId: string;
     type: T;
+    meta: M;
     state: LiveObject<V>;
 }>;
-type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any>> = {
+type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any, any>> = {
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
 type LiveblocksPresence = {
@@ -63,21 +65,27 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useUndo: () => () => void;
     useCanRedo: () => boolean;
     useRedo: () => () => void;
-    createLiveAirNode: <T_4 extends LiveAirNodeShapeUnion<LiveAirNodeUnion>["type"]>({ type, state, }: {
+    createLiveAirNode: <T_4 extends LiveAirNodeShape<LiveAirNodeUnion>["type"]>({ type, state, meta }: {
         type: T_4;
-        state: (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+        state: (LiveAirNodeShape<LiveAirNodeUnion> & {
             type: T_4;
         })["state"];
-    }) => LiveAirNode<T_4, (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+        meta: (LiveAirNodeShape<LiveAirNodeUnion> & {
+            type: T_4;
+        })["meta"];
+    }) => LiveAirNode<T_4, (LiveAirNodeShape<LiveAirNodeUnion> & {
         type: T_4;
-    })["state"]>;
+    })["state"], (LiveAirNodeShape<LiveAirNodeUnion> & {
+        type: T_4;
+    })["meta"]>;
     useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
-    useStorageGetNode: <K_1 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_1];
+    useStorageGetNode: <K_1 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShape<LiveAirNodeUnion>["state"][K_1];
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;
+        meta: any;
     }) => void;
-    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_2]) => void;
+    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 
@@ -112,21 +120,27 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
         <T_4>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_4, isEqual?: ((prev: T_4, curr: T_4) => boolean) | undefined): T_4 | null;
     };
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion>, _liveblocks_core.BaseUserMeta, never> | null>;
-    createLiveAirNode: <T_5 extends LiveAirNodeShapeUnion<LiveAirNodeUnion>["type"]>({ type, state, }: {
+    createLiveAirNode: <T_5 extends LiveAirNodeShape<LiveAirNodeUnion>["type"]>({ type, state, meta }: {
         type: T_5;
-        state: (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+        state: (LiveAirNodeShape<LiveAirNodeUnion> & {
             type: T_5;
         })["state"];
-    }) => LiveAirNode<T_5, (LiveAirNodeShapeUnion<LiveAirNodeUnion> & {
+        meta: (LiveAirNodeShape<LiveAirNodeUnion> & {
+            type: T_5;
+        })["meta"];
+    }) => LiveAirNode<T_5, (LiveAirNodeShape<LiveAirNodeUnion> & {
         type: T_5;
-    })["state"]>;
+    })["state"], (LiveAirNodeShape<LiveAirNodeUnion> & {
+        type: T_5;
+    })["meta"]>;
     useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
-    useStorageGetNode: <K_1 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_1];
+    useStorageGetNode: <K_1 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_1) => LiveAirNodeShape<LiveAirNodeUnion>["state"][K_1];
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;
+        meta: any;
     }) => void;
-    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShapeUnion<LiveAirNodeUnion>["state"][K_2]) => void;
+    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(nodeId: string, key: K_2) => (value: LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
         userId: string;
@@ -136,4 +150,4 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => react_jsx_runtime.JSX.Element;
 };
 
-export { LiveAirNode, LiveAirNodeShapeUnion, LiveAirNodeType, LiveblocksPresence, LiveblocksStorageModel, NodeId, liveblocksBrowserConfig, liveblocksNodeConfig };
+export { LiveAirNode, LiveAirNodeShape, LiveAirNodeType, LiveblocksPresence, LiveblocksStorageModel, NodeId, liveblocksBrowserConfig, liveblocksNodeConfig };

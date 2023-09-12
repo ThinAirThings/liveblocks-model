@@ -44,11 +44,13 @@ var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
 var createLiveAirNodeFactory = () => ({
   type,
-  state
+  state,
+  meta
 }) => {
   return new import_client.LiveObject({
     nodeId: (0, import_uuid.v4)(),
     type,
+    meta,
     state: new import_client.LiveObject({
       ...state
     })
@@ -56,8 +58,8 @@ var createLiveAirNodeFactory = () => ({
 };
 
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
-var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, { type, state }) => {
-  const node = createLiveAirNode({ type, state });
+var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, { type, meta, state }) => {
+  const node = createLiveAirNode({ type, meta, state });
   const nodeId = node.get("nodeId");
   storage.get("nodeMap").set(nodeId, node);
 }, []);
