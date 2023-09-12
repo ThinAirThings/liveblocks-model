@@ -34,7 +34,10 @@ export const liveblocksBrowserConfig = <
     }))
     const createLiveAirNode = createLiveAirNodeFactory<LiveAirNodeUnion>()
     const {
+        // Meta
         useStorageGetMeta,
+        useMutationUpdateMeta,
+        // Nodes
         useStorageGetNodeMap,
         useStorageGetNode,
         useMutationCreateNode,
@@ -61,7 +64,10 @@ export const liveblocksBrowserConfig = <
         useCanRedo,
         useRedo,
         createLiveAirNode,
+        // Meta
         useStorageGetMeta,
+        useMutationUpdateMeta,
+        // Nodes
         useStorageGetNodeMap,
         useStorageGetNode,
         useMutationCreateNode,

@@ -77,10 +77,18 @@ var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {
 // src/environments/shared/storage/useStorageGetMetaFactory.ts
 var useStorageGetMetaFactory = (useStorage) => () => useStorage((root) => root.meta);
 
+// src/environments/shared/mutations/useMutationUpdateMetaFactory.ts
+var useMutationUpdateMetaFactory = (useMutation) => useMutation(({ storage }, updater) => {
+  updater(storage.get("meta"));
+}, []);
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
   return {
+    // Meta
     useStorageGetMeta: useStorageGetMetaFactory(useStorage),
+    useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
+    // Nodes
     useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
     useStorageGetNode: useStorageGetNodeFactory(useStorage),
     useMutationCreateNode: useMutationCreateNodeFactory(
@@ -116,7 +124,10 @@ var liveblocksBrowserConfig = (authEndpoint) => {
   }));
   const createLiveAirNode = createLiveAirNodeFactory();
   const {
+    // Meta
     useStorageGetMeta,
+    useMutationUpdateMeta,
+    // Nodes
     useStorageGetNodeMap,
     useStorageGetNode,
     useMutationCreateNode,
@@ -143,7 +154,10 @@ var liveblocksBrowserConfig = (authEndpoint) => {
     useCanRedo,
     useRedo,
     createLiveAirNode,
+    // Meta
     useStorageGetMeta,
+    useMutationUpdateMeta,
+    // Nodes
     useStorageGetNodeMap,
     useStorageGetNode,
     useMutationCreateNode,

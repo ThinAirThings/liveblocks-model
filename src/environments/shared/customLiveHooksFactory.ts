@@ -8,6 +8,7 @@ import { useMutationUpdateNodeFactory } from "./mutations/useMutationUpdateNodeF
 import { useStorageGetNodeFactory } from "./storage/useStorageGetNodeFactory.js";
 import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMap.js";
 import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js";
+import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
 
 
 export const customLiveHooksFactory = <
@@ -19,7 +20,10 @@ export const customLiveHooksFactory = <
     createLiveAirNode: ReturnType<typeof createLiveAirNodeFactory>
 ) => {
     return {
+        // Meta
         useStorageGetMeta: useStorageGetMetaFactory(useStorage),
+        useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
+        // Nodes
         useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
         useStorageGetNode: useStorageGetNodeFactory(useStorage),
         useMutationCreateNode: useMutationCreateNodeFactory(
