@@ -8,7 +8,7 @@ export const useStorageGetNodeFactory = <
     Meta extends Lson
 >(
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
-) => <K extends keyof LiveAirNodeShape<LiveAirNodeUnion>['state']>(
+) => <K extends LiveAirNodeShape<LiveAirNodeUnion>['state']>(
     nodeId: string,
     key: K
 ): LiveAirNodeShape<LiveAirNodeUnion>['state'][K] => useStorage(root => {
