@@ -15,6 +15,14 @@ export type LiveAirNodeShape<U extends LiveAirNode<any, any, any>> = {
     }
 }[LiveAirNodeType<U>]  // This turns an index into a union
 
+export type UnionToIntersection<U> = 
+    (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+
+export type LiveAirNodeState<
+    U extends LiveAirNode<any, any, any>
+> = UnionToIntersection<
+    LiveAirNodeShape<U>['state']
+>
 export type NodeId = string
 export type LiveAirNode<T extends string, V extends LsonObject, M extends Lson={}> = LiveObject<{
     nodeId: string

@@ -1,5 +1,5 @@
 import { MutationHook } from "../hook-types.js"
-import { LiveAirNode, LiveAirNodeShape } from "../../../model/data-model.js";
+import { LiveAirNode, LiveAirNodeShape, LiveAirNodeState, UnionToIntersection } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
 
 export const useMutationUpdateNodeFactory = <
@@ -7,12 +7,12 @@ export const useMutationUpdateNodeFactory = <
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
-) => <K extends keyof LiveAirNodeShape<LiveAirNodeUnion>['state']>(
+) => <K extends keyof LiveAirNodeState<LiveAirNodeUnion>>(
     key: K
 ) => useMutation((
     {storage},
     nodeId: string,
-    value: Partial<LiveAirNodeShape<LiveAirNodeUnion>['state'][K]>,
+    value: Partial<LiveAirNodeState<LiveAirNodeUnion>[K]>,
 ) => {
     const node = storage.get('nodeMap').get(nodeId)!
     const state = node.get('state')

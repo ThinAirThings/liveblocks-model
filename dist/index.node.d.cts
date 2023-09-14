@@ -1,5 +1,5 @@
-import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape } from './data-model-e3b26e21.js';
-export { d as LiveAirNodeType, N as NodeId } from './data-model-e3b26e21.js';
+import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape, U as UnionToIntersection } from './data-model-b9f9fb8c.js';
+export { e as LiveAirNodeState, d as LiveAirNodeType, N as NodeId } from './data-model-b9f9fb8c.js';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -61,7 +61,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(key: K_2) => (nodeId: string, value: Partial<LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]>) => void;
+    useMutationUpdateNode: <K_2 extends keyof UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>>(key: K_2) => (nodeId: string, value: Partial<UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>[K_2]>) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
         userId: string;
@@ -71,4 +71,4 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => react_jsx_runtime.JSX.Element;
 };
 
-export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };
+export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, UnionToIntersection, liveblocksNodeConfig };

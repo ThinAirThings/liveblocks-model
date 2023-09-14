@@ -1,5 +1,5 @@
-import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape } from './data-model-e3b26e21.js';
-export { d as LiveAirNodeType, N as NodeId } from './data-model-e3b26e21.js';
+import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape, U as UnionToIntersection } from './data-model-b9f9fb8c.js';
+export { e as LiveAirNodeState, d as LiveAirNodeType, N as NodeId } from './data-model-b9f9fb8c.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
@@ -57,8 +57,8 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: <K_2 extends keyof LiveAirNodeShape<LiveAirNodeUnion>["state"]>(key: K_2) => (nodeId: string, value: Partial<LiveAirNodeShape<LiveAirNodeUnion>["state"][K_2]>) => void;
+    useMutationUpdateNode: <K_2 extends keyof UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>>(key: K_2) => (nodeId: string, value: Partial<UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>[K_2]>) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 
-export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, liveblocksBrowserConfig };
+export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, UnionToIntersection, liveblocksBrowserConfig };

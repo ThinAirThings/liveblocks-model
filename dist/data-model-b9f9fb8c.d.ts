@@ -10,6 +10,8 @@ type LiveAirNodeShape<U extends LiveAirNode<any, any, any>> = {
         state: U extends LiveAirNode<Type, infer V, any> ? V : never;
     };
 }[LiveAirNodeType<U>];
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+type LiveAirNodeState<U extends LiveAirNode<any, any, any>> = UnionToIntersection<LiveAirNodeShape<U>['state']>;
 type NodeId = string;
 type LiveAirNode<T extends string, V extends LsonObject, M extends Lson = {}> = LiveObject<{
     nodeId: string;
@@ -33,4 +35,4 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-export { LiveAirNode as L, NodeId as N, LiveblocksPresence as a, LiveblocksStorageModel as b, LiveAirNodeShape as c, LiveAirNodeType as d };
+export { LiveAirNode as L, NodeId as N, UnionToIntersection as U, LiveblocksPresence as a, LiveblocksStorageModel as b, LiveAirNodeShape as c, LiveAirNodeType as d, LiveAirNodeState as e };
