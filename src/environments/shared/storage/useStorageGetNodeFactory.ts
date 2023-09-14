@@ -1,5 +1,5 @@
 import { StorageHook } from "../hook-types.js";
-import { LiveAirNode, LiveAirNodeShape } from "../../../model/data-model.js";
+import { LiveAirNode, LiveAirNodeShape, LiveAirNodeState } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
 
 
@@ -8,9 +8,9 @@ export const useStorageGetNodeFactory = <
     Meta extends Lson
 >(
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
-) => <K extends keyof LiveAirNodeShape<LiveAirNodeUnion>['state']>(
+) => <K extends keyof LiveAirNodeState<LiveAirNodeUnion>>(
     nodeId: string,
     key: K
-): LiveAirNodeShape<LiveAirNodeUnion>['state'][K] => useStorage(root => {
+): LiveAirNodeState<LiveAirNodeUnion>[K] => useStorage(root => {
     return root.nodeMap.get(nodeId)!.state[key]
 })
