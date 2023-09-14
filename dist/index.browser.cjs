@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.browser.ts
@@ -71,9 +81,10 @@ var useMutationUpdateNodeFactory = (useMutation) => (key) => useMutation(({ stor
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
+var import_lodash = __toESM(require("lodash.isequal"), 1);
 var useStorageGetNodeFactory = (useStorage) => (nodeId, key) => useStorage((root) => {
   return root.nodeMap.get(nodeId).state[key];
-});
+}, (a, b) => (0, import_lodash.default)(a, b));
 
 // src/environments/shared/storage/useStorageGetNodeMap.ts
 var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {

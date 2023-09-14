@@ -41,9 +41,10 @@ var useMutationUpdateNodeFactory = (useMutation) => (key) => useMutation(({ stor
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
+import isEqual from "lodash.isequal";
 var useStorageGetNodeFactory = (useStorage) => (nodeId, key) => useStorage((root) => {
   return root.nodeMap.get(nodeId).state[key];
-});
+}, (a, b) => isEqual(a, b));
 
 // src/environments/shared/storage/useStorageGetNodeMap.ts
 var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {
