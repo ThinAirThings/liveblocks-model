@@ -34,10 +34,13 @@ var useMutationUpdateNodeFactory = (useMutation) => (key) => useMutation(({ stor
   const node = storage.get("nodeMap").get(nodeId);
   const state = node.get("state");
   const oldValue = state.get(key);
-  node.get("state").set(key, {
-    ...oldValue,
-    ...value
-  });
+  node.get("state").set(
+    key,
+    typeof value === "object" ? {
+      ...oldValue,
+      ...value
+    } : value
+  );
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts

@@ -17,8 +17,11 @@ export const useMutationUpdateNodeFactory = <
     const node = storage.get('nodeMap').get(nodeId)!
     const state = node.get('state')
     const oldValue = state.get(key)
-    node.get('state').set(key, {
+    node.get('state').set(key, typeof value === "object" 
+        ? {
         ...oldValue,
         ...value
-    })
+        }
+        : value
+    )
 }, [])
