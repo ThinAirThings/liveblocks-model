@@ -11,4 +11,4 @@ export const useStorageGetNodeMapFactory = <
     return nodeType 
         ? new Map([...root.nodeMap].filter(([,node]) => node.type === nodeType))
         : root.nodeMap
-})
+})!
