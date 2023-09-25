@@ -57,10 +57,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: <T_5 extends LiveAirNode<any, any>>() => (args_0: {
-        nodeId: string;
-        updater: (nodeState: T_5 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.LiveObject<S> : never) => void;
-    }) => void;
+    useMutationUpdateNode: <T_5 extends LiveAirNode<any, any>>() => (nodeId: string, updater: (nodeState: T_5 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.LiveObject<S> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 

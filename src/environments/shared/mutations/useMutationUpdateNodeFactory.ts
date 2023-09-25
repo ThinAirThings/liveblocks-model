@@ -8,13 +8,9 @@ export const useMutationUpdateNodeFactory = <
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
 ) => <T extends LiveAirNode<any, any>>() => useMutation((
-    {storage}, {
-        nodeId,
-        updater
-    }: {
-        nodeId: string,
-        updater: (nodeState: T extends LiveAirNode<any, infer S> ? LiveObject<S> : never) => void
-    }
+    {storage}, 
+    nodeId: string,
+    updater: (nodeState: T extends LiveAirNode<any, infer S> ? LiveObject<S> : never) => void
 ) => {
     const nodeState = storage.get('nodeMap').get(nodeId)!.get('state') as T extends LiveAirNode<any, infer S> ? LiveObject<S> : never
     updater(nodeState)
