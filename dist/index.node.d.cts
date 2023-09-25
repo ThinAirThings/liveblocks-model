@@ -1,5 +1,5 @@
-import { L as LiveAirNode, e as LiveblocksPresence, a as LiveblocksStorageModel, b as LiveAirNodeShape } from './data-model-7e0da64c.js';
-export { d as LiveAirNodeState, c as LiveAirNodeType, N as NodeId, U as UnionToIntersection } from './data-model-7e0da64c.js';
+import { L as LiveAirNode, e as LiveblocksPresence, a as LiveblocksStorageModel, b as LiveAirNodeShape, U as UnionToIntersection } from './data-model-7e0da64c.js';
+export { d as LiveAirNodeState, c as LiveAirNodeType, N as NodeId } from './data-model-7e0da64c.js';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -55,7 +55,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
     useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
-    useStorageGetNode: <T_6 extends LiveAirNode<any, any>>(nodeId: string, selector: <R_1>(nodeState: T_6 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.ToImmutable<S> : never) => R_1) => unknown;
+    useStorageGetNode: <T_6 extends (nodeState: UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>) => any>(nodeId: string, selector: T_6 extends (nodeState: infer S) => any ? (nodeState: S) => ReturnType<T_6> : never) => ReturnType<T_6 extends (nodeState: infer S) => any ? (nodeState: S) => ReturnType<T_6> : never>;
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;
@@ -71,4 +71,4 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => react_jsx_runtime.JSX.Element;
 };
 
-export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };
+export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, UnionToIntersection, liveblocksNodeConfig };
