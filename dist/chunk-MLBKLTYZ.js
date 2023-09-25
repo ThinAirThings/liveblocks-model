@@ -46,9 +46,9 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
   );
 };
 
-// src/environments/shared/storage/useStorageGetNodeMap.ts
-var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {
-  return root.nodeMap;
+// src/environments/shared/storage/useStorageGetNodeMapFactory.ts
+var useStorageGetNodeMapFactory = (useStorage) => (nodeType) => useStorage((root) => {
+  return nodeType ? new Map([...root.nodeMap].filter(([, node]) => node.type === nodeType)) : root.nodeMap;
 });
 
 // src/environments/shared/storage/useStorageGetMetaFactory.ts

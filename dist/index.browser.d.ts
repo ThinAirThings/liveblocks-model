@@ -1,5 +1,5 @@
-import { L as LiveAirNode, a as LiveblocksStorageModel, b as LiveAirNodeShape } from './data-model-7e0da64c.js';
-export { d as LiveAirNodeState, c as LiveAirNodeType, e as LiveblocksPresence, N as NodeId, U as UnionToIntersection } from './data-model-7e0da64c.js';
+import { L as LiveAirNode, a as LiveblocksStorageModel, b as LiveAirNodeShape, c as LiveAirNodeType } from './data-model-7e0da64c.js';
+export { d as LiveAirNodeState, e as LiveblocksPresence, N as NodeId, U as UnionToIntersection } from './data-model-7e0da64c.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
@@ -50,7 +50,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     })["meta"]>;
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
-    useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
+    useStorageGetNodeMap: (nodeType?: LiveAirNodeType<LiveAirNodeUnion> | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
     useStorageGetNode: <T_5 extends LiveAirNode<any, any>, R_1>(nodeId: string, selector: (nodeState: T_5 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.ToImmutable<S> : never) => R_1) => NonNullable<R_1>;
     useMutationCreateNode: () => (args_0: {
         type: any;
@@ -61,4 +61,4 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 
-export { LiveAirNode, LiveAirNodeShape, LiveblocksStorageModel, liveblocksBrowserConfig };
+export { LiveAirNode, LiveAirNodeShape, LiveAirNodeType, LiveblocksStorageModel, liveblocksBrowserConfig };

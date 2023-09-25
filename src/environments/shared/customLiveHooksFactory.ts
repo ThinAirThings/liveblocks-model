@@ -6,7 +6,7 @@ import { useMutationCreateNodeFactory } from "./mutations/useMutationCreateNodeF
 import { useMutationDeleteNodeFactory } from "./mutations/useMutationDeleteNodeFactory.js";
 import { useMutationUpdateNodeFactory } from "./mutations/useMutationUpdateNodeFactory.js";
 import { useStorageGetNodeFactory } from "./storage/useStorageGetNodeFactory.js";
-import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMap.js";
+import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMapFactory.js";
 import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js";
 import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
 
