@@ -1,6 +1,6 @@
 {
     "name": "@thinairthings/liveblocks-model",
-    "version": "1.0.126",
+    "version": "2.0.0",
     "description": "Thin Air Liveblocks Model",
     "types": "dist/index.browser.d.ts",
     "type": "module",

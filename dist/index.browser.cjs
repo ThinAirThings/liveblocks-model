@@ -121,7 +121,7 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
 };
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
-var liveblocksBrowserConfig = (authEndpoint) => {
+var liveblocksBrowserConfig = (createClientProps) => {
   const {
     suspense: {
       useRoom,
@@ -139,9 +139,7 @@ var liveblocksBrowserConfig = (authEndpoint) => {
       useCanRedo,
       useRedo
     }
-  } = (0, import_react.createRoomContext)((0, import_client2.createClient)({
-    authEndpoint
-  }));
+  } = (0, import_react.createRoomContext)((0, import_client2.createClient)(createClientProps));
   const createLiveAirNode = createLiveAirNodeFactory();
   const {
     // Meta

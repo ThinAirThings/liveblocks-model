@@ -6,7 +6,7 @@ import {
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
-var liveblocksBrowserConfig = (authEndpoint) => {
+var liveblocksBrowserConfig = (createClientProps) => {
   const {
     suspense: {
       useRoom,
@@ -24,9 +24,7 @@ var liveblocksBrowserConfig = (authEndpoint) => {
       useCanRedo,
       useRedo
     }
-  } = createRoomContext(createClient({
-    authEndpoint
-  }));
+  } = createRoomContext(createClient(createClientProps));
   const createLiveAirNode = createLiveAirNodeFactory();
   const {
     // Meta
