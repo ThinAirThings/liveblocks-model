@@ -63,7 +63,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => string;
     useMutationUpdateNode: <T_6 extends LiveAirNode<any, any>>() => (args_0: {
         nodeId: string;
-        updater: (nodeState: T_6 extends _liveblocks_core.LiveObject<infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.LiveObject<S> : never) => void;
+        updater: (nodeState: T_6 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.LiveObject<S> : never) => void;
     }) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {

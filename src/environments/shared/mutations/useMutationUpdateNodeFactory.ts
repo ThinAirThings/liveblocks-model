@@ -13,9 +13,9 @@ export const useMutationUpdateNodeFactory = <
         updater
     }: {
         nodeId: string,
-        updater: (nodeState: T extends LiveObject<infer S> ? LiveObject<S> : never) => void
+        updater: (nodeState: T extends LiveAirNode<any, infer S> ? LiveObject<S> : never) => void
     }
 ) => {
-    const nodeState = storage.get('nodeMap').get(nodeId)!.get('state') as T extends LiveObject<infer S> ? LiveObject<S> : never
+    const nodeState = storage.get('nodeMap').get(nodeId)!.get('state') as T extends LiveAirNode<any, infer S> ? LiveObject<S> : never
     updater(nodeState)
 }, [])
