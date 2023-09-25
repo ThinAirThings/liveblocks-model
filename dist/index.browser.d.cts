@@ -51,7 +51,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
     useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
-    useStorageGetNode: <T_5 extends (nodeState: UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>) => any>(nodeId: string, selector: T_5 extends (nodeState: infer S) => any ? (nodeState: S) => ReturnType<T_5> : never) => ReturnType<T_5 extends (nodeState: infer S) => any ? (nodeState: S) => ReturnType<T_5> : never>;
+    useStorageGetNode: <T_5 extends (nodeState: UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion>["state"]>) => any>(nodeId: string, selector: T_5 extends (nodeState: infer S) => infer R_1 ? (nodeState: S) => R_1 : never) => ReturnType<T_5 extends (nodeState: infer S) => infer R_1 ? (nodeState: S) => R_1 : never>;
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;

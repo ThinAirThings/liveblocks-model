@@ -12,7 +12,7 @@ export const useStorageGetNodeFactory = <
     T extends (nodeState: LiveAirNodeState<LiveAirNodeUnion>) => any
 >(
     nodeId: string,
-    selector: T extends (nodeState: infer S) => any ? (nodeState: S) => ReturnType<T> : never
+    selector: T extends (nodeState: infer S) => infer R ? (nodeState: S) => R : never
 ): ReturnType<typeof selector> => useStorage(
     root => {
         return selector(root.nodeMap.get(nodeId)!.state!)
