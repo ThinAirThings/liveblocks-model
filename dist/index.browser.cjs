@@ -70,17 +70,12 @@ var useMutationDeleteNodeFactory = (useMutation) => () => useMutation(({ storage
 }, []);
 
 // src/environments/shared/mutations/useMutationUpdateNodeFactory.ts
-var useMutationUpdateNodeFactory = (useMutation) => (key) => useMutation(({ storage }, nodeId, value) => {
+var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage }, {
+  nodeId,
+  updater
+}) => {
   const node = storage.get("nodeMap").get(nodeId);
-  const state = node.get("state");
-  const oldValue = state.get(key);
-  node.get("state").set(
-    key,
-    typeof value === "object" ? {
-      ...oldValue,
-      ...value
-    } : value
-  );
+  updater(node);
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
@@ -108,9 +103,10 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
     // Meta
     useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
-    // Nodes
+    // Nodes -- Storage
     useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
     useStorageGetNode: useStorageGetNodeFactory(useStorage),
+    // Nodes -- Mutation
     useMutationCreateNode: useMutationCreateNodeFactory(
       useMutation,
       createLiveAirNode

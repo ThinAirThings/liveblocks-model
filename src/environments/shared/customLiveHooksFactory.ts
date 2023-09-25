@@ -23,9 +23,10 @@ export const customLiveHooksFactory = <
         // Meta
         useStorageGetMeta: useStorageGetMetaFactory(useStorage),
         useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
-        // Nodes
+        // Nodes -- Storage
         useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
         useStorageGetNode: useStorageGetNodeFactory(useStorage),
+        // Nodes -- Mutation
         useMutationCreateNode: useMutationCreateNodeFactory(
             useMutation,
             createLiveAirNode
