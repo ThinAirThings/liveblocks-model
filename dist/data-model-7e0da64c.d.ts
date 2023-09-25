@@ -35,6 +35,4 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-type Selector<T, out R> = (nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never) => R;
-
-export { LiveAirNode as L, NodeId as N, Selector as S, UnionToIntersection as U, LiveblocksStorageModel as a, LiveAirNodeShape as b, LiveAirNodeType as c, LiveAirNodeState as d, LiveblocksPresence as e };
+export { LiveAirNode as L, NodeId as N, UnionToIntersection as U, LiveblocksStorageModel as a, LiveAirNodeShape as b, LiveAirNodeType as c, LiveAirNodeState as d, LiveblocksPresence as e };
