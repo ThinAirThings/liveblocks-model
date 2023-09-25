@@ -19,10 +19,10 @@ export const useStorageGetNodeFactory = <
     nodeId: string,
     selector: <R extends NonNullable<any>>(nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never) => R
 ) => {
-    return useStorage(
+    return useStorage<ReturnType<typeof selector>>(
         root => {
             return selector(root.nodeMap.get(nodeId)!.state!)
         },
         (a,b)=>isEqual(a,b)
-    )
+    )!
 }
