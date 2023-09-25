@@ -81,9 +81,12 @@ var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
 var import_lodash = __toESM(require("lodash.isequal"), 1);
-var useStorageGetNodeFactory = (useStorage) => (nodeId, key) => useStorage((root) => {
-  return root.nodeMap.get(nodeId).state[key];
-}, (a, b) => (0, import_lodash.default)(a, b));
+var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => useStorage(
+  (root) => {
+    return selector(root.nodeMap.get(nodeId).state);
+  },
+  (a, b) => (0, import_lodash.default)(a, b)
+);
 
 // src/environments/shared/storage/useStorageGetNodeMap.ts
 var useStorageGetNodeMapFactory = (useStorage) => () => useStorage((root) => {

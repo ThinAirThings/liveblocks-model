@@ -1,6 +1,6 @@
 import { StorageHook } from "../hook-types.js";
 import { LiveAirNode, LiveAirNodeShape, LiveAirNodeState } from "../../../model/data-model.js";
-import { Lson } from "@liveblocks/client";
+import { LiveObject, Lson, LsonObject } from "@liveblocks/client";
 import isEqual from "lodash.isequal";
 
 export const useStorageGetNodeFactory = <
@@ -8,9 +8,12 @@ export const useStorageGetNodeFactory = <
     Meta extends Lson
 >(
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
-) => <K extends keyof LiveAirNodeState<LiveAirNodeUnion>>(
+) => <T extends LiveAirNode<any, any>, R>(
     nodeId: string,
-    key: K
-): LiveAirNodeState<LiveAirNodeUnion>[K] => useStorage(root => {
-    return root.nodeMap.get(nodeId)!.state[key]
-}, (a,b)=>isEqual(a,b))
+    selector: (nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never) => R
+): R => useStorage(
+    root => {
+        return selector(root.nodeMap.get(nodeId)!.state!) as any
+    },
+    (a,b)=>isEqual(a,b)
+)
