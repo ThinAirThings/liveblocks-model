@@ -13,8 +13,7 @@ export const useStorageGetNodeFactory = <
 >(
     nodeId: string,
     selector: T extends (nodeState: infer S) => infer R ? (nodeState: S) => R : never
-): ReturnType<typeof selector> => useStorage(
-    root => {
+) => useStorage( root => {
         return selector(root.nodeMap.get(nodeId)!.state!)
     },
     (a,b)=>isEqual(a,b)
