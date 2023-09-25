@@ -1,5 +1,5 @@
-import { L as LiveAirNode, a as LiveblocksStorageModel, b as LiveAirNodeShape } from './data-model-7e0da64c.js';
-export { d as LiveAirNodeState, c as LiveAirNodeType, e as LiveblocksPresence, N as NodeId, U as UnionToIntersection } from './data-model-7e0da64c.js';
+import { L as LiveAirNode, a as LiveblocksStorageModel, b as LiveAirNodeShape, S as Selector } from './useStorageGetNodeFactory-0039c5c7.js';
+export { d as LiveAirNodeState, c as LiveAirNodeType, e as LiveblocksPresence, N as NodeId, U as UnionToIntersection } from './useStorageGetNodeFactory-0039c5c7.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
@@ -51,13 +51,13 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
     useStorageGetNodeMap: () => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>> | null;
-    useStorageGetNode: <T_5 extends LiveAirNode<any, any>>(nodeId: string, selector: (nodeState: T_5 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.ToImmutable<S> : never) => any) => any;
+    useStorageGetNode: <T_5 extends LiveAirNode<any, any>>(nodeId: string, selector: Selector<T_5, any>) => any;
     useMutationCreateNode: () => (args_0: {
         type: any;
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: <T_6 extends LiveAirNode<any, any>>() => (nodeId: string, updater: (nodeState: T_6 extends LiveAirNode<any, infer S_1 extends _liveblocks_core.LsonObject> ? _liveblocks_core.LiveObject<S_1> : never) => void) => void;
+    useMutationUpdateNode: <T_6 extends LiveAirNode<any, any>>() => (nodeId: string, updater: (nodeState: T_6 extends LiveAirNode<any, infer S extends _liveblocks_core.LsonObject> ? _liveblocks_core.LiveObject<S> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 
