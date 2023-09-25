@@ -8,12 +8,12 @@ export const useStorageGetNodeFactory = <
     Meta extends Lson
 >(
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
-) => <T extends LiveAirNode<any, any>, R>(
+) => <T extends LiveAirNode<any, any>>(
     nodeId: string,
-    selector: (nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never) => R
-): R => useStorage(
+    selector: <R>(nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never) => R
+) => useStorage(
     root => {
-        return selector(root.nodeMap.get(nodeId)!.state!) as any
+        return selector(root.nodeMap.get(nodeId)!.state!)
     },
     (a,b)=>isEqual(a,b)
 )
