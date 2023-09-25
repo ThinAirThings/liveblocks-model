@@ -57,9 +57,9 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: <T_5 extends LiveAirNodeShape<LiveAirNodeUnion>["type"]>() => (args_0: {
+    useMutationUpdateNode: <T_5 extends LiveAirNode<any, any>>() => (args_0: {
         nodeId: string;
-        updater: (nodeState: UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion & LiveAirNode<T_5, any>>["state"]>) => void;
+        updater: (nodeState: UnionToIntersection<LiveAirNodeShape<T_5>["state"]>) => void;
     }) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
