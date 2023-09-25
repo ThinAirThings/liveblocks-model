@@ -1,11 +1,12 @@
-import { Lson, createClient } from "@liveblocks/client";
+import { JsonObject, Lson, createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { createLiveAirNodeFactory } from "../shared/createLiveAirNodeFactory.js";
 import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js";
-import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from "../../model/data-model.js";
+import { LiveAirNode, LiveblocksStorageModel } from "../../model/data-model.js";
 export const liveblocksBrowserConfig = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
-    Meta extends Lson
+    Meta extends Lson,
+    LiveblocksPresence extends JsonObject={}
 >(
     createClientProps: Parameters<typeof createClient>[0],
 ) => {

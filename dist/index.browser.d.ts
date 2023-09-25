@@ -1,12 +1,12 @@
-import { L as LiveAirNode, a as LiveblocksPresence, b as LiveblocksStorageModel, c as LiveAirNodeShape, U as UnionToIntersection } from './data-model-b9f9fb8c.js';
-export { e as LiveAirNodeState, d as LiveAirNodeType, N as NodeId } from './data-model-b9f9fb8c.js';
+import { L as LiveAirNode, a as LiveblocksStorageModel, b as LiveAirNodeShape, U as UnionToIntersection } from './data-model-7e0da64c.js';
+export { d as LiveAirNodeState, c as LiveAirNodeType, e as LiveblocksPresence, N as NodeId } from './data-model-7e0da64c.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { Lson, createClient } from '@liveblocks/client';
+import { Lson, JsonObject, createClient } from '@liveblocks/client';
 import '@thinairthings/zoom-utils';
 
-declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>, Meta extends Lson>(createClientProps: Parameters<typeof createClient>[0]) => {
+declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>, Meta extends Lson, LiveblocksPresence extends JsonObject = {}>(createClientProps: Parameters<typeof createClient>[0]) => {
     useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never>;
     useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;
@@ -61,4 +61,4 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 
-export { LiveAirNode, LiveAirNodeShape, LiveblocksPresence, LiveblocksStorageModel, UnionToIntersection, liveblocksBrowserConfig };
+export { LiveAirNode, LiveAirNodeShape, LiveblocksStorageModel, UnionToIntersection, liveblocksBrowserConfig };
