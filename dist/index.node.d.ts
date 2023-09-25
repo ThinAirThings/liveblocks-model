@@ -63,7 +63,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => string;
     useMutationUpdateNode: <T_6 extends LiveAirNodeShape<LiveAirNodeUnion>["type"]>() => (args_0: {
         nodeId: string;
-        updater: (node: LiveAirNodeUnion & LiveAirNode<T_6, any>) => void;
+        updater: (nodeState: UnionToIntersection<LiveAirNodeShape<LiveAirNodeUnion & LiveAirNode<T_6, any>>["state"]>) => void;
     }) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {

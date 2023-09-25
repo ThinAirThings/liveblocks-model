@@ -13,9 +13,9 @@ export const useMutationUpdateNodeFactory = <
         updater
     }: {
         nodeId: string,
-        updater: (node: LiveAirNodeUnion&LiveAirNode<T, any>) => void
+        updater: (nodeState: LiveAirNodeState<LiveAirNodeUnion&LiveAirNode<T, any>>) => void
     }
 ) => {
-    const node = storage.get('nodeMap').get(nodeId)! 
-    updater(node)
+    const nodeState = storage.get('nodeMap').get(nodeId)!.get('state') as LiveAirNodeState<LiveAirNodeUnion&LiveAirNode<T, any>>
+    updater(nodeState)
 }, [])

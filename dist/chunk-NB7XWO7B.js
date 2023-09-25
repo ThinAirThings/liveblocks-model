@@ -34,8 +34,8 @@ var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage
   nodeId,
   updater
 }) => {
-  const node = storage.get("nodeMap").get(nodeId);
-  updater(node);
+  const nodeState = storage.get("nodeMap").get(nodeId).get("state");
+  updater(nodeState);
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
