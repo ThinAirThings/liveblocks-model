@@ -8,10 +8,10 @@ export const useStorageGetNodeFactory = <
     Meta extends Lson
 >(useStorage: StorageHook<LiveAirNodeUnion, Meta>) => <
     N extends LiveAirNode<any, any>,
-    R
+    // R
 >(
     nodeId: string,
-    selector: (nodeState: N extends LiveAirNode<infer T, infer S> 
+    selector: <R>(nodeState: N extends LiveAirNode<infer T, infer S> 
         ? AirNodeState<LiveAirNode<T, S>> 
         : never) => R
 ) => {
