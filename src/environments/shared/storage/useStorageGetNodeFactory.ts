@@ -13,7 +13,7 @@ export const useStorageGetNodeFactory = <
     R
 >(
     nodeId: string,
-    selector: (nodeState: S extends AirNodeState<infer N> ? AirNodeState<N> : never) => R
+    selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R
 ) => {
     return useStorage<ReturnType<typeof selector>>(
         root => {
