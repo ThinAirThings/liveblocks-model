@@ -1,24 +1,19 @@
 import { StorageHook } from "../hook-types.js";
-import { LiveAirNode, LiveAirNodeShape, LiveAirNodeState } from "../../../model/data-model.js";
-import { LiveObject, Lson, LsonObject } from "@liveblocks/client";
+import { AirNodeState, LiveAirNode } from "../../../model/data-model.js";
+import { Lson } from "@liveblocks/client";
 import isEqual from "lodash.isequal";
 
-
-
-export type Selector<T, out R>= (
-    nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never
-) => R
 export const useStorageGetNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
     Meta extends Lson
 >(
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
 ) => <
-    T extends LiveAirNode<any, any>,
+    S extends AirNodeState<any>,
     R
 >(
     nodeId: string,
-    selector: (nodeState: T extends LiveAirNode<any, infer S> ? ReturnType<LiveObject<S>['toImmutable']> : never) => R
+    selector: (nodeState: S extends AirNodeState<infer N> ? AirNodeState<N> : never) => R
 ) => {
     return useStorage<ReturnType<typeof selector>>(
         root => {

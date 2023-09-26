@@ -1,35 +1,38 @@
 import { LiveMap, LiveObject, Lson, LsonObject } from "@liveblocks/client"
 import { Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 
-
-export type LiveAirNodeType<N extends LiveAirNode<any, any, any>> = N extends LiveAirNode<infer T, any, any> 
-    ? T 
-    : never
-
-export type LiveAirNodeShape<U extends LiveAirNode<any, any, any>> = {
-    [Type in LiveAirNodeType<U>]: {
-        nodeId: string
-        type: Type,
-        meta: U extends LiveAirNode<Type, any, infer M> ? M : never,
-        state: U extends LiveAirNode<Type, infer V, any> ? V : never
-    }
-}[LiveAirNodeType<U>]  // This turns an index into a union
-
 export type UnionToIntersection<U> = 
     (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
-export type LiveAirNodeState<
-    U extends LiveAirNode<any, any, any>
-> = UnionToIntersection<
-    LiveAirNodeShape<U>['state']
->
-export type NodeId = string
 export type LiveAirNode<T extends string, V extends LsonObject, M extends Lson={}> = LiveObject<{
     nodeId: string
     type: T
     meta: M
     state: LiveObject<V>
 }>
+
+export type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
+    [Type in AirNodeType<U>]: {
+        nodeId: string
+        type: Type,
+        meta: ReturnType<U['toImmutable']>['meta']
+        state: ReturnType<U['toImmutable']>['state']
+    }
+}[AirNodeType<U>]  // This turns an index into a union
+
+export type AirNodeType<U extends LiveAirNode<any, any, any>> = ReturnType<U['toImmutable']>['type']
+
+export type AirNodeState<
+    U extends LiveAirNode<any, any, any>
+> = ReturnType<U['toImmutable']>['state']
+
+export type LiveAirNodeState<
+    U extends LiveAirNode<any, any, any>
+> = LiveObject<ReturnType<U['toImmutable']>['state']>
+
+export type AirNodeMeta<
+    U extends LiveAirNode<any, any, any>
+> = ReturnType<U['toImmutable']>['meta']
 
 export type LiveblocksStorageModel<
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,
