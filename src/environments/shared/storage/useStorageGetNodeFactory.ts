@@ -20,5 +20,5 @@ export const useStorageGetNodeFactory = <
             return selector(root.nodeMap.get(nodeId)!.state!)
         },
         (a,b)=>isEqual(a,b)
-    )!
+    )
 }
