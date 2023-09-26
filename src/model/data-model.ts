@@ -20,7 +20,9 @@ export type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
     }
 }[AirNodeType<U>]  // This turns an index into a union
 
-export type AirNodeType<U extends LiveAirNode<any, any, any>> = ReturnType<U['toImmutable']>['type']
+export type AirNodeType<U extends LiveAirNode<any, any>> = U extends LiveAirNode<infer T, any> 
+    ? T 
+    : never
 
 export type AirNodeState<
     U extends LiveAirNode<any, any, any>

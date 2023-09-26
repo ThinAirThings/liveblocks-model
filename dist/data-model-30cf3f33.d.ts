@@ -16,7 +16,7 @@ type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
         state: U extends LiveAirNode<Type, infer V, any> ? V : never;
     };
 }[AirNodeType<U>];
-type AirNodeType<U extends LiveAirNode<any, any, any>> = ReturnType<U['toImmutable']>['type'];
+type AirNodeType<U extends LiveAirNode<any, any>> = U extends LiveAirNode<infer T, any> ? T : never;
 type AirNodeState<U extends LiveAirNode<any, any, any>> = AirNodeShape<U>['state'];
 type LiveAirNodeState<U extends LiveAirNode<any, any, any>> = LiveObject<ReturnType<U['toImmutable']>['state']>;
 type AirNodeMeta<U extends LiveAirNode<any, any, any>> = ReturnType<U['toImmutable']>['meta'];
