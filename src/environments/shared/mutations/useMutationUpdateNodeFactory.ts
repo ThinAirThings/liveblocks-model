@@ -11,8 +11,8 @@ export const useMutationUpdateNodeFactory = <
     N extends LiveAirNode<any, any>
 >(
     nodeId: string, 
-    updater: (liveNodeState: N extends LiveAirNode<any, infer S> 
-        ? LiveAirNodeState<LiveAirNode<any, S>>
+    updater: (liveNodeState: N extends LiveAirNode<infer T, infer S> 
+        ? LiveAirNodeState<LiveAirNode<T, S>>
         :never)=>void
 )=> void => useMutation((
     {storage}, 
