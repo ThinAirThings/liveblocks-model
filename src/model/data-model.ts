@@ -30,11 +30,11 @@ export type AirNodeState<
 
 export type LiveAirNodeState<
     U extends LiveAirNode<any, any, any>
-> = LiveObject<ReturnType<U['toImmutable']>['state']>
+> = LiveObject<AirNodeState<U>>
 
 export type AirNodeMeta<
     U extends LiveAirNode<any, any, any>
-> = ReturnType<U['toImmutable']>['meta']
+> = AirNodeShape<U>['meta']
 
 export type LiveblocksStorageModel<
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,

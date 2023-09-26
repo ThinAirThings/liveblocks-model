@@ -18,8 +18,8 @@ type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
 }[AirNodeType<U>];
 type AirNodeType<U extends LiveAirNode<any, any>> = U extends LiveAirNode<infer T, any> ? T : never;
 type AirNodeState<U extends LiveAirNode<any, any, any>> = AirNodeShape<U>['state'];
-type LiveAirNodeState<U extends LiveAirNode<any, any, any>> = LiveObject<ReturnType<U['toImmutable']>['state']>;
-type AirNodeMeta<U extends LiveAirNode<any, any, any>> = ReturnType<U['toImmutable']>['meta'];
+type LiveAirNodeState<U extends LiveAirNode<any, any, any>> = LiveObject<AirNodeState<U>>;
+type AirNodeMeta<U extends LiveAirNode<any, any, any>> = AirNodeShape<U>['meta'];
 type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any, any>, Meta extends Lson = {}> = {
     meta: Meta;
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
