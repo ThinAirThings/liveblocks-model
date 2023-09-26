@@ -91,8 +91,8 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 };
 
 // src/environments/shared/storage/useStorageGetNodeMapFactory.ts
-var useStorageGetNodeMapFactory = (useStorage) => (nodeType) => useStorage((root) => {
-  return nodeType ? new Map([...root.nodeMap].filter(([, node]) => node.type === nodeType)) : root.nodeMap;
+var useStorageGetNodeMapFactory = (useStorage) => (nodeFilter) => useStorage((root) => {
+  return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
 });
 
 // src/environments/shared/storage/useStorageGetMetaFactory.ts

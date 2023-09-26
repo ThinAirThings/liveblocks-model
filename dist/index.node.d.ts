@@ -1,5 +1,5 @@
-import { L as LiveAirNode, f as LiveblocksPresence, a as LiveblocksStorageModel, A as AirNodeType, b as AirNodeState, c as LiveAirNodeState } from './data-model-dc644993.js';
-export { e as AirNodeMeta, d as AirNodeShape, U as UnionToIntersection } from './data-model-dc644993.js';
+import { L as LiveAirNode, f as LiveblocksPresence, a as LiveblocksStorageModel, A as AirNodeShape, b as AirNodeState, c as LiveAirNodeState } from './data-model-4971424b.js';
+export { e as AirNodeMeta, d as AirNodeType, U as UnionToIntersection } from './data-model-4971424b.js';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -46,7 +46,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => LiveAirNode<T_5, any, any>;
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
-    useStorageGetNodeMap: (nodeType?: AirNodeType<LiveAirNodeUnion> | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
+    useStorageGetNodeMap: (nodeFilter?: ((value: [string, AirNodeShape<LiveAirNodeUnion>], index: number, array: [string, AirNodeShape<LiveAirNodeUnion>][]) => unknown) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
     useStorageGetNode: <S extends _liveblocks_core.LsonObject, R_1>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R_1) => NonNullable<R_1>;
     useMutationCreateNode: () => (args_0: {
         type: LiveAirNodeShape<LiveNodeUnion>;
@@ -63,4 +63,4 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => react_jsx_runtime.JSX.Element;
 };
 
-export { AirNodeState, AirNodeType, LiveAirNode, LiveAirNodeState, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };
+export { AirNodeShape, AirNodeState, LiveAirNode, LiveAirNodeState, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };

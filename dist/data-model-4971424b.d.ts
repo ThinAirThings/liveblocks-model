@@ -36,4 +36,4 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-export { AirNodeType as A, LiveAirNode as L, UnionToIntersection as U, LiveblocksStorageModel as a, AirNodeState as b, LiveAirNodeState as c, AirNodeShape as d, AirNodeMeta as e, LiveblocksPresence as f };
+export { AirNodeShape as A, LiveAirNode as L, UnionToIntersection as U, LiveblocksStorageModel as a, AirNodeState as b, LiveAirNodeState as c, AirNodeType as d, AirNodeMeta as e, LiveblocksPresence as f };
