@@ -7,12 +7,12 @@ export const useStorageGetNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
     Meta extends Lson
 >(useStorage: StorageHook<LiveAirNodeUnion, Meta>) => <
-    N extends LiveAirNode<any, any>,
-    // R
+    S extends AirNodeState<any>,
+    R
 >(
     nodeId: string,
-    selector: <R>(nodeState: N extends LiveAirNode<infer T, infer S> 
-        ? AirNodeState<LiveAirNode<T, S>> 
+    selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> 
+        ? AirNodeState<N> 
         : never) => R
 ) => {
     return useStorage<ReturnType<typeof selector>>(
