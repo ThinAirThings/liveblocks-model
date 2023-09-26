@@ -15,8 +15,8 @@ export type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
     [Type in AirNodeType<U>]: {
         nodeId: string
         type: Type,
-        meta: ReturnType<U['toImmutable']>['meta']
-        state: ReturnType<U['toImmutable']>['state']
+        meta: (ReturnType<U['toImmutable']>&{type: Type})['meta']
+        state: (ReturnType<U['toImmutable']>&{type: Type})['state']
     }
 }[AirNodeType<U>]  // This turns an index into a union
 
