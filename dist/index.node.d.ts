@@ -55,15 +55,15 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
     useStorageGetNodeMap: (nodeFilter?: ((value: [string, AirNodeShape<LiveAirNodeUnion>], index: number, array: [string, AirNodeShape<LiveAirNodeUnion>][]) => unknown) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
     useStorageGetNode: <S extends _liveblocks_core.LsonObject, R_1>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R_1) => NonNullable<R_1>;
-    useMutationCreateNode: () => (args_0: AirNodeShape<LiveAirNodeUnion>["type"], args_1: {
+    useMutationCreateNode: () => <T_6 extends AirNodeShape<LiveAirNodeUnion>["type"]>(type: T_6, { meta, state }: {
         state: (AirNodeShape<LiveAirNodeUnion> & {
-            type: AirNodeShape<LiveAirNodeUnion>["type"];
+            type: T_6;
         })["state"];
         meta: (AirNodeShape<LiveAirNodeUnion> & {
-            type: AirNodeShape<LiveAirNodeUnion>["type"];
+            type: T_6;
         })["meta"];
     }) => string;
-    useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_6 extends string, infer S_1 extends _liveblocks_core.LsonObject> ? LiveAirNodeState<LiveAirNode<T_6, S_1>> : never) => void) => void;
+    useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_7 extends string, infer S_1 extends _liveblocks_core.LsonObject> ? LiveAirNodeState<LiveAirNode<T_7, S_1>> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
         userId: string;

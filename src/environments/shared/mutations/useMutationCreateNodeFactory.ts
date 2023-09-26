@@ -8,7 +8,10 @@ export const useMutationCreateNodeFactory = <
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>,
     createLiveAirNode: ReturnType<typeof createLiveAirNodeFactory<LiveAirNodeUnion>>
-) => () => useMutation((
+) => ():(<T extends Parameters<typeof createLiveAirNode>[0]>(
+    type: T,
+    {meta, state}: Parameters<typeof createLiveAirNode<T>>[1]
+)=>string) => useMutation((
     {storage}, 
     type: Parameters<typeof createLiveAirNode>[0],
     {meta, state}: Parameters<typeof createLiveAirNode>[1]
