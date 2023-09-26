@@ -83,7 +83,8 @@ var import_lodash = __toESM(require("lodash.isequal"), 1);
 var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
   return useStorage(
     (root) => {
-      return selector(root.nodeMap.get(nodeId)?.state);
+      const nodeState = root.nodeMap.get(nodeId)?.state;
+      return nodeState ? selector(nodeState) : null;
     },
     (a, b) => (0, import_lodash.default)(a, b)
   );

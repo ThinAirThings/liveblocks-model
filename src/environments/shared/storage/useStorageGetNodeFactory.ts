@@ -13,11 +13,12 @@ export const useStorageGetNodeFactory = <
     nodeId: string,
     selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> 
         ? AirNodeState<N> 
-        : never) => R
+        : never) => (R | null)
 ) => {
     return useStorage<ReturnType<typeof selector>>(
         root => {
-            return selector(root.nodeMap.get(nodeId)?.state)
+            const nodeState = root.nodeMap.get(nodeId)?.state
+            return nodeState ? selector(nodeState) : null
         },
         (a,b)=>isEqual(a,b)
     )

@@ -39,7 +39,8 @@ import isEqual from "lodash.isequal";
 var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
   return useStorage(
     (root) => {
-      return selector(root.nodeMap.get(nodeId)?.state);
+      const nodeState = root.nodeMap.get(nodeId)?.state;
+      return nodeState ? selector(nodeState) : null;
     },
     (a, b) => isEqual(a, b)
   );
