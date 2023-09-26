@@ -43,13 +43,13 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
     useStorageGetNodeMap: (nodeType?: AirNodeType<LiveAirNodeUnion> | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
-    useStorageGetNode: <S extends _liveblocks_core.LsonObject, R_1>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R_1) => NonNullable<R_1>;
+    useStorageGetNode: <N extends LiveAirNode<any, any>, R_1>(nodeId: string, selector: (nodeState: N extends LiveAirNode<infer T_5 extends string, infer S extends _liveblocks_core.LsonObject> ? AirNodeState<LiveAirNode<T_5, S>> : never) => R_1) => NonNullable<R_1>;
     useMutationCreateNode: () => (args_0: {
         type: LiveAirNodeShape<LiveNodeUnion>;
         state: any;
         meta: any;
     }) => string;
-    useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_5 extends string, infer S_1 extends _liveblocks_core.LsonObject> ? LiveAirNodeState<LiveAirNode<T_5, S_1>> : never) => void) => void;
+    useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_6 extends string, infer S_1 extends _liveblocks_core.LsonObject> ? LiveAirNodeState<LiveAirNode<T_6, S_1>> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
 };
 

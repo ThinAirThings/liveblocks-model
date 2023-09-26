@@ -6,14 +6,14 @@ import isEqual from "lodash.isequal";
 export const useStorageGetNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
     Meta extends Lson
->(
-    useStorage: StorageHook<LiveAirNodeUnion, Meta>
-) => <
-    S extends AirNodeState<any>,
+>(useStorage: StorageHook<LiveAirNodeUnion, Meta>) => <
+    N extends LiveAirNode<any, any>,
     R
 >(
     nodeId: string,
-    selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R
+    selector: (nodeState: N extends LiveAirNode<infer T, infer S> 
+        ? AirNodeState<LiveAirNode<T, S>> 
+        : never) => R
 ) => {
     return useStorage<ReturnType<typeof selector>>(
         root => {
