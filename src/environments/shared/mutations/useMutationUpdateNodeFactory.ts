@@ -7,10 +7,10 @@ export const useMutationUpdateNodeFactory = <
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
-) => <S extends LiveAirNodeState<any>>() => useMutation((
+) => () => useMutation((
     {storage}, 
     nodeId: string,
-    updater: (liveNodeState: S extends LiveAirNodeState<infer N>? LiveAirNodeState<N>:never) => void
+    updater: <S extends LiveAirNodeState<any>>(liveNodeState: S extends LiveAirNodeState<infer N>? LiveAirNodeState<N>:never) => void
 ) => {
     const nodeState = storage.get('nodeMap').get(nodeId)!.get('state') as any
     updater(nodeState)
