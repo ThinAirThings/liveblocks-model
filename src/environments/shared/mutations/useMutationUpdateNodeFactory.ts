@@ -7,14 +7,12 @@ export const useMutationUpdateNodeFactory = <
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
-) => (): <
-    N extends LiveAirNode<any, any>
->(
+) => (): (<N extends LiveAirNode<any, any>>(
     nodeId: string, 
     updater: (liveNodeState: N extends LiveAirNode<infer T, infer S> 
         ? LiveAirNodeState<LiveAirNode<T, S>>
         :never)=>void
-)=> void => useMutation((
+)=> void) => useMutation((
     {storage}, 
     nodeId: string,
     updater: (liveNodeState: any) => void

@@ -1,24 +1,21 @@
 import { LiveObject } from "@liveblocks/client"
-import { LiveAirNode, LiveAirNodeShape } from "../../model/data-model.js";
+import { LiveAirNode, AirNodeShape } from "../../model/data-model.js";
 import {v4 as uuidv4} from 'uuid'
 
 
 export const createLiveAirNodeFactory = <
     LiveNodeUnion extends LiveAirNode<any, any, any>
->() => <
-    T extends LiveAirNodeShape<LiveNodeUnion>["type"],
->({
-    type,
+>() => <T extends AirNodeShape<LiveNodeUnion>["type"],>(
+    type: T, {
     state,
     meta
 }:{
-    type: T,
-    state: (LiveAirNodeShape<LiveNodeUnion>&{type: T})['state'],
-    meta: (LiveAirNodeShape<LiveNodeUnion>&{type: T})['meta']
+    state: (AirNodeShape<LiveNodeUnion>&{type: T})['state'],
+    meta: (AirNodeShape<LiveNodeUnion>&{type: T})['meta']
 }): LiveAirNode<
     T, 
-    (LiveAirNodeShape<LiveNodeUnion>&{type: T})['state'],
-    (LiveAirNodeShape<LiveNodeUnion>&{type: T})['meta']
+    (AirNodeShape<LiveNodeUnion>&{type: T})['state'],
+    (AirNodeShape<LiveNodeUnion>&{type: T})['meta']
 > => {
     return new LiveObject({
         nodeId: uuidv4(),

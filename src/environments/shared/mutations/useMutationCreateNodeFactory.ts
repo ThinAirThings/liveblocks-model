@@ -7,12 +7,13 @@ export const useMutationCreateNodeFactory = <
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>,
-    createLiveAirNode: ReturnType<typeof createLiveAirNodeFactory>
+    createLiveAirNode: ReturnType<typeof createLiveAirNodeFactory<LiveAirNodeUnion>>
 ) => () => useMutation((
     {storage}, 
-    {type, meta, state}: Parameters<typeof createLiveAirNode>[0]
+    type: Parameters<typeof createLiveAirNode>[0],
+    {meta, state}: Parameters<typeof createLiveAirNode>[1]
 ) => {
-    const node = createLiveAirNode({type, meta, state})
+    const node = createLiveAirNode(type, {meta, state})
     const nodeId = node.get('nodeId')
     storage.get('nodeMap').set(nodeId, node as any)
     return nodeId

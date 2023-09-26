@@ -45,8 +45,7 @@ var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 // src/environments/shared/createLiveAirNodeFactory.ts
 var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
-var createLiveAirNodeFactory = () => ({
-  type,
+var createLiveAirNodeFactory = () => (type, {
   state,
   meta
 }) => {
@@ -61,8 +60,8 @@ var createLiveAirNodeFactory = () => ({
 };
 
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
-var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, { type, meta, state }) => {
-  const node = createLiveAirNode({ type, meta, state });
+var useMutationCreateNodeFactory = (useMutation, createLiveAirNode) => () => useMutation(({ storage }, type, { meta, state }) => {
+  const node = createLiveAirNode(type, { meta, state });
   const nodeId = node.get("nodeId");
   storage.get("nodeMap").set(nodeId, node);
   return nodeId;
