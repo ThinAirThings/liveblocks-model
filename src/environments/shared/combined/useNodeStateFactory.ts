@@ -28,5 +28,5 @@ export const useNodeStateFactory = <
         (newValue: AirNodeState<T>[typeof key]) => updateNode(nodeId, (liveNodeState) => {
             liveNodeState.set(key, newValue)
         })
-    ]
+    ] as const
 }
