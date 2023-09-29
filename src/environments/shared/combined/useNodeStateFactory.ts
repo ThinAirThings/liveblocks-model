@@ -17,11 +17,11 @@ export const useNodeStateFactory = <
         LiveAirNodeUnion,
         Meta
     >>
-) => <T extends LiveAirNode<any, any>>(
+) => <T extends LiveAirNodeUnion>(
     nodeId: string,
     key: keyof AirNodeState<T>,
 ) => {
-    const nodeValue = useStorageGetNode(nodeId, nodeState => nodeState[key])
+    const nodeValue = useStorageGetNode(nodeId, (nodeState: AirNodeState<T>) => nodeState[key])
     const updateNode = useMutationUpdateNode()
     return [
         nodeValue,

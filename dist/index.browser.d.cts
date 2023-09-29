@@ -21,7 +21,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     }) => string;
     useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_1 extends string, infer S_1 extends _liveblocks_core.LsonObject> ? LiveAirNodeState<LiveAirNode<T_1, S_1>> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
-    useNodeState: <T_2 extends LiveAirNode<any, any>>(nodeId: string, key: keyof AirNodeState<T_2>) => any[];
+    useNodeState: <T_2 extends LiveAirNodeUnion>(nodeId: string, key: keyof AirNodeState<T_2>) => (AirNodeState<T_2>[keyof AirNodeState<T_2>] | ((newValue: AirNodeState<T_2>[keyof AirNodeState<T_2>]) => void) | null)[];
     useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never>;
     useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;
