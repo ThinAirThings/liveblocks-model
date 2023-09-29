@@ -25,7 +25,7 @@ export const useNodeStateFactory = <
     const updateNode = useMutationUpdateNode()
     return [
         nodeValue,
-        (newValue: AirNodeState<T>[typeof key]) => updateNode(nodeId, (liveNodeState) => {
+        (newValue: AirNodeState<T>[K]) => updateNode(nodeId, (liveNodeState) => {
             liveNodeState.set(key, newValue)
         })
     ] as const
