@@ -9,7 +9,7 @@ import { useStorageGetNodeFactory } from "./storage/useStorageGetNodeFactory.js"
 import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMapFactory.js";
 import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js";
 import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
-import { useNodeStateFactory } from "./combined/useNodeState.js";
+import { useNodeStateFactory } from "./combined/useNodeStateFactory.js";
 
 
 export const customLiveHooksFactory = <
@@ -37,7 +37,10 @@ export const customLiveHooksFactory = <
         useMutationUpdateNode,
         useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),
         // Nodes -- Combined
-        useNodeState: useNodeStateFactory(
+        useNodeState: useNodeStateFactory<
+            LiveAirNodeUnion,
+            Meta
+        >(
             useStorageGetNode,
             useMutationUpdateNode
         )

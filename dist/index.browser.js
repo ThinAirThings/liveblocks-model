@@ -1,7 +1,7 @@
 import {
   createLiveAirNodeFactory,
   customLiveHooksFactory
-} from "./chunk-WRNK7TXR.js";
+} from "./chunk-FIA32SN6.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
@@ -42,15 +42,6 @@ var liveblocksBrowserConfig = (createClientProps) => {
     useCanRedo,
     useRedo,
     createLiveAirNode,
-    // // Meta
-    // useStorageGetMeta,
-    // useMutationUpdateMeta,
-    // // Nodes
-    // useStorageGetNodeMap,
-    // useStorageGetNode,
-    // useMutationCreateNode,
-    // useMutationUpdateNode,
-    // useMutationDeleteNode,
     ...customLiveHooksFactory(
       useStorage,
       useMutation,

@@ -103,7 +103,7 @@ var useMutationUpdateMetaFactory = (useMutation) => () => useMutation(({ storage
   updater(storage.get("meta"));
 }, []);
 
-// src/environments/shared/combined/useNodeState.ts
+// src/environments/shared/combined/useNodeStateFactory.ts
 var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId, key) => {
   const nodeValue = useStorageGetNode(nodeId, (nodeState) => nodeState[key]);
   const updateNode = useMutationUpdateNode();
