@@ -26,21 +26,6 @@ var liveblocksBrowserConfig = (createClientProps) => {
     }
   } = createRoomContext(createClient(createClientProps));
   const createLiveAirNode = createLiveAirNodeFactory();
-  const {
-    // Meta
-    useStorageGetMeta,
-    useMutationUpdateMeta,
-    // Nodes
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
-  } = customLiveHooksFactory(
-    useStorage,
-    useMutation,
-    createLiveAirNode
-  );
   return {
     useRoom,
     useMyPresence,
@@ -57,15 +42,20 @@ var liveblocksBrowserConfig = (createClientProps) => {
     useCanRedo,
     useRedo,
     createLiveAirNode,
-    // Meta
-    useStorageGetMeta,
-    useMutationUpdateMeta,
-    // Nodes
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
+    // // Meta
+    // useStorageGetMeta,
+    // useMutationUpdateMeta,
+    // // Nodes
+    // useStorageGetNodeMap,
+    // useStorageGetNode,
+    // useMutationCreateNode,
+    // useMutationUpdateNode,
+    // useMutationDeleteNode,
+    ...customLiveHooksFactory(
+      useStorage,
+      useMutation,
+      createLiveAirNode
+    )
   };
 };
 export {

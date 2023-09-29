@@ -158,21 +158,6 @@ var liveblocksBrowserConfig = (createClientProps) => {
     }
   } = (0, import_react.createRoomContext)((0, import_client2.createClient)(createClientProps));
   const createLiveAirNode = createLiveAirNodeFactory();
-  const {
-    // Meta
-    useStorageGetMeta,
-    useMutationUpdateMeta,
-    // Nodes
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
-  } = customLiveHooksFactory(
-    useStorage,
-    useMutation,
-    createLiveAirNode
-  );
   return {
     useRoom,
     useMyPresence,
@@ -189,15 +174,20 @@ var liveblocksBrowserConfig = (createClientProps) => {
     useCanRedo,
     useRedo,
     createLiveAirNode,
-    // Meta
-    useStorageGetMeta,
-    useMutationUpdateMeta,
-    // Nodes
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
+    // // Meta
+    // useStorageGetMeta,
+    // useMutationUpdateMeta,
+    // // Nodes
+    // useStorageGetNodeMap,
+    // useStorageGetNode,
+    // useMutationCreateNode,
+    // useMutationUpdateNode,
+    // useMutationDeleteNode,
+    ...customLiveHooksFactory(
+      useStorage,
+      useMutation,
+      createLiveAirNode
+    )
   };
 };
 // Annotate the CommonJS export names for ESM import in node:
