@@ -59,22 +59,41 @@ var useMutationUpdateMetaFactory = (useMutation) => () => useMutation(({ storage
   updater(storage.get("meta"));
 }, []);
 
+// src/environments/shared/combined/useNodeState.ts
+var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId, key) => {
+  const nodeValue = useStorageGetNode(nodeId, (nodeState) => nodeState[key]);
+  const updateNode = useMutationUpdateNode();
+  return [
+    nodeValue,
+    (newValue) => updateNode(nodeId, (liveNodeState) => {
+      liveNodeState.set(key, newValue);
+    })
+  ];
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
+  const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation);
+  const useStorageGetNode = useStorageGetNodeFactory(useStorage);
   return {
     // Meta
     useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
     // Nodes -- Storage
     useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
-    useStorageGetNode: useStorageGetNodeFactory(useStorage),
+    useStorageGetNode,
     // Nodes -- Mutation
     useMutationCreateNode: useMutationCreateNodeFactory(
       useMutation,
       createLiveAirNode
     ),
-    useMutationUpdateNode: useMutationUpdateNodeFactory(useMutation),
-    useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation)
+    useMutationUpdateNode,
+    useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),
+    // Nodes -- Combined
+    useNodeState: useNodeStateFactory(
+      useStorageGetNode,
+      useMutationUpdateNode
+    )
   };
 };
 
