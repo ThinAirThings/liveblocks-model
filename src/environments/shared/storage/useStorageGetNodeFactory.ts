@@ -21,5 +21,5 @@ export const useStorageGetNodeFactory = <
             return nodeState ? selector(nodeState) : null
         },
         (a,b)=>isEqual(a,b)
-    )!
+    ) 
 }
