@@ -27,7 +27,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     NodeContext: react.Context<use_immer.ImmerHook<{ [K in AirNodeType<LiveAirNodeUnion>]: string | null; }>>;
     useNodeStateContext: <T_3 extends AirNodeType<LiveAirNodeUnion>, S_2 extends (AirNodeShape<LiveAirNodeUnion> & {
         type: T_3;
-    })["state"], K_2 extends keyof S_2>(nodeType: T_3, stateKey: K_2) => [AirNodeState<LiveAirNodeUnion>[K_2], (value: AirNodeState<LiveAirNodeUnion>[K_2]) => void];
+    })["state"], K_2 extends keyof S_2>(nodeType: T_3, stateKey: K_2) => [S_2[K_2], (value: S_2[K_2]) => void];
     NodeContextProvider: ({ children }: {
         children: react.ReactNode;
     }) => react_jsx_runtime.JSX.Element;

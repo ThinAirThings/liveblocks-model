@@ -42,8 +42,8 @@ export const NodeContextFactory = <
         ) => {
             const nodeId = useContext(NodeContext)[0][nodeType]
             return useNodeState<any, any>(nodeId!, stateKey) as unknown as [
-                AirNodeState<LiveAirNodeUnion>[K],
-                (value: AirNodeState<LiveAirNodeUnion>[K]) => void
+                S[K],
+                (value: S[K]) => void
             ]
         }
     }
