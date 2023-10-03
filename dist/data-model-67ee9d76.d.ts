@@ -26,7 +26,7 @@ type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     meta: Meta;
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
-type ContextType<T extends Context<ImmerHook<any>>> = T extends Context<ImmerHook<infer U>> ? U : never;
+type NodeContextType<T extends Context<ImmerHook<any>>> = T extends Context<ImmerHook<infer U>> ? U : never;
 type LiveblocksPresence = {
     displayName: string;
     absoluteCursorState: Point | null;
@@ -39,4 +39,4 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-export { AirNodeType as A, ContextType as C, LiveAirNode as L, UnionToIntersection as U, AirNodeShape as a, AirNodeState as b, LiveAirNodeState as c, LiveblocksStorageModel as d, AirNodeMeta as e, LiveblocksPresence as f };
+export { AirNodeType as A, LiveAirNode as L, NodeContextType as N, UnionToIntersection as U, AirNodeShape as a, AirNodeState as b, LiveAirNodeState as c, LiveblocksStorageModel as d, AirNodeMeta as e, LiveblocksPresence as f };

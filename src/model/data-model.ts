@@ -50,7 +50,7 @@ export type LiveblocksStorageModel<
     nodeMap: LiveMap<string, LiveAirNodeUnion>
 }
 
-export type ContextType<
+export type NodeContextType<
     T extends Context<ImmerHook<any>>
 > = T extends Context<ImmerHook<infer U>> ? U : never
 
