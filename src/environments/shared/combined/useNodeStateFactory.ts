@@ -1,5 +1,5 @@
 import { Lson } from "@liveblocks/client";
-import { AirNodeState, LiveAirNode } from "../../../index.node.js";
+import { AirNodeState, LiveAirNode, LiveAirNodeState } from "../../../index.node.js";
 import { useStorageGetNodeFactory } from "../storage/useStorageGetNodeFactory.js";
 import { useMutationUpdateNodeFactory } from "../mutations/useMutationUpdateNodeFactory.js";
 
@@ -17,11 +17,11 @@ export const useNodeStateFactory = <
         LiveAirNodeUnion,
         Meta
     >>
-) => <T extends LiveAirNodeUnion>(
+) => <T extends LiveAirNodeUnion, K extends keyof LiveAirNodeState<T>=keyof LiveAirNodeState<T>>(
     nodeId: string,
-    key: keyof AirNodeState<T>,
+    key: K,
 ) => {
-    const nodeValue = useStorageGetNode(nodeId, (nodeState: AirNodeState<T>) => nodeState[key]) as AirNodeState<T>[typeof key extends keyof T ? typeof key : never]
+    const nodeValue = useStorageGetNode(nodeId, (nodeState: AirNodeState<T>) => nodeState[key]) as AirNodeState<T>[K]
     const updateNode = useMutationUpdateNode()
     return [
         nodeValue,
@@ -29,7 +29,7 @@ export const useNodeStateFactory = <
             liveNodeState.set(key, newValue)
         })
     ] as [
-        AirNodeState<T>[typeof key extends keyof T ? typeof key : never],
-        (newValue: AirNodeState<T>[typeof key extends keyof T ? typeof key : never]) => void
+        AirNodeState<T>[K],
+        (newValue: AirNodeState<T>[K]) => void
     ]
 }
