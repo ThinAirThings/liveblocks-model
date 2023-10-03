@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useContext } from "react"
+import { ReactNode, createContext, useContext, useMemo } from "react"
 import { useImmer } from "use-immer"
 import { AirNodeShape, AirNodeState, AirNodeType, LiveAirNode } from "../../../index.node.js"
 import { Lson } from "@liveblocks/client"
@@ -27,11 +27,27 @@ export const NodeContextFactory = <
         }) => {
             const [contextValue] = useContext(NodeContext)
             const nodeContext = useImmer(contextValue)
-            return (
+
+            return useMemo(() => (
                 <NodeContext.Provider value={nodeContext}>
                     {children}
                 </NodeContext.Provider>
-            )
+            ), [contextValue, children])
+        },
+        useNodeContext: <
+            T extends AirNodeType<LiveAirNodeUnion>
+        >(
+            nodeType: T
+        ) => {
+            const [nodeCtx, updateNodeCtx] = useContext(NodeContext)
+            return [
+                nodeCtx[nodeType],
+                (newNodeId: string | null) => {
+                    updateNodeCtx((draft) => {
+                        draft[nodeType] = newNodeId as any
+                    })
+                }
+            ] as const
         },
         useNodeStateContext: <
             T extends AirNodeType<LiveAirNodeUnion>,

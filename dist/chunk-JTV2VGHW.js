@@ -84,7 +84,7 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
 };
 
 // src/environments/shared/context/NodeContextFactory.tsx
-import { createContext, useContext as useContext2 } from "react";
+import { createContext, useContext as useContext2, useMemo } from "react";
 import { useImmer } from "use-immer";
 import { jsx } from "react/jsx-runtime";
 var NodeContextFactory = (useNodeState) => {
@@ -97,7 +97,18 @@ var NodeContextFactory = (useNodeState) => {
     }) => {
       const [contextValue] = useContext2(NodeContext);
       const nodeContext = useImmer(contextValue);
-      return /* @__PURE__ */ jsx(NodeContext.Provider, { value: nodeContext, children });
+      return useMemo(() => /* @__PURE__ */ jsx(NodeContext.Provider, { value: nodeContext, children }), [contextValue, children]);
+    },
+    useNodeContext: (nodeType) => {
+      const [nodeCtx, updateNodeCtx] = useContext2(NodeContext);
+      return [
+        nodeCtx[nodeType],
+        (newNodeId) => {
+          updateNodeCtx((draft) => {
+            draft[nodeType] = newNodeId;
+          });
+        }
+      ];
     },
     useNodeStateContext: (nodeType, stateKey) => {
       const nodeId = useContext2(NodeContext)[0][nodeType];

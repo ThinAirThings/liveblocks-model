@@ -141,7 +141,18 @@ var NodeContextFactory = (useNodeState) => {
     }) => {
       const [contextValue] = (0, import_react2.useContext)(NodeContext);
       const nodeContext = (0, import_use_immer.useImmer)(contextValue);
-      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children });
+      return (0, import_react2.useMemo)(() => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children }), [contextValue, children]);
+    },
+    useNodeContext: (nodeType) => {
+      const [nodeCtx, updateNodeCtx] = (0, import_react2.useContext)(NodeContext);
+      return [
+        nodeCtx[nodeType],
+        (newNodeId) => {
+          updateNodeCtx((draft) => {
+            draft[nodeType] = newNodeId;
+          });
+        }
+      ];
     },
     useNodeStateContext: (nodeType, stateKey) => {
       const nodeId = (0, import_react2.useContext)(NodeContext)[0][nodeType];
