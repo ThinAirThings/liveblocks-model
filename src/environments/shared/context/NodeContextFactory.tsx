@@ -26,6 +26,7 @@ export const NodeContextFactory = <
             children: ReactNode
         }) => {
             const [contextValue] = useContext(NodeContext)
+            console.log('contextValue', contextValue)
             const nodeContext = useImmer(contextValue)
 
             return useMemo(() => (
