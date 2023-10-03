@@ -4,7 +4,11 @@ import { Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
 export type UnionToIntersection<U> = 
     (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
-export type LiveAirNode<T extends string, S extends LsonObject, M extends Lson={}> = LiveObject<{
+export type LiveAirNode<
+    T extends string, 
+    S extends LsonObject, 
+    M extends Lson={}
+> = LiveObject<{
     nodeId: string
     type: T
     meta: M

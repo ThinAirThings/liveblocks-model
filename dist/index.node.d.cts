@@ -1,5 +1,5 @@
-import { L as LiveAirNode, f as LiveblocksPresence, c as LiveblocksStorageModel, A as AirNodeShape, a as AirNodeState, b as LiveAirNodeState } from './data-model-412cc31d.js';
-export { e as AirNodeMeta, d as AirNodeType, U as UnionToIntersection } from './data-model-412cc31d.js';
+import { L as LiveAirNode, f as LiveblocksPresence, d as LiveblocksStorageModel, a as AirNodeShape, A as AirNodeType, b as AirNodeState, c as LiveAirNodeState } from './data-model-c47b33e1.js';
+export { e as AirNodeMeta, U as UnionToIntersection } from './data-model-c47b33e1.js';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -53,7 +53,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     })["meta"]>;
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
-    useStorageGetNodeMap: (nodeFilter?: ((value: [string, AirNodeShape<LiveAirNodeUnion>], index: number, array: [string, AirNodeShape<LiveAirNodeUnion>][]) => unknown) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
+    useStorageGetNodeMap: (nodeFilter?: ((params: [{ [K_1 in AirNodeType<LiveAirNodeUnion>]: string; }, [string, AirNodeShape<LiveAirNodeUnion>], number, [string, AirNodeShape<LiveAirNodeUnion>][]]) => boolean) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
     useStorageGetNode: <S extends _liveblocks_core.LsonObject, R_1>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R_1 | null) => R_1 | null;
     useMutationCreateNode: () => <T_6 extends AirNodeShape<LiveAirNodeUnion>["type"]>(type: T_6, { meta, state }: {
         state: (AirNodeShape<LiveAirNodeUnion> & {
@@ -73,4 +73,4 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     }) => react_jsx_runtime.JSX.Element;
 };
 
-export { AirNodeShape, AirNodeState, LiveAirNode, LiveAirNodeState, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };
+export { AirNodeShape, AirNodeState, AirNodeType, LiveAirNode, LiveAirNodeState, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };
