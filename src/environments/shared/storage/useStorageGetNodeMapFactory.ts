@@ -9,7 +9,7 @@ export const useStorageGetNodeMapFactory = <
 >(
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
 ) => (
-    nodeFilter?: (params: [
+    nodeFilter?: (...params: [
         nodeCtx: {[K in AirNodeType<LiveAirNodeUnion>]: string}, 
         ...Parameters<Parameters<Array<[string, AirNodeShape<LiveAirNodeUnion>]>['filter']>[0]>]
     ) => boolean
