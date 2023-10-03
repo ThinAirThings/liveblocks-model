@@ -136,9 +136,8 @@ var NodeContextFactory = (useNodeState) => {
       children
     }) => {
       const [contextValue] = (0, import_react2.useContext)(NodeContext);
-      console.log("contextValue", contextValue);
       const nodeContext = (0, import_use_immer.useImmer)(contextValue);
-      return (0, import_react2.useMemo)(() => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children }), [contextValue, children]);
+      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children });
     },
     useNodeContext: (nodeType) => {
       const [nodeCtx, updateNodeCtx] = (0, import_react2.useContext)(NodeContext);
@@ -165,8 +164,9 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
   const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode);
   const {
     NodeContext,
-    useNodeStateContext,
-    NodeContextProvider
+    NodeContextProvider,
+    useNodeContext,
+    useNodeStateContext
   } = NodeContextFactory(useNodeState);
   return {
     // Meta
@@ -189,8 +189,9 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
     useNodeState,
     // Context
     NodeContext,
-    useNodeStateContext,
-    NodeContextProvider
+    NodeContextProvider,
+    useNodeContext,
+    useNodeStateContext
   };
 };
 

@@ -26,14 +26,11 @@ export const NodeContextFactory = <
             children: ReactNode
         }) => {
             const [contextValue] = useContext(NodeContext)
-            console.log('contextValue', contextValue)
             const nodeContext = useImmer(contextValue)
 
-            return useMemo(() => (
-                <NodeContext.Provider value={nodeContext}>
-                    {children}
-                </NodeContext.Provider>
-            ), [contextValue, children])
+            return <NodeContext.Provider value={nodeContext}>
+                {children}
+            </NodeContext.Provider>
         },
         useNodeContext: <
             T extends AirNodeType<LiveAirNodeUnion>

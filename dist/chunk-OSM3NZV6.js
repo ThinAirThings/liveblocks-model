@@ -84,7 +84,7 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
 };
 
 // src/environments/shared/context/NodeContextFactory.tsx
-import { createContext, useContext as useContext2, useMemo } from "react";
+import { createContext, useContext as useContext2 } from "react";
 import { useImmer } from "use-immer";
 import { jsx } from "react/jsx-runtime";
 var NodeContextFactory = (useNodeState) => {
@@ -96,9 +96,8 @@ var NodeContextFactory = (useNodeState) => {
       children
     }) => {
       const [contextValue] = useContext2(NodeContext);
-      console.log("contextValue", contextValue);
       const nodeContext = useImmer(contextValue);
-      return useMemo(() => /* @__PURE__ */ jsx(NodeContext.Provider, { value: nodeContext, children }), [contextValue, children]);
+      return /* @__PURE__ */ jsx(NodeContext.Provider, { value: nodeContext, children });
     },
     useNodeContext: (nodeType) => {
       const [nodeCtx, updateNodeCtx] = useContext2(NodeContext);
@@ -125,8 +124,9 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
   const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode);
   const {
     NodeContext,
-    useNodeStateContext,
-    NodeContextProvider
+    NodeContextProvider,
+    useNodeContext,
+    useNodeStateContext
   } = NodeContextFactory(useNodeState);
   return {
     // Meta
@@ -149,8 +149,9 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
     useNodeState,
     // Context
     NodeContext,
-    useNodeStateContext,
-    NodeContextProvider
+    NodeContextProvider,
+    useNodeContext,
+    useNodeStateContext
   };
 };
 

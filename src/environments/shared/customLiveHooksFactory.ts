@@ -26,8 +26,9 @@ export const customLiveHooksFactory = <
     const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode)
     const {
         NodeContext,
-        useNodeStateContext,
         NodeContextProvider,
+        useNodeContext,
+        useNodeStateContext,
     } = NodeContextFactory<LiveAirNodeUnion, Meta>(useNodeState)
     return {
         // Meta
@@ -50,7 +51,8 @@ export const customLiveHooksFactory = <
         useNodeState,
         // Context
         NodeContext,
-        useNodeStateContext,
         NodeContextProvider,
+        useNodeContext,
+        useNodeStateContext,
     }
 }
