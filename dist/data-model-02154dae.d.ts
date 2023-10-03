@@ -4,14 +4,12 @@ import { Context } from 'react';
 import { ImmerHook } from 'use-immer';
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
-type LiveAirNode<T extends string, S extends LsonObject, M extends Lson & {
-    createdAt: string;
-} = {
-    createdAt: string;
-}> = LiveObject<{
+type LiveAirNode<T extends string, S extends LsonObject, M extends Lson = {}> = LiveObject<{
     nodeId: string;
     type: T;
-    meta: M;
+    meta: M & {
+        createdAt: string;
+    };
     state: LiveObject<S>;
 }>;
 type AirNodeShape<U extends LiveAirNode<any, any, any>> = {

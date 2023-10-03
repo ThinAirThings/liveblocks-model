@@ -9,11 +9,11 @@ export type UnionToIntersection<U> =
 export type LiveAirNode<
     T extends string, 
     S extends LsonObject, 
-    M extends Lson&{createdAt: string}={createdAt: string}
+    M extends Lson={}
 > = LiveObject<{
     nodeId: string
     type: T
-    meta: M
+    meta: M&{createdAt: string}
     state: LiveObject<S>
 }>
 
