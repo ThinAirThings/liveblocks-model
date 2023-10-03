@@ -1,7 +1,7 @@
 import {
   createLiveAirNodeFactory,
   customLiveHooksFactory
-} from "./chunk-DEUWUDJW.js";
+} from "./chunk-HIH5BEYS.js";
 
 // src/environments/node/liveblocksNodeConfig.tsx
 import { createClient } from "@liveblocks/client";
