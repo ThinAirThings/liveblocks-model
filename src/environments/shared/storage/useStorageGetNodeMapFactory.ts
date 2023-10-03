@@ -18,7 +18,7 @@ export const useStorageGetNodeMapFactory = <
     ) => boolean
 ) => {
     const nodeContext = useContext(NodeContext)
-    useStorage(root => {
+    return useStorage(root => {
         return nodeFilter
             ? new Map([...root.nodeMap].filter((p1, p2, p3) => nodeFilter(
                 nodeContext[0], 

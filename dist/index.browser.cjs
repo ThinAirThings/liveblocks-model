@@ -90,7 +90,7 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 var import_react = require("react");
 var useStorageGetNodeMapFactory = (NodeContext, useStorage) => (nodeFilter) => {
   const nodeContext = (0, import_react.useContext)(NodeContext);
-  useStorage((root) => {
+  return useStorage((root) => {
     return nodeFilter ? new Map([...root.nodeMap].filter((p1, p2, p3) => nodeFilter(
       nodeContext[0],
       p1,
