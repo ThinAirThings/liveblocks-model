@@ -1,5 +1,5 @@
-import { L as LiveAirNode, f as LiveblocksPresence, d as LiveblocksStorageModel, a as AirNodeShape, A as AirNodeType, b as AirNodeState, c as LiveAirNodeState } from './data-model-c47b33e1.js';
-export { e as AirNodeMeta, U as UnionToIntersection } from './data-model-c47b33e1.js';
+import { L as LiveAirNode, f as LiveblocksPresence, d as LiveblocksStorageModel, a as AirNodeShape, A as AirNodeType, b as AirNodeState, c as LiveAirNodeState } from './data-model-b2bb71f8.js';
+export { e as AirNodeMeta, C as ContextType, U as UnionToIntersection } from './data-model-b2bb71f8.js';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -7,6 +7,7 @@ import * as _liveblocks_react from '@liveblocks/react';
 import * as _liveblocks_core from '@liveblocks/core';
 import { Lson } from '@liveblocks/client';
 import '@thinairthings/zoom-utils';
+import 'use-immer';
 
 declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>, Meta extends Lson>() => {
     useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
