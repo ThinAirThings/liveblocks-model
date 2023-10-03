@@ -10,6 +10,7 @@ import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMapFacto
 import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js";
 import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
 import { useNodeStateFactory } from "./combined/useNodeStateFactory.js";
+import { NodeContextFactory } from "./context/NodeContextFactory.js";
 
 
 export const customLiveHooksFactory = <
@@ -22,12 +23,21 @@ export const customLiveHooksFactory = <
 ) => {
     const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation)
     const useStorageGetNode = useStorageGetNodeFactory(useStorage)
+    const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode)
+    const {
+        NodeContext,
+        useNodeStateContext,
+        NodeContextProvider,
+    } = NodeContextFactory<LiveAirNodeUnion, Meta>(useNodeState)
     return {
         // Meta
         useStorageGetMeta: useStorageGetMetaFactory(useStorage),
         useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
         // Nodes -- Storage
-        useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
+        useStorageGetNodeMap: useStorageGetNodeMapFactory(
+            NodeContext,
+            useStorage
+        ),
         useStorageGetNode,
         // Nodes -- Mutation
         useMutationCreateNode: useMutationCreateNodeFactory(
@@ -37,12 +47,10 @@ export const customLiveHooksFactory = <
         useMutationUpdateNode,
         useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),
         // Nodes -- Combined
-        useNodeState: useNodeStateFactory<
-            LiveAirNodeUnion,
-            Meta
-        >(
-            useStorageGetNode,
-            useMutationUpdateNode
-        )
+        useNodeState,
+        // Context
+        NodeContext,
+        useNodeStateContext,
+        NodeContextProvider,
     }
 }

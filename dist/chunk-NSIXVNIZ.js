@@ -47,9 +47,18 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 };
 
 // src/environments/shared/storage/useStorageGetNodeMapFactory.ts
-var useStorageGetNodeMapFactory = (useStorage) => (nodeFilter) => useStorage((root) => {
-  return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
-});
+import { useContext } from "react";
+var useStorageGetNodeMapFactory = (NodeContext, useStorage) => (nodeFilter) => {
+  const nodeContext = useContext(NodeContext);
+  useStorage((root) => {
+    return nodeFilter ? new Map([...root.nodeMap].filter((p1, p2, p3) => nodeFilter(
+      nodeContext[0],
+      p1,
+      p2,
+      p3
+    ))) : root.nodeMap;
+  });
+};
 
 // src/environments/shared/storage/useStorageGetMetaFactory.ts
 var useStorageGetMetaFactory = (useStorage) => () => useStorage((root) => root.meta);
@@ -71,16 +80,47 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
   ];
 };
 
+// src/environments/shared/context/NodeContextFactory.tsx
+import { createContext, useContext as useContext2 } from "react";
+import { useImmer } from "use-immer";
+import { jsx } from "react/jsx-runtime";
+var NodeContextFactory = (useNodeState) => {
+  const NodeContext = createContext([{}, () => {
+  }]);
+  return {
+    NodeContext,
+    NodeContextProvider: ({
+      children
+    }) => {
+      const nodeContext = useImmer({ ...useContext2(NodeContext)[0] });
+      return /* @__PURE__ */ jsx(NodeContext.Provider, { value: nodeContext, children });
+    },
+    useNodeStateContext: (nodeType, stateKey) => {
+      const nodeId = useContext2(NodeContext)[0][nodeType];
+      return useNodeState(nodeId, stateKey);
+    }
+  };
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
   const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation);
   const useStorageGetNode = useStorageGetNodeFactory(useStorage);
+  const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode);
+  const {
+    NodeContext,
+    useNodeStateContext,
+    NodeContextProvider
+  } = NodeContextFactory(useNodeState);
   return {
     // Meta
     useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
     // Nodes -- Storage
-    useStorageGetNodeMap: useStorageGetNodeMapFactory(useStorage),
+    useStorageGetNodeMap: useStorageGetNodeMapFactory(
+      NodeContext,
+      useStorage
+    ),
     useStorageGetNode,
     // Nodes -- Mutation
     useMutationCreateNode: useMutationCreateNodeFactory(
@@ -90,10 +130,11 @@ var customLiveHooksFactory = (useStorage, useMutation, createLiveAirNode) => {
     useMutationUpdateNode,
     useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),
     // Nodes -- Combined
-    useNodeState: useNodeStateFactory(
-      useStorageGetNode,
-      useMutationUpdateNode
-    )
+    useNodeState,
+    // Context
+    NodeContext,
+    useNodeStateContext,
+    NodeContextProvider
   };
 };
 
