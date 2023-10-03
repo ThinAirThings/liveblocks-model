@@ -20,7 +20,10 @@ export const createLiveAirNodeFactory = <
     return new LiveObject({
         nodeId: uuidv4(),
         type,
-        meta: meta,
+        meta: {
+            ...meta,
+            createdAt: new Date().toISOString()
+        },
         state: new LiveObject({
             ...state,
         }),

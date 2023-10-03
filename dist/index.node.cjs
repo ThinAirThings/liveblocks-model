@@ -52,7 +52,10 @@ var createLiveAirNodeFactory = () => (type, {
   return new import_client.LiveObject({
     nodeId: (0, import_uuid.v4)(),
     type,
-    meta,
+    meta: {
+      ...meta,
+      createdAt: (/* @__PURE__ */ new Date()).toISOString()
+    },
     state: new import_client.LiveObject({
       ...state
     })

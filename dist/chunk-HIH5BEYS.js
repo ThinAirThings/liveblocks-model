@@ -8,7 +8,10 @@ var createLiveAirNodeFactory = () => (type, {
   return new LiveObject({
     nodeId: uuidv4(),
     type,
-    meta,
+    meta: {
+      ...meta,
+      createdAt: (/* @__PURE__ */ new Date()).toISOString()
+    },
     state: new LiveObject({
       ...state
     })
