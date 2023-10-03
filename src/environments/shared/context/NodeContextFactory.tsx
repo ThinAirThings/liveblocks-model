@@ -25,7 +25,8 @@ export const NodeContextFactory = <
         }: {
             children: ReactNode
         }) => {
-            const nodeContext = useImmer(useContext(NodeContext)[0])
+            const [contextValue] = useContext(NodeContext)
+            const nodeContext = useImmer(contextValue)
             return (
                 <NodeContext.Provider value={nodeContext}>
                     {children}
