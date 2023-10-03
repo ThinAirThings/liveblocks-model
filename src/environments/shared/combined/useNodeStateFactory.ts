@@ -17,19 +17,19 @@ export const useNodeStateFactory = <
         LiveAirNodeUnion,
         Meta
     >>
-) => <T extends LiveAirNodeUnion, K extends keyof AirNodeState<T extends LiveAirNodeUnion ? T : never>=keyof AirNodeState<T extends LiveAirNodeUnion ? T : never>>(
+) => <T extends AirNodeState<LiveAirNodeUnion>>(
     nodeId: string,
-    key: K,
+    key: keyof T,
 ) => {
-    const nodeValue = useStorageGetNode(nodeId, (nodeState: AirNodeState<T>) => nodeState[key]) as AirNodeState<T>[K]
+    const nodeValue = useStorageGetNode(nodeId, (nodeState: T) => nodeState[key]) as T[typeof key]
     const updateNode = useMutationUpdateNode()
     return [
         nodeValue,
-        (newValue: AirNodeState<T>[typeof key]) => updateNode(nodeId, (liveNodeState) => {
+        (newValue: T[typeof key]) => updateNode(nodeId, (liveNodeState) => {
             liveNodeState.set(key, newValue)
         })
     ] as [
-        AirNodeState<T>[K],
-        (newValue: AirNodeState<T>[K]) => void
+        T[typeof key],
+        (newValue: T[typeof key]) => void
     ]
 }
