@@ -16,7 +16,7 @@ export const NodeContextFactory = <
     >>
 ) => {
     const NodeContext = createContext<ReturnType<typeof useImmer<{
-        [K in AirNodeType<LiveAirNodeUnion>]: string
+        [K in AirNodeType<LiveAirNodeUnion>]: string | null
     }>>>([{}, () => {}] as any)
     return {
         NodeContext,
@@ -41,7 +41,7 @@ export const NodeContextFactory = <
             stateKey: K
         ) => {
             const nodeId = useContext(NodeContext)[0][nodeType]
-            return useNodeState<any, any>(nodeId, stateKey) as unknown as [
+            return useNodeState<any, any>(nodeId!, stateKey) as unknown as [
                 AirNodeState<LiveAirNodeUnion>[K],
                 (value: AirNodeState<LiveAirNodeUnion>[K]) => void
             ]

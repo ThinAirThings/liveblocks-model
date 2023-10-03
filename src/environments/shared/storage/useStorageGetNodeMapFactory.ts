@@ -1,6 +1,6 @@
 
 import { StorageHook } from "../hook-types.js";
-import { LiveAirNode, AirNodeShape, AirNodeType} from "../../../model/data-model.js";
+import { LiveAirNode, AirNodeShape, AirNodeType, NodeContextType} from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
 import { NodeContextFactory } from "../context/NodeContextFactory.js";
 import { useContext } from "react";
@@ -13,7 +13,7 @@ export const useStorageGetNodeMapFactory = <
     useStorage: StorageHook<LiveAirNodeUnion, Meta>
 ) => (
     nodeFilter?: (...params: [
-        nodeCtx: {[K in AirNodeType<LiveAirNodeUnion>]: string}, 
+        nodeCtx: NodeContextType<typeof NodeContext>, 
         ...Parameters<Parameters<Array<[string, AirNodeShape<LiveAirNodeUnion>]>['filter']>[0]>]
     ) => boolean
 ) => {

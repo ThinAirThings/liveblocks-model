@@ -54,7 +54,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     })["meta"]>;
     useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
     useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
-    useStorageGetNodeMap: (nodeFilter?: ((params_0: { [K_1 in AirNodeType<LiveAirNodeUnion>]: string; }, params_1: [string, AirNodeShape<LiveAirNodeUnion>], params_2: number, params_3: [string, AirNodeShape<LiveAirNodeUnion>][]) => boolean) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
+    useStorageGetNodeMap: (nodeFilter?: ((params_0: { [K_1 in AirNodeType<LiveAirNodeUnion>]: string | null; }, params_1: [string, AirNodeShape<LiveAirNodeUnion>], params_2: number, params_3: [string, AirNodeShape<LiveAirNodeUnion>][]) => boolean) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
     useStorageGetNode: <S extends _liveblocks_core.LsonObject, R_1>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R_1 | null) => R_1 | null;
     useMutationCreateNode: () => <T_6 extends AirNodeShape<LiveAirNodeUnion>["type"]>(type: T_6, { meta, state }: {
         state: (AirNodeShape<LiveAirNodeUnion> & {
