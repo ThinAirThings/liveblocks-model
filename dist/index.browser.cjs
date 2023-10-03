@@ -133,6 +133,7 @@ var NodeContextFactory = (useNodeState) => {
       children
     }) => {
       const nodeContext = (0, import_use_immer.useImmer)((0, import_react2.useContext)(NodeContext)[0]);
+      console.log(nodeContext);
       return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children });
     },
     useNodeStateContext: (nodeType, stateKey) => {
