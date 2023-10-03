@@ -21,13 +21,16 @@ export const NodeContextFactory = <
     return {
         NodeContext,
         NodeContextProvider: ({
+            contextValue,
             children
         }: {
+            contextValue: ReturnType<typeof useImmer<{
+                [K in AirNodeType<LiveAirNodeUnion>]: string | null
+            }>>[0]
             children: ReactNode
         }) => {
-            const [contextValue] = useContext(NodeContext)
-            const nodeContext = useImmer(contextValue)
 
+            const nodeContext = useImmer(contextValue)
             return <NodeContext.Provider value={nodeContext}>
                 {children}
             </NodeContext.Provider>
