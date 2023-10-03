@@ -17,7 +17,7 @@ export const useNodeStateFactory = <
         LiveAirNodeUnion,
         Meta
     >>
-) => <T extends LiveAirNodeUnion, K extends keyof LiveAirNodeState<T>=keyof LiveAirNodeState<T>>(
+) => <T extends LiveAirNodeUnion, K extends keyof LiveAirNodeState<T extends LiveAirNodeUnion ? T : never>=keyof LiveAirNodeState<T extends LiveAirNodeUnion ? T : never>>(
     nodeId: string,
     key: K,
 ) => {
