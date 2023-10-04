@@ -3,14 +3,14 @@ import { LiveAirNode, LiveAirNodeState } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
 
 export const useMutationUpdateNodeFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>
-) => (): (<N extends LiveAirNode<any, any>>(
+) => (): (<N extends LiveAirNode<any, any, any>>(
     nodeId: string, 
-    updater: (liveNodeState: N extends LiveAirNode<infer T, infer S> 
-        ? LiveAirNodeState<LiveAirNode<T, S>>
+    updater: (liveNodeState: N extends LiveAirNode<infer T, infer S, any> 
+        ? LiveAirNodeState<LiveAirNode<T, S, any>>
         :never)=>void
 )=> void) => useMutation((
     {storage}, 

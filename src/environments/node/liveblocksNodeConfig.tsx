@@ -4,8 +4,7 @@ import nodeWebsocket from "ws";
 import { Liveblocks} from "@liveblocks/node";
 import { ReactNode, useCallback } from 'react';
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
-import { LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from '../../index.node.js';
-import { createLiveAirNodeFactory } from '../shared/createLiveAirNodeFactory.js';
+import { AirNodeIndex, LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from '../../index.node.js';
 import { customLiveHooksFactory } from '../shared/customLiveHooksFactory.js';
 
 let authorizationCallback: (() => Promise<{
@@ -13,46 +12,31 @@ let authorizationCallback: (() => Promise<{
 }>)
 
 export const liveblocksNodeConfig = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
->() => {
+>(
+    NodeIndex: AirNodeIndex<LiveAirNodeUnion>,
+) => {
     const {
-        useLostConnectionListener,
-        useStatus,
-        useErrorListener,
         useRoom,
         useMyPresence,
         useUpdateMyPresence,
         useOthersMapped,
-        useOthers,
         useStorage,
         RoomProvider,
         useMutation,
         useSelf,
         RoomContext
-    } = createRoomContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>>(
+    } = createRoomContext<
+        LiveblocksPresence, 
+        LiveblocksStorageModel<LiveAirNodeUnion, Meta>
+    >(
         createClient({
             polyfills: {
                 WebSocket: nodeWebsocket
             },
             authEndpoint: async () => authorizationCallback?.(),
         })
-    )
-    const createLiveAirNode = createLiveAirNodeFactory<LiveAirNodeUnion>()
-    const {
-        // Meta
-        useStorageGetMeta,
-        useMutationUpdateMeta,
-        // Nodes
-        useStorageGetNodeMap,
-        useStorageGetNode,
-        useMutationCreateNode,
-        useMutationUpdateNode,
-        useMutationDeleteNode,
-    } = customLiveHooksFactory(
-        useStorage,
-        useMutation,
-        createLiveAirNode,
     )
 
     const LiveblocksNodeRoomProvider = ({
@@ -105,29 +89,20 @@ export const liveblocksNodeConfig = <
         )
     }
     return {
-        useLostConnectionListener,
-        useStatus,
-        useErrorListener,
         useRoom,
         useMyPresence,
         useUpdateMyPresence,
         useOthersMapped,
-        useOthers,
         useStorage,
         RoomProvider,
         useMutation,
         useSelf,
         RoomContext,
-        createLiveAirNode,
-        // Meta
-        useStorageGetMeta,
-        useMutationUpdateMeta,
-        // Nodes
-        useStorageGetNodeMap,
-        useStorageGetNode,
-        useMutationCreateNode,
-        useMutationUpdateNode,
-        useMutationDeleteNode,
+        ...customLiveHooksFactory(
+            NodeIndex,
+            useStorage,
+            useMutation,
+        ),
         LiveblocksNodeRoomProvider
     }
 }

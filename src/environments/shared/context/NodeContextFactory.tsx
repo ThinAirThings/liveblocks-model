@@ -1,13 +1,19 @@
-import { ReactNode, createContext, useContext, useMemo } from "react"
-import { useImmer } from "use-immer"
+import { Context, ReactNode, createContext, useContext, useMemo } from "react"
+import { ImmerHook, useImmer } from "use-immer"
 import { AirNodeShape, AirNodeState, AirNodeType, LiveAirNode } from "../../../index.node.js"
 import { Lson } from "@liveblocks/client"
 import { useNodeStateFactory } from "../combined/useNodeStateFactory.js"
 
 
 
+export type AirNodeContext<
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>
+> = Context<ImmerHook<{
+    [K in AirNodeType<LiveAirNodeUnion>]: string | null
+}>>
+
 export const NodeContextFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
 >(
     useNodeState: ReturnType<typeof useNodeStateFactory<
@@ -17,7 +23,7 @@ export const NodeContextFactory = <
 ) => {
     const NodeContext = createContext<ReturnType<typeof useImmer<{
         [K in AirNodeType<LiveAirNodeUnion>]: string | null
-    }>>>([{}, () => {}] as any)
+    }>>>([{}, () => console.log("No initial context set!. This is the default context function running")] as any)
     return {
         NodeContext,
         NodeContextProvider: ({

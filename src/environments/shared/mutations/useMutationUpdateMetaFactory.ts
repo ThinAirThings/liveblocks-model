@@ -5,7 +5,7 @@ import { MutationHook } from "../hook-types.js";
 
 
 export const useMutationUpdateMetaFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
 >(
     useMutation: MutationHook<LiveAirNodeUnion, Meta>

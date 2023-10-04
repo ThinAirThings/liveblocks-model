@@ -1,7 +1,6 @@
 import {
-  createLiveAirNodeFactory,
   customLiveHooksFactory
-} from "./chunk-U22K3ZLA.js";
+} from "./chunk-LRS3R64X.js";
 
 // src/environments/node/liveblocksNodeConfig.tsx
 import { createClient } from "@liveblocks/client";
@@ -12,16 +11,12 @@ import { useCallback } from "react";
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
 import { Fragment, jsx } from "react/jsx-runtime";
 var authorizationCallback;
-var liveblocksNodeConfig = () => {
+var liveblocksNodeConfig = (NodeIndex) => {
   const {
-    useLostConnectionListener,
-    useStatus,
-    useErrorListener,
     useRoom,
     useMyPresence,
     useUpdateMyPresence,
     useOthersMapped,
-    useOthers,
     useStorage,
     RoomProvider,
     useMutation,
@@ -34,22 +29,6 @@ var liveblocksNodeConfig = () => {
       },
       authEndpoint: async () => authorizationCallback?.()
     })
-  );
-  const createLiveAirNode = createLiveAirNodeFactory();
-  const {
-    // Meta
-    useStorageGetMeta,
-    useMutationUpdateMeta,
-    // Nodes
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode
-  } = customLiveHooksFactory(
-    useStorage,
-    useMutation,
-    createLiveAirNode
   );
   const LiveblocksNodeRoomProvider = ({
     userId,
@@ -87,29 +66,20 @@ var liveblocksNodeConfig = () => {
     );
   };
   return {
-    useLostConnectionListener,
-    useStatus,
-    useErrorListener,
     useRoom,
     useMyPresence,
     useUpdateMyPresence,
     useOthersMapped,
-    useOthers,
     useStorage,
     RoomProvider,
     useMutation,
     useSelf,
     RoomContext,
-    createLiveAirNode,
-    // Meta
-    useStorageGetMeta,
-    useMutationUpdateMeta,
-    // Nodes
-    useStorageGetNodeMap,
-    useStorageGetNode,
-    useMutationCreateNode,
-    useMutationUpdateNode,
-    useMutationDeleteNode,
+    ...customLiveHooksFactory(
+      NodeIndex,
+      useStorage,
+      useMutation
+    ),
     LiveblocksNodeRoomProvider
   };
 };

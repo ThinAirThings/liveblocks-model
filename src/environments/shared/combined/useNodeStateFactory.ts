@@ -7,7 +7,7 @@ import { useMutationUpdateNodeFactory } from "../mutations/useMutationUpdateNode
 // NOTE!!! This is seemingly as good as the typescript inference is going to get right now. You've tried
 // To make this better a million different ways and I can't get it to work without 2 explcit type parameters
 export const useNodeStateFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
 >(
     useStorageGetNode: ReturnType<typeof useStorageGetNodeFactory<

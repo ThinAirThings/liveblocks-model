@@ -1,6 +1,5 @@
 import { Lson } from "@liveblocks/client";
-import { LiveAirNode} from "../../model/data-model.js";
-import { createLiveAirNodeFactory } from "./createLiveAirNodeFactory.js";
+import { AirNodeIndex, LiveAirNode} from "../../model/data-model.js";
 import { MutationHook, StorageHook } from "./hook-types.js";
 import { useMutationCreateNodeFactory } from "./mutations/useMutationCreateNodeFactory.js";
 import { useMutationDeleteNodeFactory } from "./mutations/useMutationDeleteNodeFactory.js";
@@ -14,12 +13,12 @@ import { NodeContextFactory } from "./context/NodeContextFactory.js";
 
 
 export const customLiveHooksFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any>,
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
 >(
+    NodeIndex: AirNodeIndex<LiveAirNodeUnion>,
     useStorage: StorageHook<LiveAirNodeUnion, Meta>,
     useMutation: MutationHook<LiveAirNodeUnion, Meta>,
-    createLiveAirNode: ReturnType<typeof createLiveAirNodeFactory>
 ) => {
     const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation)
     const useStorageGetNode = useStorageGetNodeFactory(useStorage)
@@ -42,8 +41,9 @@ export const customLiveHooksFactory = <
         useStorageGetNode,
         // Nodes -- Mutation
         useMutationCreateNode: useMutationCreateNodeFactory(
+            NodeIndex,
+            NodeContext,
             useMutation,
-            createLiveAirNode
         ),
         useMutationUpdateNode,
         useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),

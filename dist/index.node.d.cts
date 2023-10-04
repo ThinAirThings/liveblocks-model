@@ -1,18 +1,40 @@
-import { L as LiveAirNode, f as LiveblocksPresence, d as LiveblocksStorageModel, a as AirNodeShape, A as AirNodeType, b as AirNodeState, c as LiveAirNodeState } from './data-model-02154dae.js';
-export { e as AirNodeMeta, N as NodeContextType, U as UnionToIntersection } from './data-model-02154dae.js';
-import * as react_jsx_runtime from 'react/jsx-runtime';
+import { L as LiveAirNode, A as AirNodeIndex, a as AirNodeType, b as AirNodeShape, c as AirNodeState, d as LiveAirNodeState, h as LiveblocksPresence, e as LiveblocksStorageModel } from './data-model-1d12f1f6.js';
+export { g as AirNodeMeta, f as AirNodeParentType, U as UnionToIntersection } from './data-model-1d12f1f6.js';
+import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { ReactNode } from 'react';
-import * as _liveblocks_react from '@liveblocks/react';
+import * as use_immer from 'use-immer';
 import * as _liveblocks_core from '@liveblocks/core';
+import * as react_jsx_runtime from 'react/jsx-runtime';
 import { Lson } from '@liveblocks/client';
 import '@thinairthings/zoom-utils';
-import 'use-immer';
 
-declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, any>, Meta extends Lson>() => {
-    useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
-    useStatus: () => _liveblocks_core.Status;
-    useErrorListener: (callback: (err: Error) => void) => void;
+declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, any, any>, Meta extends Lson>(NodeIndex: AirNodeIndex<LiveAirNodeUnion>) => {
+    LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
+        userId: string;
+        spaceId: string;
+        serverName: string;
+        children: () => ReactNode;
+    }) => react_jsx_runtime.JSX.Element;
+    useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
+    useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
+    useStorageGetNodeMap: (nodeFilter?: ((params_0: NodeContextType<react.Context<use_immer.ImmerHook<{ [K in AirNodeType<LiveAirNodeUnion_1>]: string | null; }>>>, params_1: [string, AirNodeShape<LiveAirNodeUnion>], params_2: number, params_3: [string, AirNodeShape<LiveAirNodeUnion>][]) => boolean) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
+    useStorageGetNode: <S extends _liveblocks_core.LsonObject, R>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends any> ? AirNodeState<N> : never) => R | null) => R | null;
+    useMutationCreateNode: <T extends AirNodeType<LiveAirNodeUnion>, S_1 extends Partial<(AirNodeShape<LiveAirNodeUnion> & {
+        type: T;
+    })["state"]>>() => (type: T, state?: S_1 | undefined) => string;
+    useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_1 extends string, infer S_2 extends string, any> ? LiveAirNodeState<LiveAirNode<T_1, S_2, any>> : never) => void) => void;
+    useMutationDeleteNode: () => (nodeId: string) => void;
+    useNodeState: <T_2 extends LiveAirNode<any, any, any>, K_1 extends keyof AirNodeState<T_2>>(nodeId: string, key: K_1) => [AirNodeState<T_2>[K_1], (newValue: AirNodeState<T_2>[K_1]) => void];
+    NodeContext: react.Context<use_immer.ImmerHook<{ [K_2 in AirNodeType<LiveAirNodeUnion>]: string | null; }>>;
+    NodeContextProvider: ({ contextValue, children }: {
+        contextValue: { [K_3 in AirNodeType<LiveAirNodeUnion>]: string | null; };
+        children: ReactNode;
+    }) => react_jsx_runtime.JSX.Element;
+    useNodeContext: <T_3 extends AirNodeType<LiveAirNodeUnion>>(nodeType: T_3) => readonly [{ [K_2 in AirNodeType<LiveAirNodeUnion>]: string | null; }[T_3], (newNodeId: string | null) => void];
+    useNodeStateContext: <T_4 extends AirNodeType<LiveAirNodeUnion>, S_3 extends (AirNodeShape<LiveAirNodeUnion> & {
+        type: T_4;
+    })["state"], K_4 extends keyof S_3>(nodeType: T_4, stateKey: K_4) => [S_3[K_4], (value: S_3[K_4]) => void];
     useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never>;
     useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;
@@ -20,12 +42,8 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useUpdateMyPresence: () => (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;
     } | undefined) => void;
-    useOthersMapped: <T>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T, itemIsEqual?: ((prev: T, curr: T) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T])[];
-    useOthers: {
-        (): _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
-        <T_1>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_1, isEqual?: ((prev: T_1, curr: T_1) => boolean) | undefined): T_1;
-    };
-    useStorage: <T_2>(selector: (root: LiveblocksStorageModel<LiveAirNodeUnion, Meta> extends infer T_3 ? T_3 extends LiveblocksStorageModel<LiveAirNodeUnion, Meta> ? T_3 extends _liveblocks_core.LsonObject ? { readonly [K in keyof T_3]: _liveblocks_core.ToImmutable<Exclude<T_3[K], undefined>> | (undefined extends T_3[K] ? T_3[K] & undefined : never); } : T_3 extends _liveblocks_core.Json ? T_3 : never : never : never) => T_2, isEqual?: ((prev: T_2 | null, curr: T_2 | null) => boolean) | undefined) => T_2 | null;
+    useOthersMapped: <T_5>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_5, itemIsEqual?: ((prev: T_5, curr: T_5) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T_5])[];
+    useStorage: <T_6>(selector: (root: LiveblocksStorageModel<LiveAirNodeUnion, Meta> extends infer T_7 ? T_7 extends LiveblocksStorageModel<LiveAirNodeUnion, Meta> ? T_7 extends _liveblocks_core.LsonObject ? { readonly [K_5 in keyof T_7]: _liveblocks_core.ToImmutable<Exclude<T_7[K_5], undefined>> | (undefined extends T_7[K_5] ? T_7[K_5] & undefined : never); } : T_7 extends _liveblocks_core.Json ? T_7 : never : never : never) => T_6, isEqual?: ((prev: T_6 | null, curr: T_6 | null) => boolean) | undefined) => T_6 | null;
     RoomProvider: (props: {
         id: string;
         children: ReactNode;
@@ -34,44 +52,12 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
         initialPresence: LiveblocksPresence | ((roomId: string) => LiveblocksPresence);
         initialStorage?: LiveblocksStorageModel<LiveAirNodeUnion, Meta> | ((roomId: string) => LiveblocksStorageModel<LiveAirNodeUnion, Meta>) | undefined;
     }) => JSX.Element;
-    useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
+    useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R_1 ? (...args: A) => R_1 : never;
     useSelf: {
         (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta> | null;
-        <T_4>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_4, isEqual?: ((prev: T_4, curr: T_4) => boolean) | undefined): T_4 | null;
+        <T_8>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_8, isEqual?: ((prev: T_8, curr: T_8) => boolean) | undefined): T_8 | null;
     };
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never> | null>;
-    createLiveAirNode: <T_5 extends AirNodeShape<LiveAirNodeUnion>["type"]>(type: T_5, { state, meta }: {
-        state: (AirNodeShape<LiveAirNodeUnion> & {
-            type: T_5;
-        })["state"];
-        meta: (AirNodeShape<LiveAirNodeUnion> & {
-            type: T_5;
-        })["meta"];
-    }) => LiveAirNode<T_5, (AirNodeShape<LiveAirNodeUnion> & {
-        type: T_5;
-    })["state"], (AirNodeShape<LiveAirNodeUnion> & {
-        type: T_5;
-    })["meta"]>;
-    useStorageGetMeta: () => _liveblocks_core.ToImmutable<Exclude<Meta, undefined>> | (undefined extends Meta ? Meta & undefined : never) | null;
-    useMutationUpdateMeta: () => (updater: (meta: Meta) => void) => void;
-    useStorageGetNodeMap: (nodeFilter?: ((params_0: { [K_1 in AirNodeType<LiveAirNodeUnion>]: string | null; }, params_1: [string, AirNodeShape<LiveAirNodeUnion>], params_2: number, params_3: [string, AirNodeShape<LiveAirNodeUnion>][]) => boolean) | undefined) => ReadonlyMap<string, _liveblocks_core.ToImmutable<LiveAirNodeUnion>>;
-    useStorageGetNode: <S extends _liveblocks_core.LsonObject, R_1>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R_1 | null) => R_1 | null;
-    useMutationCreateNode: () => <T_6 extends AirNodeShape<LiveAirNodeUnion>["type"]>(type: T_6, { meta, state }: {
-        state: (AirNodeShape<LiveAirNodeUnion> & {
-            type: T_6;
-        })["state"];
-        meta: (AirNodeShape<LiveAirNodeUnion> & {
-            type: T_6;
-        })["meta"];
-    }) => string;
-    useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_7 extends string, infer S_1 extends _liveblocks_core.LsonObject> ? LiveAirNodeState<LiveAirNode<T_7, S_1>> : never) => void) => void;
-    useMutationDeleteNode: () => (nodeId: string) => void;
-    LiveblocksNodeRoomProvider: ({ userId, spaceId, serverName, children }: {
-        userId: string;
-        spaceId: string;
-        serverName: string;
-        children: () => ReactNode;
-    }) => react_jsx_runtime.JSX.Element;
 };
 
-export { AirNodeShape, AirNodeState, AirNodeType, LiveAirNode, LiveAirNodeState, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };
+export { AirNodeIndex, AirNodeShape, AirNodeState, AirNodeType, LiveAirNode, LiveAirNodeState, LiveblocksPresence, LiveblocksStorageModel, liveblocksNodeConfig };

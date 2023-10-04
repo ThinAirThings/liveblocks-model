@@ -1,12 +1,11 @@
 import {
-  createLiveAirNodeFactory,
   customLiveHooksFactory
-} from "./chunk-U22K3ZLA.js";
+} from "./chunk-LRS3R64X.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
-var liveblocksBrowserConfig = (createClientProps) => {
+var liveblocksBrowserConfig = (NodeIndex, createClientProps) => {
   const {
     suspense: {
       useRoom,
@@ -25,7 +24,6 @@ var liveblocksBrowserConfig = (createClientProps) => {
       useRedo
     }
   } = createRoomContext(createClient(createClientProps));
-  const createLiveAirNode = createLiveAirNodeFactory();
   return {
     useRoom,
     useMyPresence,
@@ -41,11 +39,10 @@ var liveblocksBrowserConfig = (createClientProps) => {
     useUndo,
     useCanRedo,
     useRedo,
-    createLiveAirNode,
     ...customLiveHooksFactory(
+      NodeIndex,
       useStorage,
-      useMutation,
-      createLiveAirNode
+      useMutation
     )
   };
 };
