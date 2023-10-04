@@ -2,17 +2,15 @@ import { LsonObject, Lson, LiveObject, LiveMap } from '@liveblocks/client';
 import { Point, ViewportState, ScreenState } from '@thinairthings/zoom-utils';
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
-type LiveAirNode<T extends string, PT extends string, S extends LsonObject, M extends Lson = {}> = LiveObject<{
+type LiveAirNode<T extends string, PT extends string | null, S extends LsonObject, M extends Lson = {}> = LiveObject<{
     nodeId: string;
+    parentNodeId: string | null;
     type: T;
-    parentType: PT;
+    parentType: PT extends string ? PT : null;
     meta: M & {
         createdAt: string;
     };
-    links: LiveObject<{
-        'parent': [string];
-        [type: string]: Array<string>;
-    }>;
+    links: LiveMap<string, Array<string>>;
     state: LiveObject<S>;
 }>;
 type AirNodeIndex<U extends LiveAirNode<any, any, any>> = {

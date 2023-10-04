@@ -1,6 +1,6 @@
 import { MutationHook } from "../hook-types.js"
 import { AirNodeIndex, AirNodeShape, AirNodeType, LiveAirNode } from "../../../model/data-model.js";
-import { LiveObject, Lson } from "@liveblocks/client";
+import { LiveMap, LiveObject, Lson } from "@liveblocks/client";
 import {v4 as uuidv4} from 'uuid'
 import { useContext } from "react";
 import { AirNodeContext } from "../context/NodeContextFactory.js";
@@ -27,29 +27,31 @@ export const useMutationCreateNodeFactory = <
     ) => {
         const node = new LiveObject({
             nodeId: uuidv4(),
+            parentNodeId: NodeIndex[type].parentType 
+                ? nodeCtx[NodeIndex[type].parentType]!
+                : null,
             type,
             parentType: NodeIndex[type].parentType,
             meta: {
                 ...NodeIndex[type].meta,
                 createdAt: new Date().toISOString()
             },
-            links: new LiveObject({
-                parent: [nodeCtx[NodeIndex[type].parentType]!]
-            }),
+            links: new LiveMap([]),
             state: new LiveObject({
                 ...NodeIndex[type].state,
                 ...state,
             }),
-        })
+        }) satisfies LiveAirNode<any, any, any>
+
         const nodeId = node.get('nodeId')
         storage.get('nodeMap').set(nodeId, node as any)
+        // Return is parent is null
+        if (!!NodeIndex[type].parentType) return nodeId  
         // Set Parent Links for new node
-        storage.get('nodeMap')
-            .get(node.get('links').get('parent')[0])!
-            .get('links')
-            .set(type, [
-                ...new Set([...node.get('links').get('parent'), nodeId])
-            ])
+        const parentNode = storage.get('nodeMap').get(node.get('parentNodeId')!)!
+        parentNode.get('links').set(type, [
+            ...new Set([...parentNode.get('links').get(type)!, nodeId])
+        ])
         // Update Node Context
         updateNodeCtx((nodeCtx) => {
             nodeCtx[type] = nodeId as any

@@ -6,18 +6,16 @@ export type UnionToIntersection<U> =
 
 export type LiveAirNode<
     T extends string,
-    PT extends string,
+    PT extends string|null,
     S extends LsonObject, 
     M extends Lson={}
 > = LiveObject<{
     nodeId: string
+    parentNodeId: string | null
     type: T
-    parentType: PT
+    parentType: PT extends string ? PT : null
     meta: M&{createdAt: string}
-    links: LiveObject<{
-        'parent': [string]
-        [type: string]: Array<string>
-    }>
+    links: LiveMap<string, Array<string>>
     state: LiveObject<S>
 }>
 

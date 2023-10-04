@@ -36,7 +36,7 @@ module.exports = __toCommonJS(index_browser_exports);
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 var import_client2 = require("@liveblocks/client");
-var import_react4 = require("@liveblocks/react");
+var import_react5 = require("@liveblocks/react");
 
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
 var import_client = require("@liveblocks/client");
@@ -47,15 +47,14 @@ var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () =
   return useMutation(({ storage }, type, state) => {
     const node = new import_client.LiveObject({
       nodeId: (0, import_uuid.v4)(),
+      parentNodeId: NodeIndex[type].parentType ? nodeCtx[NodeIndex[type].parentType] : null,
       type,
       parentType: NodeIndex[type].parentType,
       meta: {
         ...NodeIndex[type].meta,
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
-      links: new import_client.LiveObject({
-        parent: [nodeCtx[NodeIndex[type].parentType]]
-      }),
+      links: new import_client.LiveMap([]),
       state: new import_client.LiveObject({
         ...NodeIndex[type].state,
         ...state
@@ -63,8 +62,11 @@ var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () =
     });
     const nodeId = node.get("nodeId");
     storage.get("nodeMap").set(nodeId, node);
-    storage.get("nodeMap").get(node.get("links").get("parent")[0]).get("links").set(type, [
-      .../* @__PURE__ */ new Set([...node.get("links").get("parent"), nodeId])
+    if (!!NodeIndex[type].parentType)
+      return nodeId;
+    const parentNode = storage.get("nodeMap").get(node.get("parentNodeId"));
+    parentNode.get("links").set(type, [
+      .../* @__PURE__ */ new Set([...parentNode.get("links").get(type), nodeId])
     ]);
     updateNodeCtx((nodeCtx2) => {
       nodeCtx2[type] = nodeId;
@@ -74,9 +76,37 @@ var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () =
 };
 
 // src/environments/shared/mutations/useMutationDeleteNodeFactory.ts
-var useMutationDeleteNodeFactory = (useMutation) => () => useMutation(({ storage }, nodeId) => {
-  storage.get("nodeMap").delete(nodeId);
-}, []);
+var import_react2 = require("react");
+var useMutationDeleteNodeFactory = (NodeContext, useMutation) => () => {
+  const [nodeCtx, updateNodeCtx] = (0, import_react2.useContext)(NodeContext);
+  return useMutation(({ storage }, nodeType) => {
+    const nodeToDelete = storage.get("nodeMap").get(nodeCtx[nodeType]);
+    const typesToClear = [...nodeToDelete.get("links").entries()].filter(([_, nodeIds]) => nodeIds.length > 0).map(([type, _]) => type);
+    const deletionVisitor = (node) => {
+      const links = node.get("links").toImmutable();
+      [...links].forEach(([_, nodeIds]) => {
+        nodeIds.forEach((nodeId) => {
+          const linkNode = storage.get("nodeMap").get(nodeId);
+          if (!linkNode)
+            return;
+          if (linkNode.get("links").toImmutable().size === 0) {
+            storage.get("nodeMap").delete(nodeId);
+            return;
+          }
+          deletionVisitor(linkNode);
+          storage.get("nodeMap").delete(nodeId);
+        });
+      });
+    };
+    deletionVisitor(nodeToDelete);
+    updateNodeCtx((nodeCtx2) => {
+      nodeCtx2[nodeType] = null;
+      typesToClear.forEach((type) => {
+        nodeCtx2[type] = null;
+      });
+    });
+  }, []);
+};
 
 // src/environments/shared/mutations/useMutationUpdateNodeFactory.ts
 var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage }, nodeId, updater) => {
@@ -97,9 +127,9 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 };
 
 // src/environments/shared/storage/useStorageGetNodeMapFactory.ts
-var import_react2 = require("react");
+var import_react3 = require("react");
 var useStorageGetNodeMapFactory = (NodeContext, useStorage) => (nodeFilter) => {
-  const nodeContext = (0, import_react2.useContext)(NodeContext);
+  const nodeContext = (0, import_react3.useContext)(NodeContext);
   return useStorage((root) => {
     return nodeFilter ? new Map([...root.nodeMap].filter((p1, p2, p3) => nodeFilter(
       nodeContext[0],
@@ -131,11 +161,11 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
 };
 
 // src/environments/shared/context/NodeContextFactory.tsx
-var import_react3 = require("react");
+var import_react4 = require("react");
 var import_use_immer = require("use-immer");
 var import_jsx_runtime = require("react/jsx-runtime");
 var NodeContextFactory = (useNodeState) => {
-  const NodeContext = (0, import_react3.createContext)([{}, () => console.log("No initial context set!. This is the default context function running")]);
+  const NodeContext = (0, import_react4.createContext)([{}, () => console.log("No initial context set!. This is the default context function running")]);
   return {
     NodeContext,
     NodeContextProvider: ({
@@ -146,7 +176,7 @@ var NodeContextFactory = (useNodeState) => {
       return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children });
     },
     useNodeContext: (nodeType) => {
-      const [nodeCtx, updateNodeCtx] = (0, import_react3.useContext)(NodeContext);
+      const [nodeCtx, updateNodeCtx] = (0, import_react4.useContext)(NodeContext);
       return [
         nodeCtx[nodeType],
         (newNodeId) => {
@@ -157,7 +187,7 @@ var NodeContextFactory = (useNodeState) => {
       ];
     },
     useNodeStateContext: (nodeType, stateKey) => {
-      const nodeId = (0, import_react3.useContext)(NodeContext)[0][nodeType];
+      const nodeId = (0, import_react4.useContext)(NodeContext)[0][nodeType];
       return useNodeState(nodeId, stateKey);
     }
   };
@@ -191,7 +221,10 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
       useMutation
     ),
     useMutationUpdateNode,
-    useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),
+    useMutationDeleteNode: useMutationDeleteNodeFactory(
+      NodeContext,
+      useMutation
+    ),
     // Nodes -- Combined
     useNodeState,
     // Context
@@ -221,7 +254,7 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps) => {
       useCanRedo,
       useRedo
     }
-  } = (0, import_react4.createRoomContext)((0, import_client2.createClient)(createClientProps));
+  } = (0, import_react5.createRoomContext)((0, import_client2.createClient)(createClientProps));
   return {
     useRoom,
     useMyPresence,

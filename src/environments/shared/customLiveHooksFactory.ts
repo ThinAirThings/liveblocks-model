@@ -46,7 +46,10 @@ export const customLiveHooksFactory = <
             useMutation,
         ),
         useMutationUpdateNode,
-        useMutationDeleteNode: useMutationDeleteNodeFactory(useMutation),
+        useMutationDeleteNode: useMutationDeleteNodeFactory(
+            NodeContext,
+            useMutation
+        ),
         // Nodes -- Combined
         useNodeState,
         // Context
