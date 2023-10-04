@@ -1,8 +1,7 @@
 import { MutationHook } from "../hook-types.js"
-import { AirNodeType, LiveAirNode } from "../../../model/data-model.js";
+import { AirNodeContext, AirNodeType, LiveAirNode } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
 import { useContext } from "react";
-import { AirNodeContext } from "../context/NodeContextFactory.js";
 
 export const useMutationDeleteNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,

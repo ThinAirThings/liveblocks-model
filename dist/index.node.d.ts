@@ -1,5 +1,5 @@
-import { L as LiveAirNode, A as AirNodeIndex, a as AirNodeType, b as AirNodeShape, c as AirNodeState, d as LiveAirNodeState, h as LiveblocksPresence, e as LiveblocksStorageModel } from './data-model-08646a3e.js';
-export { g as AirNodeMeta, f as AirNodeParentType, U as UnionToIntersection } from './data-model-08646a3e.js';
+import { L as LiveAirNode, A as AirNodeIndex, a as AirNodeType, b as AirNodeShape, c as AirNodeState, d as LiveAirNodeState, i as LiveblocksPresence, e as LiveblocksStorageModel } from './data-model-22835be9.js';
+export { h as AirNodeContext, g as AirNodeMeta, f as AirNodeParentType, U as UnionToIntersection } from './data-model-22835be9.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { ReactNode } from 'react';

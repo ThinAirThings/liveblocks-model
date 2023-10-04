@@ -1,5 +1,7 @@
 import { LsonObject, Lson, LiveObject, LiveMap } from '@liveblocks/client';
 import { Point, ViewportState, ScreenState } from '@thinairthings/zoom-utils';
+import { Context } from 'react';
+import { ImmerHook } from 'use-immer';
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 type LiveAirNode<T extends string, PT extends string | null, S extends LsonObject, M extends Lson = {}> = LiveObject<{
@@ -32,6 +34,9 @@ type AirNodeParentType<U extends LiveAirNode<any, any, any>> = U extends LiveAir
 type AirNodeState<U extends LiveAirNode<any, any, any>> = AirNodeShape<U>['state'];
 type LiveAirNodeState<U extends LiveAirNode<any, any, any>> = LiveObject<AirNodeState<U>>;
 type AirNodeMeta<U extends LiveAirNode<any, any, any>> = AirNodeShape<U>['meta'];
+type AirNodeContext<LiveAirNodeUnion extends LiveAirNode<any, any, any>> = Context<ImmerHook<{
+    [K in AirNodeType<LiveAirNodeUnion>]: string | null;
+}>>;
 type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<any, any, any>, Meta extends Lson = {}> = {
     meta: Meta;
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
@@ -48,4 +53,4 @@ type LiveblocksPresence = {
     focusedNodeId: string | null;
 };
 
-export { AirNodeIndex as A, LiveAirNode as L, UnionToIntersection as U, AirNodeType as a, AirNodeShape as b, AirNodeState as c, LiveAirNodeState as d, LiveblocksStorageModel as e, AirNodeParentType as f, AirNodeMeta as g, LiveblocksPresence as h };
+export { AirNodeIndex as A, LiveAirNode as L, UnionToIntersection as U, AirNodeType as a, AirNodeShape as b, AirNodeState as c, LiveAirNodeState as d, LiveblocksStorageModel as e, AirNodeParentType as f, AirNodeMeta as g, AirNodeContext as h, LiveblocksPresence as i };

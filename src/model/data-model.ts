@@ -1,5 +1,7 @@
 import { LiveMap, LiveObject, Lson, LsonObject } from "@liveblocks/client"
 import { Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
+import { Context } from "react";
+import { ImmerHook } from "use-immer";
 
 export type UnionToIntersection<U> = 
     (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
@@ -54,6 +56,12 @@ export type LiveAirNodeState<
 export type AirNodeMeta<
     U extends LiveAirNode<any, any, any>
 > = AirNodeShape<U>['meta']
+
+export type AirNodeContext<
+    LiveAirNodeUnion extends LiveAirNode<any, any, any>
+> = Context<ImmerHook<{
+    [K in AirNodeType<LiveAirNodeUnion>]: string | null
+}>>
 
 export type LiveblocksStorageModel<
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,
