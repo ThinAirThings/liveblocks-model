@@ -36,31 +36,26 @@ module.exports = __toCommonJS(index_node_exports);
 
 // src/environments/node/liveblocksNodeConfig.tsx
 var import_client2 = require("@liveblocks/client");
-var import_react5 = require("@liveblocks/react");
+var import_react = require("@liveblocks/react");
 var import_ws = __toESM(require("ws"), 1);
 var import_node = require("@liveblocks/node");
-var import_react6 = require("react");
+var import_react2 = require("react");
 var import_client_secrets_manager = require("@aws-sdk/client-secrets-manager");
 
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
 var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
-var import_react = require("react");
-var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () => {
-  const [nodeCtx, updateNodeCtx] = (0, import_react.useContext)(NodeContext);
-  console.log("Inside Creation", nodeCtx);
-  return useMutation(({ storage }, type, state) => {
-    console.log("Parent Node Id", nodeCtx[NodeIndex[type].parentType]);
+var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
+  return useMutation(({ storage }, parentNodeId, type, state) => {
     const node = new import_client.LiveObject({
       nodeId: (0, import_uuid.v4)(),
+      parentNodeId,
       type,
-      parentNodeId: NodeIndex[type].parentType ? nodeCtx[NodeIndex[type].parentType] : null,
-      parentType: NodeIndex[type].parentType,
       meta: {
         ...NodeIndex[type].meta,
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
-      links: new import_client.LiveMap([]),
+      children: new import_client.LiveList([]),
       state: new import_client.LiveObject({
         ...NodeIndex[type].state,
         ...state
@@ -68,49 +63,28 @@ var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () =
     });
     const nodeId = node.get("nodeId");
     storage.get("nodeMap").set(nodeId, node);
-    if (!!NodeIndex[type].parentType)
+    if (!!parentNodeId)
       return nodeId;
     const parentNode = storage.get("nodeMap").get(node.get("parentNodeId"));
-    parentNode.get("links").set(type, [
-      .../* @__PURE__ */ new Set([...parentNode.get("links").get(type), nodeId])
-    ]);
-    updateNodeCtx((nodeCtx2) => {
-      nodeCtx2[type] = nodeId;
-    });
+    parentNode.get("children").push(nodeId);
     return nodeId;
-  }, [nodeCtx]);
+  }, []);
 };
 
 // src/environments/shared/mutations/useMutationDeleteNodeFactory.ts
-var import_react2 = require("react");
-var useMutationDeleteNodeFactory = (NodeContext, useMutation) => () => {
-  const [nodeCtx, updateNodeCtx] = (0, import_react2.useContext)(NodeContext);
-  return useMutation(({ storage }, nodeType) => {
-    const nodeToDelete = storage.get("nodeMap").get(nodeCtx[nodeType]);
-    const typesToClear = [...nodeToDelete.get("links").entries()].filter(([_, nodeIds]) => nodeIds.length > 0).map(([type, _]) => type);
+var useMutationDeleteNodeFactory = (useMutation) => () => {
+  return useMutation(({ storage }, nodeId) => {
+    const liveNodeMap = storage.get("nodeMap");
+    const nodeToDelete = liveNodeMap.get(nodeId);
     const deletionVisitor = (node) => {
-      const links = node.get("links").toImmutable();
-      [...links].forEach(([_, nodeIds]) => {
-        nodeIds.forEach((nodeId) => {
-          const linkNode = storage.get("nodeMap").get(nodeId);
-          if (!linkNode)
-            return;
-          if (linkNode.get("links").toImmutable().size === 0) {
-            storage.get("nodeMap").delete(nodeId);
-            return;
-          }
-          deletionVisitor(linkNode);
-          storage.get("nodeMap").delete(nodeId);
-        });
+      const children = node.get("children").toImmutable();
+      children.forEach((childId) => {
+        const child = liveNodeMap.get(childId);
+        deletionVisitor(child);
+        liveNodeMap.delete(childId);
       });
     };
     deletionVisitor(nodeToDelete);
-    updateNodeCtx((nodeCtx2) => {
-      nodeCtx2[nodeType] = null;
-      typesToClear.forEach((type) => {
-        nodeCtx2[type] = null;
-      });
-    });
   }, []);
 };
 
@@ -133,16 +107,9 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 };
 
 // src/environments/shared/storage/useStorageGetNodeMapFactory.ts
-var import_react3 = require("react");
-var useStorageGetNodeMapFactory = (NodeContext, useStorage) => (nodeFilter) => {
-  const nodeContext = (0, import_react3.useContext)(NodeContext);
+var useStorageGetNodeMapFactory = (useStorage) => (nodeFilter) => {
   return useStorage((root) => {
-    return nodeFilter ? new Map([...root.nodeMap].filter((p1, p2, p3) => nodeFilter(
-      nodeContext[0],
-      p1,
-      p2,
-      p3
-    ))) : root.nodeMap;
+    return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
   });
 };
 
@@ -166,83 +133,36 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
   ];
 };
 
-// src/environments/shared/context/NodeContextFactory.tsx
-var import_react4 = require("react");
-var import_use_immer = require("use-immer");
-var import_jsx_runtime = require("react/jsx-runtime");
-var NodeContextFactory = (useNodeState) => {
-  const NodeContext = (0, import_react4.createContext)([{}, () => console.log("No initial context set!. This is the default context function running")]);
-  return {
-    NodeContext,
-    NodeContextProvider: ({
-      contextValue,
-      children
-    }) => {
-      const nodeContext = (0, import_use_immer.useImmer)(contextValue);
-      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NodeContext.Provider, { value: nodeContext, children });
-    },
-    useNodeContext: (nodeType) => {
-      const [nodeCtx, updateNodeCtx] = (0, import_react4.useContext)(NodeContext);
-      return [
-        nodeCtx[nodeType],
-        (newNodeId) => {
-          updateNodeCtx((draft) => {
-            draft[nodeType] = newNodeId;
-          });
-        }
-      ];
-    },
-    useNodeStateContext: (nodeType, stateKey) => {
-      const nodeId = (0, import_react4.useContext)(NodeContext)[0][nodeType];
-      return useNodeState(nodeId, stateKey);
-    }
-  };
-};
-
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation);
   const useStorageGetNode = useStorageGetNodeFactory(useStorage);
   const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode);
-  const {
-    NodeContext,
-    NodeContextProvider,
-    useNodeContext,
-    useNodeStateContext
-  } = NodeContextFactory(useNodeState);
   return {
     // Meta
     useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
     // Nodes -- Storage
     useStorageGetNodeMap: useStorageGetNodeMapFactory(
-      NodeContext,
       useStorage
     ),
     useStorageGetNode,
     // Nodes -- Mutation
     useMutationCreateNode: useMutationCreateNodeFactory(
       NodeIndex,
-      NodeContext,
       useMutation
     ),
     useMutationUpdateNode,
     useMutationDeleteNode: useMutationDeleteNodeFactory(
-      NodeContext,
       useMutation
     ),
     // Nodes -- Combined
-    useNodeState,
-    // Context
-    NodeContext,
-    NodeContextProvider,
-    useNodeContext,
-    useNodeStateContext
+    useNodeState
   };
 };
 
 // src/environments/node/liveblocksNodeConfig.tsx
-var import_jsx_runtime2 = require("react/jsx-runtime");
+var import_jsx_runtime = require("react/jsx-runtime");
 var authorizationCallback;
 var liveblocksNodeConfig = (NodeIndex) => {
   const {
@@ -255,7 +175,7 @@ var liveblocksNodeConfig = (NodeIndex) => {
     useMutation,
     useSelf,
     RoomContext
-  } = (0, import_react5.createRoomContext)(
+  } = (0, import_react.createRoomContext)(
     (0, import_client2.createClient)({
       polyfills: {
         WebSocket: import_ws.default
@@ -269,7 +189,7 @@ var liveblocksNodeConfig = (NodeIndex) => {
     serverName,
     children
   }) => {
-    authorizationCallback = (0, import_react6.useCallback)(async () => {
+    authorizationCallback = (0, import_react2.useCallback)(async () => {
       const liveblocksClient = new import_node.Liveblocks({
         secret: (await new import_client_secrets_manager.SecretsManagerClient({ region: "us-east-1" }).send(new import_client_secrets_manager.GetSecretValueCommand({
           SecretId: "LiveblocksToken-dev"
@@ -278,7 +198,7 @@ var liveblocksNodeConfig = (NodeIndex) => {
       const { body } = await liveblocksClient.prepareSession(userId).allow(spaceId, ["room:write", "comments:write"]).authorize();
       return JSON.parse(body);
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
       RoomProvider,
       {
         id: spaceId,
@@ -294,7 +214,7 @@ var liveblocksNodeConfig = (NodeIndex) => {
           focusedNodeId: null
         },
         shouldInitiallyConnect: true,
-        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_react5.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, {}), children })
+        children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.ClientSideSuspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, {}), children })
       }
     );
   };

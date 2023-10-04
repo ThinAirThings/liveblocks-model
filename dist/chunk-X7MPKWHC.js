@@ -1,58 +1,18 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.browser.ts
-var index_browser_exports = {};
-__export(index_browser_exports, {
-  liveblocksBrowserConfig: () => liveblocksBrowserConfig
-});
-module.exports = __toCommonJS(index_browser_exports);
-
-// src/environments/browser/liveblocksBrowserConfig.tsx
-var import_client2 = require("@liveblocks/client");
-var import_react = require("@liveblocks/react");
-
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
-var import_client = require("@liveblocks/client");
-var import_uuid = require("uuid");
+import { LiveList, LiveObject } from "@liveblocks/client";
+import { v4 as uuidv4 } from "uuid";
 var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
   return useMutation(({ storage }, parentNodeId, type, state) => {
-    const node = new import_client.LiveObject({
-      nodeId: (0, import_uuid.v4)(),
+    const node = new LiveObject({
+      nodeId: uuidv4(),
       parentNodeId,
       type,
       meta: {
         ...NodeIndex[type].meta,
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
-      children: new import_client.LiveList([]),
-      state: new import_client.LiveObject({
+      children: new LiveList([]),
+      state: new LiveObject({
         ...NodeIndex[type].state,
         ...state
       })
@@ -91,14 +51,14 @@ var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
-var import_lodash = __toESM(require("lodash.isequal"), 1);
+import isEqual from "lodash.isequal";
 var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
   return useStorage(
     (root) => {
       const nodeState = root.nodeMap.get(nodeId)?.state;
       return nodeState ? selector(nodeState) : null;
     },
-    (a, b) => (0, import_lodash.default)(a, b)
+    (a, b) => isEqual(a, b)
   );
 };
 
@@ -157,49 +117,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   };
 };
 
-// src/environments/browser/liveblocksBrowserConfig.tsx
-var liveblocksBrowserConfig = (NodeIndex, createClientProps) => {
-  const {
-    suspense: {
-      useRoom,
-      useMyPresence,
-      useUpdateMyPresence,
-      useOthersMapped,
-      useStorage,
-      RoomProvider,
-      useMutation,
-      useSelf,
-      RoomContext,
-      useHistory,
-      useCanUndo,
-      useUndo,
-      useCanRedo,
-      useRedo
-    }
-  } = (0, import_react.createRoomContext)((0, import_client2.createClient)(createClientProps));
-  return {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext,
-    useHistory,
-    useCanUndo,
-    useUndo,
-    useCanRedo,
-    useRedo,
-    ...customLiveHooksFactory(
-      NodeIndex,
-      useStorage,
-      useMutation
-    )
-  };
+export {
+  customLiveHooksFactory
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  liveblocksBrowserConfig
-});

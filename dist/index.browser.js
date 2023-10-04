@@ -1,6 +1,6 @@
 import {
   customLiveHooksFactory
-} from "./chunk-J7KLH6NB.js";
+} from "./chunk-X7MPKWHC.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
