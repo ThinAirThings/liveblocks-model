@@ -24,7 +24,7 @@ type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
     [Type in AirNodeType<U>]: {
         nodeId: string;
         type: Type;
-        parentType: U extends LiveAirNode<any, infer PT extends AirNodeType<U>, any> ? PT : never;
+        parentType: U extends LiveAirNode<any, infer PT, any> ? PT : never;
         meta: U extends LiveAirNode<Type, any, any, infer M> ? M : never;
         state: U extends LiveAirNode<Type, any, infer V> ? V : never;
     };
