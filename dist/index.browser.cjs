@@ -74,7 +74,7 @@ var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () =
       nodeCtx2[type] = nodeId;
     });
     return nodeId;
-  }, []);
+  }, [nodeCtx]);
 };
 
 // src/environments/shared/mutations/useMutationDeleteNodeFactory.ts

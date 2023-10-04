@@ -58,5 +58,5 @@ export const useMutationCreateNodeFactory = <
             nodeCtx[type] = nodeId as any
         })
         return nodeId
-    }, [])
+    }, [nodeCtx])
 }
