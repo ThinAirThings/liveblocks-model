@@ -25,6 +25,7 @@ export const useMutationCreateNodeFactory = <
         type: T,
         state?: S
     ) => {
+        console.log("Parent Node Id", nodeCtx[NodeIndex[type].parentType])
         const node = new LiveObject({
             nodeId: uuidv4(),
             type,

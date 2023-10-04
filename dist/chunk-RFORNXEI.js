@@ -6,6 +6,7 @@ var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () =
   const [nodeCtx, updateNodeCtx] = useContext(NodeContext);
   console.log("Inside Creation", nodeCtx);
   return useMutation(({ storage }, type, state) => {
+    console.log("Parent Node Id", nodeCtx[NodeIndex[type].parentType]);
     const node = new LiveObject({
       nodeId: uuidv4(),
       type,
