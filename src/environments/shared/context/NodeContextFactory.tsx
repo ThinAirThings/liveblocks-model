@@ -5,13 +5,6 @@ import { Lson } from "@liveblocks/client"
 import { useNodeStateFactory } from "../combined/useNodeStateFactory.js"
 
 
-
-export type AirNodeContext<
-    LiveAirNodeUnion extends LiveAirNode<any, any, any>
-> = Context<ImmerHook<{
-    [K in AirNodeType<LiveAirNodeUnion>]: string | null
-}>>
-
 export const NodeContextFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson

@@ -44,11 +44,12 @@ var import_uuid = require("uuid");
 var import_react = require("react");
 var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () => {
   const [nodeCtx, updateNodeCtx] = (0, import_react.useContext)(NodeContext);
+  console.log("Inside Creation", nodeCtx);
   return useMutation(({ storage }, type, state) => {
     const node = new import_client.LiveObject({
       nodeId: (0, import_uuid.v4)(),
-      parentNodeId: NodeIndex[type].parentType ? nodeCtx[NodeIndex[type].parentType] : null,
       type,
+      parentNodeId: NodeIndex[type].parentType ? nodeCtx[NodeIndex[type].parentType] : null,
       parentType: NodeIndex[type].parentType,
       meta: {
         ...NodeIndex[type].meta,

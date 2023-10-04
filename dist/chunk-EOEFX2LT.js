@@ -4,11 +4,12 @@ import { v4 as uuidv4 } from "uuid";
 import { useContext } from "react";
 var useMutationCreateNodeFactory = (NodeIndex, NodeContext, useMutation) => () => {
   const [nodeCtx, updateNodeCtx] = useContext(NodeContext);
+  console.log("Inside Creation", nodeCtx);
   return useMutation(({ storage }, type, state) => {
     const node = new LiveObject({
       nodeId: uuidv4(),
-      parentNodeId: NodeIndex[type].parentType ? nodeCtx[NodeIndex[type].parentType] : null,
       type,
+      parentNodeId: NodeIndex[type].parentType ? nodeCtx[NodeIndex[type].parentType] : null,
       parentType: NodeIndex[type].parentType,
       meta: {
         ...NodeIndex[type].meta,

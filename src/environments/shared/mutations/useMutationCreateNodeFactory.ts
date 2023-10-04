@@ -19,6 +19,7 @@ export const useMutationCreateNodeFactory = <
     state?: S
 )=>string => {
     const [nodeCtx, updateNodeCtx] = useContext(NodeContext)
+    console.log("Inside Creation", nodeCtx)
     return useMutation((
         {storage}, 
         type: T,
@@ -26,10 +27,10 @@ export const useMutationCreateNodeFactory = <
     ) => {
         const node = new LiveObject({
             nodeId: uuidv4(),
+            type,
             parentNodeId: NodeIndex[type].parentType 
                 ? nodeCtx[NodeIndex[type].parentType]!
                 : null,
-            type,
             parentType: NodeIndex[type].parentType,
             meta: {
                 ...NodeIndex[type].meta,
