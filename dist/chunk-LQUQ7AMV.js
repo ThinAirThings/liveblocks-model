@@ -843,7 +843,8 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     CurrentNodepathContext,
     useCurrentNodepath,
     CurrentNodepathProvider,
-    useNodeStateContext
+    useNodeStateContext,
+    useStateDisplayName
   } = CurrentNodepathContextFactory(
     NodeIndex,
     useStorage,
@@ -874,7 +875,8 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     CurrentNodepathContext,
     useCurrentNodepath,
     CurrentNodepathProvider,
-    useNodeStateContext
+    useNodeStateContext,
+    useStateDisplayName
   };
 };
 
