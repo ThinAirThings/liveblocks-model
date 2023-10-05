@@ -794,19 +794,19 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       let [currentNodepath, _, nodeDepth] = useCurrentNodepath();
       nodeDepth++;
       const [nodepath, updateNodepath] = i(currentNodepath);
+      const updateBaseId = (nodeId) => {
+        updateNodepath((draft) => {
+          draft[nodeDepth] = nodeId;
+        });
+      };
       useEffect(() => {
         updateNodepath((draft) => {
           currentNodepath.forEach((nodeId, index) => {
             draft[index] = nodeId;
           });
         });
-      }, [currentNodepath]);
-      const updateBaseId = (nodeId) => {
-        updateNodepath((draft) => {
-          draft[nodeDepth] = nodeId;
-        });
-      };
-      baseId && updateBaseId(baseId);
+        baseId && updateBaseId(baseId);
+      }, [currentNodepath, baseId]);
       return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: [nodepath, updateBaseId, nodeDepth], children });
     },
     useNodeStateContext: (nodeType, stateKey) => {

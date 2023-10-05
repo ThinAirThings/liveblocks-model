@@ -40,19 +40,20 @@ export const CurrentNodepathContextFactory = <
             let [currentNodepath, _, nodeDepth] = useCurrentNodepath()
             nodeDepth++
             const [nodepath, updateNodepath] = useImmer<Array<string>>(currentNodepath);
+            const updateBaseId = (nodeId: string) => {
+                updateNodepath(draft => {
+                    draft[nodeDepth] = nodeId
+                })
+            }
             useEffect(() => {
                 updateNodepath(draft => {
                     currentNodepath.forEach((nodeId, index) => {
                         draft[index] = nodeId
                     })
                 })
-            }, [currentNodepath])
-            const updateBaseId = (nodeId: string) => {
-                updateNodepath(draft => {
-                    draft[nodeDepth] = nodeId
-                })
-            }
-            baseId && updateBaseId(baseId)
+                baseId && updateBaseId(baseId)
+            }, [currentNodepath, baseId])
+
             return (
                 <CurrentNodepathContext.Provider value={[nodepath, updateBaseId, nodeDepth]}>
                     {children}
