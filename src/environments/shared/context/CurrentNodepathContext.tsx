@@ -108,7 +108,7 @@ export const CurrentNodepathContextFactory = <
             // Walk up the nodepath until we find a node that has the type we're looking for
             const targetNodeId = useStorage((root) => {
                 return nodePath.find(nodeId => {
-                    root.nodeMap.get(nodeId)?.type === nodeType
+                    return root.nodeMap.get(nodeId)?.type === nodeType
                 })
             })
             if (!targetNodeId) throw new Error(`No node of type ${nodeType} found in nodepath`)
