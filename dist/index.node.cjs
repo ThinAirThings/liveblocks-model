@@ -871,6 +871,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
     },
     useNodeDisplayName: (nodeType) => {
       const [nodepath] = useCurrentNodepath();
+      console.log(nodepath);
       const targetNodeId = useStorage((root) => {
         return nodepath.find((nodeId) => {
           root.nodeMap.get(nodeId)?.type === nodeType;

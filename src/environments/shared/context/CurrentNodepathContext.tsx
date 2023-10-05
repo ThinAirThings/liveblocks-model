@@ -98,6 +98,7 @@ export const CurrentNodepathContextFactory = <
             nodeType: T
         ) => {
             const [nodepath] = useCurrentNodepath()
+            console.log(nodepath)
             // Walk up the nodepath until we find a node that has the type we're looking for
             const targetNodeId = useStorage((root) => {
                 return nodepath.find(nodeId => {
