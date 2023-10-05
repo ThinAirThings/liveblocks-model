@@ -872,7 +872,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       }, [absoluteNodePath]);
       const updateBaseId = (nodeId) => {
         updateNodePath((draft) => {
-          draft[draft.length - 1] = nodeId;
+          draft[absoluteNodePath.length === 0 ? 0 : absoluteNodePath.length - 1] = nodeId;
         });
       };
       return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurrentNodepathContext.Provider, { value: {

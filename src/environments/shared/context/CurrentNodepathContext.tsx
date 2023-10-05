@@ -77,7 +77,7 @@ export const CurrentNodepathContextFactory = <
             }, [absoluteNodePath])
             const updateBaseId = (nodeId: string) => {
                 updateNodePath(draft => {
-                    draft[draft.length-1] = nodeId
+                    draft[absoluteNodePath.length === 0 ? 0 : absoluteNodePath.length - 1] = nodeId
                 })
             }
             return (
