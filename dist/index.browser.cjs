@@ -62,7 +62,7 @@ var useMutationCreateNodeFactory = (NodeIndex, useCurrentNodepath, useMutation) 
     });
     const nodeId = node.get("nodeId");
     storage.get("nodeMap").set(nodeId, node);
-    if (!!parentNodeId)
+    if (!parentNodeId)
       return nodeId;
     const parentNode = storage.get("nodeMap").get(parentNodeId);
     parentNode.get("children").push(nodeId);
