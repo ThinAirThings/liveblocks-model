@@ -870,7 +870,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       console.log(nodepath);
       const targetNodeId = useStorage((root) => {
         return nodepath.find((nodeId) => {
-          root.nodeMap.get(nodeId)?.type === nodeType;
+          return root.nodeMap.get(nodeId)?.type === nodeType;
         });
       });
       if (!targetNodeId)
