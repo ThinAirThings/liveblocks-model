@@ -106,10 +106,11 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 };
 
 // src/environments/shared/storage/useStorageGetNodeMapFactory.ts
+var import_lodash2 = __toESM(require("lodash.isequal"), 1);
 var useStorageGetNodeMapFactory = (useStorage) => (nodeFilter) => {
   return useStorage((root) => {
     return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
-  });
+  }, (a, b) => (0, import_lodash2.default)(a, b));
 };
 
 // src/environments/shared/storage/useStorageGetMetaFactory.ts

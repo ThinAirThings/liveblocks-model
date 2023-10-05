@@ -2,7 +2,7 @@
 import { StorageHook } from "../hook-types.js";
 import { LiveAirNode, AirNodeShape } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
-
+import isEqual from "lodash.isequal";
 export const useStorageGetNodeMapFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
     Meta extends Lson
@@ -15,5 +15,5 @@ export const useStorageGetNodeMapFactory = <
         return nodeFilter
             ? new Map([...root.nodeMap].filter(nodeFilter as any))
             : root.nodeMap
-    })!
+    }, (a,b)=>isEqual(a,b))!
 }

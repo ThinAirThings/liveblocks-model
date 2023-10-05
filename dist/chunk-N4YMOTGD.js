@@ -66,10 +66,11 @@ var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
 };
 
 // src/environments/shared/storage/useStorageGetNodeMapFactory.ts
+import isEqual2 from "lodash.isequal";
 var useStorageGetNodeMapFactory = (useStorage) => (nodeFilter) => {
   return useStorage((root) => {
     return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
-  });
+  }, (a, b) => isEqual2(a, b));
 };
 
 // src/environments/shared/storage/useStorageGetMetaFactory.ts
