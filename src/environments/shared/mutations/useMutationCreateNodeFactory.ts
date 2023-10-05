@@ -45,6 +45,7 @@ export const useMutationCreateNodeFactory = <
         storage.get('nodeMap').set(nodeId, node as any)
         // Return is parent is null
         if (!parentNodeId) return nodeId  
+
         // Set Children for parent node
         const parentNode = storage.get('nodeMap').get(parentNodeId)!
         parentNode.get('children').push(nodeId)
