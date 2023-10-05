@@ -1,6 +1,6 @@
 import { Context, ReactNode, createContext, useContext, useEffect, useMemo } from "react"
 import { ImmerHook, useImmer } from "use-immer"
-import { AirNodeShape, AirNodeState, AirNodeType, LiveAirNode } from "../../../index.node.js"
+import { AirNodeIndex, AirNodeShape, AirNodeState, AirNodeType, LiveAirNode } from "../../../index.node.js"
 import { Lson } from "@liveblocks/client"
 import { useNodeStateFactory } from "../combined/useNodeStateFactory.js"
 import { StorageHook } from "../hook-types.js"
@@ -10,6 +10,7 @@ export const CurrentNodepathContextFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,
     Meta extends Lson
 >(
+    NodeIndex: AirNodeIndex<LiveAirNodeUnion>,
     useStorage: StorageHook<LiveAirNodeUnion, Meta>,
     useNodeState: ReturnType<typeof useNodeStateFactory<
         LiveAirNodeUnion,
@@ -77,6 +78,24 @@ export const CurrentNodepathContextFactory = <
             return useNodeState<any, any>(targetNodeId!, stateKey) as unknown as [
                 S[K],
                 (value: S[K]) => void
+            ]
+        },
+        useStateDisplayName: <
+            T extends AirNodeType<LiveAirNodeUnion>,
+        >(
+            nodeType: T
+        ) => {
+            const [nodepath] = useCurrentNodepath()
+            // Walk up the nodepath until we find a node that has the type we're looking for
+            const targetNodeId = useStorage((root) => {
+                return nodepath.find(nodeId => {
+                    root.nodeMap.get(nodeId)?.type === nodeType
+                })
+            })
+            if (!targetNodeId) throw new Error(`No node of type ${nodeType} found in nodepath`)
+            return useNodeState<any, any>(targetNodeId!, NodeIndex[nodeType].stateDisplayKey) as unknown as [
+                string,
+                (value: string) => void
             ]
         }
     }

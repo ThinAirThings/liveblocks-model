@@ -817,7 +817,7 @@ function i(f2) {
 
 // src/environments/shared/context/CurrentNodepathContext.tsx
 var import_jsx_runtime = require("react/jsx-runtime");
-var CurrentNodepathContextFactory = (useStorage, useNodeState) => {
+var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
   const CurrentNodepathContext = (0, import_react2.createContext)([
     [],
     () => console.log("No initial context set!. This is the default context function running"),
@@ -859,6 +859,17 @@ var CurrentNodepathContextFactory = (useStorage, useNodeState) => {
       if (!targetNodeId)
         throw new Error(`No node of type ${nodeType} found in nodepath`);
       return useNodeState(targetNodeId, stateKey);
+    },
+    useStateDisplayName: (nodeType) => {
+      const [nodepath] = useCurrentNodepath();
+      const targetNodeId = useStorage((root) => {
+        return nodepath.find((nodeId) => {
+          root.nodeMap.get(nodeId)?.type === nodeType;
+        });
+      });
+      if (!targetNodeId)
+        throw new Error(`No node of type ${nodeType} found in nodepath`);
+      return useNodeState(targetNodeId, NodeIndex[nodeType].stateDisplayKey);
     }
   };
 };
@@ -874,6 +885,7 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     CurrentNodepathProvider,
     useNodeStateContext
   } = CurrentNodepathContextFactory(
+    NodeIndex,
     useStorage,
     useNodeState
   );
