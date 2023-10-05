@@ -134,6 +134,16 @@ export const CurrentNodepathContextFactory = <
                 string,
                 (value: string) => void
             ]
+        },
+        useNodePathDisplay: () => {
+            const {nodePath} = useCurrentNodepath()
+            const displayName = useStorage(root => {
+                return nodePath.map(nodeId => {
+                    const node = root.nodeMap.get(nodeId)
+                    return node?.state[node.stateDisplayKey]
+                }).join("/")
+            })
+            return displayName
         }
     }
 }

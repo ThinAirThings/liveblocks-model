@@ -45,6 +45,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
         type: T_3;
     })["state"], K_1 extends keyof S_3>(nodeType: T_3, stateKey: K_1) => [S_3[K_1], (value: S_3[K_1]) => void];
     useNodeDisplayName: <T_4 extends AirNodeType<LiveAirNodeUnion>>(nodeType: T_4) => [string, (value: string) => void];
+    useNodePathDisplay: () => string | null;
     useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never>;
     useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;

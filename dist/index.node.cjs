@@ -904,6 +904,16 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       if (!targetNodeId)
         throw new Error(`No node of type ${nodeType} found in nodepath`);
       return useNodeState(targetNodeId, NodeIndex[nodeType].stateDisplayKey);
+    },
+    useNodePathDisplay: () => {
+      const { nodePath } = useCurrentNodepath();
+      const displayName = useStorage((root) => {
+        return nodePath.map((nodeId) => {
+          const node = root.nodeMap.get(nodeId);
+          return node?.state[node.stateDisplayKey];
+        }).join("/");
+      });
+      return displayName;
     }
   };
 };
@@ -918,7 +928,8 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     useCurrentNodepath,
     AbsoluteNodepathProvider,
     useNodeStateContext,
-    useNodeDisplayName
+    useNodeDisplayName,
+    useNodePathDisplay
   } = CurrentNodepathContextFactory(
     NodeIndex,
     useStorage,
@@ -950,7 +961,8 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     useCurrentNodepath,
     AbsoluteNodepathProvider,
     useNodeStateContext,
-    useNodeDisplayName
+    useNodeDisplayName,
+    useNodePathDisplay
   };
 };
 
