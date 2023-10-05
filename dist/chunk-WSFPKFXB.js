@@ -2,7 +2,7 @@
 import { LiveList, LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
 var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
-  return useMutation(({ storage }, parentNodeId, type, stateDisplayKey, state) => {
+  return useMutation(({ storage }, parentNodeId, type, state) => {
     const node = new LiveObject({
       nodeId: uuidv4(),
       parentNodeId,
@@ -12,7 +12,7 @@ var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
       children: new LiveList([]),
-      stateDisplayKey,
+      stateDisplayKey: NodeIndex[type].stateDisplayKey,
       state: new LiveObject({
         ...NodeIndex[type].state,
         ...state

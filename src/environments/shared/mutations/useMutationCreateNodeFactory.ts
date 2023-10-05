@@ -12,18 +12,15 @@ export const useMutationCreateNodeFactory = <
 ) => <
     T extends AirNodeType<LiveAirNodeUnion>,
     S extends Partial<(AirNodeShape<LiveAirNodeUnion>&{type: T})['state']>,
-    SK extends keyof S
 >(): (
     parentNodeId: string | null,
     type: T,
-    stateDisplayKey: SK,
     state?: S
 )=>string => {
     return useMutation((
         {storage},
         parentNodeId: string | null,
         type: T,
-        stateDisplayKey: SK,
         state?: S
     ) => {
         const node = new LiveObject({
@@ -35,7 +32,7 @@ export const useMutationCreateNodeFactory = <
                 createdAt: new Date().toISOString()
             },
             children: new LiveList([]),
-            stateDisplayKey: stateDisplayKey as string,
+            stateDisplayKey: NodeIndex[type].stateDisplayKey as any,
             state: new LiveObject({
                 ...NodeIndex[type].state,
                 ...state,

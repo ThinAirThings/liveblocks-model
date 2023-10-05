@@ -42,7 +42,7 @@ var import_react = require("@liveblocks/react");
 var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
 var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
-  return useMutation(({ storage }, parentNodeId, type, stateDisplayKey, state) => {
+  return useMutation(({ storage }, parentNodeId, type, state) => {
     const node = new import_client.LiveObject({
       nodeId: (0, import_uuid.v4)(),
       parentNodeId,
@@ -52,7 +52,7 @@ var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
       children: new import_client.LiveList([]),
-      stateDisplayKey,
+      stateDisplayKey: NodeIndex[type].stateDisplayKey,
       state: new import_client.LiveObject({
         ...NodeIndex[type].state,
         ...state
