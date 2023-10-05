@@ -140,7 +140,7 @@ var useNodePathStateFactory = (useStorage, useNodeState) => (nodePath, nodeType,
     });
   });
   if (!targetNodeId)
-    return;
+    throw new Error("No node found with the given type");
   return useNodeState(targetNodeId, stateKey);
 };
 
