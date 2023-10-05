@@ -860,7 +860,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
         throw new Error(`No node of type ${nodeType} found in nodepath`);
       return useNodeState(targetNodeId, stateKey);
     },
-    useStateDisplayName: (nodeType) => {
+    useNodeDisplayName: (nodeType) => {
       const [nodepath] = useCurrentNodepath();
       const targetNodeId = useStorage((root) => {
         return nodepath.find((nodeId) => {
@@ -884,7 +884,7 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     useCurrentNodepath,
     CurrentNodepathProvider,
     useNodeStateContext,
-    useStateDisplayName
+    useNodeDisplayName
   } = CurrentNodepathContextFactory(
     NodeIndex,
     useStorage,
@@ -916,7 +916,7 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     useCurrentNodepath,
     CurrentNodepathProvider,
     useNodeStateContext,
-    useStateDisplayName
+    useNodeDisplayName
   };
 };
 

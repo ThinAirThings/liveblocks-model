@@ -80,7 +80,7 @@ export const CurrentNodepathContextFactory = <
                 (value: S[K]) => void
             ]
         },
-        useStateDisplayName: <
+        useNodeDisplayName: <
             T extends AirNodeType<LiveAirNodeUnion>,
         >(
             nodeType: T

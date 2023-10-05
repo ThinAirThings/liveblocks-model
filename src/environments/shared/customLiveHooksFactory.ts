@@ -28,7 +28,7 @@ export const customLiveHooksFactory = <
         useCurrentNodepath,
         CurrentNodepathProvider,
         useNodeStateContext,
-        useStateDisplayName
+        useNodeDisplayName
     } = CurrentNodepathContextFactory(
         NodeIndex,
         useStorage,
@@ -60,6 +60,6 @@ export const customLiveHooksFactory = <
         useCurrentNodepath,
         CurrentNodepathProvider,
         useNodeStateContext,
-        useStateDisplayName
+        useNodeDisplayName
     }
 }
