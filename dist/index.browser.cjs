@@ -819,8 +819,8 @@ function i(f2) {
 var import_jsx_runtime = require("react/jsx-runtime");
 var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
   const CurrentNodepathContext = (0, import_react2.createContext)({
-    baseId: "",
-    dirId: null,
+    baseId: "/",
+    dirId: "/",
     nodePath: [],
     updateBaseId: () => console.log("No CurrentNodepathContextProvider")
   });
@@ -858,6 +858,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       absoluteNodePath,
       children
     }) => {
+      absoluteNodePath = absoluteNodePath.length === 0 ? ["/"] : absoluteNodePath;
       const [nodepath, updateNodePath] = i(absoluteNodePath);
       (0, import_react2.useEffect)(() => {
         updateNodePath((draft) => {
@@ -868,12 +869,12 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       }, [absoluteNodePath]);
       const updateBaseId = (nodeId) => {
         updateNodePath((draft) => {
-          draft[absoluteNodePath.length === 0 ? 0 : absoluteNodePath.length - 1] = nodeId;
+          draft[absoluteNodePath.length] = nodeId;
         });
       };
       return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurrentNodepathContext.Provider, { value: {
-        baseId: nodepath[nodepath.length - 1],
-        dirId: nodepath[nodepath.length - 2],
+        baseId: nodepath[nodepath.length - 1] ?? "/",
+        dirId: nodepath[nodepath.length - 2] ?? "/",
         nodePath: nodepath,
         updateBaseId
       }, children });

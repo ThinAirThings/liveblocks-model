@@ -23,10 +23,10 @@ export const CurrentNodepathContextFactory = <
         nodePath: Array<string>,
         updateBaseId: (nodeId: string) => void,
     }>({
-        baseId: "",
-        dirId: null,
+        baseId: "/",
+        dirId: "/",
         nodePath: [],
-        updateBaseId: () => console.log("No CurrentNodepathContextProvider")
+        updateBaseId: () => console.log("No CurrentNodepathContextProvider"),
     })
 
     const useCurrentNodepath = () => useContext(CurrentNodepathContext)
@@ -67,6 +67,10 @@ export const CurrentNodepathContextFactory = <
             absoluteNodePath: Array<string>,
             children: ReactNode
         }) => {
+            // If the absoluteNodePath is empty, we're at the root
+            absoluteNodePath = absoluteNodePath.length === 0 
+                ? ["/"] 
+                : absoluteNodePath
             const [nodepath, updateNodePath] = useImmer<Array<string>>(absoluteNodePath)
             useEffect(() => {
                 updateNodePath(draft => {
@@ -77,13 +81,14 @@ export const CurrentNodepathContextFactory = <
             }, [absoluteNodePath])
             const updateBaseId = (nodeId: string) => {
                 updateNodePath(draft => {
-                    draft[absoluteNodePath.length === 0 ? 0 : absoluteNodePath.length - 1] = nodeId
+                    // Not [-1] here because were trying to add a new node to the end of the path
+                    draft[absoluteNodePath.length] = nodeId
                 })
             }
             return (
                 <CurrentNodepathContext.Provider value={{
-                    baseId: nodepath[nodepath.length-1],
-                    dirId: nodepath[nodepath.length-2],
+                    baseId: nodepath[nodepath.length-1]??"/",
+                    dirId: nodepath[nodepath.length-2]??"/",
                     nodePath: nodepath,
                     updateBaseId
                 }}>
