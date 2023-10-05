@@ -9,6 +9,7 @@ import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMapFacto
 import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js";
 import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
 import { useNodeStateFactory } from "./combined/useNodeStateFactory.js";
+import { CurrentNodepathContextFactory } from "./context/CurrentNodepathContext.js";
 
 
 export const customLiveHooksFactory = <
@@ -22,6 +23,15 @@ export const customLiveHooksFactory = <
     const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation)
     const useStorageGetNode = useStorageGetNodeFactory(useStorage)
     const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode)
+    const {
+        CurrentNodepathContext,
+        useCurrentNodepath,
+        CurrentNodepathProvider,
+        useNodeStateContext
+    } = CurrentNodepathContextFactory(
+        useStorage,
+        useNodeState
+    )
     return {
         // Meta
         useStorageGetMeta: useStorageGetMetaFactory(useStorage),
@@ -34,6 +44,7 @@ export const customLiveHooksFactory = <
         // Nodes -- Mutation
         useMutationCreateNode: useMutationCreateNodeFactory(
             NodeIndex,
+            useCurrentNodepath,
             useMutation,
         ),
         useMutationUpdateNode,
@@ -42,5 +53,10 @@ export const customLiveHooksFactory = <
         ),
         // Nodes -- Combined
         useNodeState,
+        // Context
+        CurrentNodepathContext,
+        useCurrentNodepath,
+        CurrentNodepathProvider,
+        useNodeStateContext
     }
 }

@@ -1,61 +1,21 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.browser.ts
-var index_browser_exports = {};
-__export(index_browser_exports, {
-  liveblocksBrowserConfig: () => liveblocksBrowserConfig
-});
-module.exports = __toCommonJS(index_browser_exports);
-
-// src/environments/browser/liveblocksBrowserConfig.tsx
-var import_client2 = require("@liveblocks/client");
-var import_react3 = require("@liveblocks/react");
-
 // src/environments/shared/mutations/useMutationCreateNodeFactory.ts
-var import_client = require("@liveblocks/client");
-var import_uuid = require("uuid");
+import { LiveList, LiveObject } from "@liveblocks/client";
+import { v4 as uuidv4 } from "uuid";
 var useMutationCreateNodeFactory = (NodeIndex, useCurrentNodepath, useMutation) => () => {
   const [currentNodepath, _, depth] = useCurrentNodepath();
   const parentNodeId = currentNodepath[depth - 1] ?? null;
   return useMutation(({ storage }, type, state) => {
-    const node = new import_client.LiveObject({
-      nodeId: (0, import_uuid.v4)(),
+    const node = new LiveObject({
+      nodeId: uuidv4(),
       parentNodeId,
       type,
       meta: {
         ...NodeIndex[type].meta,
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
-      children: new import_client.LiveList([]),
+      children: new LiveList([]),
       stateDisplayKey: NodeIndex[type].stateDisplayKey,
-      state: new import_client.LiveObject({
+      state: new LiveObject({
         ...NodeIndex[type].state,
         ...state
       })
@@ -94,14 +54,14 @@ var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage
 }, []);
 
 // src/environments/shared/storage/useStorageGetNodeFactory.ts
-var import_lodash = __toESM(require("lodash.isequal"), 1);
+import isEqual from "lodash.isequal";
 var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
   return useStorage(
     (root) => {
       const nodeState = root.nodeMap.get(nodeId)?.state;
       return nodeState ? selector(nodeState) : null;
     },
-    (a, b) => (0, import_lodash.default)(a, b)
+    (a, b) => isEqual(a, b)
   );
 };
 
@@ -133,7 +93,7 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
 };
 
 // src/environments/shared/context/CurrentNodepathContext.tsx
-var import_react2 = require("react");
+import { createContext, useContext, useEffect } from "react";
 
 // node_modules/immer/dist/immer.mjs
 var NOTHING = Symbol.for("immer-nothing");
@@ -804,25 +764,25 @@ var createDraft = immer.createDraft.bind(immer);
 var finishDraft = immer.finishDraft.bind(immer);
 
 // node_modules/use-immer/dist/use-immer.module.js
-var import_react = require("react");
+import { useState as t, useCallback as o, useMemo as f, useReducer as u } from "react";
 function i(f2) {
-  var u2 = (0, import_react.useState)(function() {
+  var u2 = t(function() {
     return freeze("function" == typeof f2 ? f2() : f2, true);
   }), i2 = u2[1];
-  return [u2[0], (0, import_react.useCallback)(function(t2) {
+  return [u2[0], o(function(t2) {
     i2("function" == typeof t2 ? produce(t2) : freeze(t2));
   }, [])];
 }
 
 // src/environments/shared/context/CurrentNodepathContext.tsx
-var import_jsx_runtime = require("react/jsx-runtime");
+import { jsx } from "react/jsx-runtime";
 var CurrentNodepathContextFactory = (useStorage, useNodeState) => {
-  const CurrentNodepathContext = (0, import_react2.createContext)([
+  const CurrentNodepathContext = createContext([
     [],
     () => console.log("No initial context set!. This is the default context function running"),
     -1
   ]);
-  const useCurrentNodepath = () => (0, import_react2.useContext)(CurrentNodepathContext);
+  const useCurrentNodepath = () => useContext(CurrentNodepathContext);
   return {
     CurrentNodepathContext,
     useCurrentNodepath,
@@ -833,7 +793,7 @@ var CurrentNodepathContextFactory = (useStorage, useNodeState) => {
       let [currentNodepath, _, nodeDepth] = useCurrentNodepath();
       nodeDepth++;
       const [nodepath, updateNodepath] = i(currentNodepath);
-      (0, import_react2.useEffect)(() => {
+      useEffect(() => {
         updateNodepath((draft) => {
           currentNodepath.forEach((nodeId, index) => {
             draft[index] = nodeId;
@@ -846,7 +806,7 @@ var CurrentNodepathContextFactory = (useStorage, useNodeState) => {
         });
       };
       baseId && updateBaseId(baseId);
-      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurrentNodepathContext.Provider, { value: [nodepath, updateBaseId, nodeDepth], children });
+      return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: [nodepath, updateBaseId, nodeDepth], children });
     },
     useNodeStateContext: (nodeType, stateKey) => {
       const [nodepath] = useCurrentNodepath();
@@ -905,49 +865,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   };
 };
 
-// src/environments/browser/liveblocksBrowserConfig.tsx
-var liveblocksBrowserConfig = (NodeIndex, createClientProps) => {
-  const {
-    suspense: {
-      useRoom,
-      useMyPresence,
-      useUpdateMyPresence,
-      useOthersMapped,
-      useStorage,
-      RoomProvider,
-      useMutation,
-      useSelf,
-      RoomContext,
-      useHistory,
-      useCanUndo,
-      useUndo,
-      useCanRedo,
-      useRedo
-    }
-  } = (0, import_react3.createRoomContext)((0, import_client2.createClient)(createClientProps));
-  return {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext,
-    useHistory,
-    useCanUndo,
-    useUndo,
-    useCanRedo,
-    useRedo,
-    ...customLiveHooksFactory(
-      NodeIndex,
-      useStorage,
-      useMutation
-    )
-  };
+export {
+  customLiveHooksFactory
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  liveblocksBrowserConfig
-});

@@ -2,8 +2,6 @@
 import { StorageHook } from "../hook-types.js";
 import { LiveAirNode, AirNodeShape } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
-import { NodeContextFactory } from "../context/NodeContextFactory.js";
-import { useContext } from "react";
 
 export const useStorageGetNodeMapFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any>,
