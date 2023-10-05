@@ -27,8 +27,11 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useNodeState: <T_2 extends LiveAirNode<any, any, any>, K extends keyof AirNodeState<T_2>>(nodeId: string, key: K) => [AirNodeState<T_2>[K], (newValue: AirNodeState<T_2>[K]) => void];
     CurrentNodepathContext: react.Context<[string[], (nodeId: string, index?: number | undefined) => void, number]>;
     useCurrentNodepath: () => [string[], (nodeId: string, index?: number | undefined) => void, number];
-    CurrentNodepathProvider: ({ baseId, children }: {
-        baseId?: string | undefined;
+    RelativeNodepathProvider: ({ children }: {
+        children: ReactNode;
+    }) => react_jsx_runtime.JSX.Element;
+    AbsoluteNodepathProvider: ({ absoluteNodePath, children }: {
+        absoluteNodePath: string[];
         children: ReactNode;
     }) => react_jsx_runtime.JSX.Element;
     useNodeStateContext: <T_3 extends AirNodeType<LiveAirNodeUnion>, S_3 extends (AirNodeShape<LiveAirNodeUnion> & {

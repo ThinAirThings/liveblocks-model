@@ -22,7 +22,7 @@ export const CurrentNodepathContextFactory = <
         (nodeId: string, index?: number) => void,
         number
     ]>([
-        [], 
+        [],
         () => console.log("No initial context set!. This is the default context function running"),
         -1
     ])
@@ -30,11 +30,9 @@ export const CurrentNodepathContextFactory = <
     return {
         CurrentNodepathContext,
         useCurrentNodepath,
-        CurrentNodepathProvider: ({
-            baseId,
+        RelativeNodepathProvider: ({
             children
         }: {
-            baseId?: string,
             children: ReactNode
         }) => {
             let [currentNodepath, _, nodeDepth] = useCurrentNodepath()
@@ -51,11 +49,24 @@ export const CurrentNodepathContextFactory = <
                         draft[index] = nodeId
                     })
                 })
-                baseId && updateBaseId(baseId)
-            }, [currentNodepath, baseId])
+            }, [currentNodepath])
 
             return (
                 <CurrentNodepathContext.Provider value={[nodepath, updateBaseId, nodeDepth]}>
+                    {children}
+                </CurrentNodepathContext.Provider>
+            )
+        },
+        AbsoluteNodepathProvider: ({
+            absoluteNodePath,
+            children
+        }:{
+            absoluteNodePath: Array<string>,
+            children: ReactNode
+        }) => {
+            let [_, updateBaseId] = useCurrentNodepath()
+            return (
+                <CurrentNodepathContext.Provider value={[absoluteNodePath, updateBaseId, absoluteNodePath.length]}>
                     {children}
                 </CurrentNodepathContext.Provider>
             )

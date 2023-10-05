@@ -787,8 +787,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
   return {
     CurrentNodepathContext,
     useCurrentNodepath,
-    CurrentNodepathProvider: ({
-      baseId,
+    RelativeNodepathProvider: ({
       children
     }) => {
       let [currentNodepath, _, nodeDepth] = useCurrentNodepath();
@@ -805,9 +804,15 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
             draft[index] = nodeId;
           });
         });
-        baseId && updateBaseId(baseId);
-      }, [currentNodepath, baseId]);
+      }, [currentNodepath]);
       return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: [nodepath, updateBaseId, nodeDepth], children });
+    },
+    AbsoluteNodepathProvider: ({
+      absoluteNodePath,
+      children
+    }) => {
+      let [_, updateBaseId] = useCurrentNodepath();
+      return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: [absoluteNodePath, updateBaseId, absoluteNodePath.length], children });
     },
     useNodeStateContext: (nodeType, stateKey) => {
       const [nodepath] = useCurrentNodepath();
@@ -842,7 +847,8 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   const {
     CurrentNodepathContext,
     useCurrentNodepath,
-    CurrentNodepathProvider,
+    RelativeNodepathProvider,
+    AbsoluteNodepathProvider,
     useNodeStateContext,
     useNodeDisplayName
   } = CurrentNodepathContextFactory(
@@ -874,7 +880,8 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     // Context
     CurrentNodepathContext,
     useCurrentNodepath,
-    CurrentNodepathProvider,
+    RelativeNodepathProvider,
+    AbsoluteNodepathProvider,
     useNodeStateContext,
     useNodeDisplayName
   };
