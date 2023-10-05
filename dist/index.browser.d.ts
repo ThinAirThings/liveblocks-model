@@ -19,7 +19,7 @@ declare const liveblocksBrowserConfig: <LiveAirNodeUnion extends LiveAirNode<any
     useNodeState: <T_2 extends LiveAirNode<any, any, any>, K extends keyof AirNodeState<T_2>>(nodeId: string, key: K) => [AirNodeState<T_2>[K], (newValue: AirNodeState<T_2>[K]) => void];
     useNodePathState: <T_3 extends AirNodeType<LiveAirNodeUnion>, S_3 extends (AirNodeShape<LiveAirNodeUnion> & {
         type: T_3;
-    })["state"], K_1 extends keyof S_3>(nodePath: string[], nodeType: T_3, stateKey: K_1) => [S_3[K_1], (value: S_3[K_1]) => void];
+    })["state"], K_1 extends keyof S_3>(nodePath: string[], nodeType: T_3, stateKey: K_1) => [S_3[K_1], (value: S_3[K_1]) => void] | undefined;
     useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorageModel<LiveAirNodeUnion, Meta>, _liveblocks_core.BaseUserMeta, never>;
     useMyPresence: () => [LiveblocksPresence, (patch: Partial<LiveblocksPresence>, options?: {
         addToHistory: boolean;

@@ -28,7 +28,7 @@ export const useNodePathStateFactory = <
             return root.nodeMap.get(nodeId)?.type === nodeType
         })
     })
-    if (!targetNodeId) throw new Error(`No node of type ${nodeType} found in nodepath`)
+    if (!targetNodeId) return
     return useNodeState<any, any>(targetNodeId!, stateKey) as unknown as [
         S[K],
         (value: S[K]) => void
