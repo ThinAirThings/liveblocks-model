@@ -23,18 +23,7 @@ export const customLiveHooksFactory = <
     const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation)
     const useStorageGetNode = useStorageGetNodeFactory(useStorage)
     const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode)
-    const {
-        CurrentNodepathContext,
-        useCurrentNodepath,
-        AbsoluteNodepathProvider,
-        useNodeStateContext,
-        useNodeDisplayName,
-        useNodePathDisplay
-    } = CurrentNodepathContextFactory(
-        NodeIndex,
-        useStorage,
-        useNodeState
-    )
+
     return {
         // Meta
         useStorageGetMeta: useStorageGetMetaFactory(useStorage),
@@ -47,7 +36,6 @@ export const customLiveHooksFactory = <
         // Nodes -- Mutation
         useMutationCreateNode: useMutationCreateNodeFactory(
             NodeIndex,
-            useCurrentNodepath,
             useMutation,
         ),
         useMutationUpdateNode,
@@ -56,12 +44,5 @@ export const customLiveHooksFactory = <
         ),
         // Nodes -- Combined
         useNodeState,
-        // Context
-        CurrentNodepathContext,
-        useCurrentNodepath,
-        AbsoluteNodepathProvider,
-        useNodeStateContext,
-        useNodeDisplayName,
-        useNodePathDisplay
     }
 }
