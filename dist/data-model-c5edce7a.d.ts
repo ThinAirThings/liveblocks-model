@@ -10,18 +10,21 @@ type LiveAirNode<T extends string, S extends LsonObject, M extends Lson = {}> = 
         createdAt: string;
     };
     children: LiveList<string>;
+    stateDisplayKey: keyof S & string;
     state: LiveObject<S>;
 }>;
 type AirNodeIndex<U extends LiveAirNode<any, any, any>> = {
     [Type in AirNodeType<U>]: Pick<((AirNodeShape<U> & {
         type: Type;
-    })), "meta" | "state">;
+    })), "meta" | "state" | "stateDisplayKey">;
 };
 type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
     [Type in AirNodeType<U>]: {
         nodeId: string;
+        parentNodeId: string | null;
         type: Type;
         meta: U extends LiveAirNode<Type, any, infer M> ? M : never;
+        stateDisplayKey: keyof U extends LiveAirNode<Type, infer S> ? S : never;
         state: U extends LiveAirNode<Type, infer V> ? V : never;
     };
 }[AirNodeType<U>];

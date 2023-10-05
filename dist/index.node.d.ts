@@ -1,5 +1,5 @@
-import { L as LiveAirNode, A as AirNodeIndex, a as AirNodeShape, b as AirNodeState, c as AirNodeType, d as LiveAirNodeState, g as LiveblocksPresence, e as LiveblocksStorageModel } from './data-model-2d55c7ba.js';
-export { f as AirNodeMeta, U as UnionToIntersection } from './data-model-2d55c7ba.js';
+import { L as LiveAirNode, A as AirNodeIndex, a as AirNodeShape, b as AirNodeState, c as AirNodeType, d as LiveAirNodeState, g as LiveblocksPresence, e as LiveblocksStorageModel } from './data-model-c5edce7a.js';
+export { f as AirNodeMeta, U as UnionToIntersection } from './data-model-c5edce7a.js';
 import * as react from 'react';
 import { ReactNode } from 'react';
 import * as _liveblocks_react from '@liveblocks/react';
@@ -21,7 +21,7 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useStorageGetNode: <S extends _liveblocks_core.LsonObject, R>(nodeId: string, selector: (nodeState: S extends AirNodeState<infer N extends LiveAirNode<any, any>> ? AirNodeState<N> : never) => R | null) => R | null;
     useMutationCreateNode: <T extends AirNodeType<LiveAirNodeUnion>, S_1 extends Partial<(AirNodeShape<LiveAirNodeUnion> & {
         type: T;
-    })["state"]>>() => (parentNodeId: string | null, type: T, state?: S_1 | undefined) => string;
+    })["state"]>, SK extends keyof S_1>() => (parentNodeId: string | null, type: T, stateDisplayKey: SK, state?: S_1 | undefined) => string;
     useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_1 extends string, infer S_2 extends _liveblocks_core.LsonObject, any> ? LiveAirNodeState<LiveAirNode<T_1, S_2, any>> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     useNodeState: <T_2 extends LiveAirNode<any, any, any>, K extends keyof AirNodeState<T_2>>(nodeId: string, key: K) => [AirNodeState<T_2>[K], (newValue: AirNodeState<T_2>[K]) => void];
