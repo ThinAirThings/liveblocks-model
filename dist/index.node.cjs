@@ -88,6 +88,7 @@ var useMutationDeleteNodeFactory = (useMutation) => () => {
       });
     };
     deletionVisitor(nodeToDelete);
+    liveNodeMap.delete(nodeId);
   }, []);
 };
 

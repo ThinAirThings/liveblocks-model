@@ -23,5 +23,6 @@ export const useMutationDeleteNodeFactory = <
             })
         }
         deletionVisitor(nodeToDelete)
+        liveNodeMap.delete(nodeId)
     }, [])
 }
