@@ -852,7 +852,7 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       children
     }) => {
       let [_, updateBaseId] = useCurrentNodepath();
-      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurrentNodepathContext.Provider, { value: [absoluteNodePath, updateBaseId, absoluteNodePath.length], children });
+      return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurrentNodepathContext.Provider, { value: [absoluteNodePath, updateBaseId, absoluteNodePath.length - 1], children });
     },
     useNodeStateContext: (nodeType, stateKey) => {
       const [nodepath] = useCurrentNodepath();
@@ -867,7 +867,6 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
     },
     useNodeDisplayName: (nodeType) => {
       const [nodepath] = useCurrentNodepath();
-      console.log(nodepath);
       const targetNodeId = useStorage((root) => {
         return nodepath.find((nodeId) => {
           return root.nodeMap.get(nodeId)?.type === nodeType;

@@ -66,7 +66,7 @@ export const CurrentNodepathContextFactory = <
         }) => {
             let [_, updateBaseId] = useCurrentNodepath()
             return (
-                <CurrentNodepathContext.Provider value={[absoluteNodePath, updateBaseId, absoluteNodePath.length]}>
+                <CurrentNodepathContext.Provider value={[absoluteNodePath, updateBaseId, absoluteNodePath.length-1]}>
                     {children}
                 </CurrentNodepathContext.Provider>
             )
@@ -98,7 +98,6 @@ export const CurrentNodepathContextFactory = <
             nodeType: T
         ) => {
             const [nodepath] = useCurrentNodepath()
-            console.log(nodepath)
             // Walk up the nodepath until we find a node that has the type we're looking for
             const targetNodeId = useStorage((root) => {
                 return nodepath.find(nodeId => {
