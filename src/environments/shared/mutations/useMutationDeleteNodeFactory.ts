@@ -1,6 +1,7 @@
 import { MutationHook } from "../hook-types.js"
 import { AirNodeType, LiveAirNode } from "../../../model/data-model.js";
 import { Lson } from "@liveblocks/client";
+import { Children } from "react";
 
 export const useMutationDeleteNodeFactory = <
     LiveAirNodeUnion extends LiveAirNode<any, any, any>,
@@ -23,6 +24,13 @@ export const useMutationDeleteNodeFactory = <
             })
         }
         deletionVisitor(nodeToDelete)
+        // Remove from parent
+        const parentNodeId = nodeToDelete.get('parentNodeId')
+        if (parentNodeId) {
+            const parentNodeChildren = liveNodeMap.get(parentNodeId)!.get('children')
+            parentNodeChildren.delete(parentNodeChildren.indexOf(nodeId))
+        }
         liveNodeMap.delete(nodeId)
+
     }, [])
 }

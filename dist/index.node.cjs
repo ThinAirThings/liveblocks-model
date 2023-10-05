@@ -87,6 +87,11 @@ var useMutationDeleteNodeFactory = (useMutation) => () => {
       });
     };
     deletionVisitor(nodeToDelete);
+    const parentNodeId = nodeToDelete.get("parentNodeId");
+    if (parentNodeId) {
+      const parentNodeChildren = liveNodeMap.get(parentNodeId).get("children");
+      parentNodeChildren.delete(parentNodeChildren.indexOf(nodeId));
+    }
     liveNodeMap.delete(nodeId);
   }, []);
 };
