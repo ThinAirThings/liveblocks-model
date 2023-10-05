@@ -18,8 +18,8 @@ export const useMutationCreateNodeFactory = <
     type: T,
     state?: S
 )=>string => {
-    const [currentNodepath, _, depth] = useCurrentNodepath()
-    const parentNodeId = currentNodepath[depth-1] ?? null
+    const {dirId} = useCurrentNodepath()
+    const parentNodeId = dirId ?? null
     return useMutation((
         {storage},
         type: T,

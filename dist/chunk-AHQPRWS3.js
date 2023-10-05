@@ -2,8 +2,8 @@
 import { LiveList, LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
 var useMutationCreateNodeFactory = (NodeIndex, useCurrentNodepath, useMutation) => () => {
-  const [currentNodepath, _, depth] = useCurrentNodepath();
-  const parentNodeId = currentNodepath[depth - 1] ?? null;
+  const { dirId } = useCurrentNodepath();
+  const parentNodeId = dirId ?? null;
   return useMutation(({ storage }, type, state) => {
     const node = new LiveObject({
       nodeId: uuidv4(),
@@ -94,7 +94,7 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
 };
 
 // src/environments/shared/context/CurrentNodepathContext.tsx
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 
 // node_modules/immer/dist/immer.mjs
 var NOTHING = Symbol.for("immer-nothing");
@@ -778,46 +778,63 @@ function i(f2) {
 // src/environments/shared/context/CurrentNodepathContext.tsx
 import { jsx } from "react/jsx-runtime";
 var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
-  const CurrentNodepathContext = createContext([
-    [],
-    () => console.log("No initial context set!. This is the default context function running"),
-    -1
-  ]);
+  const CurrentNodepathContext = createContext({
+    baseId: "",
+    dirId: null,
+    nodePath: [],
+    updateBaseId: () => console.log("No CurrentNodepathContextProvider")
+  });
   const useCurrentNodepath = () => useContext(CurrentNodepathContext);
   return {
     CurrentNodepathContext,
     useCurrentNodepath,
-    RelativeNodepathProvider: ({
-      children
-    }) => {
-      let [currentNodepath, _, nodeDepth] = useCurrentNodepath();
-      nodeDepth++;
-      const [nodepath, updateNodepath] = i(currentNodepath);
-      const updateBaseId = (nodeId) => {
-        updateNodepath((draft) => {
-          draft[nodeDepth] = nodeId;
-        });
-      };
-      useEffect(() => {
-        updateNodepath((draft) => {
-          currentNodepath.forEach((nodeId, index) => {
-            draft[index] = nodeId;
-          });
-        });
-      }, [currentNodepath]);
-      return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: [nodepath, updateBaseId, nodeDepth], children });
-    },
+    // RelativeNodepathProvider: ({
+    //     children
+    // }: {
+    //     children: ReactNode
+    // }) => {
+    //     let [currentNodepath, _, nodeDepth] = useCurrentNodepath()
+    //     nodeDepth++
+    //     const [nodepath, updateNodepath] = useImmer<Array<string>>(currentNodepath);
+    //     const updateBaseId = (nodeId: string) => {
+    //         updateNodepath(draft => {
+    //             draft[nodeDepth] = nodeId
+    //         })
+    //     }
+    //     useEffect(() => {
+    //         updateNodepath(draft => {
+    //             currentNodepath.forEach((nodeId, index) => {
+    //                 draft[index] = nodeId
+    //             })
+    //         })
+    //     }, [currentNodepath])
+    //     return (
+    //         <CurrentNodepathContext.Provider value={[nodepath, updateBaseId, nodeDepth]}>
+    //             {children}
+    //         </CurrentNodepathContext.Provider>
+    //     )
+    // },
     AbsoluteNodepathProvider: ({
       absoluteNodePath,
       children
     }) => {
-      let [_, updateBaseId] = useCurrentNodepath();
-      return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: [absoluteNodePath, updateBaseId, absoluteNodePath.length - 1], children });
+      const [nodepath, updateNodePath] = i(absoluteNodePath);
+      const updateBaseId = (nodeId) => {
+        updateNodePath((draft) => {
+          draft[0] = nodeId;
+        });
+      };
+      return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: {
+        baseId: nodepath[nodepath.length - 1],
+        dirId: nodepath[nodepath.length - 2],
+        nodePath: nodepath,
+        updateBaseId
+      }, children });
     },
     useNodeStateContext: (nodeType, stateKey) => {
-      const [nodepath] = useCurrentNodepath();
+      const { nodePath } = useCurrentNodepath();
       const targetNodeId = useStorage((root) => {
-        return nodepath.find((nodeId) => {
+        return nodePath.find((nodeId) => {
           root.nodeMap.get(nodeId)?.type === nodeType;
         });
       });
@@ -826,9 +843,9 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       return useNodeState(targetNodeId, stateKey);
     },
     useNodeDisplayName: (nodeType) => {
-      const [nodepath] = useCurrentNodepath();
+      const { nodePath } = useCurrentNodepath();
       const targetNodeId = useStorage((root) => {
-        return nodepath.find((nodeId) => {
+        return nodePath.find((nodeId) => {
           return root.nodeMap.get(nodeId)?.type === nodeType;
         });
       });
@@ -847,7 +864,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   const {
     CurrentNodepathContext,
     useCurrentNodepath,
-    RelativeNodepathProvider,
     AbsoluteNodepathProvider,
     useNodeStateContext,
     useNodeDisplayName
@@ -880,7 +896,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     // Context
     CurrentNodepathContext,
     useCurrentNodepath,
-    RelativeNodepathProvider,
     AbsoluteNodepathProvider,
     useNodeStateContext,
     useNodeDisplayName

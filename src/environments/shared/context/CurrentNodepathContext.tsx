@@ -17,46 +17,49 @@ export const CurrentNodepathContextFactory = <
         Meta
     >>
 ) => {
-    const CurrentNodepathContext = createContext<[
-        Array<string>, 
-        (nodeId: string, index?: number) => void,
-        number
-    ]>([
-        [],
-        () => console.log("No initial context set!. This is the default context function running"),
-        -1
-    ])
+    const CurrentNodepathContext = createContext<{
+        baseId: string,
+        dirId: string | null,
+        nodePath: Array<string>,
+        updateBaseId: (nodeId: string) => void,
+    }>({
+        baseId: "",
+        dirId: null,
+        nodePath: [],
+        updateBaseId: () => console.log("No CurrentNodepathContextProvider")
+    })
+
     const useCurrentNodepath = () => useContext(CurrentNodepathContext)
     return {
         CurrentNodepathContext,
         useCurrentNodepath,
-        RelativeNodepathProvider: ({
-            children
-        }: {
-            children: ReactNode
-        }) => {
-            let [currentNodepath, _, nodeDepth] = useCurrentNodepath()
-            nodeDepth++
-            const [nodepath, updateNodepath] = useImmer<Array<string>>(currentNodepath);
-            const updateBaseId = (nodeId: string) => {
-                updateNodepath(draft => {
-                    draft[nodeDepth] = nodeId
-                })
-            }
-            useEffect(() => {
-                updateNodepath(draft => {
-                    currentNodepath.forEach((nodeId, index) => {
-                        draft[index] = nodeId
-                    })
-                })
-            }, [currentNodepath])
+        // RelativeNodepathProvider: ({
+        //     children
+        // }: {
+        //     children: ReactNode
+        // }) => {
+        //     let [currentNodepath, _, nodeDepth] = useCurrentNodepath()
+        //     nodeDepth++
+        //     const [nodepath, updateNodepath] = useImmer<Array<string>>(currentNodepath);
+        //     const updateBaseId = (nodeId: string) => {
+        //         updateNodepath(draft => {
+        //             draft[nodeDepth] = nodeId
+        //         })
+        //     }
+        //     useEffect(() => {
+        //         updateNodepath(draft => {
+        //             currentNodepath.forEach((nodeId, index) => {
+        //                 draft[index] = nodeId
+        //             })
+        //         })
+        //     }, [currentNodepath])
 
-            return (
-                <CurrentNodepathContext.Provider value={[nodepath, updateBaseId, nodeDepth]}>
-                    {children}
-                </CurrentNodepathContext.Provider>
-            )
-        },
+        //     return (
+        //         <CurrentNodepathContext.Provider value={[nodepath, updateBaseId, nodeDepth]}>
+        //             {children}
+        //         </CurrentNodepathContext.Provider>
+        //     )
+        // },
         AbsoluteNodepathProvider: ({
             absoluteNodePath,
             children
@@ -64,9 +67,19 @@ export const CurrentNodepathContextFactory = <
             absoluteNodePath: Array<string>,
             children: ReactNode
         }) => {
-            let [_, updateBaseId] = useCurrentNodepath()
+            const [nodepath, updateNodePath] = useImmer<Array<string>>(absoluteNodePath)
+            const updateBaseId = (nodeId: string) => {
+                updateNodePath(draft => {
+                    draft[0] = nodeId
+                })
+            }
             return (
-                <CurrentNodepathContext.Provider value={[absoluteNodePath, updateBaseId, absoluteNodePath.length-1]}>
+                <CurrentNodepathContext.Provider value={{
+                    baseId: nodepath[nodepath.length-1],
+                    dirId: nodepath[nodepath.length-2],
+                    nodePath: nodepath,
+                    updateBaseId
+                }}>
                     {children}
                 </CurrentNodepathContext.Provider>
             )
@@ -79,10 +92,10 @@ export const CurrentNodepathContextFactory = <
             nodeType: T,
             stateKey: K
         ) => {
-            const [nodepath] = useCurrentNodepath()
+            const {nodePath} = useCurrentNodepath()
             // Walk up the nodepath until we find a node that has the type we're looking for
             const targetNodeId = useStorage((root) => {
-                return nodepath.find(nodeId => {
+                return nodePath.find(nodeId => {
                     root.nodeMap.get(nodeId)?.type === nodeType
                 })
             })
@@ -97,10 +110,10 @@ export const CurrentNodepathContextFactory = <
         >(
             nodeType: T
         ) => {
-            const [nodepath] = useCurrentNodepath()
+            const {nodePath} = useCurrentNodepath()
             // Walk up the nodepath until we find a node that has the type we're looking for
             const targetNodeId = useStorage((root) => {
-                return nodepath.find(nodeId => {
+                return nodePath.find(nodeId => {
                     return root.nodeMap.get(nodeId)?.type === nodeType
                 })
             })

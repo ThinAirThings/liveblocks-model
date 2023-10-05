@@ -25,11 +25,18 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useMutationUpdateNode: () => <N_1 extends LiveAirNode<any, any, any>>(nodeId: string, updater: (liveNodeState: N_1 extends LiveAirNode<infer T_1 extends string, infer S_2 extends _liveblocks_core.LsonObject, any> ? LiveAirNodeState<LiveAirNode<T_1, S_2, any>> : never) => void) => void;
     useMutationDeleteNode: () => (nodeId: string) => void;
     useNodeState: <T_2 extends LiveAirNode<any, any, any>, K extends keyof AirNodeState<T_2>>(nodeId: string, key: K) => [AirNodeState<T_2>[K], (newValue: AirNodeState<T_2>[K]) => void];
-    CurrentNodepathContext: react.Context<[string[], (nodeId: string, index?: number | undefined) => void, number]>;
-    useCurrentNodepath: () => [string[], (nodeId: string, index?: number | undefined) => void, number];
-    RelativeNodepathProvider: ({ children }: {
-        children: ReactNode;
-    }) => react_jsx_runtime.JSX.Element;
+    CurrentNodepathContext: react.Context<{
+        baseId: string;
+        dirId: string | null;
+        nodePath: string[];
+        updateBaseId: (nodeId: string) => void;
+    }>;
+    useCurrentNodepath: () => {
+        baseId: string;
+        dirId: string | null;
+        nodePath: string[];
+        updateBaseId: (nodeId: string) => void;
+    };
     AbsoluteNodepathProvider: ({ absoluteNodePath, children }: {
         absoluteNodePath: string[];
         children: ReactNode;
