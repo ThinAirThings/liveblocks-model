@@ -68,9 +68,16 @@ export const CurrentNodepathContextFactory = <
             children: ReactNode
         }) => {
             const [nodepath, updateNodePath] = useImmer<Array<string>>(absoluteNodePath)
+            useEffect(() => {
+                updateNodePath(draft => {
+                    absoluteNodePath.forEach((nodeId, index) => {
+                        draft[index] = nodeId
+                    })
+                })
+            }, [absoluteNodePath])
             const updateBaseId = (nodeId: string) => {
                 updateNodePath(draft => {
-                    draft[0] = nodeId
+                    draft[draft.length-1] = nodeId
                 })
             }
             return (

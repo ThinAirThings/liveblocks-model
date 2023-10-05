@@ -94,7 +94,7 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
 };
 
 // src/environments/shared/context/CurrentNodepathContext.tsx
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 
 // node_modules/immer/dist/immer.mjs
 var NOTHING = Symbol.for("immer-nothing");
@@ -819,9 +819,16 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       children
     }) => {
       const [nodepath, updateNodePath] = i(absoluteNodePath);
+      useEffect(() => {
+        updateNodePath((draft) => {
+          absoluteNodePath.forEach((nodeId, index) => {
+            draft[index] = nodeId;
+          });
+        });
+      }, [absoluteNodePath]);
       const updateBaseId = (nodeId) => {
         updateNodePath((draft) => {
-          draft[0] = nodeId;
+          draft[draft.length - 1] = nodeId;
         });
       };
       return /* @__PURE__ */ jsx(CurrentNodepathContext.Provider, { value: {

@@ -859,9 +859,16 @@ var CurrentNodepathContextFactory = (NodeIndex, useStorage, useNodeState) => {
       children
     }) => {
       const [nodepath, updateNodePath] = i(absoluteNodePath);
+      (0, import_react2.useEffect)(() => {
+        updateNodePath((draft) => {
+          absoluteNodePath.forEach((nodeId, index) => {
+            draft[index] = nodeId;
+          });
+        });
+      }, [absoluteNodePath]);
       const updateBaseId = (nodeId) => {
         updateNodePath((draft) => {
-          draft[0] = nodeId;
+          draft[draft.length - 1] = nodeId;
         });
       };
       return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CurrentNodepathContext.Provider, { value: {
