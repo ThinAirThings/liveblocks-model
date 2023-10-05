@@ -132,6 +132,18 @@ var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId,
   ];
 };
 
+// src/environments/shared/combined/useNodePathStateFactory.ts
+var useNodePathStateFactory = (useStorage, useNodeState) => (nodePath, nodeType, stateKey) => {
+  const targetNodeId = useStorage((root) => {
+    return nodePath.find((nodeId) => {
+      return root.nodeMap.get(nodeId)?.type === nodeType;
+    });
+  });
+  if (!targetNodeId)
+    throw new Error(`No node of type ${nodeType} found in nodepath`);
+  return useNodeState(targetNodeId, stateKey);
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation);
@@ -156,7 +168,11 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
       useMutation
     ),
     // Nodes -- Combined
-    useNodeState
+    useNodeState,
+    useNodePathState: useNodePathStateFactory(
+      useStorage,
+      useNodeState
+    )
   };
 };
 

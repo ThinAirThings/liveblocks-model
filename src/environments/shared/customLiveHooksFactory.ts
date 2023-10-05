@@ -10,6 +10,7 @@ import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js"
 import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
 import { useNodeStateFactory } from "./combined/useNodeStateFactory.js";
 import { CurrentNodepathContextFactory } from "./context/CurrentNodepathContext.js";
+import { useNodePathStateFactory } from "./combined/useNodePathStateFactory.js";
 
 
 export const customLiveHooksFactory = <
@@ -44,5 +45,9 @@ export const customLiveHooksFactory = <
         ),
         // Nodes -- Combined
         useNodeState,
+        useNodePathState: useNodePathStateFactory(
+            useStorage,
+            useNodeState
+        )
     }
 }
