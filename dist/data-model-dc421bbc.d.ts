@@ -21,7 +21,7 @@ type AirNodeIndex<U extends LiveAirNode<any, any, any>> = {
 type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
     [Type in AirNodeType<U>]: {
         nodeId: string;
-        parentNodeId: string | null;
+        parentNodeId: string | "/";
         type: Type;
         meta: U extends LiveAirNode<Type, any, infer M> ? M : never;
         stateDisplayKey: U extends LiveAirNode<Type, infer S> ? keyof S : never;

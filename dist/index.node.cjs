@@ -47,7 +47,7 @@ var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
 var useMutationCreateNodeFactory = (NodeIndex, useCurrentNodepath, useMutation) => () => {
   const { dirId } = useCurrentNodepath();
-  const parentNodeId = dirId ?? null;
+  const parentNodeId = dirId;
   return useMutation(({ storage }, type, state) => {
     const node = new import_client.LiveObject({
       nodeId: (0, import_uuid.v4)(),

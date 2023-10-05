@@ -3,7 +3,7 @@ import { LiveList, LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
 var useMutationCreateNodeFactory = (NodeIndex, useCurrentNodepath, useMutation) => () => {
   const { dirId } = useCurrentNodepath();
-  const parentNodeId = dirId ?? null;
+  const parentNodeId = dirId;
   return useMutation(({ storage }, type, state) => {
     const node = new LiveObject({
       nodeId: uuidv4(),
