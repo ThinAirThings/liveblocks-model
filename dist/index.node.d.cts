@@ -27,13 +27,13 @@ declare const liveblocksNodeConfig: <LiveAirNodeUnion extends LiveAirNode<any, a
     useNodeState: <T_2 extends LiveAirNode<any, any, any>, K extends keyof AirNodeState<T_2>>(nodeId: string, key: K) => [AirNodeState<T_2>[K], (newValue: AirNodeState<T_2>[K]) => void];
     CurrentNodepathContext: react.Context<{
         baseId: string;
-        dirId: string | null;
+        dirId: string;
         nodePath: string[];
         updateBaseId: (nodeId: string) => void;
     }>;
     useCurrentNodepath: () => {
         baseId: string;
-        dirId: string | null;
+        dirId: string;
         nodePath: string[];
         updateBaseId: (nodeId: string) => void;
     };

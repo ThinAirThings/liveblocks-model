@@ -19,7 +19,7 @@ export const CurrentNodepathContextFactory = <
 ) => {
     const CurrentNodepathContext = createContext<{
         baseId: string,
-        dirId: string | null,
+        dirId: string,
         nodePath: Array<string>,
         updateBaseId: (nodeId: string) => void,
     }>({
