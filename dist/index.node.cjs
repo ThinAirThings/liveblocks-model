@@ -30,9 +30,21 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.node.ts
 var index_node_exports = {};
 __export(index_node_exports, {
+  createNodeEntry: () => createNodeEntry,
   liveblocksNodeConfig: () => liveblocksNodeConfig
 });
 module.exports = __toCommonJS(index_node_exports);
+
+// src/model/data-model.ts
+var createNodeEntry = ({
+  nodeMeta,
+  state,
+  stateDisplayKey
+}) => ({
+  nodeMeta,
+  state,
+  stateDisplayKey
+});
 
 // src/environments/node/liveblocksNodeConfig.tsx
 var import_client2 = require("@liveblocks/client");
@@ -155,5 +167,6 @@ var liveblocksNodeConfig = (NodeIndex, createClientProps, initialLiveblocksPrese
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  createNodeEntry,
   liveblocksNodeConfig
 });

@@ -1,6 +1,7 @@
 import {
+  createNodeEntry,
   customLiveHooksFactory
-} from "./chunk-CZOCQCV4.js";
+} from "./chunk-IO4CVVZD.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
@@ -45,5 +46,6 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
   };
 };
 export {
+  createNodeEntry,
   liveblocksBrowserConfig
 };

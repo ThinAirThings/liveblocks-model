@@ -20,9 +20,21 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.browser.ts
 var index_browser_exports = {};
 __export(index_browser_exports, {
+  createNodeEntry: () => createNodeEntry,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
 module.exports = __toCommonJS(index_browser_exports);
+
+// src/model/data-model.ts
+var createNodeEntry = ({
+  nodeMeta,
+  state,
+  stateDisplayKey
+}) => ({
+  nodeMeta,
+  state,
+  stateDisplayKey
+});
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 var import_client2 = require("@liveblocks/client");
@@ -132,5 +144,6 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  createNodeEntry,
   liveblocksBrowserConfig
 });

@@ -1,3 +1,14 @@
+// src/model/data-model.ts
+var createNodeEntry = ({
+  nodeMeta,
+  state,
+  stateDisplayKey
+}) => ({
+  nodeMeta,
+  state,
+  stateDisplayKey
+});
+
 // src/environments/shared/hooks/useCreateNodeFactory.ts
 import { LiveList, LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
@@ -63,5 +74,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
 };
 
 export {
+  createNodeEntry,
   customLiveHooksFactory
 };

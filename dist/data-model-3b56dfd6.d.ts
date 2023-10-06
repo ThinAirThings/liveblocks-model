@@ -21,6 +21,12 @@ type LiveAirNode<N extends AirNode<any, any, any>> = LiveObject<{
     state: N extends AirNode<any, infer S, any, any> ? LiveObject<S> : never;
     childrenNodeIds: LiveList<string>;
 }>;
+type AirNodeUnion<Index extends AirNodeIndex<any>> = {
+    readonly [T in keyof Index]: AirNode<T extends string ? T : never, Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>;
+}[keyof Index];
+type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>> = {
+    nodeMap: LiveMap<string, LiveAirNodeUnion>;
+};
 type AirNodeIndex<M extends JsonObject> = {
     readonly [type: string]: {
         readonly state: JsonObject;
@@ -28,11 +34,14 @@ type AirNodeIndex<M extends JsonObject> = {
         readonly stateDisplayKey: keyof JsonObject & string;
     };
 };
-type AirNodeUnion<Index extends AirNodeIndex<any>> = {
-    readonly [T in keyof Index]: AirNode<T extends string ? T : never, Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>;
-}[keyof Index];
-type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>> = {
-    nodeMap: LiveMap<string, LiveAirNodeUnion>;
+declare const createNodeEntry: <S extends JsonObject, N extends keyof S & string, M extends JsonObject = {}>({ nodeMeta, state, stateDisplayKey }: {
+    nodeMeta: M;
+    state: S;
+    stateDisplayKey: N;
+}) => {
+    nodeMeta: M;
+    state: S;
+    stateDisplayKey: N;
 };
 
-export { AirNodeIndex as A, LiveblocksStorageModel as L, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c };
+export { AirNodeIndex as A, LiveblocksStorageModel as L, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, createNodeEntry as d };
