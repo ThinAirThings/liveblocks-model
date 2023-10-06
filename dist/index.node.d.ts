@@ -1,5 +1,5 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode } from './data-model-3b56dfd6.js';
-export { U as UnionToIntersection, d as createNodeEntry } from './data-model-3b56dfd6.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode } from './data-model-3b56dfd6.js';
+export { c as AirNode, U as UnionToIntersection, d as createNodeEntry } from './data-model-3b56dfd6.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -19,7 +19,7 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     })["state"]>>() => (parentNodeId: string | null, type: T, state?: S | undefined) => string;
     useNodeState: <T_1 extends U["type"], S_1 extends (U & {
         type: T_1;
-    })["state"], K extends keyof S_1 & string>(nodeId: string, _nodeType: T_1, stateKey: K) => readonly [(_liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, infer S_2 extends JsonObject, any, any> ? _liveblocks_core.LiveObject<S_2> : never, undefined>> | (undefined extends (U extends AirNode<any, infer S_2 extends JsonObject, any, any> ? _liveblocks_core.LiveObject<S_2> : never) ? (U extends AirNode<any, infer S_2 extends JsonObject, any, any> ? _liveblocks_core.LiveObject<S_2> : never) & undefined : never))[K] | null, (value: S_1[K]) => void];
+    })["state"], K extends keyof S_1 & string>(nodeId: string, _nodeType: T_1, stateKey: K) => readonly [S_1[K], (value: S_1[K]) => void];
     useDeleteNode: (nodeId: string) => void;
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never> | null>;
     RoomProvider: (props: {
@@ -197,4 +197,4 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     };
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, liveblocksNodeConfig };
+export { AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, liveblocksNodeConfig };
