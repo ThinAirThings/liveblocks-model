@@ -1,72 +1,52 @@
-import { LiveList, LiveMap, LiveObject, Lson, LsonObject } from "@liveblocks/client"
-import { Point, ScreenState, ViewportState } from "@thinairthings/zoom-utils"
+import { JsonObject, LiveList, LiveMap, LiveObject, Lson } from "@liveblocks/client"
 
 export type UnionToIntersection<U> = 
     (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
-export type LiveAirNode<
+export type AirNode<
     T extends string,
-    S extends LsonObject, 
-    M extends Lson={}
-> = LiveObject<{
-    nodeId: string
-    parentNodeId: string | null
-    type: T
-    meta: M&{createdAt: string}
-    children: LiveList<string>
-    stateDisplayKey: keyof S & string
-    state: LiveObject<S>
+    S extends JsonObject,
+    N extends keyof S&string,
+    M extends JsonObject={}
+> = {
+    nodeId: string,
+    parentNodeId: string | null,
+    type: T,
+    nodeMeta: M&{createdAt: string}
+    stateDisplayKey: N
+    state: S,
+    childrenNodeIds: Array<string>
+}
+
+export type LiveAirNode<N extends AirNode<any, any, any>> = LiveObject<{
+    nodeId: string,
+    parentNodeId: string | null,
+    type: N extends AirNode<infer T, any, any> ? T : never,
+    nodeMeta: N extends AirNode<any, any, any, infer M> ? M : never,
+    stateDisplayKey: N extends AirNode<any, any, infer S, any> ? keyof S&string : never,
+    state: N extends AirNode<any, infer S, any, any> ? LiveObject<S> : never
+    childrenNodeIds: LiveList<string>
 }>
 
-export type AirNodeIndex<U extends LiveAirNode<any, any, any>> = {
-    [Type in AirNodeType<U>]: Pick<(
-        (AirNodeShape<U> & {type: Type})
-    ), "meta" | "state" | "stateDisplayKey">
+export type AirNodeIndex<M extends JsonObject> = {
+    readonly [type: string]: {
+        readonly state: JsonObject,
+        readonly nodeMeta: M,
+        readonly stateDisplayKey: keyof JsonObject&string
+    }
 }
 
-export type AirNodeShape<U extends LiveAirNode<any, any, any>> = {
-    [Type in AirNodeType<U>]: {
-        nodeId: string
-        parentNodeId: string | null
-        type: Type,
-        meta: U extends LiveAirNode<Type, any, infer M> ? M : never,
-        stateDisplayKey: U extends LiveAirNode<Type, infer S> ? keyof S : never,
-        state: U extends LiveAirNode<Type, infer V> ? V : never
-    }
-}[AirNodeType<U>]  // This turns an index into a union
-
-export type AirNodeType<U extends LiveAirNode<any, any, any>> = U extends LiveAirNode<infer T, any, any> 
-    ? T 
-    : never
-
-export type AirNodeState<
-    U extends LiveAirNode<any, any, any>
-> = AirNodeShape<U>['state']
-
-export type LiveAirNodeState<
-    U extends LiveAirNode<any, any, any>
-> = LiveObject<AirNodeState<U>>
-
-export type AirNodeMeta<
-    U extends LiveAirNode<any, any, any>
-> = AirNodeShape<U>['meta']
+export type AirNodeUnion<Index extends AirNodeIndex<any>> = {
+    readonly [T in keyof Index]: AirNode<
+        T extends string ? T : never,
+        Index[T]['state'],
+        Index[T]['stateDisplayKey'],
+        Index[T]['nodeMeta']
+    >
+}[keyof Index]
 
 export type LiveblocksStorageModel<
-    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
-    Meta extends Lson={}
+    LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>,
 > = {
-    meta: Meta
     nodeMap: LiveMap<string, LiveAirNodeUnion>
-}
-
-export type LiveblocksPresence = {
-    displayName: string
-    absoluteCursorState: Point | null
-    viewportState: ViewportState
-    mouseSelectionState: {
-        selectionActive: boolean
-        absoluteSelectionBounds: ScreenState | null
-    }
-    selectedNodeIds: string[]
-    focusedNodeId: string | null
 }

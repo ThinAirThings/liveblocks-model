@@ -1,53 +1,32 @@
-import { Lson } from "@liveblocks/client";
-import { AirNodeIndex, LiveAirNode} from "../../model/data-model.js";
-import { MutationHook, StorageHook } from "./hook-types.js";
-import { useMutationCreateNodeFactory } from "./mutations/useMutationCreateNodeFactory.js";
-import { useMutationDeleteNodeFactory } from "./mutations/useMutationDeleteNodeFactory.js";
-import { useMutationUpdateNodeFactory } from "./mutations/useMutationUpdateNodeFactory.js";
-import { useStorageGetNodeFactory } from "./storage/useStorageGetNodeFactory.js";
-import { useStorageGetNodeMapFactory } from "./storage/useStorageGetNodeMapFactory.js";
-import { useStorageGetMetaFactory } from "./storage/useStorageGetMetaFactory.js";
-import { useMutationUpdateMetaFactory } from "./mutations/useMutationUpdateMetaFactory.js";
-import { useNodeStateFactory } from "./combined/useNodeStateFactory.js";
-import { CurrentNodepathContextFactory } from "./context/CurrentNodepathContext.js";
-import { useNodePathStateFactory } from "./combined/useNodePathStateFactory.js";
+import { AirNodeIndex, AirNodeUnion} from "../../model/data-model.js"
+import { MutationHook, StorageHook } from "./hook-types.js"
+import { useCreateNodeFactory } from "./hooks/useCreateNodeFactory.js"
+import { useNodeStateFactory } from "./hooks/useNodeStateFactory.js"
+import { useDeleteNodeFactory } from "./hooks/useDeleteNodeFactory.js"
 
 
 export const customLiveHooksFactory = <
-    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
-    Meta extends Lson
+    Index extends AirNodeIndex<any>,
+    U extends AirNodeUnion<Index>,
 >(
-    NodeIndex: AirNodeIndex<LiveAirNodeUnion>,
-    useStorage: StorageHook<LiveAirNodeUnion, Meta>,
-    useMutation: MutationHook<LiveAirNodeUnion, Meta>,
+    NodeIndex: Index,
+    useStorage: StorageHook<Index, U>,
+    useMutation: MutationHook<Index, U>,
 ) => {
-    const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation)
-    const useStorageGetNode = useStorageGetNodeFactory(useStorage)
-    const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode)
-
     return {
         // Meta
-        useStorageGetMeta: useStorageGetMetaFactory(useStorage),
-        useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
-        // Nodes -- Storage
-        useStorageGetNodeMap: useStorageGetNodeMapFactory(
-            useStorage
-        ),
-        useStorageGetNode,
+        // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
         // Nodes -- Mutation
-        useMutationCreateNode: useMutationCreateNodeFactory(
+        useCreateNode: useCreateNodeFactory(
             NodeIndex,
             useMutation,
         ),
-        useMutationUpdateNode,
-        useMutationDeleteNode: useMutationDeleteNodeFactory(
+        useNodeState: useNodeStateFactory(
+            useStorage,
             useMutation
         ),
-        // Nodes -- Combined
-        useNodeState,
-        useNodePathState: useNodePathStateFactory(
-            useStorage,
-            useNodeState
+        useDeleteNode: useDeleteNodeFactory(
+            useMutation
         )
     }
 }

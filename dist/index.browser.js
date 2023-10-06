@@ -1,49 +1,47 @@
 import {
   customLiveHooksFactory
-} from "./chunk-RGGPMXCA.js";
+} from "./chunk-CZOCQCV4.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
-var liveblocksBrowserConfig = (NodeIndex, createClientProps) => {
-  const {
-    suspense: {
-      useRoom,
-      useMyPresence,
-      useUpdateMyPresence,
-      useOthersMapped,
-      useStorage,
-      RoomProvider,
-      useMutation,
-      useSelf,
-      RoomContext,
-      useHistory,
-      useCanUndo,
-      useUndo,
-      useCanRedo,
-      useRedo
+
+// src/environments/browser/LiveblocksBrowserProviderFactory.tsx
+import { Suspense } from "react";
+import { jsx } from "react/jsx-runtime";
+var LiveblocksBrowserProviderFactory = (RoomProvider, initialLiveblocksPresence, initialLiveblocksStorage) => ({
+  roomId,
+  Loading,
+  children
+}) => {
+  return /* @__PURE__ */ jsx(
+    RoomProvider,
+    {
+      id: roomId,
+      initialPresence: initialLiveblocksPresence,
+      initialStorage: initialLiveblocksStorage,
+      children: /* @__PURE__ */ jsx(Suspense, { fallback: /* @__PURE__ */ jsx(Loading, {}), children })
     }
+  );
+};
+
+// src/environments/browser/liveblocksBrowserConfig.tsx
+var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPresence, initialLiveblocksStorage) => {
+  const {
+    suspense: liveblocks
   } = createRoomContext(createClient(createClientProps));
   return {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext,
-    useHistory,
-    useCanUndo,
-    useUndo,
-    useCanRedo,
-    useRedo,
     ...customLiveHooksFactory(
       NodeIndex,
-      useStorage,
-      useMutation
-    )
+      liveblocks.useStorage,
+      liveblocks.useMutation
+    ),
+    LiveblocksProvider: LiveblocksBrowserProviderFactory(
+      liveblocks.RoomProvider,
+      initialLiveblocksPresence,
+      initialLiveblocksStorage
+    ),
+    ...liveblocks
   };
 };
 export {

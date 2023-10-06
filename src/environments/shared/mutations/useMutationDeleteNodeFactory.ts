@@ -31,6 +31,5 @@ export const useMutationDeleteNodeFactory = <
             parentNodeChildren.delete(parentNodeChildren.indexOf(nodeId))
         }
         liveNodeMap.delete(nodeId)
-
     }, [])
 }

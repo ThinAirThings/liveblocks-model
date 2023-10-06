@@ -1,9 +1,7 @@
 "use strict";
-var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -17,14 +15,6 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.browser.ts
@@ -36,20 +26,39 @@ module.exports = __toCommonJS(index_browser_exports);
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 var import_client2 = require("@liveblocks/client");
-var import_react = require("@liveblocks/react");
+var import_react2 = require("@liveblocks/react");
 
-// src/environments/shared/mutations/useMutationCreateNodeFactory.ts
+// src/environments/browser/LiveblocksBrowserProviderFactory.tsx
+var import_react = require("react");
+var import_jsx_runtime = require("react/jsx-runtime");
+var LiveblocksBrowserProviderFactory = (RoomProvider, initialLiveblocksPresence, initialLiveblocksStorage) => ({
+  roomId,
+  Loading,
+  children
+}) => {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    RoomProvider,
+    {
+      id: roomId,
+      initialPresence: initialLiveblocksPresence,
+      initialStorage: initialLiveblocksStorage,
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_react.Suspense, { fallback: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Loading, {}), children })
+    }
+  );
+};
+
+// src/environments/shared/hooks/useCreateNodeFactory.ts
 var import_client = require("@liveblocks/client");
 var import_uuid = require("uuid");
-var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
-  return useMutation(({ storage }, nodePath, type, state) => {
-    const parentNodeId = nodePath[nodePath.length - 1] ?? null;
+var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
+  return useMutation(({ storage }, parentNodeId, type, state) => {
+    const nodeId = (0, import_uuid.v4)();
     const node = new import_client.LiveObject({
-      nodeId: (0, import_uuid.v4)(),
+      nodeId,
       parentNodeId,
       type,
-      meta: {
-        ...NodeIndex[type].meta,
+      nodeMeta: {
+        ...NodeIndex[type].nodeMeta,
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
       },
       children: new import_client.LiveList([]),
@@ -59,169 +68,66 @@ var useMutationCreateNodeFactory = (NodeIndex, useMutation) => () => {
         ...state
       })
     });
-    const nodeId = node.get("nodeId");
     storage.get("nodeMap").set(nodeId, node);
-    if (!parentNodeId)
-      return nodeId;
-    const parentNode = storage.get("nodeMap").get(parentNodeId);
-    parentNode.get("children").push(nodeId);
     return nodeId;
   }, []);
 };
 
-// src/environments/shared/mutations/useMutationDeleteNodeFactory.ts
-var useMutationDeleteNodeFactory = (useMutation) => () => {
-  return useMutation(({ storage }, nodeId) => {
-    const liveNodeMap = storage.get("nodeMap");
-    const nodeToDelete = liveNodeMap.get(nodeId);
-    const deletionVisitor = (node) => {
-      const children = node.get("children").toImmutable();
-      children.forEach((childId) => {
-        const child = liveNodeMap.get(childId);
-        deletionVisitor(child);
-        liveNodeMap.delete(childId);
-      });
-    };
-    deletionVisitor(nodeToDelete);
-    const parentNodeId = nodeToDelete.get("parentNodeId");
-    if (parentNodeId) {
-      const parentNodeChildren = liveNodeMap.get(parentNodeId).get("children");
-      parentNodeChildren.delete(parentNodeChildren.indexOf(nodeId));
-    }
-    liveNodeMap.delete(nodeId);
-  }, []);
-};
-
-// src/environments/shared/mutations/useMutationUpdateNodeFactory.ts
-var useMutationUpdateNodeFactory = (useMutation) => () => useMutation(({ storage }, nodeId, updater) => {
-  const nodeState = storage.get("nodeMap").get(nodeId).get("state");
-  updater(nodeState);
-}, []);
-
-// src/environments/shared/storage/useStorageGetNodeFactory.ts
-var import_lodash = __toESM(require("lodash.isequal"), 1);
-var useStorageGetNodeFactory = (useStorage) => (nodeId, selector) => {
-  return useStorage(
-    (root) => {
-      const nodeState = root.nodeMap.get(nodeId)?.state;
-      return nodeState ? selector(nodeState) : null;
-    },
-    (a, b) => (0, import_lodash.default)(a, b)
-  );
-};
-
-// src/environments/shared/storage/useStorageGetNodeMapFactory.ts
-var import_lodash2 = __toESM(require("lodash.isequal"), 1);
-var useStorageGetNodeMapFactory = (useStorage) => (nodeFilter) => {
-  return useStorage((root) => {
-    return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
-  }, (a, b) => (0, import_lodash2.default)(a, b));
-};
-
-// src/environments/shared/storage/useStorageGetMetaFactory.ts
-var useStorageGetMetaFactory = (useStorage) => () => useStorage((root) => root.meta);
-
-// src/environments/shared/mutations/useMutationUpdateMetaFactory.ts
-var useMutationUpdateMetaFactory = (useMutation) => () => useMutation(({ storage }, updater) => {
-  updater(storage.get("meta"));
-}, []);
-
-// src/environments/shared/combined/useNodeStateFactory.ts
-var useNodeStateFactory = (useStorageGetNode, useMutationUpdateNode) => (nodeId, key) => {
-  const nodeValue = useStorageGetNode(nodeId, (nodeState) => nodeState[key]);
-  const updateNode = useMutationUpdateNode();
-  return [
-    nodeValue,
-    (newValue) => updateNode(nodeId, (liveNodeState) => {
-      liveNodeState.set(key, newValue);
-    })
-  ];
-};
-
-// src/environments/shared/combined/useNodePathStateFactory.ts
-var useNodePathStateFactory = (useStorage, useNodeState) => (nodePath, nodeType, stateKey) => {
-  const targetNodeId = useStorage((root) => {
-    return nodePath.find((nodeId) => {
-      return root.nodeMap.get(nodeId)?.type === nodeType;
-    });
+// src/environments/shared/hooks/useNodeStateFactory.ts
+var useNodeStateFactory = (useStorage, useMutation) => (nodeId, _nodeType, stateKey) => {
+  const nodeState = useStorage((storage) => {
+    return storage.nodeMap.get(nodeId).state[stateKey];
   });
-  if (!targetNodeId)
-    throw new Error("No node found with the given type");
-  return useNodeState(targetNodeId, stateKey);
+  const mutation = useMutation(({ storage }, value) => {
+    storage.get("nodeMap").get(nodeId).get("state").set(stateKey, value);
+  }, []);
+  return [nodeState, mutation];
+};
+
+// src/environments/shared/hooks/useDeleteNodeFactory.ts
+var useDeleteNodeFactory = (useMutation) => {
+  return useMutation(({ storage }, nodeId) => {
+    storage.get("nodeMap").delete(nodeId);
+  }, []);
 };
 
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
-  const useMutationUpdateNode = useMutationUpdateNodeFactory(useMutation);
-  const useStorageGetNode = useStorageGetNodeFactory(useStorage);
-  const useNodeState = useNodeStateFactory(useStorageGetNode, useMutationUpdateNode);
   return {
     // Meta
-    useStorageGetMeta: useStorageGetMetaFactory(useStorage),
-    useMutationUpdateMeta: useMutationUpdateMetaFactory(useMutation),
-    // Nodes -- Storage
-    useStorageGetNodeMap: useStorageGetNodeMapFactory(
-      useStorage
-    ),
-    useStorageGetNode,
+    // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     // Nodes -- Mutation
-    useMutationCreateNode: useMutationCreateNodeFactory(
+    useCreateNode: useCreateNodeFactory(
       NodeIndex,
       useMutation
     ),
-    useMutationUpdateNode,
-    useMutationDeleteNode: useMutationDeleteNodeFactory(
+    useNodeState: useNodeStateFactory(
+      useStorage,
       useMutation
     ),
-    // Nodes -- Combined
-    useNodeState,
-    useNodePathState: useNodePathStateFactory(
-      useStorage,
-      useNodeState
+    useDeleteNode: useDeleteNodeFactory(
+      useMutation
     )
   };
 };
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
-var liveblocksBrowserConfig = (NodeIndex, createClientProps) => {
+var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPresence, initialLiveblocksStorage) => {
   const {
-    suspense: {
-      useRoom,
-      useMyPresence,
-      useUpdateMyPresence,
-      useOthersMapped,
-      useStorage,
-      RoomProvider,
-      useMutation,
-      useSelf,
-      RoomContext,
-      useHistory,
-      useCanUndo,
-      useUndo,
-      useCanRedo,
-      useRedo
-    }
-  } = (0, import_react.createRoomContext)((0, import_client2.createClient)(createClientProps));
+    suspense: liveblocks
+  } = (0, import_react2.createRoomContext)((0, import_client2.createClient)(createClientProps));
   return {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext,
-    useHistory,
-    useCanUndo,
-    useUndo,
-    useCanRedo,
-    useRedo,
     ...customLiveHooksFactory(
       NodeIndex,
-      useStorage,
-      useMutation
-    )
+      liveblocks.useStorage,
+      liveblocks.useMutation
+    ),
+    LiveblocksProvider: LiveblocksBrowserProviderFactory(
+      liveblocks.RoomProvider,
+      initialLiveblocksPresence,
+      initialLiveblocksStorage
+    ),
+    ...liveblocks
   };
 };
 // Annotate the CommonJS export names for ESM import in node:

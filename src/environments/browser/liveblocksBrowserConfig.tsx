@@ -1,55 +1,39 @@
-import { JsonObject, Lson, createClient } from "@liveblocks/client";
-import { createRoomContext } from "@liveblocks/react";
-import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js";
-import { AirNodeIndex, LiveAirNode, LiveblocksStorageModel } from "../../model/data-model.js";
+import { JsonObject, Lson, createClient } from "@liveblocks/client"
+import {AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel} from "../../model/data-model.js"
+import { createRoomContext } from "@liveblocks/react"
+import { LiveblocksBrowserProviderFactory } from "./LiveblocksBrowserProviderFactory.js"
+import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js"
+
+
 export const liveblocksBrowserConfig = <
-    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
-    Meta extends Lson,
-    LiveblocksPresence extends JsonObject={}
+    Index extends AirNodeIndex<any>,
+    U extends AirNodeUnion<Index>,
+    LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>,
+    LiveblocksPresence extends JsonObject={},
 >(
-    NodeIndex: AirNodeIndex<LiveAirNodeUnion>,
+    NodeIndex: Index,
     createClientProps: Parameters<typeof createClient>[0],
+    initialLiveblocksPresence: LiveblocksPresence,
+    initialLiveblocksStorage: LiveblocksStorage,
 ) => {
     const {
-        suspense: {
-            useRoom,
-            useMyPresence,
-            useUpdateMyPresence,
-            useOthersMapped,
-            useStorage,
-            RoomProvider,
-            useMutation,
-            useSelf,
-            RoomContext,
-            useHistory,
-            useCanUndo,
-            useUndo,
-            useCanRedo,
-            useRedo,
-        }
+        suspense: liveblocks
     } = createRoomContext<
         LiveblocksPresence, 
-        LiveblocksStorageModel<LiveAirNodeUnion, Meta>
+        LiveblocksStorage
     >(createClient(createClientProps))
+
     return {
-        useRoom,
-        useMyPresence,
-        useUpdateMyPresence,
-        useOthersMapped,
-        useStorage,
-        RoomProvider,
-        useMutation,
-        useSelf,
-        RoomContext,
-        useHistory,
-        useCanUndo,
-        useUndo,
-        useCanRedo,
-        useRedo,
         ...customLiveHooksFactory(
             NodeIndex,
-            useStorage,
-            useMutation,
-        )
+            liveblocks.useStorage,
+            liveblocks.useMutation,
+        ),
+        LiveblocksProvider: LiveblocksBrowserProviderFactory(
+            liveblocks.RoomProvider,
+            initialLiveblocksPresence,
+            initialLiveblocksStorage
+        ),
+        ...liveblocks
     }
 }

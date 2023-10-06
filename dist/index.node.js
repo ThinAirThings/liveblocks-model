@@ -1,28 +1,18 @@
 import {
   customLiveHooksFactory
-} from "./chunk-RGGPMXCA.js";
+} from "./chunk-CZOCQCV4.js";
 
 // src/environments/node/liveblocksNodeConfig.tsx
 import { createClient } from "@liveblocks/client";
-import { createRoomContext, ClientSideSuspense } from "@liveblocks/react";
+import { ClientSideSuspense, createRoomContext } from "@liveblocks/react";
 import nodeWebsocket from "ws";
-import { Liveblocks } from "@liveblocks/node";
 import { useCallback } from "react";
-import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager";
+import { Liveblocks } from "@liveblocks/node";
+import { GetSecretValueCommand, SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
 import { Fragment, jsx } from "react/jsx-runtime";
 var authorizationCallback;
-var liveblocksNodeConfig = (NodeIndex) => {
-  const {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext
-  } = createRoomContext(
+var liveblocksNodeConfig = (NodeIndex, createClientProps, initialLiveblocksPresence, initialLiveblocksStorage) => {
+  const liveblocks = createRoomContext(
     createClient({
       polyfills: {
         WebSocket: nodeWebsocket
@@ -46,39 +36,21 @@ var liveblocksNodeConfig = (NodeIndex) => {
       return JSON.parse(body);
     }, []);
     return /* @__PURE__ */ jsx(
-      RoomProvider,
+      liveblocks.RoomProvider,
       {
         id: spaceId,
-        initialPresence: {
-          displayName: `${serverName}`,
-          absoluteCursorState: null,
-          viewportState: { x: 0, y: 0, scale: 1 },
-          mouseSelectionState: {
-            selectionActive: false,
-            absoluteSelectionBounds: null
-          },
-          selectedNodeIds: [],
-          focusedNodeId: null
-        },
+        initialPresence: initialLiveblocksPresence,
         shouldInitiallyConnect: true,
         children: /* @__PURE__ */ jsx(ClientSideSuspense, { fallback: /* @__PURE__ */ jsx(Fragment, {}), children })
       }
     );
   };
   return {
-    useRoom,
-    useMyPresence,
-    useUpdateMyPresence,
-    useOthersMapped,
-    useStorage,
-    RoomProvider,
-    useMutation,
-    useSelf,
-    RoomContext,
+    ...liveblocks,
     ...customLiveHooksFactory(
       NodeIndex,
-      useStorage,
-      useMutation
+      liveblocks.useStorage,
+      liveblocks.useMutation
     ),
     LiveblocksNodeRoomProvider
   };

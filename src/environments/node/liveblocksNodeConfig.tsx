@@ -1,35 +1,30 @@
-import { Lson, createClient } from '@liveblocks/client'
-import {createRoomContext, ClientSideSuspense} from '@liveblocks/react'
-import nodeWebsocket from "ws";
-import { Liveblocks} from "@liveblocks/node";
+import { JsonObject, createClient } from '@liveblocks/client'
+import {AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel} from '../../model/data-model.js'
+import { ClientSideSuspense, createRoomContext } from '@liveblocks/react'
+import nodeWebsocket from "ws"; 
 import { ReactNode, useCallback } from 'react';
-import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
-import { AirNodeIndex, LiveAirNode, LiveblocksPresence, LiveblocksStorageModel } from '../../index.node.js';
-import { customLiveHooksFactory } from '../shared/customLiveHooksFactory.js';
+import { Liveblocks} from "@liveblocks/node";
+import { GetSecretValueCommand, SecretsManagerClient } from '@aws-sdk/client-secrets-manager';
+import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js"
 
 let authorizationCallback: (() => Promise<{
     token: string
 }>)
 
 export const liveblocksNodeConfig = <
-    LiveAirNodeUnion extends LiveAirNode<any, any, any>,
-    Meta extends Lson
+    Index extends AirNodeIndex<any>,
+    U extends AirNodeUnion<Index>,
+    LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>,
+    LiveblocksPresence extends JsonObject={},
 >(
-    NodeIndex: AirNodeIndex<LiveAirNodeUnion>,
+    NodeIndex: Index,
+    createClientProps: Parameters<typeof createClient>[0],
+    initialLiveblocksPresence: LiveblocksPresence,
+    initialLiveblocksStorage: LiveblocksStorage,
 ) => {
-    const {
-        useRoom,
-        useMyPresence,
-        useUpdateMyPresence,
-        useOthersMapped,
-        useStorage,
-        RoomProvider,
-        useMutation,
-        useSelf,
-        RoomContext
-    } = createRoomContext<
+    const liveblocks = createRoomContext<
         LiveblocksPresence, 
-        LiveblocksStorageModel<LiveAirNodeUnion, Meta>
+        LiveblocksStorage
     >(
         createClient({
             polyfills: {
@@ -67,41 +62,23 @@ export const liveblocksNodeConfig = <
             }
         }, [])
         return (
-        <RoomProvider
+            <liveblocks.RoomProvider
                 id={spaceId}
-                initialPresence={{
-                    displayName: `${serverName}`,
-                    absoluteCursorState: null,
-                    viewportState: {x: 0, y: 0, scale: 1},
-                    mouseSelectionState: {
-                        selectionActive: false,
-                        absoluteSelectionBounds: null,
-                    },
-                    selectedNodeIds: [],
-                    focusedNodeId: null,
-                }}
+                initialPresence={initialLiveblocksPresence}
                 shouldInitiallyConnect={true}
             >
                 <ClientSideSuspense fallback={<></>}>
                     {children}
                 </ClientSideSuspense>
-            </RoomProvider>
+            </liveblocks.RoomProvider>
         )
     }
     return {
-        useRoom,
-        useMyPresence,
-        useUpdateMyPresence,
-        useOthersMapped,
-        useStorage,
-        RoomProvider,
-        useMutation,
-        useSelf,
-        RoomContext,
+        ...liveblocks,
         ...customLiveHooksFactory(
             NodeIndex,
-            useStorage,
-            useMutation,
+            liveblocks.useStorage,
+            liveblocks.useMutation,
         ),
         LiveblocksNodeRoomProvider
     }
