@@ -21,18 +21,18 @@ type LiveAirNode<N extends AirNode<any, any, any>> = LiveObject<{
     state: N extends AirNode<any, infer S, any, any> ? LiveObject<S> : never;
     childrenNodeIds: LiveList<string>;
 }>;
-type AirNodeUnion<Index extends AirNodeIndex<any>> = {
-    readonly [T in keyof Index]: AirNode<T extends string ? T : never, Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>;
-}[keyof Index];
-type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>> = {
-    nodeMap: LiveMap<string, LiveAirNodeUnion>;
-};
 type AirNodeIndex<M extends JsonObject> = {
     readonly [type: string]: {
         readonly state: JsonObject;
         readonly nodeMeta: M;
         readonly stateDisplayKey: keyof JsonObject & string;
     };
+};
+type AirNodeUnion<Index extends AirNodeIndex<any>> = {
+    readonly [T in keyof Index & string]: AirNode<T, Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>;
+}[keyof Index & string];
+type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>> = {
+    nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
 type TypedNodeIndex<Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>> = {
     readonly [Type in U['type']]: {
