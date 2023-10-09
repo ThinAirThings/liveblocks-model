@@ -1,5 +1,5 @@
 import { JsonObject, Lson, createClient } from "@liveblocks/client"
-import {AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel} from "../../model/data-model.js"
+import {AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, TypedNodeIndex} from "../../model/data-model.js"
 import { createRoomContext } from "@liveblocks/react"
 import { LiveblocksBrowserProviderFactory } from "./LiveblocksBrowserProviderFactory.js"
 import { customLiveHooksFactory } from "../shared/customLiveHooksFactory.js"
@@ -35,6 +35,6 @@ export const liveblocksBrowserConfig = <
             initialLiveblocksStorage
         ),
         ...liveblocks,
-        NodeIndex
+        NodeIndex: NodeIndex as TypedNodeIndex<Index, U>,
     }
 }

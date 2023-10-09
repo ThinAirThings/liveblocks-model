@@ -51,6 +51,17 @@ export type AirNodeIndex<M extends JsonObject> = {
     }
 }
 
+export type TypedNodeIndex<
+    Index extends AirNodeIndex<any>,
+    U extends AirNodeUnion<Index>,
+> = {
+    readonly [Type in U['type']]: {
+        readonly state: (U&{type: Type})['state'],
+        readonly nodeMeta: (U&{type: Type})['nodeMeta'],
+        readonly stateDisplayKey: (U&{type: Type})['stateDisplayKey']
+    }
+}
+
 export const createNodeEntry = <
     S extends JsonObject,
     N extends keyof S&string,

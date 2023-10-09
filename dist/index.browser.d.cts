@@ -1,12 +1,12 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode } from './data-model-95839284.js';
-export { U as UnionToIntersection, d as createNodeEntry, e as createNodeIndexFactory } from './data-model-95839284.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode } from './data-model-bf4c885e.js';
+export { U as UnionToIntersection, d as createNodeEntry, e as createNodeIndexFactory } from './data-model-bf4c885e.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
 import { JsonObject, createClient } from '@liveblocks/client';
 
 declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>, LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], initialLiveblocksPresence: LiveblocksPresence, initialLiveblocksStorage: LiveblocksStorage) => {
-    NodeIndex: Index;
+    NodeIndex: TypedNodeIndex<Index, U>;
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never> | null>;
     RoomProvider: (props: {
         id: string;
@@ -106,4 +106,4 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useDeleteNode: () => (nodeId: string) => void;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, TypedNodeIndex, liveblocksBrowserConfig };
