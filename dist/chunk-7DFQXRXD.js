@@ -62,6 +62,17 @@ var useNodeMapFactory = (useStorage) => (nodeFilter) => {
   }, (a, b) => isEqual(a, b));
 };
 
+// src/environments/shared/hooks/useNodeNameStateFactory.ts
+var useNodeNameStateFactory = (NodeIndex, useStorage, useMutation) => (nodeId, nodeType) => {
+  const nodeState = useStorage((storage) => {
+    return storage.nodeMap.get(nodeId).state[NodeIndex[nodeType].stateDisplayKey];
+  });
+  const mutation = useMutation(({ storage }, value) => {
+    storage.get("nodeMap").get(nodeId).get("state").set(NodeIndex[nodeType].stateDisplayKey, value);
+  }, []);
+  return [nodeState, mutation];
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   return {
@@ -76,6 +87,11 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
       useMutation
     ),
     useNodeState: useNodeStateFactory(
+      useStorage,
+      useMutation
+    ),
+    useNodeNameState: useNodeNameStateFactory(
+      NodeIndex,
       useStorage,
       useMutation
     ),

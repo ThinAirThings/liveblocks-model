@@ -29,6 +29,9 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     useNodeState: <T_2 extends U["type"], S_3 extends (U & {
         type: T_2;
     })["state"], K extends keyof S_3 & string>(nodeId: string, _nodeType: T_2, stateKey: K) => readonly [S_3[K], (value: S_3[K]) => void];
+    useNodeNameState: <T_3 extends U["type"], S_4 extends (U & {
+        type: T_3;
+    })["state"], K_1 extends keyof S_4 & string>(nodeId: string, nodeType: T_3) => readonly [S_4[K_1], (value: S_4[K_1]) => void];
     useDeleteNode: () => (nodeId: string) => void;
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never> | null>;
     RoomProvider: (props: {
@@ -41,7 +44,7 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     }) => JSX.Element;
     useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never>;
     useStatus: () => _liveblocks_core.Status;
-    useBatch: <T_3>() => (callback: () => T_3) => T_3;
+    useBatch: <T_4>() => (callback: () => T_4) => T_4;
     useBroadcastEvent: () => (event: never, options?: _liveblocks_core.BroadcastOptions | undefined) => void;
     useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
     useErrorListener: (callback: (err: Error) => void) => void;
@@ -64,11 +67,11 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
     useOthers: {
         (): _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
-        <T_4>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_4, isEqual?: ((prev: T_4, curr: T_4) => boolean) | undefined): T_4;
+        <T_5>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_5, isEqual?: ((prev: T_5, curr: T_5) => boolean) | undefined): T_5;
     };
     useOthersConnectionIds: () => readonly number[];
-    useOthersMapped: <T_5>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_5, itemIsEqual?: ((prev: T_5, curr: T_5) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T_5])[];
-    useOther: <T_6>(connectionId: number, selector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_6, isEqual?: ((prev: T_6, curr: T_6) => boolean) | undefined) => T_6;
+    useOthersMapped: <T_6>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_6, itemIsEqual?: ((prev: T_6, curr: T_6) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T_6])[];
+    useOther: <T_7>(connectionId: number, selector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_7, isEqual?: ((prev: T_7, curr: T_7) => boolean) | undefined) => T_7;
     useCreateThread: () => (options: {
         body: _liveblocks_core.CommentBody;
     }) => _liveblocks_core.ThreadData<never>;
@@ -88,10 +91,10 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
         threadId: string;
         commentId: string;
     }) => void;
-    useStorage: <T_7>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_7, isEqual?: ((prev: T_7 | null, curr: T_7 | null) => boolean) | undefined) => T_7 | null;
+    useStorage: <T_8>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_8, isEqual?: ((prev: T_8 | null, curr: T_8 | null) => boolean) | undefined) => T_8 | null;
     useSelf: {
         (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta> | null;
-        <T_8>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_8, isEqual?: ((prev: T_8, curr: T_8) => boolean) | undefined): T_8 | null;
+        <T_9>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_9, isEqual?: ((prev: T_9, curr: T_9) => boolean) | undefined): T_9 | null;
     };
     useThreads: () => {
         isLoading: true;
@@ -138,7 +141,7 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
         }) => JSX.Element;
         useRoom: () => _liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never>;
         useStatus: () => _liveblocks_core.Status;
-        useBatch: <T_3>() => (callback: () => T_3) => T_3;
+        useBatch: <T_4>() => (callback: () => T_4) => T_4;
         useBroadcastEvent: () => (event: never, options?: _liveblocks_core.BroadcastOptions | undefined) => void;
         useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
         useErrorListener: (callback: (err: Error) => void) => void;
@@ -161,11 +164,11 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
         useMutation: <F extends (context: _liveblocks_react.MutationContext<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta>, ...args: any[]) => any>(callback: F, deps: readonly unknown[]) => F extends (first: any, ...rest: infer A) => infer R ? (...args: A) => R : never;
         useOthers: {
             (): _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
-            <T_4>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_4, isEqual?: ((prev: T_4, curr: T_4) => boolean) | undefined): T_4;
+            <T_5>(selector: (others: _liveblocks_core.Others<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_5, isEqual?: ((prev: T_5, curr: T_5) => boolean) | undefined): T_5;
         };
         useOthersConnectionIds: () => readonly number[];
-        useOthersMapped: <T_5>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_5, itemIsEqual?: ((prev: T_5, curr: T_5) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T_5])[];
-        useOther: <T_6>(connectionId: number, selector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_6, isEqual?: ((prev: T_6, curr: T_6) => boolean) | undefined) => T_6;
+        useOthersMapped: <T_6>(itemSelector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_6, itemIsEqual?: ((prev: T_6, curr: T_6) => boolean) | undefined) => readonly (readonly [connectionId: number, data: T_6])[];
+        useOther: <T_7>(connectionId: number, selector: (other: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_7, isEqual?: ((prev: T_7, curr: T_7) => boolean) | undefined) => T_7;
         useCreateThread: () => (options: {
             body: _liveblocks_core.CommentBody;
         }) => _liveblocks_core.ThreadData<never>;
@@ -185,10 +188,10 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
             threadId: string;
             commentId: string;
         }) => void;
-        useStorage: <T_9>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_9, isEqual?: ((prev: T_9, curr: T_9) => boolean) | undefined) => T_9;
+        useStorage: <T_10>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_10, isEqual?: ((prev: T_10, curr: T_10) => boolean) | undefined) => T_10;
         useSelf: {
             (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
-            <T_10>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_10, isEqual?: ((prev: T_10, curr: T_10) => boolean) | undefined): T_10;
+            <T_11>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_11, isEqual?: ((prev: T_11, curr: T_11) => boolean) | undefined): T_11;
         };
         useThreads: () => _liveblocks_core.ThreadData<never>[];
         useUser: (userId: string) => {

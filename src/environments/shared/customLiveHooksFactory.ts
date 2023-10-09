@@ -4,6 +4,7 @@ import { useCreateNodeFactory } from "./hooks/useCreateNodeFactory.js"
 import { useNodeStateFactory } from "./hooks/useNodeStateFactory.js"
 import { useDeleteNodeFactory } from "./hooks/useDeleteNodeFactory.js"
 import { useNodeMapFactory } from "./hooks/useNodeMapFactory.js"
+import { useNodeNameStateFactory } from "./hooks/useNodeNameStateFactory.js"
 
 
 export const customLiveHooksFactory = <
@@ -26,6 +27,11 @@ export const customLiveHooksFactory = <
             useMutation,
         ),
         useNodeState: useNodeStateFactory(
+            useStorage,
+            useMutation
+        ),
+        useNodeNameState: useNodeNameStateFactory(
+            NodeIndex,
             useStorage,
             useMutation
         ),
