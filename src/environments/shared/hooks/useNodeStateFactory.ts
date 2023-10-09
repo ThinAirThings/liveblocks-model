@@ -10,7 +10,7 @@ export const useNodeStateFactory = <
 ) => <
     T extends U['type'],
     S extends (U & {type: T})['state'],
-    K extends keyof S,
+    K extends (keyof S)&string,
 >(
     nodeId: string,
     _nodeType: T,
