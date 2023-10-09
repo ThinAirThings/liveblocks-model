@@ -51,8 +51,6 @@ export type LiveblocksStorageModel<
     nodeMap: LiveMap<string, LiveAirNodeUnion>
 }
 
-
-
 export type TypedNodeIndex<
     Index extends AirNodeIndex<any>,
     U extends AirNodeUnion<Index>,
