@@ -1,5 +1,5 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode } from './data-model-c83f2a4f.js';
-export { T as TypedNodeIndex, U as UnionToIntersection, d as createNodeEntry, e as createNodeIndexFactory } from './data-model-c83f2a4f.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode } from './data-model-c63cb45e.js';
+export { T as TypedNodeIndex, U as UnionToIntersection, d as createNodeEntry, e as createNodeIndexFactory } from './data-model-c63cb45e.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -18,9 +18,9 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
         readonly nodeId: string;
         readonly parentNodeId: string | null;
         readonly type: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<infer T extends string, any, any, {}> ? T : never, undefined>> | (undefined extends (U extends AirNode<infer T extends string, any, any, {}> ? T : never) ? (U extends AirNode<infer T extends string, any, any, {}> ? T : never) & undefined : never);
-        readonly nodeMeta: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, any, any, infer M extends JsonObject> ? M : never, undefined>> | (undefined extends (U extends AirNode<any, any, any, infer M extends JsonObject> ? M : never) ? (U extends AirNode<any, any, any, infer M extends JsonObject> ? M : never) & undefined : never);
-        readonly stateDisplayKey: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, any, infer S extends string, any> ? keyof S & string : never, undefined>> | (undefined extends (U extends AirNode<any, any, infer S extends string, any> ? keyof S & string : never) ? (U extends AirNode<any, any, infer S extends string, any> ? keyof S & string : never) & undefined : never);
-        readonly state: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, infer S_1 extends JsonObject, any, any> ? _liveblocks_core.LiveObject<S_1> : never, undefined>> | (undefined extends (U extends AirNode<any, infer S_1 extends JsonObject, any, any> ? _liveblocks_core.LiveObject<S_1> : never) ? (U extends AirNode<any, infer S_1 extends JsonObject, any, any> ? _liveblocks_core.LiveObject<S_1> : never) & undefined : never);
+        readonly nodeMeta: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, any, infer M extends string, {}> ? M : never, undefined>> | (undefined extends (U extends AirNode<any, any, infer M extends string, {}> ? M : never) ? (U extends AirNode<any, any, infer M extends string, {}> ? M : never) & undefined : never);
+        readonly state: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, infer S extends JsonObject, any, {}> ? _liveblocks_core.LiveObject<S> : never, undefined>> | (undefined extends (U extends AirNode<any, infer S extends JsonObject, any, {}> ? _liveblocks_core.LiveObject<S> : never) ? (U extends AirNode<any, infer S extends JsonObject, any, {}> ? _liveblocks_core.LiveObject<S> : never) & undefined : never);
+        readonly stateDisplayKey: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, infer S_1 extends JsonObject, any, {}> ? keyof S_1 & string : never, undefined>> | (undefined extends (U extends AirNode<any, infer S_1 extends JsonObject, any, {}> ? keyof S_1 & string : never) ? (U extends AirNode<any, infer S_1 extends JsonObject, any, {}> ? keyof S_1 & string : never) & undefined : never);
         readonly childrenNodeIds: readonly string[];
     }>;
     useCreateNode: <T_1 extends U["type"], S_2 extends Partial<(U & {
@@ -28,10 +28,10 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     })["state"]>>() => (parentNodeId: string | null, type: T_1, state?: S_2 | undefined) => string;
     useNodeState: <T_2 extends U["type"], S_3 extends (U & {
         type: T_2;
-    })["state"], K extends keyof S_3 & string>(nodeId: string, _nodeType: T_2, stateKey: K) => readonly [S_3[K], (value: S_3[K]) => void];
+    })["state"], SK extends keyof S_3 & string>(nodeId: string, _nodeType: T_2, stateKey: SK) => readonly [S_3[SK], (value: S_3[SK]) => void];
     useNodeNameState: <T_3 extends U["type"], S_4 extends (U & {
         type: T_3;
-    })["state"], K_1 extends keyof S_4 & string>(nodeId: string, nodeType: T_3) => readonly [S_4[K_1], (value: S_4[K_1]) => void];
+    })["state"], K extends keyof S_4 & string>(nodeId: string, nodeType: T_3) => readonly [S_4[K], (value: S_4[K]) => void];
     useDeleteNode: () => (nodeId: string) => void;
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never> | null>;
     RoomProvider: (props: {

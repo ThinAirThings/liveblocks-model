@@ -1,24 +1,24 @@
 import { JsonObject, LiveObject, LiveList, LiveMap } from '@liveblocks/client';
 
 type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
-type AirNode<T extends string, S extends JsonObject, N extends keyof S & string, M extends JsonObject = {}> = {
+type AirNode<T extends string, S extends JsonObject, SK extends keyof S & string, M extends JsonObject = {}> = {
     nodeId: string;
     parentNodeId: string | null;
     type: T;
     nodeMeta: M & {
         createdAt: string;
     };
-    stateDisplayKey: N;
     state: S;
+    stateDisplayKey: SK;
     childrenNodeIds: Array<string>;
 };
 type LiveAirNode<N extends AirNode<any, any, any>> = LiveObject<{
     nodeId: string;
     parentNodeId: string | null;
     type: N extends AirNode<infer T, any, any> ? T : never;
-    nodeMeta: N extends AirNode<any, any, any, infer M> ? M : never;
-    stateDisplayKey: N extends AirNode<any, any, infer S, any> ? keyof S & string : never;
-    state: N extends AirNode<any, infer S, any, any> ? LiveObject<S> : never;
+    nodeMeta: N extends AirNode<any, any, infer M> ? M : never;
+    state: N extends AirNode<any, infer S, any> ? LiveObject<S> : never;
+    stateDisplayKey: N extends AirNode<any, infer S, any> ? keyof S & string : never;
     childrenNodeIds: LiveList<string>;
 }>;
 type AirNodeIndex<M extends JsonObject> = {
