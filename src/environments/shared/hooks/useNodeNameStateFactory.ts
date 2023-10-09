@@ -24,7 +24,7 @@ export const useNodeNameStateFactory = <
     const mutation = useMutation(({storage}, 
         value: string,
     ) => {
-        (storage.get('nodeMap').get(nodeId)!).get('state').set(NodeIndex[nodeType].stateDisplayKey as any, value)
+        (storage.get('nodeMap').get(nodeId)!).get('state').set(NodeIndex[nodeType].stateDisplayKey as any, value as any)
     }, [])
     return [nodeState, mutation] as const
 }
