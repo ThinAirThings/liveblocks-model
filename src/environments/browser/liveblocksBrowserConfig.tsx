@@ -34,6 +34,7 @@ export const liveblocksBrowserConfig = <
             initialLiveblocksPresence,
             initialLiveblocksStorage
         ),
-        ...liveblocks
+        ...liveblocks,
+        NodeIndex
     }
 }

@@ -8,6 +8,7 @@ var createNodeEntry = ({
   state,
   stateDisplayKey
 });
+var createNodeIndexFactory = (index) => Object.entries(index.map(([type, entry]) => [type, entry]));
 
 // src/environments/shared/hooks/useCreateNodeFactory.ts
 import { LiveList, LiveObject } from "@liveblocks/client";
@@ -86,5 +87,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
 
 export {
   createNodeEntry,
+  createNodeIndexFactory,
   customLiveHooksFactory
 };

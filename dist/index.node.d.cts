@@ -1,5 +1,5 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode } from './data-model-6e1bc4a9.js';
-export { T as TypedAirNodeIndex, U as UnionToIntersection, d as createNodeEntry } from './data-model-6e1bc4a9.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode } from './data-model-95839284.js';
+export { U as UnionToIntersection, d as createNodeEntry, e as createNodeIndexFactory } from './data-model-95839284.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { ReactNode } from 'react';
