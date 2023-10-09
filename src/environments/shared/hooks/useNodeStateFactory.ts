@@ -10,19 +10,19 @@ export const useNodeStateFactory = <
 ) => <
     T extends U['type'],
     S extends (U & {type: T})['state'],
-    K extends (keyof S)&string,
+    K extends keyof S,
 >(
     nodeId: string,
     _nodeType: T,
     stateKey: K, 
 ) => {
     const nodeState = useStorage((storage) => {
-        return (storage.nodeMap.get(nodeId)!).state[stateKey] 
+        return ((storage.nodeMap.get(nodeId)!).state as any)[stateKey as any] as any
     }) as S[K]
     const mutation = useMutation(({storage}, 
         value: S[K],
     ) => {
-        (storage.get('nodeMap').get(nodeId)!).get('state').set(stateKey, value)
+        (storage.get('nodeMap').get(nodeId)!).get('state').set(stateKey as any, value)
     }, [])
     return [nodeState, mutation] as const
 }
