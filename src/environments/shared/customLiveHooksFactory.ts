@@ -31,7 +31,6 @@ export const customLiveHooksFactory = <
             useMutation
         ),
         useNodeNameState: useNodeNameStateFactory(
-            NodeIndex,
             useStorage,
             useMutation
         ),

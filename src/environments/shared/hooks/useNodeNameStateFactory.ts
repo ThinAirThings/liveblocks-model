@@ -8,23 +8,20 @@ export const useNodeNameStateFactory = <
     Index extends AirNodeIndex<any>,
     U extends AirNodeUnion<Index>,
 >(
-    NodeIndex: Index,
     useStorage: StorageHook<Index, U>,
     useMutation: MutationHook<Index, U>,
-) => <
-    T extends U['type'],
-    S extends (U & {type: T})['state'],
->(
+) => (
     nodeId: string,
-    nodeType: T,
 ) => {
     const nodeState = useStorage((storage) => {
-        return ((storage.nodeMap.get(nodeId)!).state as any)[NodeIndex[nodeType].stateDisplayKey as any]
+        const node = storage.nodeMap.get(nodeId)!
+        return (node.state as any)[node.stateDisplayKey as any]
     }) as string
     const mutation = useMutation(({storage}, 
         value: string,
     ) => {
-        (storage.get('nodeMap').get(nodeId)!).get('state').set(NodeIndex[nodeType].stateDisplayKey as any, value as any)
+        const node = storage.get('nodeMap').get(nodeId)!;
+        node.get('state').set(node.get('stateDisplayKey'), value as any)
     }, [])
     return [nodeState, mutation] as const
 }

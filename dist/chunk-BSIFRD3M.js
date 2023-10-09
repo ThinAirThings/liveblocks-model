@@ -63,12 +63,14 @@ var useNodeMapFactory = (useStorage) => (nodeFilter) => {
 };
 
 // src/environments/shared/hooks/useNodeNameStateFactory.ts
-var useNodeNameStateFactory = (NodeIndex, useStorage, useMutation) => (nodeId, nodeType) => {
+var useNodeNameStateFactory = (useStorage, useMutation) => (nodeId) => {
   const nodeState = useStorage((storage) => {
-    return storage.nodeMap.get(nodeId).state[NodeIndex[nodeType].stateDisplayKey];
+    const node = storage.nodeMap.get(nodeId);
+    return node.state[node.stateDisplayKey];
   });
   const mutation = useMutation(({ storage }, value) => {
-    storage.get("nodeMap").get(nodeId).get("state").set(NodeIndex[nodeType].stateDisplayKey, value);
+    const node = storage.get("nodeMap").get(nodeId);
+    node.get("state").set(node.get("stateDisplayKey"), value);
   }, []);
   return [nodeState, mutation];
 };
@@ -91,7 +93,6 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
       useMutation
     ),
     useNodeNameState: useNodeNameStateFactory(
-      NodeIndex,
       useStorage,
       useMutation
     ),
