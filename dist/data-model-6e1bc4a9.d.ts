@@ -34,6 +34,13 @@ type AirNodeIndex<M extends JsonObject> = {
         readonly stateDisplayKey: keyof JsonObject & string;
     };
 };
+type TypedAirNodeIndex<Index extends AirNodeIndex<any>> = {
+    readonly [T in keyof Index]: {
+        readonly state: Index[T]['state'];
+        readonly nodeMeta: Index[T]['nodeMeta'];
+        readonly stateDisplayKey: Index[T]['stateDisplayKey'];
+    };
+};
 declare const createNodeEntry: <S extends JsonObject, N extends keyof S & string, M extends JsonObject = {}>({ nodeMeta, state, stateDisplayKey }: {
     nodeMeta: M;
     state: S;
@@ -44,4 +51,4 @@ declare const createNodeEntry: <S extends JsonObject, N extends keyof S & string
     stateDisplayKey: N;
 };
 
-export { AirNodeIndex as A, LiveblocksStorageModel as L, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, createNodeEntry as d };
+export { AirNodeIndex as A, LiveblocksStorageModel as L, TypedAirNodeIndex as T, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, createNodeEntry as d };
