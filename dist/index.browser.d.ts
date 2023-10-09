@@ -102,7 +102,7 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useNodeState: <T_8 extends U["type"], S_3 extends (U & {
         type: T_8;
     })["state"], K extends keyof S_3 & string>(nodeId: string, _nodeType: T_8, stateKey: K) => readonly [S_3[K], (value: S_3[K]) => void];
-    useDeleteNode: (nodeId: string) => void;
+    useDeleteNode: () => (nodeId: string) => void;
 };
 
 export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, liveblocksBrowserConfig };

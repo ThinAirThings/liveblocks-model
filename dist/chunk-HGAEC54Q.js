@@ -47,7 +47,7 @@ var useNodeStateFactory = (useStorage, useMutation) => (nodeId, _nodeType, state
 };
 
 // src/environments/shared/hooks/useDeleteNodeFactory.ts
-var useDeleteNodeFactory = (useMutation) => {
+var useDeleteNodeFactory = (useMutation) => () => {
   return useMutation(({ storage }, nodeId) => {
     storage.get("nodeMap").delete(nodeId);
   }, []);

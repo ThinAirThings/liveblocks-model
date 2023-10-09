@@ -7,7 +7,7 @@ export const useDeleteNodeFactory = <
     U extends AirNodeUnion<Index>,
 >(
     useMutation: MutationHook<Index, U>,
-) => {
+) => () => {
     return useMutation(({storage}, nodeId: string) => {
         storage.get('nodeMap').delete(nodeId)
     }, [])
