@@ -98,12 +98,23 @@ var useDeleteNodeFactory = (useMutation) => {
   }, []);
 };
 
+// src/environments/shared/hooks/useNodeMapFactory.ts
+var import_lodash = __toESM(require("lodash.isequal"), 1);
+var useNodeMapFactory = (useStorage) => (nodeFilter) => {
+  return useStorage((root) => {
+    return nodeFilter ? new Map([...root.nodeMap].filter(nodeFilter)) : root.nodeMap;
+  }, (a, b) => (0, import_lodash.default)(a, b));
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   return {
     // Meta
     // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     // Nodes -- Mutation
+    useNodeMap: useNodeMapFactory(
+      useStorage
+    ),
     useCreateNode: useCreateNodeFactory(
       NodeIndex,
       useMutation

@@ -3,6 +3,7 @@ import { MutationHook, StorageHook } from "./hook-types.js"
 import { useCreateNodeFactory } from "./hooks/useCreateNodeFactory.js"
 import { useNodeStateFactory } from "./hooks/useNodeStateFactory.js"
 import { useDeleteNodeFactory } from "./hooks/useDeleteNodeFactory.js"
+import { useNodeMapFactory } from "./hooks/useNodeMapFactory.js"
 
 
 export const customLiveHooksFactory = <
@@ -17,6 +18,9 @@ export const customLiveHooksFactory = <
         // Meta
         // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
         // Nodes -- Mutation
+        useNodeMap: useNodeMapFactory(
+            useStorage
+        ),
         useCreateNode: useCreateNodeFactory(
             NodeIndex,
             useMutation,
