@@ -31,7 +31,11 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     })["state"], SK extends keyof S_3 & string>(nodeId: string, _nodeType: T_2, stateKey: SK) => readonly [S_3[SK], (value: S_3[SK]) => void];
     useNodeNameState: <T_3 extends U["type"], S_4 extends (U & {
         type: T_3;
-    })["state"], K extends keyof S_4 & string>(nodeId: string, nodeType: T_3) => readonly [S_4[K], (value: S_4[K]) => void];
+    })["state"]>(nodeId: string, nodeType: T_3) => readonly [S_4[(U & {
+        type: T_3;
+    })["stateDisplayKey"]], (value: S_4[(U & {
+        type: T_3;
+    })["stateDisplayKey"]]) => void];
     useDeleteNode: () => (nodeId: string) => void;
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never> | null>;
     RoomProvider: (props: {
