@@ -22,10 +22,10 @@ type LiveAirNode<N extends AirNode<any, any, any>> = LiveObject<{
     childrenNodeIds: LiveList<string>;
 }>;
 type AirNodeIndex<M extends JsonObject> = {
-    readonly [type: string]: {
-        readonly state: JsonObject;
-        readonly nodeMeta: M;
-        readonly stateDisplayKey: keyof JsonObject & string;
+    [type: string]: {
+        state: JsonObject;
+        nodeMeta: M;
+        stateDisplayKey: keyof JsonObject & string;
     };
 };
 type AirNodeUnion<Index extends AirNodeIndex<any>> = {
@@ -35,14 +35,14 @@ type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, an
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
 type TypedNodeIndex<Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>> = {
-    readonly [Type in U['type']]: {
-        readonly state: (U & {
+    [Type in U['type']]: {
+        state: (U & {
             type: Type;
         })['state'];
-        readonly nodeMeta: (U & {
+        nodeMeta: (U & {
             type: Type;
         })['nodeMeta'];
-        readonly stateDisplayKey: (U & {
+        stateDisplayKey: (U & {
             type: Type;
         })['stateDisplayKey'];
     };

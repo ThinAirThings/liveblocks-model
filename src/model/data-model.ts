@@ -29,10 +29,10 @@ export type LiveAirNode<N extends AirNode<any, any, any>> = LiveObject<{
 }>
 
 export type AirNodeIndex<M extends JsonObject> = {
-    readonly [type: string]: {
-        readonly state: JsonObject,
-        readonly nodeMeta: M,
-        readonly stateDisplayKey: keyof JsonObject&string
+    [type: string]: {
+        state: JsonObject,
+        nodeMeta: M,
+        stateDisplayKey: keyof JsonObject&string
     }
 }
 
@@ -55,10 +55,10 @@ export type TypedNodeIndex<
     Index extends AirNodeIndex<any>,
     U extends AirNodeUnion<Index>,
 > = {
-    readonly [Type in U['type']]: {
-        readonly state: (U&{type: Type})['state'],
-        readonly nodeMeta: (U&{type: Type})['nodeMeta'],
-        readonly stateDisplayKey: (U&{type: Type})['stateDisplayKey']
+    [Type in U['type']]: {
+        state: (U&{type: Type})['state'],
+        nodeMeta: (U&{type: Type})['nodeMeta'],
+        stateDisplayKey: (U&{type: Type})['stateDisplayKey']
     }
 }
 
