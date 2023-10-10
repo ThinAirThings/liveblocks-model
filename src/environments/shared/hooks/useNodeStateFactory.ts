@@ -23,6 +23,6 @@ export const useNodeStateFactory = <
         value: S[SK],
     ) => {
         (storage.get('nodeMap').get(nodeId)!).get('state').set(stateKey, value)
-    }, [])
+    }, [nodeId, stateKey])
     return [nodeState, mutation] as const
 }

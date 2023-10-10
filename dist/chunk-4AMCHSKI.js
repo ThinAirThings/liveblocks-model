@@ -43,7 +43,7 @@ var useNodeStateFactory = (useStorage, useMutation) => (nodeId, _nodeType, state
   });
   const mutation = useMutation(({ storage }, value) => {
     storage.get("nodeMap").get(nodeId).get("state").set(stateKey, value);
-  }, []);
+  }, [nodeId, stateKey]);
   return [nodeState, mutation];
 };
 
