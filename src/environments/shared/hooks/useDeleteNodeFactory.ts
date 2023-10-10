@@ -9,6 +9,13 @@ export const useDeleteNodeFactory = <
     useMutation: MutationHook<Index, U>,
 ) => () => {
     return useMutation(({storage}, nodeId: string) => {
-        storage.get('nodeMap').delete(nodeId)
+        const liveNodeMap = storage.get('nodeMap')
+        const nodeMap = liveNodeMap.toImmutable()
+        const chainDelete = (targetNodeId: string) => {
+            liveNodeMap.delete(targetNodeId)
+            const next = [...nodeMap].filter(([_,node])=>node.parentNodeId === targetNodeId)
+            next.forEach(([nodeId])=>chainDelete(nodeId))
+        }
+        chainDelete(nodeId)
     }, [])
 }

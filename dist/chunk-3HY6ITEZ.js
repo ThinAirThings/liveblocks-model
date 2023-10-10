@@ -50,7 +50,14 @@ var useNodeStateFactory = (useStorage, useMutation) => (nodeId, _nodeType, state
 // src/environments/shared/hooks/useDeleteNodeFactory.ts
 var useDeleteNodeFactory = (useMutation) => () => {
   return useMutation(({ storage }, nodeId) => {
-    storage.get("nodeMap").delete(nodeId);
+    const liveNodeMap = storage.get("nodeMap");
+    const nodeMap = liveNodeMap.toImmutable();
+    const chainDelete = (targetNodeId) => {
+      liveNodeMap.delete(targetNodeId);
+      const next = [...nodeMap].filter(([_, node]) => node.parentNodeId === targetNodeId);
+      next.forEach(([nodeId2]) => chainDelete(nodeId2));
+    };
+    chainDelete(nodeId);
   }, []);
 };
 
