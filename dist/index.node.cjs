@@ -85,10 +85,10 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
 // src/environments/shared/hooks/useNodeStateFactory.ts
 var useNodeStateFactory = (useStorage, useMutation) => (nodeId, _nodeType, stateKey) => {
   const nodeState = useStorage((storage) => {
-    return nodeId ? storage.nodeMap.get(nodeId)?.state?.[stateKey] ?? null : null;
+    return storage.nodeMap.get(nodeId)?.state?.[stateKey];
   });
   const mutation = useMutation(({ storage }, value) => {
-    nodeId ? storage.get("nodeMap").get(nodeId)?.get("state").set(stateKey, value) : console.log("The useMutation inside of useNodeState was passed a null nodeId. Make sure to check for the existence of the nodeState before calling the mutation.");
+    storage.get("nodeMap").get(nodeId)?.get("state").set(stateKey, value);
   }, [nodeId, stateKey]);
   return [nodeState, mutation];
 };

@@ -2,7 +2,7 @@ import {
   createNodeEntry,
   createNodeIndexFactory,
   customLiveHooksFactory
-} from "./chunk-EVVI4V3C.js";
+} from "./chunk-UCE54E2B.js";
 
 // src/environments/browser/liveblocksBrowserConfig.tsx
 import { createClient } from "@liveblocks/client";

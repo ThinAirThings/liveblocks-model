@@ -12,21 +12,17 @@ export const useNodeStateFactory = <
     S extends (U & {type: T})['state'],
     SK extends (keyof S)&string,
 >(
-    nodeId: string | null,
+    nodeId: string,
     _nodeType: T,
     stateKey: SK, 
 ) => {
     const nodeState = useStorage((storage) => {
-        return nodeId 
-            ? (storage.nodeMap.get(nodeId)?.state?.[stateKey] as S[SK]) ?? null
-            : null
-    }) 
+        return (storage.nodeMap.get(nodeId)?.state?.[stateKey])
+    }) as S[SK]
     const mutation = useMutation(({storage}, 
         value: S[SK],
     ) => {
-        nodeId 
-            ? storage.get('nodeMap').get(nodeId)?.get('state').set(stateKey, value)
-            : console.log("The useMutation inside of useNodeState was passed a null nodeId. Make sure to check for the existence of the nodeState before calling the mutation.")
+        storage.get('nodeMap').get(nodeId)?.get('state').set(stateKey, value)
     }, [nodeId, stateKey])
     return [nodeState, mutation] as const
 }
