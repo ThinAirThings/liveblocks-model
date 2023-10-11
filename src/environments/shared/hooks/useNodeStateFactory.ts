@@ -13,11 +13,29 @@ export const useNodeStateFactory = <
     SK extends (keyof S)&string,
 >(
     nodeId: string,
-    _nodeType: T,
+    nodeType: T,
     stateKey: SK, 
 ) => {
+    // Find node from treeclimb
+    const targetNodeId = useStorage(({nodeMap}) => {
+        const climbForTargetNode = (nodeId: string): string | null => {
+            const node = nodeMap.get(nodeId)
+            if (!node) return null
+            if (node.type === nodeType) {
+                return nodeId
+            }
+            if (node.parentNodeId === null) {
+                return null
+            }
+            return climbForTargetNode(node.parentNodeId)
+        }
+        return climbForTargetNode(nodeId)
+    })
+    if (!targetNodeId) {
+        throw new Error(`Node of type ${nodeType} not found in tree climb`)
+    }
     const nodeState = useStorage((storage) => {
-        return (storage.nodeMap.get(nodeId)?.state?.[stateKey])
+        return (storage.nodeMap.get(targetNodeId)?.state?.[stateKey])
     }) as S[SK]
     const mutation = useMutation(({storage}, 
         value: S[SK],

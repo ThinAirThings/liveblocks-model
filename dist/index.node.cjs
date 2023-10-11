@@ -83,9 +83,27 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
 };
 
 // src/environments/shared/hooks/useNodeStateFactory.ts
-var useNodeStateFactory = (useStorage, useMutation) => (nodeId, _nodeType, stateKey) => {
+var useNodeStateFactory = (useStorage, useMutation) => (nodeId, nodeType, stateKey) => {
+  const targetNodeId = useStorage(({ nodeMap }) => {
+    const climbForTargetNode = (nodeId2) => {
+      const node = nodeMap.get(nodeId2);
+      if (!node)
+        return null;
+      if (node.type === nodeType) {
+        return nodeId2;
+      }
+      if (node.parentNodeId === null) {
+        return null;
+      }
+      return climbForTargetNode(node.parentNodeId);
+    };
+    return climbForTargetNode(nodeId);
+  });
+  if (!targetNodeId) {
+    throw new Error(`Node of type ${nodeType} not found in tree climb`);
+  }
   const nodeState = useStorage((storage) => {
-    return storage.nodeMap.get(nodeId)?.state?.[stateKey];
+    return storage.nodeMap.get(targetNodeId)?.state?.[stateKey];
   });
   const mutation = useMutation(({ storage }, value) => {
     storage.get("nodeMap").get(nodeId)?.get("state").set(stateKey, value);
