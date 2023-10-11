@@ -48,6 +48,17 @@ export type AirNodeUnion<Index extends AirNodeIndex<any>> = {
     >
 }[keyof Index&string]
 
+export type StatelessAirNodeUnion<Index extends AirNodeIndex<any>> = {
+    [T in (keyof Index)&string]: StatelessAirNode<
+        AirNode<
+            T,
+            Index[T]['state'],
+            Index[T]['stateDisplayKey'],
+            Index[T]['nodeMeta']
+        >
+    >
+}[keyof Index&string]
+
 export type LiveblocksStorageModel<
     LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>,
 > = {

@@ -31,6 +31,9 @@ type AirNodeIndex<M extends LsonObject> = {
 type AirNodeUnion<Index extends AirNodeIndex<any>> = {
     [T in (keyof Index) & string]: AirNode<T, Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>;
 }[keyof Index & string];
+type StatelessAirNodeUnion<Index extends AirNodeIndex<any>> = {
+    [T in (keyof Index) & string]: StatelessAirNode<AirNode<T, Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>>;
+}[keyof Index & string];
 type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any>>> = {
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
@@ -57,4 +60,4 @@ declare const createNodeEntry: <S extends LsonObject, N extends keyof S & string
     stateDisplayKey: N;
 };
 
-export { AirNodeIndex as A, LiveblocksStorageModel as L, StatelessAirNode as S, TypedNodeIndex as T, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, createNodeEntry as d };
+export { AirNodeIndex as A, LiveblocksStorageModel as L, StatelessAirNode as S, TypedNodeIndex as T, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, StatelessAirNodeUnion as d, createNodeEntry as e };
