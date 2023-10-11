@@ -1,8 +1,7 @@
 import {
   createNodeEntry,
-  createNodeIndexFactory,
   customLiveHooksFactory
-} from "./chunk-FAD7W2MG.js";
+} from "./chunk-K7MTVFKF.js";
 
 // src/environments/node/liveblocksNodeConfig.tsx
 import { createClient } from "@liveblocks/client";
@@ -59,6 +58,5 @@ var liveblocksNodeConfig = (NodeIndex, createClientProps, initialLiveblocksPrese
 };
 export {
   createNodeEntry,
-  createNodeIndexFactory,
   liveblocksNodeConfig
 };

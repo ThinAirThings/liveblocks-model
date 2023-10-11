@@ -1,27 +1,30 @@
 import { LiveList, LiveObject, Lson } from '@liveblocks/client'
-import { AirNodeIndex, AirNodeUnion } from '../../../model/data-model.js'
+import { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, StatelessAirNode, TypedNodeIndex } from '../../../model/data-model.js'
 import { MutationHook } from '../hook-types.js'
 import {v4 as uuidv4} from 'uuid'
 
 export const useCreateNodeFactory = <
     Index extends AirNodeIndex<any>,
     U extends AirNodeUnion<Index>,
+    TypedIndex extends TypedNodeIndex<Index, U>,
 >(
-    NodeIndex: Index,
+    NodeIndex: TypedIndex,
     useMutation: MutationHook<Index, U>,
 ) => <
     T extends U['type'],
-    S extends Partial<(U & {type: T})['state']>,
+    S extends (U & {type: T})['state']
 >(): (
     parentNodeId: string | null,
     type: T,
-    state?: S
-)=>string => {
+    state?: Partial<S>
+)=> StatelessAirNode<
+    AirNode<T, S, any>
+> => {
     return useMutation((
         {storage},
         parentNodeId: string | null,
         type: T,
-        state?: S
+        state?: Partial<S>
     ) => {
         const nodeId = uuidv4()
         const node = new LiveObject({
@@ -37,10 +40,12 @@ export const useCreateNodeFactory = <
             state: new LiveObject({
                 ...NodeIndex[type].state,
                 ...state,
-            }),
-        }) as any
-
+            }as S) ,
+        }) satisfies LiveAirNode<AirNode<T, S, any>>
         storage.get('nodeMap').set(nodeId, node as any)
-        return nodeId
+        return {
+            ...node.toImmutable(),
+            state: undefined
+        }
     }, [])
 }

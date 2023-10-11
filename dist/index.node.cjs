@@ -31,7 +31,6 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var index_node_exports = {};
 __export(index_node_exports, {
   createNodeEntry: () => createNodeEntry,
-  createNodeIndexFactory: () => createNodeIndexFactory,
   liveblocksNodeConfig: () => liveblocksNodeConfig
 });
 module.exports = __toCommonJS(index_node_exports);
@@ -46,7 +45,6 @@ var createNodeEntry = ({
   state,
   stateDisplayKey
 });
-var createNodeIndexFactory = (index) => Object.entries(index.map(([type, entry]) => [type, entry]));
 
 // src/environments/node/liveblocksNodeConfig.tsx
 var import_client2 = require("@liveblocks/client");
@@ -78,7 +76,10 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
       })
     });
     storage.get("nodeMap").set(nodeId, node);
-    return nodeId;
+    return {
+      ...node.toImmutable(),
+      state: void 0
+    };
   }, []);
 };
 
@@ -152,6 +153,30 @@ var useNodeIdFromTreeClimbFactory = (useStorage) => (nodeId, nodeType) => {
   return targetNodeId;
 };
 
+// src/environments/shared/hooks/useStatelessNodeMapFactory.ts
+var import_lodash2 = __toESM(require("lodash.isequal"), 1);
+var useStatelessNodeMapFactory = (useStorage) => (nodeFilter) => {
+  return useStorage((root) => {
+    return nodeFilter ? new Map(
+      [...root.nodeMap].filter(nodeFilter).map(([nodeId, node]) => [nodeId, {
+        nodeId: node.nodeId,
+        parentNodeId: node.parentNodeId,
+        type: node.type,
+        nodeMeta: node.nodeMeta,
+        stateDisplayKey: node.stateDisplayKey
+      }])
+    ) : new Map(
+      [...root.nodeMap].map(([nodeId, node]) => [nodeId, {
+        nodeId: node.nodeId,
+        parentNodeId: node.parentNodeId,
+        type: node.type,
+        nodeMeta: node.nodeMeta,
+        stateDisplayKey: node.stateDisplayKey
+      }])
+    );
+  }, (a, b) => (0, import_lodash2.default)(a, b));
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   const useNodeIdFromTreeClimb = useNodeIdFromTreeClimbFactory(useStorage);
@@ -160,6 +185,9 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     // Nodes -- Mutation
     useNodeMap: useNodeMapFactory(
+      useStorage
+    ),
+    useStatelessNodeMap: useStatelessNodeMapFactory(
       useStorage
     ),
     useNodeIdFromTreeClimb,
@@ -232,6 +260,5 @@ var liveblocksNodeConfig = (NodeIndex, createClientProps, initialLiveblocksPrese
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   createNodeEntry,
-  createNodeIndexFactory,
   liveblocksNodeConfig
 });

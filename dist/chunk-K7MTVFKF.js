@@ -8,7 +8,6 @@ var createNodeEntry = ({
   state,
   stateDisplayKey
 });
-var createNodeIndexFactory = (index) => Object.entries(index.map(([type, entry]) => [type, entry]));
 
 // src/environments/shared/hooks/useCreateNodeFactory.ts
 import { LiveList, LiveObject } from "@liveblocks/client";
@@ -32,7 +31,10 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
       })
     });
     storage.get("nodeMap").set(nodeId, node);
-    return nodeId;
+    return {
+      ...node.toImmutable(),
+      state: void 0
+    };
   }, []);
 };
 
@@ -106,6 +108,30 @@ var useNodeIdFromTreeClimbFactory = (useStorage) => (nodeId, nodeType) => {
   return targetNodeId;
 };
 
+// src/environments/shared/hooks/useStatelessNodeMapFactory.ts
+import isEqual2 from "lodash.isequal";
+var useStatelessNodeMapFactory = (useStorage) => (nodeFilter) => {
+  return useStorage((root) => {
+    return nodeFilter ? new Map(
+      [...root.nodeMap].filter(nodeFilter).map(([nodeId, node]) => [nodeId, {
+        nodeId: node.nodeId,
+        parentNodeId: node.parentNodeId,
+        type: node.type,
+        nodeMeta: node.nodeMeta,
+        stateDisplayKey: node.stateDisplayKey
+      }])
+    ) : new Map(
+      [...root.nodeMap].map(([nodeId, node]) => [nodeId, {
+        nodeId: node.nodeId,
+        parentNodeId: node.parentNodeId,
+        type: node.type,
+        nodeMeta: node.nodeMeta,
+        stateDisplayKey: node.stateDisplayKey
+      }])
+    );
+  }, (a, b) => isEqual2(a, b));
+};
+
 // src/environments/shared/customLiveHooksFactory.ts
 var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
   const useNodeIdFromTreeClimb = useNodeIdFromTreeClimbFactory(useStorage);
@@ -114,6 +140,9 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
     // Nodes -- Mutation
     useNodeMap: useNodeMapFactory(
+      useStorage
+    ),
+    useStatelessNodeMap: useStatelessNodeMapFactory(
       useStorage
     ),
     useNodeIdFromTreeClimb,
@@ -138,6 +167,5 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
 
 export {
   createNodeEntry,
-  createNodeIndexFactory,
   customLiveHooksFactory
 };

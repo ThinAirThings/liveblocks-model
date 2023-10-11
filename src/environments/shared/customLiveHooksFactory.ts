@@ -6,6 +6,7 @@ import { useDeleteNodeFactory } from "./hooks/useDeleteNodeFactory.js"
 import { useNodeMapFactory } from "./hooks/useNodeMapFactory.js"
 import { useNodeNameStateFactory } from "./hooks/useNodeNameStateFactory.js"
 import { useNodeIdFromTreeClimbFactory } from "./hooks/useNodeIdFromTreeClimbFactory.js"
+import { useStatelessNodeMapFactory } from "./hooks/useStatelessNodeMapFactory.js"
 
 
 export const customLiveHooksFactory = <
@@ -22,6 +23,9 @@ export const customLiveHooksFactory = <
         // useStorageGetMeta: useStorageGetMetaFactory(useStorage),
         // Nodes -- Mutation
         useNodeMap: useNodeMapFactory(
+            useStorage
+        ),
+        useStatelessNodeMap: useStatelessNodeMapFactory(
             useStorage
         ),
         useNodeIdFromTreeClimb,
