@@ -97,12 +97,13 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
         readonly stateDisplayKey: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, infer S_1 extends JsonObject, any, {}> ? keyof S_1 & string : never, undefined>> | (undefined extends (U extends AirNode<any, infer S_1 extends JsonObject, any, {}> ? keyof S_1 & string : never) ? (U extends AirNode<any, infer S_1 extends JsonObject, any, {}> ? keyof S_1 & string : never) & undefined : never);
         readonly childrenNodeIds: readonly string[];
     }>;
-    useCreateNode: <T_7 extends U["type"], S_2 extends Partial<(U & {
-        type: T_7;
-    })["state"]>>() => (parentNodeId: string | null, type: T_7, state?: S_2 | undefined) => string;
-    useNodeState: <T_8 extends U["type"], S_3 extends (U & {
+    useNodeIdFromTreeClimb: <T_7 extends U["type"]>(nodeId: string, nodeType: T_7) => string;
+    useCreateNode: <T_8 extends U["type"], S_2 extends Partial<(U & {
         type: T_8;
-    })["state"], SK extends keyof S_3 & string>(nodeId: string, nodeType: T_8, stateKey: SK) => readonly [S_3[SK], (value: S_3[SK]) => void];
+    })["state"]>>() => (parentNodeId: string | null, type: T_8, state?: S_2 | undefined) => string;
+    useNodeState: <T_9 extends U["type"], S_3 extends (U & {
+        type: T_9;
+    })["state"], SK extends keyof S_3 & string>(nodeId: string, nodeType: T_9, stateKey: SK) => readonly [S_3[SK], (value: S_3[SK]) => void];
     useNodeNameState: (nodeId: string) => readonly [string, (value: string) => void];
     useDeleteNode: () => (nodeId: string) => void;
 };
