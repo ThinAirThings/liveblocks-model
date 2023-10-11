@@ -60,4 +60,4 @@ declare const createNodeEntry: <S extends LsonObject, N extends keyof S & string
     stateDisplayKey: N;
 };
 
-export { AirNodeIndex as A, LiveblocksStorageModel as L, StatelessAirNode as S, TypedNodeIndex as T, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, StatelessAirNodeUnion as d, createNodeEntry as e };
+export { AirNodeIndex as A, LiveblocksStorageModel as L, StatelessAirNodeUnion as S, TypedNodeIndex as T, UnionToIntersection as U, AirNodeUnion as a, LiveAirNode as b, AirNode as c, StatelessAirNode as d, createNodeEntry as e };

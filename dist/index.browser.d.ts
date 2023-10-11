@@ -1,5 +1,5 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode, S as StatelessAirNode } from './data-model-537d70d2.js';
-export { d as StatelessAirNodeUnion, U as UnionToIntersection, e as createNodeEntry } from './data-model-537d70d2.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode, S as StatelessAirNodeUnion, d as StatelessAirNode } from './data-model-5ec1838a.js';
+export { U as UnionToIntersection, e as createNodeEntry } from './data-model-5ec1838a.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
@@ -96,13 +96,7 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
         readonly state: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, infer S extends _liveblocks_core.LsonObject, any, {}> ? _liveblocks_core.LiveObject<S> : never, undefined>> | (undefined extends (U extends AirNode<any, infer S extends _liveblocks_core.LsonObject, any, {}> ? _liveblocks_core.LiveObject<S> : never) ? (U extends AirNode<any, infer S extends _liveblocks_core.LsonObject, any, {}> ? _liveblocks_core.LiveObject<S> : never) & undefined : never);
         readonly stateDisplayKey: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, any, infer SK extends string, {}> ? SK : never, undefined>> | (undefined extends (U extends AirNode<any, any, infer SK extends string, {}> ? SK : never) ? (U extends AirNode<any, any, infer SK extends string, {}> ? SK : never) & undefined : never);
     }>;
-    useStatelessNodeMap: (nodeFilter?: ((value: [string, U], index: number, array: [string, U][]) => unknown) | undefined) => Map<string, {
-        nodeId: string;
-        parentNodeId: string | null;
-        type: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<infer T_6 extends string, any, any, {}> ? T_6 : never, undefined>> | (undefined extends (U extends AirNode<infer T_6 extends string, any, any, {}> ? T_6 : never) ? (U extends AirNode<infer T_6 extends string, any, any, {}> ? T_6 : never) & undefined : never);
-        nodeMeta: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, any, infer M extends string, {}> ? M : never, undefined>> | (undefined extends (U extends AirNode<any, any, infer M extends string, {}> ? M : never) ? (U extends AirNode<any, any, infer M extends string, {}> ? M : never) & undefined : never);
-        stateDisplayKey: _liveblocks_core.ToImmutable<Exclude<U extends AirNode<any, any, infer SK extends string, {}> ? SK : never, undefined>> | (undefined extends (U extends AirNode<any, any, infer SK extends string, {}> ? SK : never) ? (U extends AirNode<any, any, infer SK extends string, {}> ? SK : never) & undefined : never);
-    }>;
+    useStatelessNodeMap: (nodeFilter?: ((value: [string, U], index: number, array: [string, U][]) => unknown) | undefined) => Map<string, StatelessAirNodeUnion<Index>>;
     useNodeIdFromTreeClimb: <T_7 extends U["type"]>(nodeId: string, nodeType: T_7) => string;
     useCreateNode: <T_8 extends U["type"], S_1 extends (U & {
         type: T_8;
@@ -114,4 +108,4 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useDeleteNode: () => (nodeId: string) => void;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNode, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNode, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
