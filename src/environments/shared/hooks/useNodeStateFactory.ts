@@ -17,12 +17,12 @@ export const useNodeStateFactory = <
     stateKey: SK, 
 ) => {
     const nodeState = useStorage((storage) => {
-        return ((storage.nodeMap.get(nodeId)!).state)[stateKey]
-    }) as S[SK]
+        return (storage.nodeMap.get(nodeId)?.state?.[stateKey] as S[SK]) ?? null
+    }) 
     const mutation = useMutation(({storage}, 
         value: S[SK],
     ) => {
-        (storage.get('nodeMap').get(nodeId)!).get('state').set(stateKey, value)
+        storage.get('nodeMap').get(nodeId)?.get('state').set(stateKey, value)
     }, [nodeId, stateKey])
     return [nodeState, mutation] as const
 }
