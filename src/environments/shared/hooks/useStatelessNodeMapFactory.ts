@@ -18,8 +18,9 @@ export const useStatelessNodeMapFactory = <
                 .filter(nodeFilter as any)
                 .map( ([nodeId, node]) => [nodeId, {
                     nodeId: node.nodeId,
-                    parentNodeId: node.parentNodeId,
                     type: node.type,
+                    parentNodeId: node.parentNodeId,
+                    parentType: node.parentType, 
                     nodeMeta: node.nodeMeta,
                     stateDisplayKey: node.stateDisplayKey,
                 }])
@@ -27,8 +28,9 @@ export const useStatelessNodeMapFactory = <
             : new Map([...root.nodeMap]
                 .map( ([nodeId, node]) => [nodeId, {
                     nodeId: node.nodeId,
-                    parentNodeId: node.parentNodeId,
                     type: node.type,
+                    parentNodeId: node.parentNodeId,
+                    parentType: node.parentType, 
                     nodeMeta: node.nodeMeta,
                     stateDisplayKey: node.stateDisplayKey,
                 }])

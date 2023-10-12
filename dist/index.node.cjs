@@ -37,10 +37,12 @@ module.exports = __toCommonJS(index_node_exports);
 
 // src/model/data-model.ts
 var createNodeEntry = ({
+  parentType,
   nodeMeta,
   state,
   stateDisplayKey
 }) => ({
+  parentType,
   nodeMeta,
   state,
   stateDisplayKey
@@ -62,8 +64,9 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
     const nodeId = (0, import_uuid.v4)();
     const node = new import_client.LiveObject({
       nodeId,
-      parentNodeId,
       type,
+      parentNodeId,
+      parentType: NodeIndex[type].parentType,
       nodeMeta: {
         ...NodeIndex[type].nodeMeta,
         createdAt: (/* @__PURE__ */ new Date()).toISOString()
@@ -159,16 +162,18 @@ var useStatelessNodeMapFactory = (useStorage) => (nodeFilter) => {
     return nodeFilter ? new Map(
       [...root.nodeMap].filter(nodeFilter).map(([nodeId, node]) => [nodeId, {
         nodeId: node.nodeId,
-        parentNodeId: node.parentNodeId,
         type: node.type,
+        parentNodeId: node.parentNodeId,
+        parentType: node.parentType,
         nodeMeta: node.nodeMeta,
         stateDisplayKey: node.stateDisplayKey
       }])
     ) : new Map(
       [...root.nodeMap].map(([nodeId, node]) => [nodeId, {
         nodeId: node.nodeId,
-        parentNodeId: node.parentNodeId,
         type: node.type,
+        parentNodeId: node.parentNodeId,
+        parentType: node.parentType,
         nodeMeta: node.nodeMeta,
         stateDisplayKey: node.stateDisplayKey
       }])

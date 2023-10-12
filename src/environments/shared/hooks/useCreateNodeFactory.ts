@@ -18,7 +18,7 @@ export const useCreateNodeFactory = <
     type: T,
     state?: Partial<S>
 )=> StatelessAirNode<
-    AirNode<T, S, any>
+    AirNode<T, any, S, any>
 > => {
     return useMutation((
         {storage},
@@ -29,8 +29,9 @@ export const useCreateNodeFactory = <
         const nodeId = uuidv4()
         const node = new LiveObject({
             nodeId,
-            parentNodeId,
             type,
+            parentNodeId,
+            parentType: NodeIndex[type].parentType, 
             nodeMeta: {
                 ...NodeIndex[type].nodeMeta,
                 createdAt: new Date().toISOString()
@@ -41,7 +42,7 @@ export const useCreateNodeFactory = <
                 ...NodeIndex[type].state,
                 ...state,
             }as S) ,
-        }) satisfies LiveAirNode<AirNode<T, S, any>>
+        }) satisfies LiveAirNode<AirNode<T, any, S, any>>
         storage.get('nodeMap').set(nodeId, node as any)
         return {
             ...node.toImmutable(),
