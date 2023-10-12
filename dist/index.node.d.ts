@@ -1,5 +1,5 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode, S as StatelessAirNodeUnion, d as StatelessAirNode } from './data-model-846651b6.js';
-export { T as TypedNodeIndex, U as UnionToIntersection, e as createNodeEntry } from './data-model-846651b6.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, c as AirNode, S as StatelessAirNodeUnion } from './data-model-846651b6.js';
+export { d as StatelessAirNode, T as TypedNodeIndex, U as UnionToIntersection, e as createNodeEntry } from './data-model-846651b6.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { ReactNode } from 'react';
@@ -27,7 +27,9 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     useNodeIdFromTreeClimb: <T_1 extends U["type"]>(nodeId: string, nodeType: T_1) => string;
     useCreateNode: <T_2 extends U["type"], S_1 extends (U & {
         type: T_2;
-    })["state"]>() => (parentNodeId: string | null, type: T_2, state?: Partial<S_1> | undefined) => StatelessAirNode<AirNode<T_2, any, S_1, any>>;
+    })["state"]>() => (parentNodeId: string | null, type: T_2, state?: Partial<S_1> | undefined) => StatelessAirNodeUnion<Index> & {
+        type: T_2;
+    };
     useNodeState: <T_3 extends StatelessAirNodeUnion<Index>, S_2 extends (U & {
         type: T_3["type"];
     })["state"], SK_1 extends keyof S_2 & string>(node: T_3, stateKey: SK_1) => readonly [S_2[SK_1], (value: S_2[SK_1]) => void];
@@ -209,4 +211,4 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     };
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNode, StatelessAirNodeUnion, liveblocksNodeConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, liveblocksNodeConfig };

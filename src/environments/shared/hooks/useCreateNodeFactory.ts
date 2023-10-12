@@ -1,5 +1,5 @@
 import { LiveList, LiveObject, Lson } from '@liveblocks/client'
-import { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, StatelessAirNode, TypedNodeIndex } from '../../../model/data-model.js'
+import { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, StatelessAirNode, StatelessAirNodeUnion, TypedNodeIndex } from '../../../model/data-model.js'
 import { MutationHook } from '../hook-types.js'
 import {v4 as uuidv4} from 'uuid'
 
@@ -17,9 +17,7 @@ export const useCreateNodeFactory = <
     parentNodeId: string | null,
     type: T,
     state?: Partial<S>
-)=> StatelessAirNode<
-    AirNode<T, any, S, any>
-> => {
+)=> (StatelessAirNodeUnion<Index> & {type: T}) => {
     return useMutation((
         {storage},
         parentNodeId: string | null,
@@ -47,6 +45,6 @@ export const useCreateNodeFactory = <
         return {
             ...node.toImmutable(),
             state: undefined
-        }
+        } as (StatelessAirNodeUnion<Index> & {type: T})
     }, [])
 }

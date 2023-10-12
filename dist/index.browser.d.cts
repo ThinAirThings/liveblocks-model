@@ -1,5 +1,5 @@
-import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode, S as StatelessAirNodeUnion, d as StatelessAirNode } from './data-model-846651b6.js';
-export { U as UnionToIntersection, e as createNodeEntry } from './data-model-846651b6.js';
+import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode, S as StatelessAirNodeUnion } from './data-model-846651b6.js';
+export { d as StatelessAirNode, U as UnionToIntersection, e as createNodeEntry } from './data-model-846651b6.js';
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
@@ -101,7 +101,9 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useNodeIdFromTreeClimb: <T_7 extends U["type"]>(nodeId: string, nodeType: T_7) => string;
     useCreateNode: <T_8 extends U["type"], S_1 extends (U & {
         type: T_8;
-    })["state"]>() => (parentNodeId: string | null, type: T_8, state?: Partial<S_1> | undefined) => StatelessAirNode<AirNode<T_8, any, S_1, any>>;
+    })["state"]>() => (parentNodeId: string | null, type: T_8, state?: Partial<S_1> | undefined) => StatelessAirNodeUnion<Index> & {
+        type: T_8;
+    };
     useNodeState: <T_9 extends StatelessAirNodeUnion<Index>, S_2 extends (U & {
         type: T_9["type"];
     })["state"], SK_1 extends keyof S_2 & string>(node: T_9, stateKey: SK_1) => readonly [S_2[SK_1], (value: S_2[SK_1]) => void];
@@ -109,4 +111,4 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useDeleteNode: () => (nodeId: string) => void;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNode, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
