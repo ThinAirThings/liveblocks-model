@@ -36,7 +36,7 @@ type AirNodeUnion<Index extends AirNodeIndex<any>> = {
 type StatelessAirNodeUnion<Index extends AirNodeIndex<any>> = {
     [T in (keyof Index) & string]: StatelessAirNode<AirNode<T, Index[T]['parentType'], Index[T]['state'], Index[T]['stateDisplayKey'], Index[T]['nodeMeta']>>;
 }[keyof Index & string];
-type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any, any, any>>> = {
+type LiveblocksStorageModel<LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any, any>>> = {
     nodeMap: LiveMap<string, LiveAirNodeUnion>;
 };
 type TypedNodeIndex<Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>> = {

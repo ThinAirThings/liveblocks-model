@@ -65,7 +65,7 @@ export type StatelessAirNodeUnion<Index extends AirNodeIndex<any>> = {
 }[keyof Index&string]
 
 export type LiveblocksStorageModel<
-    LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any, any, any>>,
+    LiveAirNodeUnion extends LiveAirNode<AirNode<any, any, any, any>>,
 > = {
     nodeMap: LiveMap<string, LiveAirNodeUnion>
 }
