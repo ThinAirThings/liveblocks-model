@@ -84,14 +84,13 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
 };
 
 // src/environments/shared/hooks/useNodeStateFactory.ts
-var useNodeStateFactory = (useStorage, useMutation, useNodeIdFromTreeClimb) => (nodeId, nodeType, stateKey) => {
-  const targetNodeId = useNodeIdFromTreeClimb(nodeId, nodeType);
+var useNodeStateFactory = (useStorage, useMutation) => (node, stateKey) => {
   const nodeState = useStorage((storage) => {
-    return storage.nodeMap.get(targetNodeId)?.state?.[stateKey];
+    return storage.nodeMap.get(node.nodeId)?.state?.[stateKey];
   });
   const mutation = useMutation(({ storage }, value) => {
-    storage.get("nodeMap").get(nodeId)?.get("state").set(stateKey, value);
-  }, [nodeId, stateKey]);
+    storage.get("nodeMap").get(node.nodeId)?.get("state").set(stateKey, value);
+  }, [node, stateKey]);
   return [nodeState, mutation];
 };
 
@@ -197,8 +196,7 @@ var customLiveHooksFactory = (NodeIndex, useStorage, useMutation) => {
     ),
     useNodeState: useNodeStateFactory(
       useStorage,
-      useMutation,
-      useNodeIdFromTreeClimb
+      useMutation
     ),
     useNodeNameState: useNodeNameStateFactory(
       useStorage,

@@ -36,7 +36,6 @@ export const customLiveHooksFactory = <
         useNodeState: useNodeStateFactory(
             useStorage,
             useMutation,
-            useNodeIdFromTreeClimb,
         ),
         useNodeNameState: useNodeNameStateFactory(
             useStorage,

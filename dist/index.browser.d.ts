@@ -101,9 +101,9 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useCreateNode: <T_8 extends U["type"], S_1 extends (U & {
         type: T_8;
     })["state"]>() => (parentNodeId: string | null, type: T_8, state?: Partial<S_1> | undefined) => StatelessAirNode<AirNode<T_8, S_1, any>>;
-    useNodeState: <T_9 extends U["type"], S_2 extends (U & {
-        type: T_9;
-    })["state"], SK_1 extends keyof S_2 & string>(nodeId: string, nodeType: T_9, stateKey: SK_1) => readonly [S_2[SK_1], (value: S_2[SK_1]) => void];
+    useNodeState: <T_9 extends StatelessAirNodeUnion<Index>, S_2 extends (U & {
+        type: T_9["type"];
+    })["state"], SK_1 extends keyof S_2 & string>(node: T_9, stateKey: SK_1) => readonly [S_2[SK_1], (value: S_2[SK_1]) => void];
     useNodeNameState: (nodeId: string) => readonly [string, (value: string) => void];
     useDeleteNode: () => (nodeId: string) => void;
 };

@@ -1,6 +1,5 @@
-import { AirNodeIndex, AirNodeUnion, LiveAirNode } from '../../../model/data-model.js'
+import { AirNodeIndex, AirNodeUnion,  StatelessAirNodeUnion } from '../../../model/data-model.js'
 import { MutationHook, StorageHook } from '../hook-types.js'
-import { useNodeIdFromTreeClimbFactory } from './useNodeIdFromTreeClimbFactory.js'
 
 export const useNodeStateFactory = <
     Index extends AirNodeIndex<any>,
@@ -8,25 +7,22 @@ export const useNodeStateFactory = <
 >(
     useStorage: StorageHook<Index, U>,
     useMutation: MutationHook<Index, U>,
-    useNodeIdFromTreeClimb: ReturnType<typeof useNodeIdFromTreeClimbFactory<Index, U>>,
 ) => <
-    T extends U['type'],
-    S extends (U & {type: T})['state'],
-    SK extends (keyof S)&string,
+    T extends StatelessAirNodeUnion<Index>,
+    S extends (U&{type: T['type']})['state'],
+    SK extends keyof S & string,
 >(
-    nodeId: string,
-    nodeType: T,
+    node: T,
     stateKey: SK, 
 ) => {
     // Find node from treeclimb
-    const targetNodeId = useNodeIdFromTreeClimb(nodeId, nodeType)
     const nodeState = useStorage((storage) => {
-        return (storage.nodeMap.get(targetNodeId)?.state?.[stateKey])
+        return (storage.nodeMap.get(node.nodeId)?.state?.[stateKey])
     }) as S[SK]
     const mutation = useMutation(({storage}, 
         value: S[SK],
     ) => {
-        storage.get('nodeMap').get(nodeId)?.get('state').set(stateKey, value)
-    }, [nodeId, stateKey])
+        storage.get('nodeMap').get(node.nodeId)?.get('state').set(stateKey, value)
+    }, [node, stateKey])
     return [nodeState, mutation] as const
 }
