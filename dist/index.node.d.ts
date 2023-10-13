@@ -30,9 +30,9 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     })["state"]>() => (parentNodeId: string | null, type: T_2, state?: Partial<S_1> | undefined) => StatelessAirNodeUnion<Index> & {
         type: T_2;
     };
-    useNodeState: <T_3 extends StatelessAirNodeUnion<Index>, S_2 extends (U & {
-        type: T_3["type"];
-    })["state"], SK_1 extends keyof S_2 & string>(node: T_3, stateKey: SK_1) => readonly [S_2[SK_1], (value: S_2[SK_1]) => void];
+    useNodeState: <T_3 extends StatelessAirNodeUnion<Index> | null, S_2 extends (U & {
+        type: Exclude<T_3, null>["type"];
+    })["state"], SK_1 extends keyof S_2 & string>(node: T_3, stateKey: SK_1) => readonly [T_3 extends null ? S_2[SK_1] | null : S_2[SK_1], (value: S_2[SK_1]) => void, boolean];
     useNodeNameState: (nodeId: string) => readonly [string, (value: string) => void];
     useDeleteNode: () => (nodeId: string) => void;
     RoomContext: react.Context<_liveblocks_core.Room<LiveblocksPresence, LiveblocksStorage, _liveblocks_core.BaseUserMeta, never> | null>;

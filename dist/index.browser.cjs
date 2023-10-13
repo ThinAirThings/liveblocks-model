@@ -104,12 +104,12 @@ var useCreateNodeFactory = (NodeIndex, useMutation) => () => {
 // src/environments/shared/hooks/useNodeStateFactory.ts
 var useNodeStateFactory = (useStorage, useMutation) => (node, stateKey) => {
   const nodeState = useStorage((storage) => {
-    return storage.nodeMap.get(node.nodeId)?.state?.[stateKey];
+    return storage.nodeMap.get(node?.nodeId ?? "")?.state?.[stateKey] ?? null;
   });
   const mutation = useMutation(({ storage }, value) => {
-    storage.get("nodeMap").get(node.nodeId)?.get("state").set(stateKey, value);
+    storage.get("nodeMap").get(node?.nodeId ?? "")?.get("state").set(stateKey, value);
   }, [node, stateKey]);
-  return [nodeState, mutation];
+  return [nodeState, mutation, node ? true : false];
 };
 
 // src/environments/shared/hooks/useDeleteNodeFactory.ts
