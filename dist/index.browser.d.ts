@@ -137,7 +137,9 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     metadata: JsonObject;
     type: 'root';
     nodeId: null;
-    childNodes: Set<ILiveTreeNode<Index>>;
+    childNodes: Set<ILiveTreeNode<Index> & {
+        parentType: null;
+    }>;
 };
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
 type ILiveTreeNode<Index extends Record<string, IndexNode>> = {
