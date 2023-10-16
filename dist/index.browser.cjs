@@ -372,7 +372,7 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
           createClientProps,
           liveblocksPresence
         );
-        setLiveTreeNode(LiveTreeNode2);
+        console.log(LiveTreeNode2.root);
       })();
     }, []);
     return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNode && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNode, children }) });

@@ -33,7 +33,8 @@ export const LiveTreeBrowserConfig = <
                     createClientProps,
                     liveblocksPresence
                 )
-                setLiveTreeNode(LiveTreeNode)
+                console.log(LiveTreeNode.root)
+                // setLiveTreeNode(LiveTreeNode)
             })()
         }, [])
         return (
