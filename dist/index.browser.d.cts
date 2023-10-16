@@ -137,16 +137,16 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     metadata: JsonObject;
     type: 'root';
     nodeId: null;
-    childNodes: Set<ILiveTreeNode<Index> & {
+    childNodes: Set<LiveTreeNode<Index> & {
         parentType: null;
     }>;
 };
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
-type ILiveTreeNode<Index extends Record<string, IndexNode>> = {
+type LiveTreeNode<Index extends Record<string, IndexNode>> = {
     [Type in keyof Index]: {
-        parentNode: ILiveTreeNode<Index> | null;
+        parentNode: LiveTreeNode<Index> | null;
         parentType: Index[Type]['parentType'];
-        childNodes: Set<ILiveTreeNode<Index>>;
+        childNodes: Set<LiveTreeNode<Index>>;
         liveDataNode: LiveDataNode;
         nodeId: string | null;
         type: Type;
@@ -221,4 +221,4 @@ declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, L
     useLiveTreeNodeRoot: () => RootTreeNode<Index>;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, ILiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, StorageHook, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveTreeNode, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, StorageHook, TypedNodeIndex, liveblocksBrowserConfig };

@@ -32,7 +32,7 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
     type: 'root'
     nodeId: null
     childNodes: Set<
-        ILiveTreeNode<Index> & {parentType: null}
+        LiveTreeNode<Index> & {parentType: null}
     >
 }
 export type StorageHook = ReturnType<
@@ -42,13 +42,13 @@ export type StorageHook = ReturnType<
     >
 >['suspense']['useStorage']
 
-export type ILiveTreeNode<
+export type LiveTreeNode<
     Index extends Record<string, IndexNode>
 > = {
     [Type in keyof Index]:{
-        parentNode: ILiveTreeNode<Index> | null
+        parentNode: LiveTreeNode<Index> | null
         parentType: Index[Type]['parentType']
-        childNodes: Set<ILiveTreeNode<Index>>
+        childNodes: Set<LiveTreeNode<Index>>
         liveDataNode: LiveDataNode
         nodeId: string | null
         type: Type
@@ -167,4 +167,5 @@ export const ClassOfLiveTreeNodeFactory = <
         V extends Index[T]['state'][K]
     >(key: K) =>
         useStorage(({nodeMap}) => nodeMap.get(this.nodeId!)?.state[key as string]) as V
+    
 }
