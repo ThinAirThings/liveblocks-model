@@ -276,7 +276,7 @@ var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
       this.update = (key, value) => {
         this.state.set(key, value);
       };
-      this.useValue = (key) => useStorage(({ nodeMap }) => nodeMap.get(this.nodeId)?.state[key]);
+      this.useState = (key) => useStorage(({ nodeMap }) => nodeMap.get(this.nodeId)?.state[key]);
       if (liveDataNode) {
         this.liveDataNode = liveDataNode;
       } else {

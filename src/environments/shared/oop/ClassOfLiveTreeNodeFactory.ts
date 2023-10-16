@@ -60,7 +60,7 @@ export type ILiveTreeNode<
             K extends keyof Index[Type]['state'],
             V extends Index[Type]['state'][K]
         >(key: K, value: V) => void
-        useValue: <
+        useState: <
             K extends keyof Index[Type]['state'],
             V extends Index[Type]['state'][K]
         >(key: K) => V
@@ -132,7 +132,6 @@ export const ClassOfLiveTreeNodeFactory = <
         parentNode: LiveTreeNode<IndexKey<Index>> | null,
         liveDataNode?: LiveDataNode
     ){
-
         if (liveDataNode) {
             this.liveDataNode = liveDataNode
         } else {
@@ -163,7 +162,7 @@ export const ClassOfLiveTreeNodeFactory = <
     >(key: K, value: V):void => {
         this.state.set(key as string, value)
     }                  
-    useValue = <
+    useState = <
         K extends keyof Index[T]['state'],
         V extends Index[T]['state'][K]
     >(key: K) =>

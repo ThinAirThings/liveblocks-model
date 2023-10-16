@@ -154,7 +154,7 @@ type ILiveTreeNode<Index extends Record<string, IndexNode>> = {
         stateDisplayKey: Index[Type]['stateDisplayKey'];
         metadata: Index[Type]['metadata'];
         update: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K, value: V) => void;
-        useValue: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K) => V;
+        useState: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K) => V;
     };
 }[keyof Index];
 declare const ClassOfLiveTreeNodeFactory: <Index extends {
@@ -171,7 +171,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
         readonly metadata: JsonObject;
         readonly parentType: string | null;
         update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-        useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
+        useState: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
     } | null, liveDataNode?: LiveDataNode): {
         parentNode: {
             parentNode: any | null;
@@ -184,7 +184,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
             readonly metadata: JsonObject;
             readonly parentType: string | null;
             update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
+            useState: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
         } | null;
         childNodes: Set<{
             parentNode: any | null;
@@ -197,7 +197,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
             readonly metadata: JsonObject;
             readonly parentType: string | null;
             update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
+            useState: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
         }>;
         liveDataNode: LiveDataNode;
         readonly nodeId: string | null;
@@ -207,7 +207,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
         readonly metadata: JsonObject;
         readonly parentType: string | null;
         update: <K_2 extends keyof Index[T]["state"], V_2 extends Index[T]["state"][K_2]>(key: K_2, value: V_2) => void;
-        useValue: <K_3 extends keyof Index[T]["state"], V_3 extends Index[T]["state"][K_3]>(key: K_3) => V_3;
+        useState: <K_3 extends keyof Index[T]["state"], V_3 extends Index[T]["state"][K_3]>(key: K_3) => V_3;
     };
     liveNodeMap: _liveblocks_core.LiveMap<string, LiveDataNode>;
     root: RootTreeNode<Index>;
