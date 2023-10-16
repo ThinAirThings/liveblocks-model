@@ -375,6 +375,9 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
           createClientProps,
           liveblocksPresence
         );
+        LiveTreeNode.root.childNodes.forEach((ChildNode) => {
+          ChildNode.type;
+        });
         setLiveTreeNodeRoot(LiveTreeNode.root);
       })();
     }, []);

@@ -1,5 +1,5 @@
 import { JsonObject, createClient } from "@liveblocks/client";
-import { GenericLiveTreeNode, IndexNode, RootTreeNode } from "./ClassOfLiveTreeNodeFactory.js";
+import {  IndexNode, RootTreeNode } from "./ClassOfLiveTreeNodeFactory.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
 import { initializeLiveTree } from "./initializeLiveTree.js";
 
@@ -34,6 +34,7 @@ export const LiveTreeBrowserConfig = <
                     createClientProps,
                     liveblocksPresence
                 )
+                LiveTreeNode.root.childNodes.forEach(ChildNode => {ChildNode.type})
                 setLiveTreeNodeRoot(LiveTreeNode.root)
             })()
         }, [])

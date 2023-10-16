@@ -137,10 +137,24 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     metadata: JsonObject;
     type: 'root';
     nodeId: null;
-    childNodes: Set<GenericLiveTreeNode<Index>>;
+    childNodes: Set<ILiveTreeNode<Index, IndexKey<Index>> & {
+        parentType: null;
+    }>;
 };
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
-type GenericLiveTreeNode<Index extends Record<string, IndexNode>> = InstanceType<ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>>;
+type ILiveTreeNode<Index extends Record<string, IndexNode>, T extends IndexKey<Index>> = {
+    parentNode: ILiveTreeNode<Index, IndexKey<Index>> | null;
+    childNodes: Set<ILiveTreeNode<Index, IndexKey<Index>>>;
+    liveDataNode: LiveDataNode;
+    nodeId: string | null;
+    type: string;
+    state: LiveObject<Index[T]['state']>;
+    stateDisplayKey: string;
+    metadata: Index[T]['metadata'];
+    parentType: string | null;
+    update: <K extends keyof Index[T]['state'], V extends Index[T]['state'][K]>(key: K, value: V) => void;
+    useValue: <K extends keyof Index[T]['state'], V extends Index[T]['state'][K]>(key: K) => V;
+};
 declare const ClassOfLiveTreeNodeFactory: <Index extends {
     [key: string]: IndexNode;
 }>(NodeIndex: Index, useStorage: StorageHook, liveNodeMap: LiveblocksStorageModel2['nodeMap']) => {
@@ -206,4 +220,4 @@ declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, L
     useLiveTreeNodeRoot: () => RootTreeNode<Index>;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, GenericLiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, ILiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
