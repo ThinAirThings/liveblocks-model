@@ -75,7 +75,7 @@ export const ClassOfLiveTreeNodeFactory = <
     //  |_ _|_ _  __| |_ __ _ _ _  __ ___ 
     //   | || ' \(_-<  _/ _` | ' \/ _/ -_)
     //  |___|_||_/__/\__\__,_|_||_\__\___|
-    public parentNode: LiveTreeNode<IndexKey<Index> & Index[T]['parentType']> | null
+    public parentNode: LiveTreeNode<IndexKey<Index>> | null
     public childNodes: Set<LiveTreeNode<IndexKey<Index>>> = new Set()
 
     //   _    _            ___  _     _        _   
@@ -95,7 +95,7 @@ export const ClassOfLiveTreeNodeFactory = <
     //   \___\___/_||_/__/\__|_|  \_,_\__|\__\___/_|  
     constructor(
         type: T,
-        parentNode: LiveTreeNode<IndexKey<Index> & Index[T]['parentType']> | null,
+        parentNode: LiveTreeNode<IndexKey<Index>> | null,
         liveDataNode?: LiveDataNode
     ){
 
