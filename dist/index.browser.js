@@ -147,6 +147,7 @@ var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, livebl
 };
 export {
   createNodeEntry,
+  defineRuntimeNode,
   initializeRuntimeGraph,
   liveblocksBrowserConfig
 };

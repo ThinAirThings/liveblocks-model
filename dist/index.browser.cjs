@@ -31,6 +31,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var index_browser_exports = {};
 __export(index_browser_exports, {
   createNodeEntry: () => createNodeEntry,
+  defineRuntimeNode: () => defineRuntimeNode,
   initializeRuntimeGraph: () => initializeRuntimeGraph,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
@@ -351,6 +352,7 @@ var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, livebl
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   createNodeEntry,
+  defineRuntimeNode,
   initializeRuntimeGraph,
   liveblocksBrowserConfig
 });
