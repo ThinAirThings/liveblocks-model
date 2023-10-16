@@ -137,10 +137,10 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     metadata: JsonObject;
     type: 'root';
     nodeId: null;
-    childNodes: Set<InstanceType<GenericLiveTreeNode<Index>>>;
+    childNodes: Set<GenericLiveTreeNode<Index>>;
 };
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
-type GenericLiveTreeNode<Index extends Record<string, IndexNode>> = ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>;
+type GenericLiveTreeNode<Index extends Record<string, IndexNode>> = InstanceType<ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>>;
 declare const ClassOfLiveTreeNodeFactory: <Index extends {
     [key: string]: IndexNode;
 }>(NodeIndex: Index, useStorage: StorageHook, liveNodeMap: LiveblocksStorageModel2['nodeMap']) => {
