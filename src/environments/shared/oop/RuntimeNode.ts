@@ -26,7 +26,6 @@ export const defineRuntimeNode = <
     public static liveNodeMap = liveNodeMap
     public static root: RuntimeNode<'root'>
     static {
-        const staticNodeMap = new Map(liveNodeMap.toImmutable())
         const buildTree = (node: InstanceType<typeof RuntimeNode<StringKey<Index>>>) => { 
             liveNodeMap.forEach((nextDataNode) => nextDataNode.get('parentNodeId') === node.nodeId 
                 && node.childNodes.add(
@@ -68,7 +67,11 @@ export const defineRuntimeNode = <
                 parentType: NodeIndex[type].parentType,
                 stateDisplayKey: NodeIndex[type].stateDisplayKey
             }) satisfies LiveDataNode
-            type !== 'root' && liveNodeMap.set(this.nodeId, this.liveDataNode)
+            if (type === "root") {
+                this.liveDataNode.set('nodeId', null as any)
+            } else {
+                liveNodeMap.set(this.nodeId, this.liveDataNode)
+            }
         } 
         this.parentNode = parentNode
         this.parentNode?.childNodes.add(this)

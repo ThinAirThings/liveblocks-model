@@ -272,7 +272,11 @@ var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
           parentType: NodeIndex[type].parentType,
           stateDisplayKey: NodeIndex[type].stateDisplayKey
         });
-        type !== "root" && liveNodeMap.set(this.nodeId, this.liveDataNode);
+        if (type === "root") {
+          this.liveDataNode.set("nodeId", null);
+        } else {
+          liveNodeMap.set(this.nodeId, this.liveDataNode);
+        }
       }
       this.parentNode = parentNode;
       this.parentNode?.childNodes.add(this);
@@ -292,7 +296,6 @@ var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
     }
   }, // Static
   _a.liveNodeMap = liveNodeMap, (() => {
-    const staticNodeMap = new Map(liveNodeMap.toImmutable());
     const buildTree = (node) => {
       liveNodeMap.forEach(
         (nextDataNode) => nextDataNode.get("parentNodeId") === node.nodeId && node.childNodes.add(
