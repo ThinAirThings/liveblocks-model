@@ -363,19 +363,22 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
     createClientProps,
     children
   }) => {
-    const [LiveTreeNode, setLiveTreeNode] = (0, import_react4.useState)(null);
+    const LiveTreeNodeRef = (0, import_react4.useRef)(null);
+    const [LiveTreeNodeReady, setLiveTreeNodeReady] = (0, import_react4.useState)(false);
     (0, import_react4.useEffect)(() => {
       (async () => {
-        const LiveTreeNode2 = await initializeLiveTree(
+        const LiveTreeNode = await initializeLiveTree(
           roomId,
           NodeIndex,
           createClientProps,
           liveblocksPresence
         );
-        console.log(LiveTreeNode2.root);
+        console.log(LiveTreeNode.root);
+        LiveTreeNodeRef.current = LiveTreeNode;
+        setLiveTreeNodeReady(true);
       })();
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNode && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNode, children }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeReady && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNodeRef.current, children }) });
   };
   return {
     LiveTreeNodeProvider,

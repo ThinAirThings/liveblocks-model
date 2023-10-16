@@ -48,7 +48,7 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
 };
 
 // src/environments/shared/oop/LiveTreeBrowserConfig.tsx
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 // src/environments/shared/oop/initializeLiveTree.ts
 import { LiveMap, createClient as createClient2 } from "@liveblocks/client";
@@ -159,19 +159,22 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
     createClientProps,
     children
   }) => {
-    const [LiveTreeNode, setLiveTreeNode] = useState(null);
+    const LiveTreeNodeRef = useRef(null);
+    const [LiveTreeNodeReady, setLiveTreeNodeReady] = useState(false);
     useEffect(() => {
       (async () => {
-        const LiveTreeNode2 = await initializeLiveTree(
+        const LiveTreeNode = await initializeLiveTree(
           roomId,
           NodeIndex,
           createClientProps,
           liveblocksPresence
         );
-        console.log(LiveTreeNode2.root);
+        console.log(LiveTreeNode.root);
+        LiveTreeNodeRef.current = LiveTreeNode;
+        setLiveTreeNodeReady(true);
       })();
     }, []);
-    return /* @__PURE__ */ jsx2(Fragment, { children: LiveTreeNode && /* @__PURE__ */ jsx2(LiveTreeNodeContext.Provider, { value: LiveTreeNode, children }) });
+    return /* @__PURE__ */ jsx2(Fragment, { children: LiveTreeNodeReady && /* @__PURE__ */ jsx2(LiveTreeNodeContext.Provider, { value: LiveTreeNodeRef.current, children }) });
   };
   return {
     LiveTreeNodeProvider,
