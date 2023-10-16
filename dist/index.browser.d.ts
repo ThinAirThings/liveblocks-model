@@ -145,6 +145,7 @@ type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageMod
 type ILiveTreeNode<Index extends Record<string, IndexNode>> = {
     [Type in keyof Index]: {
         parentNode: ILiveTreeNode<Index> | null;
+        parentType: Index[Type]['parentType'];
         childNodes: Set<ILiveTreeNode<Index> & {
             parentType: Type;
         }>;
@@ -154,7 +155,6 @@ type ILiveTreeNode<Index extends Record<string, IndexNode>> = {
         state: LiveObject<Index[Type]['state']>;
         stateDisplayKey: Index[Type]['stateDisplayKey'];
         metadata: Index[Type]['metadata'];
-        parentType: Index[Type]['parentType'];
         update: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K, value: V) => void;
         useValue: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K) => V;
     };

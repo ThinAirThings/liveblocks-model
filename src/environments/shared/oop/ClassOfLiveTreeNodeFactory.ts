@@ -47,6 +47,7 @@ export type ILiveTreeNode<
 > = {
     [Type in keyof Index]:{
         parentNode: ILiveTreeNode<Index> | null
+        parentType: Index[Type]['parentType']
         childNodes: Set<ILiveTreeNode<Index> & {parentType: Type}>
         liveDataNode: LiveDataNode
         nodeId: string | null
@@ -54,7 +55,7 @@ export type ILiveTreeNode<
         state: LiveObject<Index[Type]['state']>
         stateDisplayKey: Index[Type]['stateDisplayKey']
         metadata: Index[Type]['metadata']
-        parentType: Index[Type]['parentType']
+        
         update: <
             K extends keyof Index[Type]['state'],
             V extends Index[Type]['state'][K]
