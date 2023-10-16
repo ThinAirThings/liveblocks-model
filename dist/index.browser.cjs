@@ -281,19 +281,17 @@ var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
         this.liveDataNode = liveDataNode;
       } else {
         this.liveDataNode = new import_client3.LiveObject({
-          nodeId: (0, import_uuid2.v4)(),
+          nodeId: type === "root" ? null : (0, import_uuid2.v4)(),
           parentNodeId: parentNode?.nodeId ?? null,
           type,
-          metadata: { ...NodeIndex[type].metadata, createdAt: (/* @__PURE__ */ new Date()).toISOString() },
-          state: new import_client3.LiveObject({ ...NodeIndex[type].state }),
-          parentType: NodeIndex[type].parentType,
-          stateDisplayKey: NodeIndex[type].stateDisplayKey
+          ...type !== "root" ? {
+            metadata: { ...NodeIndex[type].metadata, createdAt: (/* @__PURE__ */ new Date()).toISOString() },
+            state: new import_client3.LiveObject({ ...NodeIndex[type].state }),
+            parentType: NodeIndex[type].parentType,
+            stateDisplayKey: NodeIndex[type].stateDisplayKey
+          } : {}
         });
-        if (type === "root") {
-          this.liveDataNode.set("nodeId", null);
-        } else {
-          liveNodeMap.set(this.nodeId, this.liveDataNode);
-        }
+        type !== "root" && liveNodeMap.set(this.nodeId, this.liveDataNode);
       }
       this.parentNode = parentNode;
       this.parentNode?.childNodes.add(this);

@@ -137,19 +137,17 @@ export const ClassOfLiveTreeNodeFactory = <
             this.liveDataNode = liveDataNode
         } else {
             this.liveDataNode = new LiveObject({
-                nodeId: uuidv4(),
+                nodeId: type === "root" ? null : uuidv4(),
                 parentNodeId: parentNode?.nodeId ?? null,
                 type: type as string,
-                metadata: {...NodeIndex[type].metadata, createdAt: new Date().toISOString()},
-                state: new LiveObject({...NodeIndex[type].state}),
-                parentType: NodeIndex[type].parentType,
-                stateDisplayKey: NodeIndex[type].stateDisplayKey
-            }) satisfies LiveDataNode
-            if (type === "root") {
-                this.liveDataNode.set('nodeId', null)
-            } else {
-                liveNodeMap.set(this.nodeId!, this.liveDataNode)
-            }
+                ...type !== "root" ? {
+                    metadata: {...NodeIndex[type].metadata, createdAt: new Date().toISOString()},
+                    state: new LiveObject({...NodeIndex[type].state}),
+                    parentType: NodeIndex[type].parentType,
+                    stateDisplayKey: NodeIndex[type].stateDisplayKey
+                }: {}
+            }) as any
+            type !== "root" && liveNodeMap.set(this.nodeId!, this.liveDataNode)
         } 
         this.parentNode = parentNode
         this.parentNode?.childNodes.add(this as any)
