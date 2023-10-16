@@ -9,7 +9,7 @@ import { createRoomContext } from "@liveblocks/react"
 //    | || || | '_ \/ -_|_-<
 //    |_| \_, | .__/\___/__/
 //        |__/|_|           
-export type IndexKey<Index extends Record<string, any>> = keyof Index
+export type IndexKey<Index extends Record<string, IndexNode>> = keyof Index
 export type IndexNode = {
     parentType: string | null
     metadata: JsonObject
@@ -23,6 +23,16 @@ export type LiveDataNode = LiveObject<Omit<IndexNode, 'state'> & {
     parentNodeId: string | null
     state: LiveObject<LsonObject>
 }>
+
+export type RootTreeNode<Index extends Record<string, IndexNode>> = {
+    parentNode: null
+    parentType: null
+    parentNodeId: null
+    metadata: JsonObject
+    type: 'root'
+    nodeId: null
+    childNodes: Set<GenericLiveTreeNode<Index>>
+}
 type StorageHook = ReturnType<
     typeof createRoomContext<
         any, 
@@ -31,7 +41,7 @@ type StorageHook = ReturnType<
 >['suspense']['useStorage']
 
 export type GenericLiveTreeNode<
-    Index extends {[key: string]: IndexNode}
+    Index extends Record<string, IndexNode>
 > = ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>
 //   ___        _                
 //  | __|_ _ __| |_ ___ _ _ _  _ 
@@ -54,7 +64,7 @@ export const ClassOfLiveTreeNodeFactory = <
     //  \__ \  _/ _` |  _| / _|
     //  |___/\__\__,_|\__|_\__|
     public static liveNodeMap = liveNodeMap
-    public static root: LiveTreeNode<'root'>
+    public static root: RootTreeNode<Index>
     static {
         const buildTree = (node: InstanceType<typeof LiveTreeNode<IndexKey<Index>>>) => { 
             liveNodeMap.forEach((nextDataNode) => nextDataNode.get('parentNodeId') === node.nodeId 
@@ -68,7 +78,7 @@ export const ClassOfLiveTreeNodeFactory = <
             )
             return node
         }
-        LiveTreeNode.root = buildTree(new LiveTreeNode('root' as IndexKey<Index>, null)) as LiveTreeNode<'root'>
+        LiveTreeNode.root = buildTree(new LiveTreeNode('root' as IndexKey<Index>, null)) as unknown as RootTreeNode<Index>
     }
 
     //   ___         _                    

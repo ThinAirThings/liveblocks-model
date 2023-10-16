@@ -117,7 +117,7 @@ type LiveblocksStorageModel2 = {
     nodeMap: LiveMap<string, LiveDataNode>;
 };
 
-type IndexKey<Index extends Record<string, any>> = keyof Index;
+type IndexKey<Index extends Record<string, IndexNode>> = keyof Index;
 type IndexNode = {
     parentType: string | null;
     metadata: JsonObject;
@@ -130,10 +130,17 @@ type LiveDataNode = LiveObject<Omit<IndexNode, 'state'> & {
     parentNodeId: string | null;
     state: LiveObject<LsonObject>;
 }>;
+type RootTreeNode<Index extends Record<string, IndexNode>> = {
+    parentNode: null;
+    parentType: null;
+    parentNodeId: null;
+    metadata: JsonObject;
+    type: 'root';
+    nodeId: null;
+    childNodes: Set<GenericLiveTreeNode<Index>>;
+};
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
-type GenericLiveTreeNode<Index extends {
-    [key: string]: IndexNode;
-}> = ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>;
+type GenericLiveTreeNode<Index extends Record<string, IndexNode>> = ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>;
 declare const ClassOfLiveTreeNodeFactory: <Index extends {
     [key: string]: IndexNode;
 }>(NodeIndex: Index, useStorage: StorageHook, liveNodeMap: LiveblocksStorageModel2['nodeMap']) => {
@@ -183,40 +190,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
         useValue: <K_3 extends keyof Index[T]["state"], V_3 extends Index[T]["state"][K_3]>(key: K_3) => V_3;
     };
     liveNodeMap: _liveblocks_core.LiveMap<string, LiveDataNode>;
-    root: {
-        parentNode: {
-            parentNode: any | null;
-            childNodes: Set<any>;
-            liveDataNode: LiveDataNode;
-            readonly nodeId: string | null;
-            readonly type: string;
-            readonly state: LiveObject<LsonObject>;
-            readonly stateDisplayKey: string;
-            readonly metadata: JsonObject;
-            update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-        } | null;
-        childNodes: Set<{
-            parentNode: any | null;
-            childNodes: Set<any>;
-            liveDataNode: LiveDataNode;
-            readonly nodeId: string | null;
-            readonly type: string;
-            readonly state: LiveObject<LsonObject>;
-            readonly stateDisplayKey: string;
-            readonly metadata: JsonObject;
-            update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-        }>;
-        liveDataNode: LiveDataNode;
-        readonly nodeId: string | null;
-        readonly type: string;
-        readonly state: LiveObject<LsonObject>;
-        readonly stateDisplayKey: string;
-        readonly metadata: JsonObject;
-        update: <K_4 extends keyof Index["root"]["state"], V_4 extends Index["root"]["state"][K_4]>(key: K_4, value: V_4) => void;
-        useValue: <K_5 extends keyof Index["root"]["state"], V_5 extends Index["root"]["state"][K_5]>(key: K_5) => V_5;
-    };
+    root: RootTreeNode<Index>;
 };
 
 declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, liveblocksPresence: LiveblocksPresence) => {
@@ -225,40 +199,7 @@ declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, L
         createClientProps: Parameters<typeof createClient>[0];
         children: ReactNode;
     }>;
-    useLiveTreeNodeRoot: () => {
-        parentNode: {
-            parentNode: any | null;
-            childNodes: Set<any>;
-            liveDataNode: LiveDataNode;
-            readonly nodeId: string | null;
-            readonly type: string;
-            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
-            readonly stateDisplayKey: string;
-            readonly metadata: JsonObject;
-            update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-        } | null;
-        childNodes: Set<{
-            parentNode: any | null;
-            childNodes: Set<any>;
-            liveDataNode: LiveDataNode;
-            readonly nodeId: string | null;
-            readonly type: string;
-            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
-            readonly stateDisplayKey: string;
-            readonly metadata: JsonObject;
-            update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-        }>;
-        liveDataNode: LiveDataNode;
-        readonly nodeId: string | null;
-        readonly type: string;
-        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
-        readonly stateDisplayKey: string;
-        readonly metadata: JsonObject;
-        update: <K_2 extends keyof Index["root"]["state"], V_2 extends Index["root"]["state"][K_2]>(key: K_2, value: V_2) => void;
-        useValue: <K_3 extends keyof Index["root"]["state"], V_3 extends Index["root"]["state"][K_3]>(key: K_3) => V_3;
-    };
+    useLiveTreeNodeRoot: () => RootTreeNode<Index>;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, GenericLiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, GenericLiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
