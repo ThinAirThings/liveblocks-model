@@ -120,6 +120,7 @@ type LiveblocksStorageModel2 = {
 type IndexKey<Index extends Record<string, IndexNode>> = keyof Index;
 type IndexNode = {
     parentType: string | null;
+    type: string;
     metadata: JsonObject;
     stateDisplayKey: string;
     state: Record<string, any>;
@@ -147,7 +148,7 @@ type LiveTreeNode<Index extends Record<string, IndexNode>> = {
         parentNode: LiveTreeNode<Index> | null;
         parentType: Index[Type]['parentType'];
         childNodes: Set<LiveTreeNode<Index> & {
-            parentType: Type;
+            parentType: Index[Type]['type'];
         }>;
         liveDataNode: LiveDataNode;
         nodeId: string | null;

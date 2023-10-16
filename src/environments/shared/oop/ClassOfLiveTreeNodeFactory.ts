@@ -12,6 +12,7 @@ import { createRoomContext } from "@liveblocks/react"
 export type IndexKey<Index extends Record<string, IndexNode>> = keyof Index
 export type IndexNode = {
     parentType: string | null
+    type: string
     metadata: JsonObject
     stateDisplayKey: string
     state: Record<string, any>
@@ -56,7 +57,7 @@ export type LiveTreeNode<
     [Type in keyof Index]:{
         parentNode: LiveTreeNode<Index> | null
         parentType: Index[Type]['parentType']
-        childNodes: Set<LiveTreeNode<Index> & {parentType: Type}>
+        childNodes: Set<LiveTreeNode<Index> & {parentType: Index[Type]['type']}>
         liveDataNode: LiveDataNode
         nodeId: string | null
         type: Type
