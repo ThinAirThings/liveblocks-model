@@ -48,10 +48,11 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
 };
 
 // src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+import { createClient as createClient3 } from "@liveblocks/client";
 import { createContext, useContext, useEffect, useState } from "react";
 
 // src/environments/shared/oop/initializeLiveTree.ts
-import { LiveMap, createClient as createClient2 } from "@liveblocks/client";
+import { LiveMap } from "@liveblocks/client";
 
 // src/environments/shared/oop/ClassOfLiveTreeNodeFactory.ts
 import { LiveObject } from "@liveblocks/client";
@@ -132,42 +133,43 @@ var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
 };
 
 // src/environments/shared/oop/initializeLiveTree.ts
-import { createRoomContext as createRoomContext2 } from "@liveblocks/react";
-var initializeLiveTree = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
-  const liveblocksClient = createClient2(createClientProps);
+var initializeLiveTree = async (liveblocksClient, roomId, NodeIndex, liveblocksPresence, useStorage) => {
   const room = liveblocksClient.enter(roomId, {
     initialPresence: liveblocksPresence,
     initialStorage: { nodeMap: new LiveMap() }
   });
-  const { suspense: liveblocks } = createRoomContext2(liveblocksClient);
   const { root } = await room.getStorage();
   const liveNodeMap = root.get("nodeMap");
   const LiveTreeNode = ClassOfLiveTreeNodeFactory(
     NodeIndex,
-    liveblocks.useStorage,
+    useStorage,
     liveNodeMap
   );
   return LiveTreeNode;
 };
 
 // src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+import { createRoomContext as createRoomContext2 } from "@liveblocks/react";
 import { Fragment, jsx as jsx2 } from "react/jsx-runtime";
-var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
+var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence, createClientProps) => {
+  const liveblocksClient = createClient3(createClientProps);
+  const { suspense: liveblocks } = createRoomContext2(liveblocksClient);
   const LiveTreeNodeRootContext = createContext(null);
   const useLiveTreeNodeRoot = () => useContext(LiveTreeNodeRootContext);
   const LiveTreeNodeRootProvider = ({
     roomId,
-    createClientProps,
+    createClientProps: createClientProps2,
     children
   }) => {
     const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = useState(null);
     useEffect(() => {
       (async () => {
         const LiveTreeNode = await initializeLiveTree(
+          liveblocksClient,
           roomId,
           NodeIndex,
-          createClientProps,
-          liveblocksPresence
+          liveblocksPresence,
+          liveblocks.useStorage
         );
         LiveTreeNode.root.childNodes.forEach((ChildNode) => {
           ChildNode.type;
@@ -175,7 +177,14 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
         setLiveTreeNodeRoot(LiveTreeNode.root);
       })();
     }, []);
-    return /* @__PURE__ */ jsx2(Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ jsx2(LiveTreeNodeRootContext.Provider, { value: LiveTreeNodeRoot, children }) });
+    return /* @__PURE__ */ jsx2(Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ jsx2(
+      liveblocks.RoomProvider,
+      {
+        id: roomId,
+        initialPresence: liveblocksPresence,
+        children: /* @__PURE__ */ jsx2(LiveTreeNodeRootContext.Provider, { value: LiveTreeNodeRoot, children })
+      }
+    ) });
   };
   return {
     LiveTreeNodeRootProvider,

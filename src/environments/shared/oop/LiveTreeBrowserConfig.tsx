@@ -1,7 +1,8 @@
 import { JsonObject, createClient } from "@liveblocks/client";
 import {  IndexNode, RootTreeNode } from "./ClassOfLiveTreeNodeFactory.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
-import { initializeLiveTree } from "./initializeLiveTree.js";
+import { LiveblocksStorageModel2, initializeLiveTree } from "./initializeLiveTree.js";
+import { createRoomContext } from "@liveblocks/react";
 
 
 export const LiveTreeBrowserConfig = <
@@ -10,7 +11,13 @@ export const LiveTreeBrowserConfig = <
 >(
     NodeIndex: Index,
     liveblocksPresence: LiveblocksPresence,
+    createClientProps: Parameters<typeof createClient>[0],
 ) => {
+    const liveblocksClient = createClient(createClientProps)
+    const {suspense: liveblocks} = createRoomContext<
+        LiveblocksPresence,
+        LiveblocksStorageModel2
+    >(liveblocksClient)
     const LiveTreeNodeRootContext = createContext<
         RootTreeNode<Index>
     >(null as any)
@@ -29,10 +36,11 @@ export const LiveTreeBrowserConfig = <
         useEffect(() => {
             (async () => {
                 const LiveTreeNode = await initializeLiveTree(
+                    liveblocksClient,
                     roomId,
                     NodeIndex,
-                    createClientProps,
-                    liveblocksPresence
+                    liveblocksPresence,
+                    liveblocks.useStorage
                 )
                 LiveTreeNode.root.childNodes.forEach(ChildNode => {ChildNode.type})
                 setLiveTreeNodeRoot(LiveTreeNode.root)
@@ -40,9 +48,15 @@ export const LiveTreeBrowserConfig = <
         }, [])
         return (
             <>{LiveTreeNodeRoot
-                && <LiveTreeNodeRootContext.Provider value={LiveTreeNodeRoot}>
-                    {children}
-                </LiveTreeNodeRootContext.Provider>
+                && <liveblocks.RoomProvider 
+                    id={roomId} 
+                    initialPresence={liveblocksPresence}
+                >
+                    <LiveTreeNodeRootContext.Provider value={LiveTreeNodeRoot}>
+                        {children}
+                    </LiveTreeNodeRootContext.Provider>
+                </liveblocks.RoomProvider>
+
             }</>
         )
     }

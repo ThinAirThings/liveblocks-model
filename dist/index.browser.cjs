@@ -252,7 +252,8 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
 };
 
 // src/environments/shared/oop/LiveTreeBrowserConfig.tsx
-var import_react4 = require("react");
+var import_client5 = require("@liveblocks/client");
+var import_react3 = require("react");
 
 // src/environments/shared/oop/initializeLiveTree.ts
 var import_client4 = require("@liveblocks/client");
@@ -336,42 +337,43 @@ var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
 };
 
 // src/environments/shared/oop/initializeLiveTree.ts
-var import_react3 = require("@liveblocks/react");
-var initializeLiveTree = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
-  const liveblocksClient = (0, import_client4.createClient)(createClientProps);
+var initializeLiveTree = async (liveblocksClient, roomId, NodeIndex, liveblocksPresence, useStorage) => {
   const room = liveblocksClient.enter(roomId, {
     initialPresence: liveblocksPresence,
     initialStorage: { nodeMap: new import_client4.LiveMap() }
   });
-  const { suspense: liveblocks } = (0, import_react3.createRoomContext)(liveblocksClient);
   const { root } = await room.getStorage();
   const liveNodeMap = root.get("nodeMap");
   const LiveTreeNode = ClassOfLiveTreeNodeFactory(
     NodeIndex,
-    liveblocks.useStorage,
+    useStorage,
     liveNodeMap
   );
   return LiveTreeNode;
 };
 
 // src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+var import_react4 = require("@liveblocks/react");
 var import_jsx_runtime2 = require("react/jsx-runtime");
-var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
-  const LiveTreeNodeRootContext = (0, import_react4.createContext)(null);
-  const useLiveTreeNodeRoot = () => (0, import_react4.useContext)(LiveTreeNodeRootContext);
+var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence, createClientProps) => {
+  const liveblocksClient = (0, import_client5.createClient)(createClientProps);
+  const { suspense: liveblocks } = (0, import_react4.createRoomContext)(liveblocksClient);
+  const LiveTreeNodeRootContext = (0, import_react3.createContext)(null);
+  const useLiveTreeNodeRoot = () => (0, import_react3.useContext)(LiveTreeNodeRootContext);
   const LiveTreeNodeRootProvider = ({
     roomId,
-    createClientProps,
+    createClientProps: createClientProps2,
     children
   }) => {
-    const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = (0, import_react4.useState)(null);
-    (0, import_react4.useEffect)(() => {
+    const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = (0, import_react3.useState)(null);
+    (0, import_react3.useEffect)(() => {
       (async () => {
         const LiveTreeNode = await initializeLiveTree(
+          liveblocksClient,
           roomId,
           NodeIndex,
-          createClientProps,
-          liveblocksPresence
+          liveblocksPresence,
+          liveblocks.useStorage
         );
         LiveTreeNode.root.childNodes.forEach((ChildNode) => {
           ChildNode.type;
@@ -379,7 +381,14 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
         setLiveTreeNodeRoot(LiveTreeNode.root);
       })();
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeRootContext.Provider, { value: LiveTreeNodeRoot, children }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+      liveblocks.RoomProvider,
+      {
+        id: roomId,
+        initialPresence: liveblocksPresence,
+        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeRootContext.Provider, { value: LiveTreeNodeRoot, children })
+      }
+    ) });
   };
   return {
     LiveTreeNodeRootProvider,

@@ -213,7 +213,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
     root: RootTreeNode<Index>;
 };
 
-declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, liveblocksPresence: LiveblocksPresence) => {
+declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0]) => {
     LiveTreeNodeRootProvider: FC<{
         roomId: string;
         createClientProps: Parameters<typeof createClient>[0];
@@ -222,4 +222,4 @@ declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, L
     useLiveTreeNodeRoot: () => RootTreeNode<Index>;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, ILiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, ILiveTreeNode, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, StorageHook, TypedNodeIndex, liveblocksBrowserConfig };

@@ -35,7 +35,7 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
         ILiveTreeNode<Index> & {parentType: null}
     >
 }
-type StorageHook = ReturnType<
+export type StorageHook = ReturnType<
     typeof createRoomContext<
         any, 
         LiveblocksStorageModel2

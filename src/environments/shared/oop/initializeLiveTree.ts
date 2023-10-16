@@ -1,5 +1,5 @@
 import { JsonObject, LiveMap, createClient } from "@liveblocks/client"
-import { ClassOfLiveTreeNodeFactory, IndexNode, LiveDataNode } from "./ClassOfLiveTreeNodeFactory.js"
+import { ClassOfLiveTreeNodeFactory, IndexNode, LiveDataNode, StorageHook } from "./ClassOfLiveTreeNodeFactory.js"
 import { createRoomContext } from "@liveblocks/react"
 
 
@@ -12,12 +12,12 @@ export const initializeLiveTree = async <
     Index extends Record<string, IndexNode>,
     LiveblocksPresence extends JsonObject={},
 >(
+    liveblocksClient: ReturnType<typeof createClient>,
     roomId: string,
     NodeIndex: Index,
-    createClientProps: Parameters<typeof createClient>[0],
     liveblocksPresence: LiveblocksPresence,
+    useStorage: StorageHook
 ) => {
-    const liveblocksClient = createClient(createClientProps)
     const room = liveblocksClient.enter<
         LiveblocksPresence,
         LiveblocksStorageModel2
@@ -25,15 +25,12 @@ export const initializeLiveTree = async <
         initialPresence: liveblocksPresence, 
         initialStorage: {nodeMap: new LiveMap()}
     })
-    const {suspense: liveblocks} = createRoomContext<
-        LiveblocksPresence,
-        LiveblocksStorageModel2
-    >(liveblocksClient)
+
     const {root} = await room.getStorage()
     const liveNodeMap = root.get('nodeMap')
     const LiveTreeNode = ClassOfLiveTreeNodeFactory(
         NodeIndex, 
-        liveblocks.useStorage,
+        useStorage,
         liveNodeMap
     )
     return LiveTreeNode
