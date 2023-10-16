@@ -356,9 +356,9 @@ var initializeLiveTree = async (roomId, NodeIndex, createClientProps, liveblocks
 // src/environments/shared/oop/LiveTreeBrowserConfig.tsx
 var import_jsx_runtime2 = require("react/jsx-runtime");
 var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
-  const LiveTreeNodeContext = (0, import_react4.createContext)(null);
-  const useLiveTreeNode = () => (0, import_react4.useContext)(LiveTreeNodeContext);
-  const LiveTreeNodeProvider = ({
+  const LiveTreeNodeRootContext = (0, import_react4.createContext)(null);
+  const useLiveTreeNodeRoot = () => (0, import_react4.useContext)(LiveTreeNodeRootContext);
+  const LiveTreeNodeRootProvider = ({
     roomId,
     createClientProps,
     children
@@ -375,11 +375,11 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
         setLiveTreeNodeRoot(LiveTreeNode.root);
       })();
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNodeRoot, children }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeRootContext.Provider, { value: LiveTreeNodeRoot, children }) });
   };
   return {
-    LiveTreeNodeProvider,
-    useLiveTreeNode
+    LiveTreeNodeRootProvider,
+    useLiveTreeNodeRoot
   };
 };
 // Annotate the CommonJS export names for ESM import in node:

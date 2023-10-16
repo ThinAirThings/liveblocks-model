@@ -11,11 +11,11 @@ export const LiveTreeBrowserConfig = <
     NodeIndex: Index,
     liveblocksPresence: LiveblocksPresence,
 ) => {
-    const LiveTreeNodeContext = createContext<
+    const LiveTreeNodeRootContext = createContext<
         GenericLiveTreeNode<Index>['root']
     >(null as any)
-    const useLiveTreeNode = () => useContext(LiveTreeNodeContext)
-    const LiveTreeNodeProvider: FC<{
+    const useLiveTreeNodeRoot = () => useContext(LiveTreeNodeRootContext)
+    const LiveTreeNodeRootProvider: FC<{
         roomId: string
         createClientProps: Parameters<typeof createClient>[0]
         children: ReactNode
@@ -39,14 +39,14 @@ export const LiveTreeBrowserConfig = <
         }, [])
         return (
             <>{LiveTreeNodeRoot
-                && <LiveTreeNodeContext.Provider value={LiveTreeNodeRoot}>
+                && <LiveTreeNodeRootContext.Provider value={LiveTreeNodeRoot}>
                     {children}
-                </LiveTreeNodeContext.Provider>
+                </LiveTreeNodeRootContext.Provider>
             }</>
         )
     }
     return {
-        LiveTreeNodeProvider,
-        useLiveTreeNode,
+        LiveTreeNodeRootProvider,
+        useLiveTreeNodeRoot,
     }
 }
