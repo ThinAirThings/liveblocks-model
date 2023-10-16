@@ -47,13 +47,16 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
   };
 };
 
-// src/environments/shared/oop/initializeRuntimeGraph.ts
+// src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+import { createContext, useContext, useEffect, useState } from "react";
+
+// src/environments/shared/oop/initializeLiveTree.ts
 import { LiveMap, createClient as createClient2 } from "@liveblocks/client";
 
-// src/environments/shared/oop/RuntimeNode.ts
+// src/environments/shared/oop/ClassOfLiveTreeNodeFactory.ts
 import { LiveObject } from "@liveblocks/client";
 import { v4 as uuidv4 } from "uuid";
-var defineRuntimeNode = (NodeIndex, useStorage, liveNodeMap) => {
+var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
   var _a;
   return _a = class {
     //    ___             _               _           
@@ -127,9 +130,9 @@ var defineRuntimeNode = (NodeIndex, useStorage, liveNodeMap) => {
   })(), _a;
 };
 
-// src/environments/shared/oop/initializeRuntimeGraph.ts
+// src/environments/shared/oop/initializeLiveTree.ts
 import { createRoomContext as createRoomContext2 } from "@liveblocks/react";
-var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
+var initializeLiveTree = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
   const liveblocksClient = createClient2(createClientProps);
   const room = liveblocksClient.enter(roomId, {
     initialPresence: liveblocksPresence,
@@ -138,16 +141,46 @@ var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, livebl
   const { suspense: liveblocks } = createRoomContext2(liveblocksClient);
   const { root } = await room.getStorage();
   const liveNodeMap = root.get("nodeMap");
-  const RuntimeNode = defineRuntimeNode(
+  const LiveTreeNode = ClassOfLiveTreeNodeFactory(
     NodeIndex,
     liveblocks.useStorage,
     liveNodeMap
   );
-  return RuntimeNode;
+  return LiveTreeNode;
+};
+
+// src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+import { Fragment, jsx as jsx2 } from "react/jsx-runtime";
+var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
+  const LiveTreeNodeContext = createContext(null);
+  const useLiveTreeNode = () => useContext(LiveTreeNodeContext);
+  const LiveTreeNodeProvider = ({
+    roomId,
+    createClientProps,
+    children
+  }) => {
+    const [LiveTreeNode, setLiveTreeNode] = useState(null);
+    useEffect(() => {
+      (async () => {
+        const LiveTreeNode2 = await initializeLiveTree(
+          roomId,
+          NodeIndex,
+          createClientProps,
+          liveblocksPresence
+        );
+        setLiveTreeNode(LiveTreeNode2);
+      })();
+    }, []);
+    return /* @__PURE__ */ jsx2(Fragment, { children: LiveTreeNode && /* @__PURE__ */ jsx2(LiveTreeNodeContext.Provider, { value: LiveTreeNode, children }) });
+  };
+  return {
+    LiveTreeNodeProvider,
+    useLiveTreeNode
+  };
 };
 export {
+  ClassOfLiveTreeNodeFactory,
+  LiveTreeBrowserConfig,
   createNodeEntry,
-  defineRuntimeNode,
-  initializeRuntimeGraph,
   liveblocksBrowserConfig
 };

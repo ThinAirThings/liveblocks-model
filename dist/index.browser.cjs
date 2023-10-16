@@ -30,9 +30,9 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.browser.ts
 var index_browser_exports = {};
 __export(index_browser_exports, {
+  ClassOfLiveTreeNodeFactory: () => ClassOfLiveTreeNodeFactory,
+  LiveTreeBrowserConfig: () => LiveTreeBrowserConfig,
   createNodeEntry: () => createNodeEntry,
-  defineRuntimeNode: () => defineRuntimeNode,
-  initializeRuntimeGraph: () => initializeRuntimeGraph,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
 module.exports = __toCommonJS(index_browser_exports);
@@ -251,13 +251,16 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
   };
 };
 
-// src/environments/shared/oop/initializeRuntimeGraph.ts
+// src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+var import_react4 = require("react");
+
+// src/environments/shared/oop/initializeLiveTree.ts
 var import_client4 = require("@liveblocks/client");
 
-// src/environments/shared/oop/RuntimeNode.ts
+// src/environments/shared/oop/ClassOfLiveTreeNodeFactory.ts
 var import_client3 = require("@liveblocks/client");
 var import_uuid2 = require("uuid");
-var defineRuntimeNode = (NodeIndex, useStorage, liveNodeMap) => {
+var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
   var _a;
   return _a = class {
     //    ___             _               _           
@@ -331,9 +334,9 @@ var defineRuntimeNode = (NodeIndex, useStorage, liveNodeMap) => {
   })(), _a;
 };
 
-// src/environments/shared/oop/initializeRuntimeGraph.ts
+// src/environments/shared/oop/initializeLiveTree.ts
 var import_react3 = require("@liveblocks/react");
-var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
+var initializeLiveTree = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
   const liveblocksClient = (0, import_client4.createClient)(createClientProps);
   const room = liveblocksClient.enter(roomId, {
     initialPresence: liveblocksPresence,
@@ -342,17 +345,47 @@ var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, livebl
   const { suspense: liveblocks } = (0, import_react3.createRoomContext)(liveblocksClient);
   const { root } = await room.getStorage();
   const liveNodeMap = root.get("nodeMap");
-  const RuntimeNode = defineRuntimeNode(
+  const LiveTreeNode = ClassOfLiveTreeNodeFactory(
     NodeIndex,
     liveblocks.useStorage,
     liveNodeMap
   );
-  return RuntimeNode;
+  return LiveTreeNode;
+};
+
+// src/environments/shared/oop/LiveTreeBrowserConfig.tsx
+var import_jsx_runtime2 = require("react/jsx-runtime");
+var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
+  const LiveTreeNodeContext = (0, import_react4.createContext)(null);
+  const useLiveTreeNode = () => (0, import_react4.useContext)(LiveTreeNodeContext);
+  const LiveTreeNodeProvider = ({
+    roomId,
+    createClientProps,
+    children
+  }) => {
+    const [LiveTreeNode, setLiveTreeNode] = (0, import_react4.useState)(null);
+    (0, import_react4.useEffect)(() => {
+      (async () => {
+        const LiveTreeNode2 = await initializeLiveTree(
+          roomId,
+          NodeIndex,
+          createClientProps,
+          liveblocksPresence
+        );
+        setLiveTreeNode(LiveTreeNode2);
+      })();
+    }, []);
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNode && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNode, children }) });
+  };
+  return {
+    LiveTreeNodeProvider,
+    useLiveTreeNode
+  };
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  ClassOfLiveTreeNodeFactory,
+  LiveTreeBrowserConfig,
   createNodeEntry,
-  defineRuntimeNode,
-  initializeRuntimeGraph,
   liveblocksBrowserConfig
 });

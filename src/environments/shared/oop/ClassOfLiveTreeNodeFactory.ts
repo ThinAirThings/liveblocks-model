@@ -1,6 +1,6 @@
 import { JsonObject, LiveObject, LsonObject } from "@liveblocks/client"
 import {v4 as uuidv4} from 'uuid'
-import { LiveblocksStorageModel2 } from "./initializeRuntimeGraph.js"
+import { LiveblocksStorageModel2 } from "./initializeLiveTree.js"
 import { createRoomContext } from "@liveblocks/react"
 
 
@@ -30,12 +30,15 @@ type StorageHook = ReturnType<
     >
 >['suspense']['useStorage']
 
+export type GenericLiveTreeNode<
+    Index extends {[key: string]: IndexNode}
+> = ReturnType<typeof ClassOfLiveTreeNodeFactory<Index>>
 //   ___        _                
 //  | __|_ _ __| |_ ___ _ _ _  _ 
 //  | _/ _` / _|  _/ _ \ '_| || |
 //  |_|\__,_\__|\__\___/_|  \_, |
 //                          |__/ 
-export const defineRuntimeNode = <
+export const ClassOfLiveTreeNodeFactory = <
     Index extends {[key: string]: IndexNode}
 >(
     NodeIndex: Index,
@@ -45,35 +48,35 @@ export const defineRuntimeNode = <
 //   / __| |__ _ ______ |   \ ___ / _(_)_ _ (_) |_(_)___ _ _  
 //  | (__| / _` (_-<_-< | |) / -_)  _| | ' \| |  _| / _ \ ' \ 
 //   \___|_\__,_/__/__/ |___/\___|_| |_|_||_|_|\__|_\___/_||_|
-) => class RuntimeNode<T extends IndexKey<Index>> {
+) => class LiveTreeNode<T extends IndexKey<Index>> {
     //   ___ _        _   _    
     //  / __| |_ __ _| |_(_)__ 
     //  \__ \  _/ _` |  _| / _|
     //  |___/\__\__,_|\__|_\__|
     public static liveNodeMap = liveNodeMap
-    public static root: RuntimeNode<'root'>
+    public static root: LiveTreeNode<'root'>
     static {
-        const buildTree = (node: InstanceType<typeof RuntimeNode<IndexKey<Index>>>) => { 
+        const buildTree = (node: InstanceType<typeof LiveTreeNode<IndexKey<Index>>>) => { 
             liveNodeMap.forEach((nextDataNode) => nextDataNode.get('parentNodeId') === node.nodeId 
                 && node.childNodes.add(
-                    buildTree(new RuntimeNode(
+                    buildTree(new LiveTreeNode(
                         nextDataNode.get('type') as IndexKey<Index>, 
-                        node as InstanceType<typeof RuntimeNode<IndexKey<Index>>>['parentNode'], 
+                        node as InstanceType<typeof LiveTreeNode<IndexKey<Index>>>['parentNode'], 
                         nextDataNode
                     ))
                 )
             )
             return node
         }
-        RuntimeNode.root = buildTree(new RuntimeNode('root' as IndexKey<Index>, null)) as RuntimeNode<'root'>
+        LiveTreeNode.root = buildTree(new LiveTreeNode('root' as IndexKey<Index>, null)) as LiveTreeNode<'root'>
     }
 
     //   ___         _                    
     //  |_ _|_ _  __| |_ __ _ _ _  __ ___ 
     //   | || ' \(_-<  _/ _` | ' \/ _/ -_)
     //  |___|_||_/__/\__\__,_|_||_\__\___|
-    public parentNode: RuntimeNode<IndexKey<Index> & Index[T]['parentType']> | null
-    public childNodes: Set<RuntimeNode<IndexKey<Index>>> = new Set()
+    public parentNode: LiveTreeNode<IndexKey<Index> & Index[T]['parentType']> | null
+    public childNodes: Set<LiveTreeNode<IndexKey<Index>>> = new Set()
 
     //   _    _            ___  _     _        _   
     //  | |  (_)_ _____   / _ \| |__ (_)___ __| |_ 
@@ -92,7 +95,7 @@ export const defineRuntimeNode = <
     //   \___\___/_||_/__/\__|_|  \_,_\__|\__\___/_|  
     constructor(
         type: T,
-        parentNode: RuntimeNode<T>['parentNode'],
+        parentNode: LiveTreeNode<T>['parentNode'],
         liveDataNode?: LiveDataNode
     ){
 

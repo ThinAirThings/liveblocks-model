@@ -1,12 +1,15 @@
-import { JsonObject, LiveMap, createClient } from "@liveblocks/client";
-import { LiveblocksStorageModel, defineClassOfRuntimeNode, iNode } from "./AirNode.js";
-import { createRoomContext } from "@liveblocks/react";
+import { JsonObject, LiveMap, createClient } from "@liveblocks/client"
+import { ClassOfLiveTreeNodeFactory, IndexNode, LiveDataNode } from "./ClassOfLiveTreeNodeFactory.js"
+import { createRoomContext } from "@liveblocks/react"
 
 
+export type LiveblocksStorageModel2 = {
+    nodeMap: LiveMap<string, LiveDataNode>
+}
 
 // You could possibly extend this.
-export const initializeRuntimeGraph = async <
-    Index extends Record<string, iNode>,
+export const initializeLiveTree = async <
+    Index extends Record<string, IndexNode>,
     LiveblocksPresence extends JsonObject={},
 >(
     roomId: string,
@@ -17,21 +20,21 @@ export const initializeRuntimeGraph = async <
     const liveblocksClient = createClient(createClientProps)
     const room = liveblocksClient.enter<
         LiveblocksPresence,
-        LiveblocksStorageModel
+        LiveblocksStorageModel2
     >(roomId, {
         initialPresence: liveblocksPresence, 
         initialStorage: {nodeMap: new LiveMap()}
     })
     const {suspense: liveblocks} = createRoomContext<
         LiveblocksPresence,
-        LiveblocksStorageModel
+        LiveblocksStorageModel2
     >(liveblocksClient)
     const {root} = await room.getStorage()
     const liveNodeMap = root.get('nodeMap')
-    const RuntimeNode = defineClassOfRuntimeNode(
+    const LiveTreeNode = ClassOfLiveTreeNodeFactory(
         NodeIndex, 
         liveblocks.useStorage,
         liveNodeMap
     )
-    
+    return LiveTreeNode
 }
