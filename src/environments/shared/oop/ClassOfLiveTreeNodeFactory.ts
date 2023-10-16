@@ -47,7 +47,7 @@ export type ILiveTreeNode<
 > = {
     [Type in keyof Index]:{
         parentNode: ILiveTreeNode<Index> | null
-        childNodes: Set<ILiveTreeNode<Index>>
+        childNodes: Set<ILiveTreeNode<Index> & {parentType: Type}>
         liveDataNode: LiveDataNode
         nodeId: string | null
         type: Type
