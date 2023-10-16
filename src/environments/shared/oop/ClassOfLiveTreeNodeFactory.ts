@@ -52,9 +52,9 @@ export type ILiveTreeNode<
         nodeId: string | null
         type: Type
         state: LiveObject<Index[Type]['state']>
-        stateDisplayKey: string
+        stateDisplayKey: Index[Type]['stateDisplayKey']
         metadata: Index[Type]['metadata']
-        parentType: string | null
+        parentType: Index[Type]['parentType']
         update: <
             K extends keyof Index[Type]['state'],
             V extends Index[Type]['state'][K]
