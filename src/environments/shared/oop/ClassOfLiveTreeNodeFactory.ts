@@ -32,7 +32,7 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
     type: 'root'
     nodeId: null
     childNodes: Set<
-        ILiveTreeNode<Index, IndexKey<Index>>
+        ILiveTreeNode<Index, keyof Index>
     >
 }
 type StorageHook = ReturnType<
@@ -44,7 +44,7 @@ type StorageHook = ReturnType<
 
 export type ILiveTreeNode<
     Index extends Record<string, IndexNode>,
-    T extends IndexKey<Index>
+    T extends keyof Index
 > = {
     parentNode: ILiveTreeNode<Index, IndexKey<Index>> | null
     childNodes: Set<ILiveTreeNode<Index, IndexKey<Index>>>
