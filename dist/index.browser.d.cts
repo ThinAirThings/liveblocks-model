@@ -142,16 +142,13 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     }>;
 };
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
-type TypedChildNodes<Index extends Record<string, IndexNode>, U extends LiveTreeNode<Index>> = {
-    [Type in keyof Index]: U & {
-        parentType: Type;
-    };
-}[keyof Index];
 type LiveTreeNode<Index extends Record<string, IndexNode>> = {
     [Type in keyof Index]: {
         parentNode: LiveTreeNode<Index> | null;
         parentType: Index[Type]['parentType'];
-        childNodes: Set<TypedChildNodes<Index, LiveTreeNode<Index>>>;
+        childNodes: Set<LiveTreeNode<Index> & {
+            parentType: Type;
+        }>;
         liveDataNode: LiveDataNode;
         nodeId: string | null;
         type: Type;
