@@ -31,6 +31,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var index_browser_exports = {};
 __export(index_browser_exports, {
   createNodeEntry: () => createNodeEntry,
+  initializeRuntimeGraph: () => initializeRuntimeGraph,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
 module.exports = __toCommonJS(index_browser_exports);
@@ -248,8 +249,86 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
     NodeIndex
   };
 };
+
+// src/environments/shared/oop/initializeRuntimeGraph.ts
+var import_client4 = require("@liveblocks/client");
+
+// src/environments/shared/oop/RuntimeNode.ts
+var import_client3 = require("@liveblocks/client");
+var import_uuid2 = require("uuid");
+var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
+  var _a;
+  return _a = class {
+    constructor(type, parentNode, liveDataNode) {
+      this.childNodes = /* @__PURE__ */ new Set();
+      if (liveDataNode) {
+        this.liveDataNode = liveDataNode;
+      } else {
+        this.liveDataNode = new import_client3.LiveObject({
+          nodeId: (0, import_uuid2.v4)(),
+          parentNodeId: parentNode?.nodeId ?? null,
+          type,
+          state: new import_client3.LiveObject({ ...NodeIndex[type].state }),
+          parentType: NodeIndex[type].parentType,
+          stateDisplayKey: NodeIndex[type].stateDisplayKey
+        });
+        type !== "root" && liveNodeMap.set(this.nodeId, this.liveDataNode);
+      }
+      this.parentNode = parentNode;
+      this.parentNode?.childNodes.add(this);
+    }
+    // Live Data Node Getters
+    get nodeId() {
+      return this.liveDataNode.get("nodeId");
+    }
+    get type() {
+      return this.liveDataNode.get("type");
+    }
+    get state() {
+      return this.liveDataNode.get("state");
+    }
+    get stateDisplayKey() {
+      return this.liveDataNode.get("stateDisplayKey");
+    }
+  }, // Static
+  _a.liveNodeMap = liveNodeMap, (() => {
+    const staticNodeMap = new Map(liveNodeMap.toImmutable());
+    const buildTree = (node) => {
+      liveNodeMap.forEach(
+        (nextDataNode) => nextDataNode.get("parentNodeId") === node.nodeId && node.childNodes.add(
+          buildTree(new _a(
+            nextDataNode.get("type"),
+            node,
+            nextDataNode
+          ))
+        )
+      );
+      return node;
+    };
+    _a.root = buildTree(new _a("root", null));
+  })(), _a;
+};
+
+// src/environments/shared/oop/initializeRuntimeGraph.ts
+var import_react3 = require("@liveblocks/react");
+var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, liveblocksPresence) => {
+  const liveblocksClient = (0, import_client4.createClient)(createClientProps);
+  const room = liveblocksClient.enter(roomId, {
+    initialPresence: liveblocksPresence,
+    initialStorage: { nodeMap: new import_client4.LiveMap() }
+  });
+  const { suspense: liveblocks } = (0, import_react3.createRoomContext)(liveblocksClient);
+  const { root } = await room.getStorage();
+  const liveNodeMap = root.get("nodeMap");
+  const RuntimeNode = defineRuntimeNode(
+    NodeIndex,
+    liveNodeMap
+  );
+  return RuntimeNode;
+};
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   createNodeEntry,
+  initializeRuntimeGraph,
   liveblocksBrowserConfig
 });

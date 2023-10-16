@@ -3,7 +3,7 @@ export { d as StatelessAirNode, U as UnionToIntersection, e as createNodeEntry }
 import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { JsonObject, createClient, Lson } from '@liveblocks/client';
+import { JsonObject, createClient, Lson, LsonObject, LiveObject, LiveMap } from '@liveblocks/client';
 
 declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>, LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], initialLiveblocksPresence: LiveblocksPresence, initialLiveblocksStorage: LiveblocksStorage) => {
     NodeIndex: TypedNodeIndex<Index, U>;
@@ -111,4 +111,1610 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useDeleteNode: () => (nodeId: string) => void;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, liveblocksBrowserConfig };
+type StringKey<Index extends Record<string, any>> = keyof Index & string;
+type IndexNode = {
+    parentType: string | null;
+    stateDisplayKey: string;
+    state: LsonObject;
+};
+type LiveDataNode = LiveObject<Omit<IndexNode, 'state'> & {
+    type: string;
+    nodeId: string;
+    parentNodeId: string | null;
+    state: LiveObject<IndexNode['state']>;
+}>;
+
+type LiveblocksStorageModel2 = {
+    nodeMap: LiveMap<string, LiveDataNode>;
+};
+declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, LiveblocksPresence extends JsonObject = {}>(roomId: string, NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], liveblocksPresence: LiveblocksPresence) => Promise<{
+    new <T extends StringKey<Index>>(type: T, parentNode: {
+        liveDataNode: LiveDataNode;
+        parentNode: {
+            liveDataNode: LiveDataNode;
+            parentNode: {
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<{
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            }>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<{
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        }>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<{
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    }>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<{
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                }>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<{
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            }>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<{
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        }>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<{
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    }>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<{
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                }>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            } | null;
+            childNodes: Set<{
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<any>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            }>;
+            readonly nodeId: string;
+            readonly type: string;
+            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+            readonly stateDisplayKey: string;
+        } | null;
+        childNodes: Set<{
+            liveDataNode: LiveDataNode;
+            parentNode: {
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<any>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            } | null;
+            childNodes: Set<any>;
+            readonly nodeId: string;
+            readonly type: string;
+            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+            readonly stateDisplayKey: string;
+        }>;
+        readonly nodeId: string;
+        readonly type: string;
+        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+        readonly stateDisplayKey: string;
+    } | null, liveDataNode?: LiveDataNode | undefined): {
+        liveDataNode: LiveDataNode;
+        parentNode: {
+            liveDataNode: LiveDataNode;
+            parentNode: {
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<{
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            }>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<{
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        }>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<{
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    }>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<{
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                }>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<{
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            }>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<{
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        }>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<{
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    }>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<{
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                }>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            } | null;
+            childNodes: Set<{
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<any>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            }>;
+            readonly nodeId: string;
+            readonly type: string;
+            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+            readonly stateDisplayKey: string;
+        } | null;
+        childNodes: Set<{
+            liveDataNode: LiveDataNode;
+            parentNode: {
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<any>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            } | null;
+            childNodes: Set<any>;
+            readonly nodeId: string;
+            readonly type: string;
+            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+            readonly stateDisplayKey: string;
+        }>;
+        readonly nodeId: string;
+        readonly type: string;
+        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+        readonly stateDisplayKey: string;
+    };
+    liveNodeMap: LiveMap<string, LiveDataNode>;
+    root: {
+        liveDataNode: LiveDataNode;
+        parentNode: {
+            liveDataNode: LiveDataNode;
+            parentNode: {
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<{
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            }>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<{
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        }>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<{
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    }>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<{
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                }>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<{
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            }>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<{
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        }>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<{
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    }>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<{
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                }>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            } | null;
+            childNodes: Set<{
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<any>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            }>;
+            readonly nodeId: string;
+            readonly type: string;
+            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+            readonly stateDisplayKey: string;
+        } | null;
+        childNodes: Set<{
+            liveDataNode: LiveDataNode;
+            parentNode: {
+                liveDataNode: LiveDataNode;
+                parentNode: {
+                    liveDataNode: LiveDataNode;
+                    parentNode: {
+                        liveDataNode: LiveDataNode;
+                        parentNode: {
+                            liveDataNode: LiveDataNode;
+                            parentNode: {
+                                liveDataNode: LiveDataNode;
+                                parentNode: {
+                                    liveDataNode: LiveDataNode;
+                                    parentNode: {
+                                        liveDataNode: LiveDataNode;
+                                        parentNode: {
+                                            liveDataNode: LiveDataNode;
+                                            parentNode: {
+                                                liveDataNode: LiveDataNode;
+                                                parentNode: any | null;
+                                                childNodes: Set<any>;
+                                                readonly nodeId: string;
+                                                readonly type: string;
+                                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                                readonly stateDisplayKey: string;
+                                            } | null;
+                                            childNodes: Set<any>;
+                                            readonly nodeId: string;
+                                            readonly type: string;
+                                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                            readonly stateDisplayKey: string;
+                                        } | null;
+                                        childNodes: Set<any>;
+                                        readonly nodeId: string;
+                                        readonly type: string;
+                                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                        readonly stateDisplayKey: string;
+                                    } | null;
+                                    childNodes: Set<any>;
+                                    readonly nodeId: string;
+                                    readonly type: string;
+                                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                    readonly stateDisplayKey: string;
+                                } | null;
+                                childNodes: Set<any>;
+                                readonly nodeId: string;
+                                readonly type: string;
+                                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                                readonly stateDisplayKey: string;
+                            } | null;
+                            childNodes: Set<any>;
+                            readonly nodeId: string;
+                            readonly type: string;
+                            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                            readonly stateDisplayKey: string;
+                        } | null;
+                        childNodes: Set<any>;
+                        readonly nodeId: string;
+                        readonly type: string;
+                        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                        readonly stateDisplayKey: string;
+                    } | null;
+                    childNodes: Set<any>;
+                    readonly nodeId: string;
+                    readonly type: string;
+                    readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                    readonly stateDisplayKey: string;
+                } | null;
+                childNodes: Set<any>;
+                readonly nodeId: string;
+                readonly type: string;
+                readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+                readonly stateDisplayKey: string;
+            } | null;
+            childNodes: Set<any>;
+            readonly nodeId: string;
+            readonly type: string;
+            readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+            readonly stateDisplayKey: string;
+        }>;
+        readonly nodeId: string;
+        readonly type: string;
+        readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
+        readonly stateDisplayKey: string;
+    };
+}>;
+
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, LiveblocksStorageModel2, StatelessAirNodeUnion, TypedNodeIndex, initializeRuntimeGraph, liveblocksBrowserConfig };
