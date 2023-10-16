@@ -31,7 +31,9 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
     metadata: JsonObject
     type: 'root'
     nodeId: null
-    childNodes: Set<GenericLiveTreeNode<Index>>
+    childNodes: Set<
+        GenericLiveTreeNode<Index> & {type: IndexKey<Index>}
+    >
 }
 type StorageHook = ReturnType<
     typeof createRoomContext<
