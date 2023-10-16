@@ -313,6 +313,9 @@ var ClassOfLiveTreeNodeFactory = (NodeIndex, useStorage, liveNodeMap) => {
     get metadata() {
       return this.liveDataNode.get("metadata");
     }
+    get parentType() {
+      return this.liveDataNode.get("parentType");
+    }
   }, //   ___ _        _   _    
   //  / __| |_ __ _| |_(_)__ 
   //  \__ \  _/ _` |  _| / _|

@@ -138,7 +138,7 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     type: 'root';
     nodeId: null;
     childNodes: Set<GenericLiveTreeNode<Index> & {
-        type: IndexKey<Index>;
+        parentType: null;
     }>;
 };
 type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
@@ -155,6 +155,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
         readonly state: LiveObject<LsonObject>;
         readonly stateDisplayKey: string;
         readonly metadata: JsonObject;
+        readonly parentType: string | null;
         update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
         useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
     } | null, liveDataNode?: LiveDataNode): {
@@ -167,6 +168,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
             readonly metadata: JsonObject;
+            readonly parentType: string | null;
             update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
             useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
         } | null;
@@ -179,6 +181,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
             readonly metadata: JsonObject;
+            readonly parentType: string | null;
             update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
             useValue: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
         }>;
@@ -188,6 +191,7 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
         readonly state: LiveObject<LsonObject>;
         readonly stateDisplayKey: string;
         readonly metadata: JsonObject;
+        readonly parentType: string | null;
         update: <K_2 extends keyof Index[T]["state"], V_2 extends Index[T]["state"][K_2]>(key: K_2, value: V_2) => void;
         useValue: <K_3 extends keyof Index[T]["state"], V_3 extends Index[T]["state"][K_3]>(key: K_3) => V_3;
     };

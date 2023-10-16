@@ -32,7 +32,7 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
     type: 'root'
     nodeId: null
     childNodes: Set<
-        GenericLiveTreeNode<Index> & {type: IndexKey<Index>}
+        GenericLiveTreeNode<Index> & {parentType: null}
     >
 }
 type StorageHook = ReturnType<
@@ -101,6 +101,7 @@ export const ClassOfLiveTreeNodeFactory = <
     get state() { return this.liveDataNode.get('state') }
     get stateDisplayKey() { return this.liveDataNode.get('stateDisplayKey')}
     get metadata() { return this.liveDataNode.get('metadata')}
+    get parentType() { return this.liveDataNode.get('parentType')}
     //    ___             _               _           
     //   / __|___ _ _  __| |_ _ _ _  _ __| |_ ___ _ _ 
     //  | (__/ _ \ ' \(_-<  _| '_| || / _|  _/ _ \ '_|
