@@ -146,7 +146,9 @@ type LiveTreeNode<Index extends Record<string, IndexNode>> = {
     [Type in keyof Index]: {
         parentNode: LiveTreeNode<Index> | null;
         parentType: Index[Type]['parentType'];
-        childNodes: Set<LiveTreeNode<Index>>;
+        childNodes: Set<LiveTreeNode<Index> & {
+            parentType: Index[Type]['parentType'] & Type;
+        }>;
         liveDataNode: LiveDataNode;
         nodeId: string | null;
         type: Type;
