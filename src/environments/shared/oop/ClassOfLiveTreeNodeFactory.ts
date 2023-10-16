@@ -32,7 +32,7 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
     type: 'root'
     nodeId: null
     childNodes: Set<
-        InstanceType<GenericLiveTreeNode<Index>> & {parentType: null}
+        InstanceType<GenericLiveTreeNode<Index>>
     >
 }
 type StorageHook = ReturnType<
