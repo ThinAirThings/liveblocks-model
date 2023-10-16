@@ -147,7 +147,7 @@ type ILiveTreeNode<Index extends Record<string, IndexNode>, T extends IndexKey<I
     childNodes: Set<ILiveTreeNode<Index, IndexKey<Index>>>;
     liveDataNode: LiveDataNode;
     nodeId: string | null;
-    type: string;
+    type: T;
     state: LiveObject<Index[T]['state']>;
     stateDisplayKey: string;
     metadata: Index[T]['metadata'];
