@@ -95,7 +95,7 @@ export const ClassOfLiveTreeNodeFactory = <
     //   \___\___/_||_/__/\__|_|  \_,_\__|\__\___/_|  
     constructor(
         type: T,
-        parentNode: LiveTreeNode<T>['parentNode'],
+        parentNode: LiveTreeNode<IndexKey<Index> & Index[T]['parentType']> | null,
         liveDataNode?: LiveDataNode
     ){
 
