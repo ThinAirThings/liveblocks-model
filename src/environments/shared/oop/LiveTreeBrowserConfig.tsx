@@ -1,5 +1,5 @@
 import { JsonObject, createClient } from "@liveblocks/client";
-import { GenericLiveTreeNode, IndexNode } from "./ClassOfLiveTreeNodeFactory.js";
+import { GenericLiveTreeNode, IndexNode, RootTreeNode } from "./ClassOfLiveTreeNodeFactory.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
 import { initializeLiveTree } from "./initializeLiveTree.js";
 
@@ -12,7 +12,7 @@ export const LiveTreeBrowserConfig = <
     liveblocksPresence: LiveblocksPresence,
 ) => {
     const LiveTreeNodeRootContext = createContext<
-        GenericLiveTreeNode<Index>['root']
+        RootTreeNode<Index>
     >(null as any)
     const useLiveTreeNodeRoot = () => useContext(LiveTreeNodeRootContext)
     const LiveTreeNodeRootProvider: FC<{
@@ -25,7 +25,7 @@ export const LiveTreeBrowserConfig = <
         children
     }) => {
         // const LiveTreeNodeRef = useRef<GenericLiveTreeNode<Index>|null>(null)
-        const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = useState<GenericLiveTreeNode<Index>['root']|null>(null)
+        const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = useState<RootTreeNode<Index>|null>(null)
         useEffect(() => {
             (async () => {
                 const LiveTreeNode = await initializeLiveTree(
