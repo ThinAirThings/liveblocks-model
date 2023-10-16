@@ -33,6 +33,7 @@ export const initializeRuntimeGraph = async <
     const liveNodeMap = root.get('nodeMap')
     const RuntimeNode = defineRuntimeNode(
         NodeIndex, 
+        liveblocks.useStorage,
         liveNodeMap
     )
     return RuntimeNode

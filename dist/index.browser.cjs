@@ -256,11 +256,23 @@ var import_client4 = require("@liveblocks/client");
 // src/environments/shared/oop/RuntimeNode.ts
 var import_client3 = require("@liveblocks/client");
 var import_uuid2 = require("uuid");
-var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
+var defineRuntimeNode = (NodeIndex, useStorage, liveNodeMap) => {
   var _a;
   return _a = class {
+    //    ___             _               _           
+    //   / __|___ _ _  __| |_ _ _ _  _ __| |_ ___ _ _ 
+    //  | (__/ _ \ ' \(_-<  _| '_| || / _|  _/ _ \ '_|
+    //   \___\___/_||_/__/\__|_|  \_,_\__|\__\___/_|  
     constructor(type, parentNode, liveDataNode) {
       this.childNodes = /* @__PURE__ */ new Set();
+      //   __  __     _   _            _    
+      //  |  \/  |___| |_| |_  ___  __| |___
+      //  | |\/| / -_)  _| ' \/ _ \/ _` (_-<
+      //  |_|  |_\___|\__|_||_\___/\__,_/__/
+      this.update = (key, value) => {
+        this.state.set(key, value);
+      };
+      this.useValue = (key) => useStorage(({ nodeMap }) => nodeMap.get(this.nodeId)?.state[key]);
       if (liveDataNode) {
         this.liveDataNode = liveDataNode;
       } else {
@@ -268,6 +280,7 @@ var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
           nodeId: (0, import_uuid2.v4)(),
           parentNodeId: parentNode?.nodeId ?? null,
           type,
+          metadata: { ...NodeIndex[type].metadata, createdAt: (/* @__PURE__ */ new Date()).toISOString() },
           state: new import_client3.LiveObject({ ...NodeIndex[type].state }),
           parentType: NodeIndex[type].parentType,
           stateDisplayKey: NodeIndex[type].stateDisplayKey
@@ -281,7 +294,6 @@ var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
       this.parentNode = parentNode;
       this.parentNode?.childNodes.add(this);
     }
-    // Live Data Node Getters
     get nodeId() {
       return this.liveDataNode.get("nodeId");
     }
@@ -294,7 +306,13 @@ var defineRuntimeNode = (NodeIndex, liveNodeMap) => {
     get stateDisplayKey() {
       return this.liveDataNode.get("stateDisplayKey");
     }
-  }, // Static
+    get metadata() {
+      return this.liveDataNode.get("metadata");
+    }
+  }, //   ___ _        _   _    
+  //  / __| |_ __ _| |_(_)__ 
+  //  \__ \  _/ _` |  _| / _|
+  //  |___/\__\__,_|\__|_\__|
   _a.liveNodeMap = liveNodeMap, (() => {
     const buildTree = (node) => {
       liveNodeMap.forEach(
@@ -325,6 +343,7 @@ var initializeRuntimeGraph = async (roomId, NodeIndex, createClientProps, livebl
   const liveNodeMap = root.get("nodeMap");
   const RuntimeNode = defineRuntimeNode(
     NodeIndex,
+    liveblocks.useStorage,
     liveNodeMap
   );
   return RuntimeNode;
