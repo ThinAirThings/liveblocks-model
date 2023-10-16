@@ -115,9 +115,7 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
 type IndexKey<Index extends Record<string, any>> = keyof Index;
 type IndexNode = {
     parentType: string | null;
-    metadata: JsonObject & {
-        createdAt: string;
-    };
+    metadata: JsonObject;
     stateDisplayKey: string;
     state: Record<string, any>;
 };
@@ -149,9 +147,7 @@ declare const defineRuntimeNode: <Index extends {
                                                 readonly type: string;
                                                 readonly state: LiveObject<LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K]>(key: K, value: V) => void;
                                                 useValue: <K_1 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_1 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_1]>(key: K_1) => V_1;
                                             } | null;
@@ -163,9 +159,7 @@ declare const defineRuntimeNode: <Index extends {
                                                 readonly type: string;
                                                 readonly state: LiveObject<LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                             }>;
@@ -174,9 +168,7 @@ declare const defineRuntimeNode: <Index extends {
                                             readonly type: string;
                                             readonly state: LiveObject<LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_4 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_4 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_4]>(key: K_4, value: V_4) => void;
                                             useValue: <K_5 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_5 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_5]>(key: K_5) => V_5;
                                         } | null;
@@ -188,9 +180,7 @@ declare const defineRuntimeNode: <Index extends {
                                             readonly type: string;
                                             readonly state: LiveObject<LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                         }>;
@@ -199,9 +189,7 @@ declare const defineRuntimeNode: <Index extends {
                                         readonly type: string;
                                         readonly state: LiveObject<LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                     } | null;
@@ -213,9 +201,7 @@ declare const defineRuntimeNode: <Index extends {
                                         readonly type: string;
                                         readonly state: LiveObject<LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                     }>;
@@ -224,9 +210,7 @@ declare const defineRuntimeNode: <Index extends {
                                     readonly type: string;
                                     readonly state: LiveObject<LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_8 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_8 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_8]>(key: K_8, value: V_8) => void;
                                     useValue: <K_9 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_9 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_9]>(key: K_9) => V_9;
                                 } | null;
@@ -238,9 +222,7 @@ declare const defineRuntimeNode: <Index extends {
                                     readonly type: string;
                                     readonly state: LiveObject<LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                 }>;
@@ -249,9 +231,7 @@ declare const defineRuntimeNode: <Index extends {
                                 readonly type: string;
                                 readonly state: LiveObject<LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                             } | null;
@@ -263,9 +243,7 @@ declare const defineRuntimeNode: <Index extends {
                                 readonly type: string;
                                 readonly state: LiveObject<LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                             }>;
@@ -274,9 +252,7 @@ declare const defineRuntimeNode: <Index extends {
                             readonly type: string;
                             readonly state: LiveObject<LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_12 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_12 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_12]>(key: K_12, value: V_12) => void;
                             useValue: <K_13 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_13 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_13]>(key: K_13) => V_13;
                         } | null;
@@ -288,9 +264,7 @@ declare const defineRuntimeNode: <Index extends {
                             readonly type: string;
                             readonly state: LiveObject<LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                         }>;
@@ -299,9 +273,7 @@ declare const defineRuntimeNode: <Index extends {
                         readonly type: string;
                         readonly state: LiveObject<LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                     } | null;
@@ -313,9 +285,7 @@ declare const defineRuntimeNode: <Index extends {
                         readonly type: string;
                         readonly state: LiveObject<LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                     }>;
@@ -324,9 +294,7 @@ declare const defineRuntimeNode: <Index extends {
                     readonly type: string;
                     readonly state: LiveObject<LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_16 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_16 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_16]>(key: K_16, value: V_16) => void;
                     useValue: <K_17 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_17 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_17]>(key: K_17) => V_17;
                 } | null;
@@ -338,9 +306,7 @@ declare const defineRuntimeNode: <Index extends {
                     readonly type: string;
                     readonly state: LiveObject<LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                 }>;
@@ -349,9 +315,7 @@ declare const defineRuntimeNode: <Index extends {
                 readonly type: string;
                 readonly state: LiveObject<LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
             } | null;
@@ -363,9 +327,7 @@ declare const defineRuntimeNode: <Index extends {
                 readonly type: string;
                 readonly state: LiveObject<LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
             }>;
@@ -374,9 +336,7 @@ declare const defineRuntimeNode: <Index extends {
             readonly type: string;
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_20 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_20 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_20]>(key: K_20, value: V_20) => void;
             useValue: <K_21 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_21 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_21]>(key: K_21) => V_21;
         } | null;
@@ -388,9 +348,7 @@ declare const defineRuntimeNode: <Index extends {
             readonly type: string;
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
         }>;
@@ -399,9 +357,7 @@ declare const defineRuntimeNode: <Index extends {
         readonly type: string;
         readonly state: LiveObject<LsonObject>;
         readonly stateDisplayKey: string;
-        readonly metadata: JsonObject & {
-            createdAt: string;
-        };
+        readonly metadata: JsonObject;
         update: <K_22 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
         useValue: <K_23 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
     } | null, liveDataNode?: LiveDataNode): {
@@ -423,9 +379,7 @@ declare const defineRuntimeNode: <Index extends {
                                                     readonly type: string;
                                                     readonly state: LiveObject<LsonObject>;
                                                     readonly stateDisplayKey: string;
-                                                    readonly metadata: JsonObject & {
-                                                        createdAt: string;
-                                                    };
+                                                    readonly metadata: JsonObject;
                                                     update: <K extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K]>(key: K, value: V) => void;
                                                     useValue: <K_1 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_1 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_1]>(key: K_1) => V_1;
                                                 } | null;
@@ -437,9 +391,7 @@ declare const defineRuntimeNode: <Index extends {
                                                     readonly type: string;
                                                     readonly state: LiveObject<LsonObject>;
                                                     readonly stateDisplayKey: string;
-                                                    readonly metadata: JsonObject & {
-                                                        createdAt: string;
-                                                    };
+                                                    readonly metadata: JsonObject;
                                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                                 }>;
@@ -448,9 +400,7 @@ declare const defineRuntimeNode: <Index extends {
                                                 readonly type: string;
                                                 readonly state: LiveObject<LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_4 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_4 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_4]>(key: K_4, value: V_4) => void;
                                                 useValue: <K_5 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_5 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_5]>(key: K_5) => V_5;
                                             } | null;
@@ -462,9 +412,7 @@ declare const defineRuntimeNode: <Index extends {
                                                 readonly type: string;
                                                 readonly state: LiveObject<LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                             }>;
@@ -473,9 +421,7 @@ declare const defineRuntimeNode: <Index extends {
                                             readonly type: string;
                                             readonly state: LiveObject<LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                         } | null;
@@ -487,9 +433,7 @@ declare const defineRuntimeNode: <Index extends {
                                             readonly type: string;
                                             readonly state: LiveObject<LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                         }>;
@@ -498,9 +442,7 @@ declare const defineRuntimeNode: <Index extends {
                                         readonly type: string;
                                         readonly state: LiveObject<LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_8 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_8 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_8]>(key: K_8, value: V_8) => void;
                                         useValue: <K_9 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_9 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_9]>(key: K_9) => V_9;
                                     } | null;
@@ -512,9 +454,7 @@ declare const defineRuntimeNode: <Index extends {
                                         readonly type: string;
                                         readonly state: LiveObject<LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                     }>;
@@ -523,9 +463,7 @@ declare const defineRuntimeNode: <Index extends {
                                     readonly type: string;
                                     readonly state: LiveObject<LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                 } | null;
@@ -537,9 +475,7 @@ declare const defineRuntimeNode: <Index extends {
                                     readonly type: string;
                                     readonly state: LiveObject<LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                 }>;
@@ -548,9 +484,7 @@ declare const defineRuntimeNode: <Index extends {
                                 readonly type: string;
                                 readonly state: LiveObject<LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_12 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_12 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_12]>(key: K_12, value: V_12) => void;
                                 useValue: <K_13 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_13 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_13]>(key: K_13) => V_13;
                             } | null;
@@ -562,9 +496,7 @@ declare const defineRuntimeNode: <Index extends {
                                 readonly type: string;
                                 readonly state: LiveObject<LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                             }>;
@@ -573,9 +505,7 @@ declare const defineRuntimeNode: <Index extends {
                             readonly type: string;
                             readonly state: LiveObject<LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                         } | null;
@@ -587,9 +517,7 @@ declare const defineRuntimeNode: <Index extends {
                             readonly type: string;
                             readonly state: LiveObject<LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                         }>;
@@ -598,9 +526,7 @@ declare const defineRuntimeNode: <Index extends {
                         readonly type: string;
                         readonly state: LiveObject<LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_16 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_16 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_16]>(key: K_16, value: V_16) => void;
                         useValue: <K_17 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_17 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_17]>(key: K_17) => V_17;
                     } | null;
@@ -612,9 +538,7 @@ declare const defineRuntimeNode: <Index extends {
                         readonly type: string;
                         readonly state: LiveObject<LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                     }>;
@@ -623,9 +547,7 @@ declare const defineRuntimeNode: <Index extends {
                     readonly type: string;
                     readonly state: LiveObject<LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                     useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                 } | null;
@@ -637,9 +559,7 @@ declare const defineRuntimeNode: <Index extends {
                     readonly type: string;
                     readonly state: LiveObject<LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                 }>;
@@ -648,9 +568,7 @@ declare const defineRuntimeNode: <Index extends {
                 readonly type: string;
                 readonly state: LiveObject<LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_20 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_20 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_20]>(key: K_20, value: V_20) => void;
                 useValue: <K_21 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_21 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_21]>(key: K_21) => V_21;
             } | null;
@@ -662,9 +580,7 @@ declare const defineRuntimeNode: <Index extends {
                 readonly type: string;
                 readonly state: LiveObject<LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
             }>;
@@ -673,9 +589,7 @@ declare const defineRuntimeNode: <Index extends {
             readonly type: string;
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_22 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
             useValue: <K_23 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
         } | null;
@@ -687,9 +601,7 @@ declare const defineRuntimeNode: <Index extends {
             readonly type: string;
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
         }>;
@@ -698,9 +610,7 @@ declare const defineRuntimeNode: <Index extends {
         readonly type: string;
         readonly state: LiveObject<LsonObject>;
         readonly stateDisplayKey: string;
-        readonly metadata: JsonObject & {
-            createdAt: string;
-        };
+        readonly metadata: JsonObject;
         update: <K_24 extends keyof Index[T]["state"], V_24 extends Index[T]["state"][K_24]>(key: K_24, value: V_24) => void;
         useValue: <K_25 extends keyof Index[T]["state"], V_25 extends Index[T]["state"][K_25]>(key: K_25) => V_25;
     };
@@ -725,9 +635,7 @@ declare const defineRuntimeNode: <Index extends {
                                                     readonly type: string;
                                                     readonly state: LiveObject<LsonObject>;
                                                     readonly stateDisplayKey: string;
-                                                    readonly metadata: JsonObject & {
-                                                        createdAt: string;
-                                                    };
+                                                    readonly metadata: JsonObject;
                                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                                 }>;
@@ -736,9 +644,7 @@ declare const defineRuntimeNode: <Index extends {
                                                 readonly type: string;
                                                 readonly state: LiveObject<LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                                 useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                             } | null;
@@ -750,9 +656,7 @@ declare const defineRuntimeNode: <Index extends {
                                                 readonly type: string;
                                                 readonly state: LiveObject<LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                             }>;
@@ -761,9 +665,7 @@ declare const defineRuntimeNode: <Index extends {
                                             readonly type: string;
                                             readonly state: LiveObject<LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_28 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_28 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_28]>(key: K_28, value: V_28) => void;
                                             useValue: <K_29 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_29 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_29]>(key: K_29) => V_29;
                                         } | null;
@@ -775,9 +677,7 @@ declare const defineRuntimeNode: <Index extends {
                                             readonly type: string;
                                             readonly state: LiveObject<LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                         }>;
@@ -786,9 +686,7 @@ declare const defineRuntimeNode: <Index extends {
                                         readonly type: string;
                                         readonly state: LiveObject<LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                         useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                     } | null;
@@ -800,9 +698,7 @@ declare const defineRuntimeNode: <Index extends {
                                         readonly type: string;
                                         readonly state: LiveObject<LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                     }>;
@@ -811,9 +707,7 @@ declare const defineRuntimeNode: <Index extends {
                                     readonly type: string;
                                     readonly state: LiveObject<LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_32 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_32 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_32]>(key: K_32, value: V_32) => void;
                                     useValue: <K_33 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_33 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_33]>(key: K_33) => V_33;
                                 } | null;
@@ -825,9 +719,7 @@ declare const defineRuntimeNode: <Index extends {
                                     readonly type: string;
                                     readonly state: LiveObject<LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                 }>;
@@ -836,9 +728,7 @@ declare const defineRuntimeNode: <Index extends {
                                 readonly type: string;
                                 readonly state: LiveObject<LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                 useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                             } | null;
@@ -850,9 +740,7 @@ declare const defineRuntimeNode: <Index extends {
                                 readonly type: string;
                                 readonly state: LiveObject<LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                             }>;
@@ -861,9 +749,7 @@ declare const defineRuntimeNode: <Index extends {
                             readonly type: string;
                             readonly state: LiveObject<LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_36 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_36 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_36]>(key: K_36, value: V_36) => void;
                             useValue: <K_37 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_37 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_37]>(key: K_37) => V_37;
                         } | null;
@@ -875,9 +761,7 @@ declare const defineRuntimeNode: <Index extends {
                             readonly type: string;
                             readonly state: LiveObject<LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                         }>;
@@ -886,9 +770,7 @@ declare const defineRuntimeNode: <Index extends {
                         readonly type: string;
                         readonly state: LiveObject<LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_38 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_38 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_38]>(key: K_38, value: V_38) => void;
                         useValue: <K_39 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_39 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_39]>(key: K_39) => V_39;
                     } | null;
@@ -900,9 +782,7 @@ declare const defineRuntimeNode: <Index extends {
                         readonly type: string;
                         readonly state: LiveObject<LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                     }>;
@@ -911,9 +791,7 @@ declare const defineRuntimeNode: <Index extends {
                     readonly type: string;
                     readonly state: LiveObject<LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_40 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"], V_40 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"][K_40]>(key: K_40, value: V_40) => void;
                     useValue: <K_41 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"], V_41 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"][K_41]>(key: K_41) => V_41;
                 } | null;
@@ -925,9 +803,7 @@ declare const defineRuntimeNode: <Index extends {
                     readonly type: string;
                     readonly state: LiveObject<LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                 }>;
@@ -936,9 +812,7 @@ declare const defineRuntimeNode: <Index extends {
                 readonly type: string;
                 readonly state: LiveObject<LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_42 extends keyof Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"], V_42 extends Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"][K_42]>(key: K_42, value: V_42) => void;
                 useValue: <K_43 extends keyof Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"], V_43 extends Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"][K_43]>(key: K_43) => V_43;
             } | null;
@@ -950,9 +824,7 @@ declare const defineRuntimeNode: <Index extends {
                 readonly type: string;
                 readonly state: LiveObject<LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
             }>;
@@ -961,9 +833,7 @@ declare const defineRuntimeNode: <Index extends {
             readonly type: string;
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_44 extends keyof Index[keyof Index & Index["root"]["parentType"]]["state"], V_44 extends Index[keyof Index & Index["root"]["parentType"]]["state"][K_44]>(key: K_44, value: V_44) => void;
             useValue: <K_45 extends keyof Index[keyof Index & Index["root"]["parentType"]]["state"], V_45 extends Index[keyof Index & Index["root"]["parentType"]]["state"][K_45]>(key: K_45) => V_45;
         } | null;
@@ -975,9 +845,7 @@ declare const defineRuntimeNode: <Index extends {
             readonly type: string;
             readonly state: LiveObject<LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
         }>;
@@ -986,9 +854,7 @@ declare const defineRuntimeNode: <Index extends {
         readonly type: string;
         readonly state: LiveObject<LsonObject>;
         readonly stateDisplayKey: string;
-        readonly metadata: JsonObject & {
-            createdAt: string;
-        };
+        readonly metadata: JsonObject;
         update: <K_46 extends keyof Index["root"]["state"], V_46 extends Index["root"]["state"][K_46]>(key: K_46, value: V_46) => void;
         useValue: <K_47 extends keyof Index["root"]["state"], V_47 extends Index["root"]["state"][K_47]>(key: K_47) => V_47;
     };
@@ -1016,9 +882,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K]>(key: K, value: V) => void;
                                                 useValue: <K_1 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_1 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_1]>(key: K_1) => V_1;
                                             } | null;
@@ -1030,9 +894,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                             }>;
@@ -1041,9 +903,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_4 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_4 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_4]>(key: K_4, value: V_4) => void;
                                             useValue: <K_5 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_5 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_5]>(key: K_5) => V_5;
                                         } | null;
@@ -1056,9 +916,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                             } | null;
@@ -1068,9 +926,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                         }>;
@@ -1079,9 +935,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_8 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_8 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_8]>(key: K_8, value: V_8) => void;
                                         useValue: <K_9 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_9 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_9]>(key: K_9) => V_9;
                                     } | null;
@@ -1095,9 +949,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                             } | null;
@@ -1107,9 +959,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                         } | null;
@@ -1119,9 +969,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                     }>;
@@ -1130,9 +978,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_12 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_12 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_12]>(key: K_12, value: V_12) => void;
                                     useValue: <K_13 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_13 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_13]>(key: K_13) => V_13;
                                 } | null;
@@ -1147,9 +993,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                                 useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                             } | null;
@@ -1159,9 +1003,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                             useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                         } | null;
@@ -1171,9 +1013,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                     } | null;
@@ -1183,9 +1023,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                 }>;
@@ -1194,9 +1032,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_16 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_16 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_16]>(key: K_16, value: V_16) => void;
                                 useValue: <K_17 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_17 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_17]>(key: K_17) => V_17;
                             } | null;
@@ -1212,9 +1048,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                             } | null;
@@ -1224,9 +1058,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                         } | null;
@@ -1236,9 +1068,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                         useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                     } | null;
@@ -1248,9 +1078,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                     useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                 } | null;
@@ -1260,9 +1088,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                             }>;
@@ -1271,9 +1097,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_20 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_20 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_20]>(key: K_20, value: V_20) => void;
                             useValue: <K_21 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_21 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_21]>(key: K_21) => V_21;
                         } | null;
@@ -1290,9 +1114,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                                 useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                             } | null;
@@ -1302,9 +1124,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                             useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                         } | null;
@@ -1314,9 +1134,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                     } | null;
@@ -1326,9 +1144,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                 } | null;
@@ -1338,9 +1154,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                             } | null;
@@ -1350,9 +1164,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                         }>;
@@ -1361,9 +1173,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_24 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_24 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_24]>(key: K_24, value: V_24) => void;
                         useValue: <K_25 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_25 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_25]>(key: K_25) => V_25;
                     } | null;
@@ -1381,9 +1191,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                                 useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                             } | null;
@@ -1393,9 +1201,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                             useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                         } | null;
@@ -1405,9 +1211,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                         useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                     } | null;
@@ -1417,9 +1221,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                     useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                 } | null;
@@ -1429,9 +1231,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                             } | null;
@@ -1441,9 +1241,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                         } | null;
@@ -1453,9 +1251,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                     }>;
@@ -1464,9 +1260,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_28 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_28 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_28]>(key: K_28, value: V_28) => void;
                     useValue: <K_29 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_29 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_29]>(key: K_29) => V_29;
                 } | null;
@@ -1485,9 +1279,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                                 useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                             } | null;
@@ -1497,9 +1289,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                             useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                         } | null;
@@ -1509,9 +1299,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                         useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                     } | null;
@@ -1521,9 +1309,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                     useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                 } | null;
@@ -1533,9 +1319,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                 useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                             } | null;
@@ -1545,9 +1329,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                             useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                         } | null;
@@ -1557,9 +1339,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                     } | null;
@@ -1569,9 +1349,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                 }>;
@@ -1580,9 +1358,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_32 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_32 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_32]>(key: K_32, value: V_32) => void;
                 useValue: <K_33 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_33 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_33]>(key: K_33) => V_33;
             } | null;
@@ -1602,9 +1378,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                                 useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                                             } | null;
@@ -1614,9 +1388,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                             useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                         } | null;
@@ -1626,9 +1398,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                         useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                     } | null;
@@ -1638,9 +1408,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                     useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                 } | null;
@@ -1650,9 +1418,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                             } | null;
@@ -1662,9 +1428,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                         } | null;
@@ -1674,9 +1438,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                         useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                     } | null;
@@ -1686,9 +1448,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                     useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                 } | null;
@@ -1698,9 +1458,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
             }>;
@@ -1709,9 +1467,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
             readonly type: string;
             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_36 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_36 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_36]>(key: K_36, value: V_36) => void;
             useValue: <K_37 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_37 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_37]>(key: K_37) => V_37;
         } | null;
@@ -1732,9 +1488,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_38 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_38 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_38]>(key: K_38, value: V_38) => void;
                                                 useValue: <K_39 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_39 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_39]>(key: K_39) => V_39;
                                             } | null;
@@ -1744,9 +1498,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                             useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                                         } | null;
@@ -1756,9 +1508,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                         useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                     } | null;
@@ -1768,9 +1518,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                     useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                 } | null;
@@ -1780,9 +1528,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                 useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                             } | null;
@@ -1792,9 +1538,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                             useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                         } | null;
@@ -1804,9 +1548,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                     } | null;
@@ -1816,9 +1558,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                 } | null;
@@ -1828,9 +1568,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
             } | null;
@@ -1840,9 +1578,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
             readonly type: string;
             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
         }>;
@@ -1851,9 +1587,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
         readonly type: string;
         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
         readonly stateDisplayKey: string;
-        readonly metadata: JsonObject & {
-            createdAt: string;
-        };
+        readonly metadata: JsonObject;
         update: <K_40 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_40 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_40]>(key: K_40, value: V_40) => void;
         useValue: <K_41 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_41 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_41]>(key: K_41) => V_41;
     } | null, liveDataNode?: LiveDataNode | undefined): {
@@ -1874,9 +1608,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_4 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_4 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_4]>(key: K_4, value: V_4) => void;
                                                 useValue: <K_5 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_5 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_5]>(key: K_5) => V_5;
                                             } | null;
@@ -1888,9 +1620,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                             }>;
@@ -1899,9 +1629,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_8 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_8 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_8]>(key: K_8, value: V_8) => void;
                                             useValue: <K_9 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_9 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_9]>(key: K_9) => V_9;
                                         } | null;
@@ -1914,9 +1642,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                             } | null;
@@ -1926,9 +1652,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                         }>;
@@ -1937,9 +1661,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_12 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_12 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_12]>(key: K_12, value: V_12) => void;
                                         useValue: <K_13 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_13 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_13]>(key: K_13) => V_13;
                                     } | null;
@@ -1953,9 +1675,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                             } | null;
@@ -1965,9 +1685,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                         } | null;
@@ -1977,9 +1695,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                     }>;
@@ -1988,9 +1704,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_16 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_16 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_16]>(key: K_16, value: V_16) => void;
                                     useValue: <K_17 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_17 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_17]>(key: K_17) => V_17;
                                 } | null;
@@ -2005,9 +1719,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                                 useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                             } | null;
@@ -2017,9 +1729,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                             useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                         } | null;
@@ -2029,9 +1739,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                     } | null;
@@ -2041,9 +1749,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                 }>;
@@ -2052,9 +1758,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_20 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_20 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_20]>(key: K_20, value: V_20) => void;
                                 useValue: <K_21 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_21 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_21]>(key: K_21) => V_21;
                             } | null;
@@ -2070,9 +1774,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                             } | null;
@@ -2082,9 +1784,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                         } | null;
@@ -2094,9 +1794,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                         useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                     } | null;
@@ -2106,9 +1804,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                     useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                 } | null;
@@ -2118,9 +1814,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                             }>;
@@ -2129,9 +1823,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_24 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_24 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_24]>(key: K_24, value: V_24) => void;
                             useValue: <K_25 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_25 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_25]>(key: K_25) => V_25;
                         } | null;
@@ -2148,9 +1840,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                                 useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                             } | null;
@@ -2160,9 +1850,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                             useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                         } | null;
@@ -2172,9 +1860,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                     } | null;
@@ -2184,9 +1870,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                 } | null;
@@ -2196,9 +1880,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                             } | null;
@@ -2208,9 +1890,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                         }>;
@@ -2219,9 +1899,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_28 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_28 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_28]>(key: K_28, value: V_28) => void;
                         useValue: <K_29 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_29 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_29]>(key: K_29) => V_29;
                     } | null;
@@ -2239,9 +1917,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                                 useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                             } | null;
@@ -2251,9 +1927,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                             useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                         } | null;
@@ -2263,9 +1937,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                         useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                     } | null;
@@ -2275,9 +1947,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                     useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                 } | null;
@@ -2287,9 +1957,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                             } | null;
@@ -2299,9 +1967,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                         } | null;
@@ -2311,9 +1977,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                     }>;
@@ -2322,9 +1986,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_32 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_32 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_32]>(key: K_32, value: V_32) => void;
                     useValue: <K_33 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"], V_33 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["parentType"]]["state"][K_33]>(key: K_33) => V_33;
                 } | null;
@@ -2343,9 +2005,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                                 useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                             } | null;
@@ -2355,9 +2015,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                             useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                         } | null;
@@ -2367,9 +2025,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                         useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                     } | null;
@@ -2379,9 +2035,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                     useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                 } | null;
@@ -2391,9 +2045,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                 useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                             } | null;
@@ -2403,9 +2055,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                             useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                         } | null;
@@ -2415,9 +2065,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                     } | null;
@@ -2427,9 +2075,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                 }>;
@@ -2438,9 +2084,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_36 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_36 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_36]>(key: K_36, value: V_36) => void;
                 useValue: <K_37 extends keyof Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"], V_37 extends Index[keyof Index & Index[keyof Index & Index[T]["parentType"]]["parentType"]]["state"][K_37]>(key: K_37) => V_37;
             } | null;
@@ -2460,9 +2104,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                                 useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                                             } | null;
@@ -2472,9 +2114,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                             useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                         } | null;
@@ -2484,9 +2124,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                         useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                     } | null;
@@ -2496,9 +2134,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                     useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                 } | null;
@@ -2508,9 +2144,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                             } | null;
@@ -2520,9 +2154,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                         } | null;
@@ -2532,9 +2164,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                         useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                     } | null;
@@ -2544,9 +2174,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                     useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                 } | null;
@@ -2556,9 +2184,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
             }>;
@@ -2567,9 +2193,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
             readonly type: string;
             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_40 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_40 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_40]>(key: K_40, value: V_40) => void;
             useValue: <K_41 extends keyof Index[keyof Index & Index[T]["parentType"]]["state"], V_41 extends Index[keyof Index & Index[T]["parentType"]]["state"][K_41]>(key: K_41) => V_41;
         } | null;
@@ -2590,9 +2214,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_38 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_38 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_38]>(key: K_38, value: V_38) => void;
                                                 useValue: <K_39 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_39 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_39]>(key: K_39) => V_39;
                                             } | null;
@@ -2602,9 +2224,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                             useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                                         } | null;
@@ -2614,9 +2234,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                         useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                     } | null;
@@ -2626,9 +2244,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                     useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                 } | null;
@@ -2638,9 +2254,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                 useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                             } | null;
@@ -2650,9 +2264,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                             useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                         } | null;
@@ -2662,9 +2274,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                     } | null;
@@ -2674,9 +2284,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                 } | null;
@@ -2686,9 +2294,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
             } | null;
@@ -2698,9 +2304,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
             readonly type: string;
             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
         }>;
@@ -2709,9 +2313,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
         readonly type: string;
         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
         readonly stateDisplayKey: string;
-        readonly metadata: JsonObject & {
-            createdAt: string;
-        };
+        readonly metadata: JsonObject;
         update: <K_42 extends keyof Index[T]["state"], V_42 extends Index[T]["state"][K_42]>(key: K_42, value: V_42) => void;
         useValue: <K_43 extends keyof Index[T]["state"], V_43 extends Index[T]["state"][K_43]>(key: K_43) => V_43;
     };
@@ -2734,9 +2336,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_44 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_44 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_44]>(key: K_44, value: V_44) => void;
                                                 useValue: <K_45 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_45 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_45]>(key: K_45) => V_45;
                                             } | null;
@@ -2748,9 +2348,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                             }>;
@@ -2759,9 +2357,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_46 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_46 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_46]>(key: K_46, value: V_46) => void;
                                             useValue: <K_47 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_47 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_47]>(key: K_47) => V_47;
                                         } | null;
@@ -2774,9 +2370,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                             } | null;
@@ -2786,9 +2380,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                         }>;
@@ -2797,9 +2389,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_48 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_48 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_48]>(key: K_48, value: V_48) => void;
                                         useValue: <K_49 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_49 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_49]>(key: K_49) => V_49;
                                     } | null;
@@ -2813,9 +2403,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                             } | null;
@@ -2825,9 +2413,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                         } | null;
@@ -2837,9 +2423,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                     }>;
@@ -2848,9 +2432,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_50 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_50 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_50]>(key: K_50, value: V_50) => void;
                                     useValue: <K_51 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_51 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_51]>(key: K_51) => V_51;
                                 } | null;
@@ -2865,9 +2447,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                                 useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                             } | null;
@@ -2877,9 +2457,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                             useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                         } | null;
@@ -2889,9 +2467,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                     } | null;
@@ -2901,9 +2477,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                                 }>;
@@ -2912,9 +2486,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_52 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_52 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_52]>(key: K_52, value: V_52) => void;
                                 useValue: <K_53 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_53 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_53]>(key: K_53) => V_53;
                             } | null;
@@ -2930,9 +2502,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                             } | null;
@@ -2942,9 +2512,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                         } | null;
@@ -2954,9 +2522,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                         useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                     } | null;
@@ -2966,9 +2532,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                     useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                                 } | null;
@@ -2978,9 +2542,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                             }>;
@@ -2989,9 +2551,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_54 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_54 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_54]>(key: K_54, value: V_54) => void;
                             useValue: <K_55 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_55 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_55]>(key: K_55) => V_55;
                         } | null;
@@ -3008,9 +2568,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                                 useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                             } | null;
@@ -3020,9 +2578,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                             useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                         } | null;
@@ -3032,9 +2588,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                     } | null;
@@ -3044,9 +2598,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                                 } | null;
@@ -3056,9 +2608,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                             } | null;
@@ -3068,9 +2618,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                         }>;
@@ -3079,9 +2627,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_56 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_56 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_56]>(key: K_56, value: V_56) => void;
                         useValue: <K_57 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_57 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_57]>(key: K_57) => V_57;
                     } | null;
@@ -3099,9 +2645,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                                 useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                             } | null;
@@ -3111,9 +2655,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                             useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                         } | null;
@@ -3123,9 +2665,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                         useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                     } | null;
@@ -3135,9 +2675,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                     useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                                 } | null;
@@ -3147,9 +2685,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                                 useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                             } | null;
@@ -3159,9 +2695,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                             useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                         } | null;
@@ -3171,9 +2705,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                         useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                     }>;
@@ -3182,9 +2714,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_58 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"], V_58 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"][K_58]>(key: K_58, value: V_58) => void;
                     useValue: <K_59 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"], V_59 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["parentType"]]["state"][K_59]>(key: K_59) => V_59;
                 } | null;
@@ -3203,9 +2733,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                                 useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                             } | null;
@@ -3215,9 +2743,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                             useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                         } | null;
@@ -3227,9 +2753,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                         useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                     } | null;
@@ -3239,9 +2763,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                     useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                                 } | null;
@@ -3251,9 +2773,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                                 useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                             } | null;
@@ -3263,9 +2783,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                             useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                         } | null;
@@ -3275,9 +2793,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                         useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                     } | null;
@@ -3287,9 +2803,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                     useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
                 }>;
@@ -3298,9 +2812,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_60 extends keyof Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"], V_60 extends Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"][K_60]>(key: K_60, value: V_60) => void;
                 useValue: <K_61 extends keyof Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"], V_61 extends Index[keyof Index & Index[keyof Index & Index["root"]["parentType"]]["parentType"]]["state"][K_61]>(key: K_61) => V_61;
             } | null;
@@ -3320,9 +2832,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                                 useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                                             } | null;
@@ -3332,9 +2842,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                             useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                         } | null;
@@ -3344,9 +2852,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                         useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                     } | null;
@@ -3356,9 +2862,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                     useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                                 } | null;
@@ -3368,9 +2872,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                                 useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                             } | null;
@@ -3380,9 +2882,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                             useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                         } | null;
@@ -3392,9 +2892,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                         useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                     } | null;
@@ -3404,9 +2902,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                     useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
                 } | null;
@@ -3416,9 +2912,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
                 useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
             }>;
@@ -3427,9 +2921,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
             readonly type: string;
             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_62 extends keyof Index[keyof Index & Index["root"]["parentType"]]["state"], V_62 extends Index[keyof Index & Index["root"]["parentType"]]["state"][K_62]>(key: K_62, value: V_62) => void;
             useValue: <K_63 extends keyof Index[keyof Index & Index["root"]["parentType"]]["state"], V_63 extends Index[keyof Index & Index["root"]["parentType"]]["state"][K_63]>(key: K_63) => V_63;
         } | null;
@@ -3450,9 +2942,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                                 readonly type: string;
                                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                                 readonly stateDisplayKey: string;
-                                                readonly metadata: JsonObject & {
-                                                    createdAt: string;
-                                                };
+                                                readonly metadata: JsonObject;
                                                 update: <K_38 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_38 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_38]>(key: K_38, value: V_38) => void;
                                                 useValue: <K_39 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_39 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_39]>(key: K_39) => V_39;
                                             } | null;
@@ -3462,9 +2952,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                             readonly type: string;
                                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                             readonly stateDisplayKey: string;
-                                            readonly metadata: JsonObject & {
-                                                createdAt: string;
-                                            };
+                                            readonly metadata: JsonObject;
                                             update: <K_34 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_34 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_34]>(key: K_34, value: V_34) => void;
                                             useValue: <K_35 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_35 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_35]>(key: K_35) => V_35;
                                         } | null;
@@ -3474,9 +2962,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                         readonly type: string;
                                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                         readonly stateDisplayKey: string;
-                                        readonly metadata: JsonObject & {
-                                            createdAt: string;
-                                        };
+                                        readonly metadata: JsonObject;
                                         update: <K_30 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_30 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_30]>(key: K_30, value: V_30) => void;
                                         useValue: <K_31 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_31 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_31]>(key: K_31) => V_31;
                                     } | null;
@@ -3486,9 +2972,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                     readonly type: string;
                                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                     readonly stateDisplayKey: string;
-                                    readonly metadata: JsonObject & {
-                                        createdAt: string;
-                                    };
+                                    readonly metadata: JsonObject;
                                     update: <K_26 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_26 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_26]>(key: K_26, value: V_26) => void;
                                     useValue: <K_27 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_27 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_27]>(key: K_27) => V_27;
                                 } | null;
@@ -3498,9 +2982,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                                 readonly type: string;
                                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                                 readonly stateDisplayKey: string;
-                                readonly metadata: JsonObject & {
-                                    createdAt: string;
-                                };
+                                readonly metadata: JsonObject;
                                 update: <K_22 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_22 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_22]>(key: K_22, value: V_22) => void;
                                 useValue: <K_23 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_23 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_23]>(key: K_23) => V_23;
                             } | null;
@@ -3510,9 +2992,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                             readonly type: string;
                             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                             readonly stateDisplayKey: string;
-                            readonly metadata: JsonObject & {
-                                createdAt: string;
-                            };
+                            readonly metadata: JsonObject;
                             update: <K_18 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_18 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_18]>(key: K_18, value: V_18) => void;
                             useValue: <K_19 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"], V_19 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["parentType"]]["state"][K_19]>(key: K_19) => V_19;
                         } | null;
@@ -3522,9 +3002,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                         readonly type: string;
                         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                         readonly stateDisplayKey: string;
-                        readonly metadata: JsonObject & {
-                            createdAt: string;
-                        };
+                        readonly metadata: JsonObject;
                         update: <K_14 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_14 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_14]>(key: K_14, value: V_14) => void;
                         useValue: <K_15 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"], V_15 extends Index[keyof Index & Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["parentType"]]["state"][K_15]>(key: K_15) => V_15;
                     } | null;
@@ -3534,9 +3012,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                     readonly type: string;
                     readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                     readonly stateDisplayKey: string;
-                    readonly metadata: JsonObject & {
-                        createdAt: string;
-                    };
+                    readonly metadata: JsonObject;
                     update: <K_10 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_10 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_10]>(key: K_10, value: V_10) => void;
                     useValue: <K_11 extends keyof Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"], V_11 extends Index[keyof Index & Index[keyof Index & Index[keyof Index]["parentType"]]["parentType"]]["state"][K_11]>(key: K_11) => V_11;
                 } | null;
@@ -3546,9 +3022,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
                 readonly type: string;
                 readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
                 readonly stateDisplayKey: string;
-                readonly metadata: JsonObject & {
-                    createdAt: string;
-                };
+                readonly metadata: JsonObject;
                 update: <K_6 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_6 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_6]>(key: K_6, value: V_6) => void;
                 useValue: <K_7 extends keyof Index[keyof Index & Index[keyof Index]["parentType"]]["state"], V_7 extends Index[keyof Index & Index[keyof Index]["parentType"]]["state"][K_7]>(key: K_7) => V_7;
             } | null;
@@ -3558,9 +3032,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
             readonly type: string;
             readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
             readonly stateDisplayKey: string;
-            readonly metadata: JsonObject & {
-                createdAt: string;
-            };
+            readonly metadata: JsonObject;
             update: <K_2 extends keyof Index[keyof Index]["state"], V_2 extends Index[keyof Index]["state"][K_2]>(key: K_2, value: V_2) => void;
             useValue: <K_3 extends keyof Index[keyof Index]["state"], V_3 extends Index[keyof Index]["state"][K_3]>(key: K_3) => V_3;
         }>;
@@ -3569,9 +3041,7 @@ declare const initializeRuntimeGraph: <Index extends Record<string, IndexNode>, 
         readonly type: string;
         readonly state: _liveblocks_core.LiveObject<_liveblocks_core.LsonObject>;
         readonly stateDisplayKey: string;
-        readonly metadata: JsonObject & {
-            createdAt: string;
-        };
+        readonly metadata: JsonObject;
         update: <K_64 extends keyof Index["root"]["state"], V_64 extends Index["root"]["state"][K_64]>(key: K_64, value: V_64) => void;
         useValue: <K_65 extends keyof Index["root"]["state"], V_65 extends Index["root"]["state"][K_65]>(key: K_65) => V_65;
     };

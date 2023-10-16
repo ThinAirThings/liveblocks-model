@@ -12,7 +12,7 @@ import { createRoomContext } from "@liveblocks/react"
 export type IndexKey<Index extends Record<string, any>> = keyof Index
 export type IndexNode = {
     parentType: string | null
-    metadata: JsonObject&{createdAt: string}
+    metadata: JsonObject
     stateDisplayKey: string
     state: Record<string, any>
 }
