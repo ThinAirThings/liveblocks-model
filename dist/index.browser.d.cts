@@ -137,7 +137,7 @@ type RootTreeNode<Index extends Record<string, IndexNode>> = {
     metadata: JsonObject;
     type: 'root';
     nodeId: null;
-    childNodes: Set<GenericLiveTreeNode<Index> & {
+    childNodes: Set<InstanceType<GenericLiveTreeNode<Index>> & {
         parentType: null;
     }>;
 };
