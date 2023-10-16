@@ -32,7 +32,7 @@ export type RootTreeNode<Index extends Record<string, IndexNode>> = {
     type: 'root'
     nodeId: null
     childNodes: Set<
-        ILiveTreeNode<Index, keyof Index>
+        ILiveTreeNode<Index>
     >
 }
 type StorageHook = ReturnType<
@@ -43,27 +43,28 @@ type StorageHook = ReturnType<
 >['suspense']['useStorage']
 
 export type ILiveTreeNode<
-    Index extends Record<string, IndexNode>,
-    T extends keyof Index
+    Index extends Record<string, IndexNode>
 > = {
-    parentNode: ILiveTreeNode<Index, IndexKey<Index>> | null
-    childNodes: Set<ILiveTreeNode<Index, IndexKey<Index>>>
-    liveDataNode: LiveDataNode
-    nodeId: string | null
-    type: T
-    state: LiveObject<Index[T]['state']>
-    stateDisplayKey: string
-    metadata: Index[T]['metadata']
-    parentType: string | null
-    update: <
-        K extends keyof Index[T]['state'],
-        V extends Index[T]['state'][K]
-    >(key: K, value: V) => void
-    useValue: <
-        K extends keyof Index[T]['state'],
-        V extends Index[T]['state'][K]
-    >(key: K) => V
-}
+    [Type in keyof Index]:{
+        parentNode: ILiveTreeNode<Index> | null
+        childNodes: Set<ILiveTreeNode<Index>>
+        liveDataNode: LiveDataNode
+        nodeId: string | null
+        type: Type
+        state: LiveObject<Index[Type]['state']>
+        stateDisplayKey: string
+        metadata: Index[Type]['metadata']
+        parentType: string | null
+        update: <
+            K extends keyof Index[Type]['state'],
+            V extends Index[Type]['state'][K]
+        >(key: K, value: V) => void
+        useValue: <
+            K extends keyof Index[Type]['state'],
+            V extends Index[Type]['state'][K]
+        >(key: K) => V
+    }
+}[keyof Index]
 //   ___        _                
 //  | __|_ _ __| |_ ___ _ _ _  _ 
 //  | _/ _` / _|  _/ _ \ '_| || |
