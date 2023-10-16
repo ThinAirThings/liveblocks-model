@@ -362,7 +362,6 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence, createClientProps) =
   const useLiveTreeNodeRoot = () => (0, import_react3.useContext)(LiveTreeNodeRootContext);
   const LiveTreeNodeRootProvider = ({
     roomId,
-    createClientProps: createClientProps2,
     children
   }) => {
     const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = (0, import_react3.useState)(null);

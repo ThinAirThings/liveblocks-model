@@ -158,7 +158,6 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence, createClientProps) =
   const useLiveTreeNodeRoot = () => useContext(LiveTreeNodeRootContext);
   const LiveTreeNodeRootProvider = ({
     roomId,
-    createClientProps: createClientProps2,
     children
   }) => {
     const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = useState(null);

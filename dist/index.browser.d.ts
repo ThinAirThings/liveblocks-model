@@ -216,7 +216,6 @@ declare const ClassOfLiveTreeNodeFactory: <Index extends {
 declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0]) => {
     LiveTreeNodeRootProvider: FC<{
         roomId: string;
-        createClientProps: Parameters<typeof createClient>[0];
         children: ReactNode;
     }>;
     useLiveTreeNodeRoot: () => RootTreeNode<Index>;

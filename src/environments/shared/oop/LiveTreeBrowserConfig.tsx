@@ -24,11 +24,9 @@ export const LiveTreeBrowserConfig = <
     const useLiveTreeNodeRoot = () => useContext(LiveTreeNodeRootContext)
     const LiveTreeNodeRootProvider: FC<{
         roomId: string
-        createClientProps: Parameters<typeof createClient>[0]
         children: ReactNode
     }> = ({
         roomId,
-        createClientProps,
         children
     }) => {
         // const LiveTreeNodeRef = useRef<GenericLiveTreeNode<Index>|null>(null)
