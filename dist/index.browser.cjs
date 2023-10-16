@@ -363,8 +363,7 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
     createClientProps,
     children
   }) => {
-    const LiveTreeNodeRef = (0, import_react4.useRef)(null);
-    const [LiveTreeNodeReady, setLiveTreeNodeReady] = (0, import_react4.useState)(false);
+    const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = (0, import_react4.useState)(null);
     (0, import_react4.useEffect)(() => {
       (async () => {
         const LiveTreeNode = await initializeLiveTree(
@@ -373,12 +372,10 @@ var LiveTreeBrowserConfig = (NodeIndex, liveblocksPresence) => {
           createClientProps,
           liveblocksPresence
         );
-        console.log(LiveTreeNode.root);
-        LiveTreeNodeRef.current = LiveTreeNode;
-        setLiveTreeNodeReady(true);
+        setLiveTreeNodeRoot(LiveTreeNode.root);
       })();
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeReady && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNodeRef.current, children }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(import_jsx_runtime2.Fragment, { children: LiveTreeNodeRoot && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(LiveTreeNodeContext.Provider, { value: LiveTreeNodeRoot, children }) });
   };
   return {
     LiveTreeNodeProvider,

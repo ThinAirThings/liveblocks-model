@@ -12,7 +12,7 @@ export const LiveTreeBrowserConfig = <
     liveblocksPresence: LiveblocksPresence,
 ) => {
     const LiveTreeNodeContext = createContext<
-        GenericLiveTreeNode<Index>
+        GenericLiveTreeNode<Index>['root']
     >(null as any)
     const useLiveTreeNode = () => useContext(LiveTreeNodeContext)
     const LiveTreeNodeProvider: FC<{
@@ -24,8 +24,8 @@ export const LiveTreeBrowserConfig = <
         createClientProps,
         children
     }) => {
-        const LiveTreeNodeRef = useRef<GenericLiveTreeNode<Index>|null>(null)
-        const [LiveTreeNodeReady, setLiveTreeNodeReady] = useState<boolean>(false)
+        // const LiveTreeNodeRef = useRef<GenericLiveTreeNode<Index>|null>(null)
+        const [LiveTreeNodeRoot, setLiveTreeNodeRoot] = useState<GenericLiveTreeNode<Index>['root']|null>(null)
         useEffect(() => {
             (async () => {
                 const LiveTreeNode = await initializeLiveTree(
@@ -34,14 +34,12 @@ export const LiveTreeBrowserConfig = <
                     createClientProps,
                     liveblocksPresence
                 )
-                console.log(LiveTreeNode.root)
-                LiveTreeNodeRef.current = LiveTreeNode
-                setLiveTreeNodeReady(true)
+                setLiveTreeNodeRoot(LiveTreeNode.root)
             })()
         }, [])
         return (
-            <>{LiveTreeNodeReady 
-                && <LiveTreeNodeContext.Provider value={LiveTreeNodeRef.current!}>
+            <>{LiveTreeNodeRoot
+                && <LiveTreeNodeContext.Provider value={LiveTreeNodeRoot}>
                     {children}
                 </LiveTreeNodeContext.Provider>
             }</>
