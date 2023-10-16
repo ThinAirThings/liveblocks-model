@@ -56,9 +56,9 @@ export type LiveTreeNode<
     [Type in keyof Index]:{
         parentNode: LiveTreeNode<Index> | null
         parentType: Index[Type]['parentType']
-        childNodes: Set<Index[Type]['parentType'] extends Type ? LiveTreeNode<{
+        childNodes: Set<LiveTreeNode<{
             [T in keyof Index]: Index[T] extends {parentType: Type} ? Index[T] : never
-        }> : never>
+        }>>
         liveDataNode: LiveDataNode
         nodeId: string | null
         type: Type
