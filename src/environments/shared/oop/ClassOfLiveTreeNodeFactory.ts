@@ -12,7 +12,6 @@ import { createRoomContext } from "@liveblocks/react"
 export type IndexKey<Index extends Record<string, IndexNode>> = keyof Index
 export type IndexNode = {
     parentType: string | null
-    type: string
     metadata: JsonObject
     stateDisplayKey: string
     state: Record<string, any>
@@ -57,7 +56,7 @@ export type LiveTreeNode<
     [Type in keyof Index]:{
         parentNode: LiveTreeNode<Index> | null
         parentType: Index[Type]['parentType']
-        childNodes: Set<LiveTreeNode<Index> & {parentType: Index[Type]['type']}>
+        childNodes: Set<LiveTreeNode<Index>>
         liveDataNode: LiveDataNode
         nodeId: string | null
         type: Type
@@ -125,13 +124,13 @@ export const ClassOfLiveTreeNodeFactory = <
     //  | |__| \ V / -_) | (_) | '_ \| / -_) _|  _|
     //  |____|_|\_/\___|  \___/|_.__// \___\__|\__|
     //                             |__/            
-    public liveDataNode: LiveDataNode
-    get nodeId() { return this.liveDataNode.get('nodeId')}
-    get type() { return this.liveDataNode.get('type')}
-    get state() { return this.liveDataNode.get('state') }
-    get stateDisplayKey() { return this.liveDataNode.get('stateDisplayKey')}
-    get metadata() { return this.liveDataNode.get('metadata')}
-    get parentType() { return this.liveDataNode.get('parentType')}
+    #liveDataNode: LiveDataNode
+    get nodeId() { return this.#liveDataNode.get('nodeId')}
+    get type() { return this.#liveDataNode.get('type')}
+    get state() { return this.#liveDataNode.get('state') }
+    get stateDisplayKey() { return this.#liveDataNode.get('stateDisplayKey')}
+    get #metadata() { return this.#liveDataNode.get('metadata')}
+    get parentType() { return this.#liveDataNode.get('parentType')}
     //    ___             _               _           
     //   / __|___ _ _  __| |_ _ _ _  _ __| |_ ___ _ _ 
     //  | (__/ _ \ ' \(_-<  _| '_| || / _|  _/ _ \ '_|
@@ -142,9 +141,9 @@ export const ClassOfLiveTreeNodeFactory = <
         liveDataNode?: LiveDataNode
     ){
         if (liveDataNode) {
-            this.liveDataNode = liveDataNode
+            this.#liveDataNode = liveDataNode
         } else {
-            this.liveDataNode = new LiveObject({
+            this.#liveDataNode = new LiveObject({
                 nodeId: type === "root" ? null : uuidv4(),
                 parentNodeId: parentNode?.nodeId ?? null,
                 type: type as string,
