@@ -1,15 +1,13 @@
-import { JsonObject, LiveMap, LiveObject } from "@liveblocks/client";
-import { LiveTreeNode } from "./types/LiveTreeNode.js";
+import { LiveMap, LiveObject } from "@liveblocks/client";
+import { LiveTreeNode } from "./LiveObjects/LiveTreeNode.js";
 import { v4 as uuidv4 } from 'uuid'
 import { RootLiveTreeNode } from "./types/RootLiveTreeNode.js";
 import { createRoomContext } from "@liveblocks/react";
-import { LiveTreeMap } from "./types/LiveTreeMap.js";
+import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
 import { NodeTemplate } from "./types/NodeTemplate.js";
 import { RuntimeNode } from "./types/RuntimeNode.js";
 import { RuntimeNodeTree } from "./types/RuntimeNodeTree.js";
 import { createNodeTemplateIndex } from "./createNodeTemplateIndex.js";
-import { TestNodeTemplateTree } from "./TestNodeTemplateTree.js";
-
 
 
 type RuntimeBuilderNode = {
@@ -17,7 +15,7 @@ type RuntimeBuilderNode = {
     childNodes: Set<RuntimeBuilderNode>
 }
 
-export const createRootNodeFactory = <
+export const createRootNode = <
     TemplateTree extends NodeTemplate<any>,
     RuntimeTree extends RuntimeNodeTree<TemplateTree>,
 >(

@@ -1,7 +1,7 @@
 import { JsonObject, createClient } from "@liveblocks/client";
 import { LiveTreeStorageModel } from "./types/StorageModel.js";
 import { RootLiveTreeNode } from "./types/RootLiveTreeNode.js";
-import { LiveTreeMap } from "./types/LiveTreeMap.js";
+import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
 
 export const getLiveTreeStorageObjects = async<
     LiveblocksPresence extends JsonObject

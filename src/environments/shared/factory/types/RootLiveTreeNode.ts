@@ -1,5 +1,5 @@
 import { LiveMap, LiveObject } from "@liveblocks/client"
-import { ILiveTreeNode } from "./LiveTreeNode.js"
+import { ILiveTreeNode } from "../LiveObjects/LiveTreeNode.js"
 
 
 export class RootLiveTreeNode extends LiveObject<{    

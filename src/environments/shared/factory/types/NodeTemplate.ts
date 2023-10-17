@@ -7,3 +7,4 @@ export type NodeTemplate<T extends string> = {
     state: Record<string, any>
     childNodes: Record<string, NodeTemplate<any>> | null
 }
+

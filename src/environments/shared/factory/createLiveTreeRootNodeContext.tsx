@@ -1,5 +1,5 @@
 import { FC, ReactNode, createContext, useContext } from "react";
-import { createRootNodeFactory } from "./createRootNodeFactory.js";
+import { createRootNodeFactory } from "./createRootNode.js";
 import { NodeTemplate } from "./types/NodeTemplate.js";
 import { RuntimeNodeTree } from "./types/RuntimeNodeTree.js";
 import { createClient } from "@liveblocks/client";

@@ -3,7 +3,7 @@ import { NodeTemplate } from "./types/NodeTemplate.js";
 import { createRoomContext } from "@liveblocks/react";
 import { LiveTreeStorageModel } from "./types/StorageModel.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { createRootNodeFactory } from "./createRootNodeFactory.js";
+import { createRootNodeFactory } from "./createRootNode.js";
 import { RuntimeNodeTree } from "./types/RuntimeNodeTree.js";
 import { getLiveTreeStorageObjects } from "./initializeStorageObjects.js";
 

@@ -1,4 +1,4 @@
-import { LiveTreeMap } from "./LiveTreeMap.js";
+import { LiveTreeMap } from "../LiveObjects/LiveTreeMap.js";
 import { RootLiveTreeNode } from "./RootLiveTreeNode.js";
 
 
