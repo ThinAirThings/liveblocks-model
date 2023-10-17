@@ -67,3 +67,5 @@ export const configureLiveTreeStorage = <
         useLiveTreeRootNode,
     }
 }
+
+export { NodeTemplate } from "./types/NodeTemplate.js";

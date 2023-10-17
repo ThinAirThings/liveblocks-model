@@ -157,4 +157,4 @@ declare const configureLiveTreeStorage: <TemplateTree extends NodeTemplate<any>,
     useLiveTreeRootNode: () => Pick<RuntimeTree, "nodeId" | "type" | "childNodes">;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, configureLiveTreeStorage, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, NodeTemplate, StatelessAirNodeUnion, TypedNodeIndex, configureLiveTreeStorage, liveblocksBrowserConfig };
