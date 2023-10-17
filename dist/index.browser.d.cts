@@ -1,11 +1,10 @@
 import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode, S as StatelessAirNodeUnion } from './data-model-846651b6.js';
 export { d as StatelessAirNode, U as UnionToIntersection, e as createNodeEntry } from './data-model-846651b6.js';
 import * as _liveblocks_react from '@liveblocks/react';
-import { createRoomContext } from '@liveblocks/react';
 import * as react from 'react';
 import { FC, ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { JsonObject, createClient, Lson, LiveMap, LiveObject, LsonObject } from '@liveblocks/client';
+import { JsonObject, createClient, Lson } from '@liveblocks/client';
 
 declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>, LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], initialLiveblocksPresence: LiveblocksPresence, initialLiveblocksStorage: LiveblocksStorage) => {
     NodeIndex: TypedNodeIndex<Index, U>;
@@ -113,115 +112,49 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useDeleteNode: () => (nodeId: string) => void;
 };
 
-type LiveblocksStorageModel2 = {
-    nodeMap: LiveMap<string, LiveDataNode>;
-};
-
-type IndexKey<Index extends Record<string, IndexNode>> = keyof Index;
-type IndexNode = {
-    parentType: string | null;
-    type: string;
+type NodeTemplate<T extends string> = {
+    type: T;
     metadata: JsonObject;
     stateDisplayKey: string;
     state: Record<string, any>;
-};
-type LiveDataNode = LiveObject<Omit<IndexNode, 'state'> & {
-    type: string;
-    nodeId: string | null;
-    parentNodeId: string | null;
-    state: LiveObject<LsonObject>;
-}>;
-type RootTreeNode<Index extends Record<string, IndexNode>> = {
-    parentNode: null;
-    parentType: null;
-    parentNodeId: null;
-    metadata: JsonObject;
-    type: 'root';
-    nodeId: null;
-    childNodes: Set<LiveTreeNode<Index> & {
-        parentType: null;
-    }>;
-};
-type StorageHook = ReturnType<typeof createRoomContext<any, LiveblocksStorageModel2>>['suspense']['useStorage'];
-type LiveTreeNode<Index extends Record<string, IndexNode>> = {
-    [Type in keyof Index]: {
-        parentNode: LiveTreeNode<Index> | null;
-        parentType: Index[Type]['parentType'];
-        childNodes: Set<LiveTreeNode<Index> & {
-            parentType: Index[Type]['type'];
-        }>;
-        liveDataNode: LiveDataNode;
-        nodeId: string | null;
-        type: Type;
-        state: LiveObject<Index[Type]['state']>;
-        stateDisplayKey: Index[Type]['stateDisplayKey'];
-        metadata: Index[Type]['metadata'];
-        update: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K, value: V) => void;
-        useState: <K extends keyof Index[Type]['state'], V extends Index[Type]['state'][K]>(key: K) => V;
-    };
-}[keyof Index];
-declare const ClassOfLiveTreeNodeFactory: <Index extends {
-    [key: string]: IndexNode;
-}>(NodeIndex: Index, useStorage: StorageHook, liveNodeMap: LiveblocksStorageModel2['nodeMap']) => {
-    new <T extends keyof Index>(type: T, parentNode: {
-        parentNode: any | null;
-        childNodes: Set<any>;
-        liveDataNode: LiveDataNode;
-        readonly nodeId: string | null;
-        readonly type: string;
-        readonly state: LiveObject<LsonObject>;
-        readonly stateDisplayKey: string;
-        readonly metadata: JsonObject;
-        readonly parentType: string | null;
-        update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-        useState: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-    } | null, liveDataNode?: LiveDataNode): {
-        parentNode: {
-            parentNode: any | null;
-            childNodes: Set<any>;
-            liveDataNode: LiveDataNode;
-            readonly nodeId: string | null;
-            readonly type: string;
-            readonly state: LiveObject<LsonObject>;
-            readonly stateDisplayKey: string;
-            readonly metadata: JsonObject;
-            readonly parentType: string | null;
-            update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useState: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-        } | null;
-        childNodes: Set<{
-            parentNode: any | null;
-            childNodes: Set<any>;
-            liveDataNode: LiveDataNode;
-            readonly nodeId: string | null;
-            readonly type: string;
-            readonly state: LiveObject<LsonObject>;
-            readonly stateDisplayKey: string;
-            readonly metadata: JsonObject;
-            readonly parentType: string | null;
-            update: <K extends keyof Index[keyof Index]["state"], V extends Index[keyof Index]["state"][K]>(key: K, value: V) => void;
-            useState: <K_1 extends keyof Index[keyof Index]["state"], V_1 extends Index[keyof Index]["state"][K_1]>(key: K_1) => V_1;
-        }>;
-        liveDataNode: LiveDataNode;
-        readonly nodeId: string | null;
-        readonly type: string;
-        readonly state: LiveObject<LsonObject>;
-        readonly stateDisplayKey: string;
-        readonly metadata: JsonObject;
-        readonly parentType: string | null;
-        update: <K_2 extends keyof Index[T]["state"], V_2 extends Index[T]["state"][K_2]>(key: K_2, value: V_2) => void;
-        useState: <K_3 extends keyof Index[T]["state"], V_3 extends Index[T]["state"][K_3]>(key: K_3) => V_3;
-    };
-    liveNodeMap: _liveblocks_core.LiveMap<string, LiveDataNode>;
-    root: RootTreeNode<Index>;
+    childNodes: Record<string, NodeTemplate<any>> | null;
 };
 
-declare const LiveTreeBrowserConfig: <Index extends Record<string, IndexNode>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0]) => {
-    LiveTreeNodeRootProvider: FC<{
+type RuntimeNode<T extends NodeTemplate<any>> = {
+    nodeId: string;
+    type: T extends NodeTemplate<infer T> ? T : never;
+    metadata: T['metadata'];
+    stateDisplayKey: T['stateDisplayKey'];
+    create: <Type extends (T['childNodes'] extends Record<string, any> ? keyof T['childNodes'] : never)>(type: Type, initialState?: T['childNodes'] extends Record<string, any> ? T['childNodes'][Type]['state'] : never) => RuntimeNode<T['childNodes'] extends Record<string, any> ? T['childNodes'][Type] : never>;
+    useRead: <K extends keyof T['state'] & string>(key: K) => T['state'][K];
+    read: <K extends keyof T['state'] & string>(key: K) => T['state'][K];
+    update: <K extends keyof T['state'] & string>(key: K, value: T['state'][K]) => void;
+    delete: () => void;
+};
+
+type RuntimeNodeTree<Node extends NodeTemplate<any>> = Node extends {
+    childNodes: Record<string, any>;
+} ? RuntimeNode<Node> & {
+    childNodes: Set<{
+        [K in keyof Node['childNodes']]: RuntimeNodeTree<Node['childNodes'][K]> & {
+            parentNode: Node;
+        };
+    }[keyof Node['childNodes']]>;
+    useChildNodes: () => Set<{
+        [K in keyof Node['childNodes']]: RuntimeNodeTree<Node['childNodes'][K]> & {
+            parentNode: Node;
+        };
+    }[keyof Node['childNodes']]>;
+} : RuntimeNode<Node> & {
+    childNodes: null;
+};
+
+declare const configureLiveTreeStorage: <TemplateTree extends NodeTemplate<any>, RuntimeTree extends RuntimeNodeTree<TemplateTree>, LiveblocksPresence extends JsonObject>(NodeTemplateTree: TemplateTree, liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0]) => {
+    LiveTreeRootNodeProvider: FC<{
         roomId: string;
         children: ReactNode;
     }>;
-    useLiveTreeNodeRoot: () => RootTreeNode<Index>;
+    useLiveTreeRootNode: () => Pick<RuntimeTree, "nodeId" | "type" | "childNodes">;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, ClassOfLiveTreeNodeFactory, IndexKey, IndexNode, LiveAirNode, LiveDataNode, LiveTreeBrowserConfig, LiveTreeNode, LiveblocksStorageModel, RootTreeNode, StatelessAirNodeUnion, StorageHook, TypedNodeIndex, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, configureLiveTreeStorage, liveblocksBrowserConfig };

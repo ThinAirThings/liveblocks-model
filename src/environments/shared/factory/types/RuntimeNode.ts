@@ -1,7 +1,7 @@
 import { NodeTemplate } from "./NodeTemplate.js"
 
-
 export type RuntimeNode<T extends NodeTemplate<any>> = {
+    nodeId: string
     type: T extends NodeTemplate<infer T> ? T : never
     metadata: T['metadata']
     stateDisplayKey: T['stateDisplayKey']

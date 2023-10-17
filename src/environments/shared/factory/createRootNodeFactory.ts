@@ -6,77 +6,20 @@ import { createRoomContext } from "@liveblocks/react";
 import { LiveTreeMap } from "./types/LiveTreeMap.js";
 import { NodeTemplate } from "./types/NodeTemplate.js";
 import { RuntimeNode } from "./types/RuntimeNode.js";
+import { RuntimeNodeTree } from "./types/RuntimeNodeTree.js";
+import { createNodeTemplateIndex } from "./createNodeTemplateIndex.js";
+import { TestNodeTemplateTree } from "./TestNodeTemplateTree.js";
 
 
-
-const TestNodeTemplateTree = {
-    type: "Root" as const,
-    metadata: {},
-    stateDisplayKey: '' as const,
-    state: {},
-    childNodes: {
-        "BusinessNode": {
-            type: "BusinessNode" as const,
-            metadata: {},
-            stateDisplayKey: 'businessName' as const,
-            state: {
-                businessName: "New Business"
-            },
-            childNodes: {
-                "EmployeeNode": {
-                    type: "EmployeeNode" as const,
-                    metadata: {},
-                    stateDisplayKey: 'employeeName' as const,
-                    state: {
-                        employeeName: "New Employee"
-                    },
-                    childNodes: null
-                },
-                "ItemNode": {
-                    type: "ItemNode" as const,
-                    metadata: {},
-                    stateDisplayKey: 'itemName' as const,
-                    state: {
-                        itemName: "New Item"
-                    },
-                    childNodes: null
-                } 
-            } as const
-        }
-    }    
-}
-
-const createNodeTemplateIndex = <T extends NodeTemplate<any>>(indexObject: Record<string, any>, templateTreeNode: T) => {
-    indexObject[templateTreeNode.type] = {
-        ...templateTreeNode,
-        childNodeTypes: templateTreeNode.childNodes ? Object.keys(templateTreeNode.childNodes) : null
-    }
-    delete indexObject[templateTreeNode.type].childNodes
-    templateTreeNode.childNodes && Object.values(templateTreeNode.childNodes).forEach((node) => {
-        createNodeTemplateIndex(indexObject, node)
-    })
-    return indexObject
-}
 
 type RuntimeBuilderNode = {
     parentNode: RuntimeBuilderNode | null
     childNodes: Set<RuntimeBuilderNode>
 }
-type TypedRuntimeTree<Node extends NodeTemplate<any>> = Node extends {childNodes: Record<string, any>} 
-    ? RuntimeNode<Node> & {
-        childNodes: Set<{
-            [K in keyof Node['childNodes']]: TypedRuntimeTree<Node['childNodes'][K]> & {parentNode: Node}
-        }[keyof Node['childNodes']]>
-        useChildNodes: () => Set<{
-            [K in keyof Node['childNodes']]: TypedRuntimeTree<Node['childNodes'][K]> & {parentNode: Node}
-        }[keyof Node['childNodes']]>
-    } : RuntimeNode<Node> & {
-        childNodes: null
-    }
 
 export const createRootNodeFactory = <
     TemplateTree extends NodeTemplate<any>,
-    RuntimeTree extends TypedRuntimeTree<TemplateTree>,
+    RuntimeTree extends RuntimeNodeTree<TemplateTree>,
 >(
     NodeTemplateTree: TemplateTree,
     liveTreeRoot: RootLiveTreeNode,
@@ -138,10 +81,8 @@ export const createRootNodeFactory = <
             childNodes: new Set(),
         } as any,
         liveTreeRoot as any
-    ) as unknown as RuntimeTree
+    ) as unknown as Pick<RuntimeTree, 'nodeId' | 'type' | 'childNodes'>
 }
 
 // const rootNode = createRootNodeFactory(TestNodeTemplateTree, new RootLiveTreeNode())
-
-
 // rootNode.childNodes.forEach((node) => node.create(''))

@@ -2,7 +2,7 @@ import { LiveTreeMap } from "./LiveTreeMap.js";
 import { RootLiveTreeNode } from "./RootLiveTreeNode.js";
 
 
-export type StorageModel = {
+export type LiveTreeStorageModel = {
     liveTreeRoot: RootLiveTreeNode
     liveTreeMap: LiveTreeMap
 }
