@@ -69,3 +69,5 @@ export const configureLiveTreeStorage = <
 }
 
 export { NodeTemplate } from "./types/NodeTemplate.js";
+
+export type ChildlessNodeTemplate<T extends string> = Omit<NodeTemplate<T>, "childNodes">
