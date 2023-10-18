@@ -5,6 +5,8 @@ import { FC, ReactNode, createContext, useContext, useEffect, useState } from "r
 import { createRootNodeTemplate } from "./NodeTemplate/createRootNodeTemplate.js";
 import { RootRuntimeNode, createRootRuntimeNode } from "./RuntimeNode/createRootRuntimeNode.js";
 import { initializeLiveTreeStorageObjects } from "./initializeLiveTreeStorageObjects.js";
+import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
+import { RootLiveTreeNode } from "./types/RootLiveTreeNode.js";
 
 export const configureLiveTreeStorage = <
     LiveblocksPresence extends JsonObject,
@@ -49,6 +51,17 @@ export const configureLiveTreeStorage = <
             <liveblocks.RoomProvider
                 id={roomId}
                 initialPresence={liveblocksPresence}
+                initialStorage={(() => {
+                    const liveTreeMap = new LiveTreeMap([])
+                    const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap)
+                    console.log("Root live tree node", rootLiveTreeNode)
+                    return {
+                        liveTreeRoot: rootLiveTreeNode,
+                        liveTreeMap: new LiveTreeMap([
+                            [rootLiveTreeNode.get('nodeId'), rootLiveTreeNode]
+                        ])
+                    }
+                })()}
             >
                 {liveTreeRootNode 
                     && <LiveTreeRootNodeContext.Provider value={liveTreeRootNode}>

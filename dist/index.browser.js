@@ -219,6 +219,17 @@ var configureLiveTreeStorage = (rootNodeTemplate, liveblocksPresence, createClie
       {
         id: roomId,
         initialPresence: liveblocksPresence,
+        initialStorage: (() => {
+          const liveTreeMap = new LiveTreeMap([]);
+          const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap);
+          console.log("Root live tree node", rootLiveTreeNode);
+          return {
+            liveTreeRoot: rootLiveTreeNode,
+            liveTreeMap: new LiveTreeMap([
+              [rootLiveTreeNode.get("nodeId"), rootLiveTreeNode]
+            ])
+          };
+        })(),
         children: liveTreeRootNode && /* @__PURE__ */ jsx2(LiveTreeRootNodeContext.Provider, { value: liveTreeRootNode, children })
       }
     );
