@@ -1,106 +1,44 @@
 import { JsonObject } from "@liveblocks/client"
-import { NodeTemplate } from "./configureLiveTreeStorage.js"
-import { createElement } from "react"
-import { createRootNode } from "./createRootNode.js"
 
-type NodeTemplateProps = {
-    metadata: JsonObject
-    state: Record<string, any>
-    stateDisplayKey: string
+type NodeTemplateProps <
+    S extends JsonObject,
+    M extends JsonObject = {},
+>= {
+    metadata: M
+    state: S
+    stateDisplayKey: keyof S
+}
+
+type NodeTemplate<
+    Type extends string,
+    Metadata extends JsonObject,
+    State extends JsonObject,
+    ChildNodes extends Record<string, NodeTemplate<any, any,  any, any>> | null,
+> = {
+    type: Type
+    metadata: Metadata
+    state: State
+    stateDisplayKey: keyof State
+    childNodes: ChildNodes
 }
 
 export const createNodeTemplate = <
-    T extends string,
-    P extends NodeTemplateProps,
-    ChildNodes extends Record<string, NodeTemplate<any>>|null=null
->(type: T, props: P, childNodes?: ChildNodes) => {
+    Type extends string,
+    S extends JsonObject,
+    M extends JsonObject,
+    ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null=null,
+>(
+    type: Type, 
+    props: NodeTemplateProps<S, M>,
+    childNodes?: ChildNodes
+): NodeTemplate<Type, M, S, ChildNodes extends null ? null : NonNullable<ChildNodes>> => {
     return {
         type,
         metadata: props.metadata,
         stateDisplayKey: props.stateDisplayKey,
         state: props.state,
-        childNodes: childNodes??null
-    } as {
-        type: T
-        metadata: P['metadata']
-        stateDisplayKey: P['stateDisplayKey']
-        state: {
-            [K in keyof P['state']]: P['state'][K]
-        }
-        childNodes: ChildNodes extends undefined ? null : {
-            [K in keyof ChildNodes]: ChildNodes[K]
-        }
+        childNodes: childNodes??null as any // This is perfectly legal to get typescript to handle the optional undefined case.
+                                            // This happens because you can't mix type parameters and runtime parameters.
     }
 }
 
-export const createTemplateRoot = <
-    ChildNodes extends Record<string, NodeTemplate<any>>
->(childNodes: ChildNodes) => {
-    return {
-        type: "Root",
-        nodeId: 'root',
-        childNodes
-    } as {
-        type: "Root"
-        nodeId: 'root'
-        childNodes: {
-            [K in keyof ChildNodes]: ChildNodes[K]
-        }
-    }
-}
-
-
-
-export const RootNode = () => {
-    return createNodeTemplate("Root", {
-        metadata: {},
-        stateDisplayKey: 'root',
-        state: {
-            root: true
-        },
-    }, )
-}
-
-export const BusinessNode = () => {
-    return createNodeTemplate("BusinessNode", {
-        metadata: {},
-        stateDisplayKey: 'businessName',
-        state: {
-            businessName: "New Business"
-        }
-    }, {
-        "EmployeeNode": EmployeeNode(),
-        "ItemNode": ItemNode()
-    })
-}
-const templateRoot = createTemplateRoot({
-    "BusinessNode": BusinessNode()
-} as const)
-
-const rootNode = createRootNode(createTemplateRoot({
-    "BusinessNode": BusinessNode()
-}))
-
-
-
-export const ItemNode = () => {
-    return createNodeTemplate("ItemNode", {
-        metadata: {},
-        stateDisplayKey: 'itemName',
-        state: {
-            itemName: "New Item"
-        },
-        childNodes: null
-    })
-}
-
-export const EmployeeNode = () => {
-    return createNodeTemplate("EmployeeNode", {
-        metadata: {},
-        stateDisplayKey: 'employeeName',
-        state: {
-            employeeName: "New Employee"
-        },
-        childNodes: null
-    })
-}
