@@ -221,7 +221,7 @@ var configureLiveTreeStorage = (rootNodeTemplate, liveblocksPresence, createClie
         initialPresence: liveblocksPresence,
         initialStorage: (() => {
           const liveTreeMap = new LiveTreeMap([]);
-          const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap);
+          const rootLiveTreeNode = new RootLiveTreeNode(null);
           liveTreeMap.set(rootLiveTreeNode.get("nodeId"), rootLiveTreeNode);
           console.log("Root live tree node", rootLiveTreeNode);
           return {
