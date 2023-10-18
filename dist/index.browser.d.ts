@@ -5,7 +5,7 @@ import { createRoomContext } from '@liveblocks/react';
 import * as react from 'react';
 import { FC, ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { JsonObject, createClient, Lson, LiveObject, LiveMap, LsonObject } from '@liveblocks/client';
+import { JsonObject, createClient, Lson, LiveObject, LsonObject, LiveMap } from '@liveblocks/client';
 
 declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>, LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], initialLiveblocksPresence: LiveblocksPresence, initialLiveblocksStorage: LiveblocksStorage) => {
     NodeIndex: TypedNodeIndex<Index, U>;
@@ -128,7 +128,6 @@ type NodeTemplate<Type extends string, Metadata extends JsonObject, State extend
 declare const createNodeTemplate: <Type extends string, S extends JsonObject, M extends JsonObject, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = null>(type: Type, props: NodeTemplateProps<S, M>, childNodes?: ChildNodes | undefined) => NodeTemplate<Type, M, S, ChildNodes extends null ? null : NonNullable<ChildNodes>>;
 
 type ILiveTreeNode = LiveObject<{
-    liveTreeMap: LiveMap<string, ILiveTreeNode>;
     metadata: JsonObject;
     nodeId: string;
     type: string;
@@ -141,7 +140,6 @@ type ILiveTreeNode = LiveObject<{
 }>;
 declare class LiveTreeNode extends LiveObject<ILiveTreeNode extends LiveObject<infer T> ? T : never> {
     constructor(data: {
-        liveTreeMap: LiveMap<string, ILiveTreeNode>;
         metadata: JsonObject;
         nodeId: string;
         type: string;
@@ -154,14 +152,15 @@ declare class LiveTreeNode extends LiveObject<ILiveTreeNode extends LiveObject<i
     });
 }
 
-declare class RootLiveTreeNode extends LiveTreeNode {
-    constructor(liveTreeMap: LiveMap<string, ILiveTreeNode>);
+declare class LiveTreeRootNode extends LiveTreeNode {
+    constructor();
 }
 
 type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
-    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode'>]: T[Property];
+    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeTreeNodeMap">]: T[Property];
 };
 type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>> = {
+    runtimeTreeNodeMap: Map<string, RuntimeNode<any, any>>;
     parentNode: ParentRuntimeNode;
     nodeId: string;
     type: TemplateNode['type'];
@@ -184,7 +183,7 @@ declare const createRootNodeTemplate: <ChildNodes extends Record<string, NodeTem
 
 declare const createRootRuntimeNode: <RootNodeTemplate extends NodeTemplate<"RootNode", {}, {
     root: string;
-}, Record<string, NodeTemplate<any, any, any, any>>>>(rootNodeTemplate: RootNodeTemplate, rootLiveTreeNode: RootLiveTreeNode, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => RuntimeNode<null, RootNodeTemplate>;
+}, Record<string, NodeTemplate<any, any, any, any>>>>(rootNodeTemplate: RootNodeTemplate, rootLiveTreeNode: LiveTreeRootNode, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => RuntimeNode<null, RootNodeTemplate>;
 type RootRuntimeNode<RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>> = ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>;
 
 declare const configureLiveTreeStorage: <LiveblocksPresence extends JsonObject, RootNodeTemplate extends NodeTemplate<"RootNode", {}, {

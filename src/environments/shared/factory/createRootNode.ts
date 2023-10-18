@@ -1,7 +1,7 @@
 import { LiveMap, LiveObject } from "@liveblocks/client";
 import { LiveTreeNode } from "./LiveObjects/LiveTreeNode.js";
 import { v4 as uuidv4 } from 'uuid'
-import { RootLiveTreeNode } from "./types/RootLiveTreeNode.js";
+import { RootLiveTreeNode } from "./LiveObjects/LiveTreeRootNode.js";
 import { createRoomContext } from "@liveblocks/react";
 import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
 import { NodeTemplate } from "./types/NodeTemplate.js";

@@ -4,9 +4,8 @@ import { LiveTreeStorageModel } from "./types/StorageModel.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { createRootNodeTemplate } from "./NodeTemplate/createRootNodeTemplate.js";
 import { RootRuntimeNode, createRootRuntimeNode } from "./RuntimeNode/createRootRuntimeNode.js";
-import { initializeLiveTreeStorageObjects } from "./initializeLiveTreeStorageObjects.js";
-import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
-import { RootLiveTreeNode } from "./types/RootLiveTreeNode.js";
+import { initializeLiveTreeRootNode } from "./initializeLiveTreeRootNode.js";
+import { LiveTreeRootNode } from "./LiveObjects/LiveTreeRootNode.js";
 
 export const configureLiveTreeStorage = <
     LiveblocksPresence extends JsonObject,
@@ -35,14 +34,14 @@ export const configureLiveTreeStorage = <
         const [liveTreeRootNode, setLiveTreeRootNode] = useState<RootRuntimeNode<RootNodeTemplate>|null>(null)
         useEffect(() => {
             (async () => {
-                const {liveTreeRoot, liveTreeMap} = await initializeLiveTreeStorageObjects(
+                const liveTreeRootNode = await initializeLiveTreeRootNode(
                     liveblocksClient,
                     roomId,
                     liveblocksPresence
                 )
                 setLiveTreeRootNode(createRootRuntimeNode(
                     rootNodeTemplate,
-                    liveTreeRoot,
+                    liveTreeRootNode,
                     liveblocks.useStorage
                 ))
             })()
@@ -51,16 +50,7 @@ export const configureLiveTreeStorage = <
             <liveblocks.RoomProvider
                 id={roomId}
                 initialPresence={liveblocksPresence}
-                initialStorage={(() => {
-                    const liveTreeMap = new LiveTreeMap([])
-                    const rootLiveTreeNode = new RootLiveTreeNode(null as any)
-                    // liveTreeMap.set(rootLiveTreeNode.get('nodeId'), rootLiveTreeNode)
-                    console.log("Root live tree node", rootLiveTreeNode)
-                    return {
-                        liveTreeRoot: rootLiveTreeNode,
-                        liveTreeMap: liveTreeMap,
-                    }
-                })()}
+                initialStorage={{liveTreeRootNode: new LiveTreeRootNode()}}
             >
                 {liveTreeRootNode 
                     && <LiveTreeRootNodeContext.Provider value={liveTreeRootNode}>

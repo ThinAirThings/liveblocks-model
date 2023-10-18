@@ -66,8 +66,9 @@ var LiveTreeNode = class extends LiveObject {
 // src/environments/shared/factory/RuntimeNode/createRuntimeNode.ts
 import { v4 as uuidv4 } from "uuid";
 import isEqual from "lodash.isequal";
-var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, useStorage) => {
+var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeTreeNodeMap, useStorage) => {
   const runtimeNode = {
+    runtimeTreeNodeMap,
     parentNode: parentRuntimeNode,
     nodeId: liveTreeNode.get("nodeId"),
     type: liveTreeNode.get("type"),
@@ -77,12 +78,12 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, useStora
         runtimeNode,
         nextLiveTreeNode,
         templateNode.childNodes[nextLiveTreeNode.get("type")],
+        runtimeTreeNodeMap,
         useStorage
       )])
     ),
     create: (type) => {
       const newLiveTreeNode = new LiveTreeNode({
-        liveTreeMap: liveTreeNode.get("liveTreeMap"),
         metadata: templateNode.childNodes[type].metadata,
         nodeId: uuidv4(),
         type,
@@ -93,26 +94,25 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, useStora
         parentNode: liveTreeNode ?? null,
         childNodes: new LiveMap2([])
       });
-      liveTreeNode.get("liveTreeMap").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
+      runtimeTreeNodeMap.set(runtimeNode.nodeId, runtimeNode);
       liveTreeNode.get("childNodes").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
-      const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], useStorage);
-      templateNode.childNodes[type].childNodes.push(newNode);
+      const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeTreeNodeMap, useStorage);
       return newNode;
     },
-    useData: (key) => useStorage((root) => root.liveTreeMap.get(liveTreeNode.get("nodeId")).state[key]),
+    useData: (key) => useStorage(() => liveTreeNode.toImmutable().state[key]),
     mutate: (key, value) => liveTreeNode.get("state").set(key, value),
     delete: () => {
-      const deleteChildren = (liveTreeNode2) => {
-        liveTreeNode2.get("liveTreeMap").delete(liveTreeNode2.get("nodeId"));
-        liveTreeNode2.get("childNodes").forEach((liveTreeNode3) => {
-          deleteChildren(liveTreeNode3);
+      const deleteFromRuntimeMap = (runtimeNode2) => {
+        runtimeTreeNodeMap.delete(runtimeNode2.nodeId);
+        runtimeNode2.childNodes.forEach((childRuntimeNode) => {
+          deleteFromRuntimeMap(childRuntimeNode);
         });
       };
-      deleteChildren(liveTreeNode);
+      deleteFromRuntimeMap(runtimeNode);
       liveTreeNode.get("parentNode")?.get("childNodes").delete(liveTreeNode.get("nodeId"));
     },
-    useChildNodes: () => useStorage((root) => {
-      return new Set([...root.liveTreeMap.get(liveTreeNode.get("nodeId")).childNodes].map(([nodeId, immutableChildNode]) => {
+    useChildNodes: () => useStorage(() => {
+      return new Set([...liveTreeNode.toImmutable().childNodes].map(([nodeId, immutableChildNode]) => {
         return {
           nodeId: immutableChildNode.nodeId,
           type: immutableChildNode.type,
@@ -134,15 +134,15 @@ var createRootRuntimeNode = (rootNodeTemplate, rootLiveTreeNode, useStorage) => 
   null,
   rootLiveTreeNode,
   rootNodeTemplate,
+  /* @__PURE__ */ new Map(),
   useStorage
 );
 
-// src/environments/shared/factory/types/RootLiveTreeNode.ts
+// src/environments/shared/factory/LiveObjects/LiveTreeRootNode.ts
 import { LiveMap as LiveMap3, LiveObject as LiveObject3 } from "@liveblocks/client";
-var RootLiveTreeNode = class extends LiveTreeNode {
-  constructor(liveTreeMap) {
+var LiveTreeRootNode = class extends LiveTreeNode {
+  constructor() {
     super({
-      liveTreeMap,
       nodeId: "root",
       type: "Root",
       metadata: {},
@@ -156,36 +156,16 @@ var RootLiveTreeNode = class extends LiveTreeNode {
   }
 };
 
-// src/environments/shared/factory/LiveObjects/LiveTreeMap.ts
-import { LiveMap as LiveMap4 } from "@liveblocks/client";
-var LiveTreeMap = class extends LiveMap4 {
-  constructor(data) {
-    super(data);
-  }
-};
-
-// src/environments/shared/factory/initializeLiveTreeStorageObjects.ts
-var initializeLiveTreeStorageObjects = async (liveblocksClient, roomId, liveblocksPresence) => {
+// src/environments/shared/factory/initializeLiveTreeRootNode.ts
+var initializeLiveTreeRootNode = async (liveblocksClient, roomId, liveblocksPresence) => {
   const room = liveblocksClient.enter(roomId, {
     initialPresence: liveblocksPresence,
-    initialStorage: (() => {
-      const liveTreeMap2 = new LiveTreeMap([]);
-      const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap2);
-      console.log("Root live tree node", rootLiveTreeNode);
-      return {
-        liveTreeRoot: rootLiveTreeNode,
-        liveTreeMap: new LiveTreeMap([
-          [rootLiveTreeNode.get("nodeId"), rootLiveTreeNode]
-        ])
-      };
-    })()
+    initialStorage: {
+      liveTreeRootNode: new LiveTreeRootNode()
+    }
   });
   const { root } = await room.getStorage();
-  console.log(root.toImmutable());
-  const liveTreeRoot = root.get("liveTreeRoot");
-  console.log(liveTreeRoot);
-  const liveTreeMap = root.get("liveTreeMap");
-  return { liveTreeRoot, liveTreeMap };
+  return root.get("liveTreeRootNode");
 };
 
 // src/environments/shared/factory/configureLiveTreeStorage.tsx
@@ -202,14 +182,14 @@ var configureLiveTreeStorage = (rootNodeTemplate, liveblocksPresence, createClie
     const [liveTreeRootNode, setLiveTreeRootNode] = useState(null);
     useEffect(() => {
       (async () => {
-        const { liveTreeRoot, liveTreeMap } = await initializeLiveTreeStorageObjects(
+        const liveTreeRootNode2 = await initializeLiveTreeRootNode(
           liveblocksClient,
           roomId,
           liveblocksPresence
         );
         setLiveTreeRootNode(createRootRuntimeNode(
           rootNodeTemplate,
-          liveTreeRoot,
+          liveTreeRootNode2,
           liveblocks.useStorage
         ));
       })();
@@ -219,15 +199,7 @@ var configureLiveTreeStorage = (rootNodeTemplate, liveblocksPresence, createClie
       {
         id: roomId,
         initialPresence: liveblocksPresence,
-        initialStorage: (() => {
-          const liveTreeMap = new LiveTreeMap([]);
-          const rootLiveTreeNode = new RootLiveTreeNode(null);
-          console.log("Root live tree node", rootLiveTreeNode);
-          return {
-            liveTreeRoot: rootLiveTreeNode,
-            liveTreeMap
-          };
-        })(),
+        initialStorage: { liveTreeRootNode: new LiveTreeRootNode() },
         children: liveTreeRootNode && /* @__PURE__ */ jsx2(LiveTreeRootNodeContext.Provider, { value: liveTreeRootNode, children })
       }
     );
