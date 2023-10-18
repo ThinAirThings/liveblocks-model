@@ -376,6 +376,7 @@ var initializeLiveTreeStorageObjects = async (liveblocksClient, roomId, livebloc
     initialStorage: (() => {
       const liveTreeMap2 = new LiveTreeMap([]);
       const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap2);
+      console.log("Root live tree node", rootLiveTreeNode);
       return {
         liveTreeRoot: rootLiveTreeNode,
         liveTreeMap: new LiveTreeMap([
