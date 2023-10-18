@@ -27,6 +27,7 @@ export const initializeLiveTreeStorageObjects = async<
         })()
     })
     const {root} = await room.getStorage()
+    console.log(root)
     const liveTreeRoot = root.get('liveTreeRoot')
     const liveTreeMap = root.get('liveTreeMap')
     return {liveTreeRoot, liveTreeMap}
