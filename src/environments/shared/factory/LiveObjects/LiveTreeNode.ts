@@ -9,7 +9,6 @@ export type ILiveTreeNode = LiveObject<{
     parentType: string | null
     stateDisplayKey: string
     state: LiveObject<LsonObject>
-    parentNode: ILiveTreeNode | null
     childNodes: LiveMap<string, ILiveTreeNode>
 }>
 
@@ -26,7 +25,6 @@ export class LiveTreeNode extends LiveObject<
         parentType: string | null
         stateDisplayKey: string
         state: LiveObject<LsonObject>
-        parentNode: LiveTreeNode | null
         childNodes: LiveMap<string, ILiveTreeNode>
     }) {
         super(data)

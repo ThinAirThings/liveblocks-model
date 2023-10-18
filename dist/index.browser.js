@@ -66,9 +66,10 @@ var LiveTreeNode = class extends LiveObject {
 // src/environments/shared/factory/RuntimeNode/createRuntimeNode.ts
 import { v4 as uuidv4 } from "uuid";
 import isEqual from "lodash.isequal";
-var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeTreeNodeMap, useStorage) => {
+var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeNodeMap, useStorage) => {
   const runtimeNode = {
-    runtimeTreeNodeMap,
+    runtimeNodeMap,
+    liveTreeNode,
     parentNode: parentRuntimeNode,
     nodeId: liveTreeNode.get("nodeId"),
     type: liveTreeNode.get("type"),
@@ -78,7 +79,7 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeT
         runtimeNode,
         nextLiveTreeNode,
         templateNode.childNodes[nextLiveTreeNode.get("type")],
-        runtimeTreeNodeMap,
+        runtimeNodeMap,
         useStorage
       )])
     ),
@@ -91,25 +92,24 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeT
         parentType: liveTreeNode.get("type") ?? null,
         stateDisplayKey: templateNode.childNodes[type].stateDisplayKey,
         state: new LiveObject2(templateNode.childNodes[type].state),
-        parentNode: liveTreeNode ?? null,
         childNodes: new LiveMap2([])
       });
-      runtimeTreeNodeMap.set(runtimeNode.nodeId, runtimeNode);
+      runtimeNodeMap.set(runtimeNode.nodeId, runtimeNode);
       liveTreeNode.get("childNodes").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
-      const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeTreeNodeMap, useStorage);
+      const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage);
       return newNode;
     },
     useData: (key) => useStorage(() => liveTreeNode.toImmutable().state[key]),
     mutate: (key, value) => liveTreeNode.get("state").set(key, value),
     delete: () => {
       const deleteFromRuntimeMap = (runtimeNode2) => {
-        runtimeTreeNodeMap.delete(runtimeNode2.nodeId);
+        runtimeNodeMap.delete(runtimeNode2.nodeId);
         runtimeNode2.childNodes.forEach((childRuntimeNode) => {
           deleteFromRuntimeMap(childRuntimeNode);
         });
       };
       deleteFromRuntimeMap(runtimeNode);
-      liveTreeNode.get("parentNode")?.get("childNodes").delete(liveTreeNode.get("nodeId"));
+      runtimeNodeMap.get(parentRuntimeNode.nodeId).liveTreeNode.get("childNodes").delete(liveTreeNode.get("nodeId"));
     },
     useChildNodes: () => useStorage(() => {
       return new Set([...liveTreeNode.toImmutable().childNodes].map(([nodeId, immutableChildNode]) => {
@@ -146,7 +146,6 @@ var LiveTreeRootNode = class extends LiveTreeNode {
       nodeId: "root",
       type: "Root",
       metadata: {},
-      parentNode: null,
       parentNodeId: null,
       parentType: null,
       state: new LiveObject3({}),

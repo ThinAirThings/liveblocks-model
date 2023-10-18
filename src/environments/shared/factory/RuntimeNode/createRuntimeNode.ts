@@ -9,14 +9,15 @@ import isEqual from "lodash.isequal"
 export type ImmutableRuntimeNode<
     T extends RuntimeNode<any, any>
 > = {
-    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeTreeNodeMap">]: T[Property]
+    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property]
 }
 
 export type RuntimeNode<
     ParentRuntimeNode extends RuntimeNode<any, any> | null,
     TemplateNode extends NodeTemplate<any, any, any, any>
 > = {
-    runtimeTreeNodeMap: Map<string, RuntimeNode<any, any>>
+    runtimeNodeMap: Map<string, RuntimeNode<any, any>>
+    liveTreeNode: LiveTreeNode
     parentNode: ParentRuntimeNode
     nodeId: string
     type: TemplateNode['type']
@@ -40,11 +41,12 @@ export const createRuntimeNode = <
     parentRuntimeNode: ParentRuntimeNode,
     liveTreeNode: LiveTreeNode,
     templateNode: TemplateNode,
-    runtimeTreeNodeMap: Map<string, RuntimeNode<any, any>>,
+    runtimeNodeMap: Map<string, RuntimeNode<any, any>>,
     useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
 ): RuntimeNode<ParentRuntimeNode, TemplateNode> => {
     const runtimeNode: RuntimeNode<ParentRuntimeNode, TemplateNode> =  {
-        runtimeTreeNodeMap,
+        runtimeNodeMap,
+        liveTreeNode,
         parentNode: parentRuntimeNode,
         nodeId: liveTreeNode.get('nodeId'),
         type: liveTreeNode.get('type'),
@@ -52,7 +54,7 @@ export const createRuntimeNode = <
         childNodes: new Map(
             [...liveTreeNode.get('childNodes').entries()]
                 .map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
-                    runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')], runtimeTreeNodeMap, useStorage
+                    runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')], runtimeNodeMap, useStorage
                 )])),
         create: (type) => {
             const newLiveTreeNode = new LiveTreeNode({
@@ -63,25 +65,24 @@ export const createRuntimeNode = <
                 parentType: liveTreeNode.get('type') ?? null,
                 stateDisplayKey: templateNode.childNodes[type].stateDisplayKey,
                 state: new LiveObject(templateNode.childNodes[type].state),
-                parentNode: liveTreeNode ?? null,
                 childNodes: new LiveMap([])
             })
-            runtimeTreeNodeMap.set(runtimeNode.nodeId, runtimeNode) // Set new live tree node in live tree map
+            runtimeNodeMap.set(runtimeNode.nodeId, runtimeNode) // Set new live tree node in live tree map
             liveTreeNode.get('childNodes').set(newLiveTreeNode.get('nodeId'), newLiveTreeNode)  // Set new live tree node in parent live tree node
-            const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeTreeNodeMap, useStorage)
+            const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage)
             return newNode
         },
         useData: (key) => useStorage(() => liveTreeNode.toImmutable().state[key as string]),
         mutate: (key, value) => liveTreeNode.get('state').set(key as string, value),
         delete: () => {
             const deleteFromRuntimeMap = (runtimeNode: RuntimeNode<any, any>) => {
-                runtimeTreeNodeMap.delete(runtimeNode.nodeId) 
+                runtimeNodeMap.delete(runtimeNode.nodeId) 
                 runtimeNode.childNodes.forEach((childRuntimeNode) => {
                     deleteFromRuntimeMap(childRuntimeNode)
                 })
             }
             deleteFromRuntimeMap(runtimeNode)
-            liveTreeNode.get('parentNode')?.get('childNodes').delete(liveTreeNode.get('nodeId'))
+            runtimeNodeMap.get(parentRuntimeNode!.nodeId)!.liveTreeNode.get('childNodes').delete(liveTreeNode.get('nodeId'))
         },
         useChildNodes: () => useStorage(() => {
             return new Set([...liveTreeNode.toImmutable()!.childNodes].map(([nodeId, immutableChildNode]) => {

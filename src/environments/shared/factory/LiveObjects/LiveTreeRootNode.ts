@@ -7,7 +7,6 @@ export class LiveTreeRootNode extends LiveTreeNode {
             nodeId: 'root',
             type: 'Root',
             metadata: {},
-            parentNode: null,
             parentNodeId: null,
             parentType: null,
             state: new LiveObject({}),

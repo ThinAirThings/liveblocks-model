@@ -135,7 +135,6 @@ type ILiveTreeNode = LiveObject<{
     parentType: string | null;
     stateDisplayKey: string;
     state: LiveObject<LsonObject>;
-    parentNode: ILiveTreeNode | null;
     childNodes: LiveMap<string, ILiveTreeNode>;
 }>;
 declare class LiveTreeNode extends LiveObject<ILiveTreeNode extends LiveObject<infer T> ? T : never> {
@@ -147,7 +146,6 @@ declare class LiveTreeNode extends LiveObject<ILiveTreeNode extends LiveObject<i
         parentType: string | null;
         stateDisplayKey: string;
         state: LiveObject<LsonObject>;
-        parentNode: LiveTreeNode | null;
         childNodes: LiveMap<string, ILiveTreeNode>;
     });
 }
@@ -157,10 +155,11 @@ declare class LiveTreeRootNode extends LiveTreeNode {
 }
 
 type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
-    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeTreeNodeMap">]: T[Property];
+    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property];
 };
 type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>> = {
-    runtimeTreeNodeMap: Map<string, RuntimeNode<any, any>>;
+    runtimeNodeMap: Map<string, RuntimeNode<any, any>>;
+    liveTreeNode: LiveTreeNode;
     parentNode: ParentRuntimeNode;
     nodeId: string;
     type: TemplateNode['type'];
