@@ -54,7 +54,7 @@ export const configureLiveTreeStorage = <
                 initialStorage={(() => {
                     const liveTreeMap = new LiveTreeMap([])
                     const rootLiveTreeNode = new RootLiveTreeNode(null as any)
-                    liveTreeMap.set(rootLiveTreeNode.get('nodeId'), rootLiveTreeNode)
+                    // liveTreeMap.set(rootLiveTreeNode.get('nodeId'), rootLiveTreeNode)
                     console.log("Root live tree node", rootLiveTreeNode)
                     return {
                         liveTreeRoot: rootLiveTreeNode,
