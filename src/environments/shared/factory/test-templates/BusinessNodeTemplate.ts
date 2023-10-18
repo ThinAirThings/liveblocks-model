@@ -1,4 +1,6 @@
 import { createNodeTemplate } from "../NodeTemplate/createNodeTemplate.js";
+import { createRootNodeTemplate } from "../NodeTemplate/createRootNodeTemplate.js";
+import { createRuntimeNode } from "../RuntimeNode/createRuntimeNode.js";
 import { EmployeeNodeTemplate } from "./EmployeeNodeTemplate.js";
 import { ItemNodeTemplate } from "./ItemNodeTemplate.js";
 
@@ -20,3 +22,17 @@ export const BusinessNodeTemplate = () => createNodeTemplate("BusinessNode", {
 
 const template = BusinessNodeTemplate()
 template.childNodes?.EmployeeNode.childNodes
+
+const rootNodeTemplate = createRootNodeTemplate({    
+    "BusinessNode": BusinessNodeTemplate()
+})
+
+const rootRuntimeNode = createRuntimeNode(
+    null as any, 
+    null,
+    null as any,
+    rootNodeTemplate,
+)
+
+const businessNode = rootRuntimeNode.create('BusinessNode')
+const employeeNode = businessNode.create('EmployeeNode')
