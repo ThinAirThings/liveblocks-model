@@ -19,7 +19,6 @@ export const createRootRuntimeNode = <
     new Map(),
     useStorage,
 )
-
  
 
 export type RootRuntimeNode<
