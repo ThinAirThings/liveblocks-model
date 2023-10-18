@@ -18,8 +18,7 @@ export const createRootRuntimeNode = <
     rootNodeTemplate,
     new Map(),
     useStorage,
-)
- 
+) 
 
 export type RootRuntimeNode<
     RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>
