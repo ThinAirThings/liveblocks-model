@@ -32,15 +32,14 @@ export type RuntimeNode<
     delete: () => void
 }
 
-
 export const createRuntimeNode = <
     ParentRuntimeNode extends RuntimeNode<any, any> | null,
     TemplateNode extends NodeTemplate<any, any, any, any>,
 >(
-    useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
     parentRuntimeNode: ParentRuntimeNode,
     liveTreeNode: LiveTreeNode,
     templateNode: TemplateNode,
+    useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
 ): RuntimeNode<ParentRuntimeNode, TemplateNode> => {
     const runtimeNode: RuntimeNode<ParentRuntimeNode, TemplateNode> =  {
         parentNode: parentRuntimeNode,
@@ -50,7 +49,7 @@ export const createRuntimeNode = <
         childNodes: new Map(
             [...liveTreeNode.get('childNodes').entries()]
                 .map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
-                    useStorage, runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')]
+                    runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')], useStorage
                 )])),
         create: (type) => {
             const newLiveTreeNode = new LiveTreeNode({
@@ -67,7 +66,7 @@ export const createRuntimeNode = <
             })
             liveTreeNode.get('liveTreeMap').set(newLiveTreeNode.get('nodeId'), newLiveTreeNode) // Set new live tree node in live tree map
             liveTreeNode.get('childNodes').set(newLiveTreeNode.get('nodeId'), newLiveTreeNode)  // Set new live tree node in parent live tree node
-            const newNode = createRuntimeNode(useStorage, runtimeNode, newLiveTreeNode, templateNode.childNodes[type])
+            const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], useStorage)
             templateNode.childNodes[type].childNodes.push(newNode)
             return newNode
         },

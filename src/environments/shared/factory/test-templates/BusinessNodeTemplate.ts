@@ -1,5 +1,6 @@
 import { createNodeTemplate } from "../NodeTemplate/createNodeTemplate.js";
 import { createRootNodeTemplate } from "../NodeTemplate/createRootNodeTemplate.js";
+import { createRootRuntimeNode } from "../RuntimeNode/createRootRuntimeNode.js";
 import { createRuntimeNode } from "../RuntimeNode/createRuntimeNode.js";
 import { EmployeeNodeTemplate } from "./EmployeeNodeTemplate.js";
 import { ItemNodeTemplate } from "./ItemNodeTemplate.js";
@@ -27,12 +28,15 @@ const rootNodeTemplate = createRootNodeTemplate({
     "BusinessNode": BusinessNodeTemplate()
 })
 
-const rootRuntimeNode = createRuntimeNode(
-    null as any, 
-    null,
-    null as any,
-    rootNodeTemplate,
-)
+// const rootRuntimeNode = createRuntimeNode(
+//     null as any, 
+//     null,
+//     null as any,
+//     rootNodeTemplate,
+// )
 
+const rootRuntimeNode = createRootRuntimeNode(rootNodeTemplate)
+rootRuntimeNode.type
 const businessNode = rootRuntimeNode.create('BusinessNode')
 const employeeNode = businessNode.create('EmployeeNode')
+employeeNode.type

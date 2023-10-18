@@ -1,38 +1,25 @@
-import { RootNodeTemplate } from "../NodeTemplate/createRootNodeTemplate.js";
-import { RuntimeNode } from "./createRuntimeNode.js";
+import { createRoomContext } from "@liveblocks/react";
+import { createRootNodeTemplate } from "../NodeTemplate/createRootNodeTemplate.js";
+import { RootLiveTreeNode } from "../types/RootLiveTreeNode.js";
+import { createRuntimeNode } from "./createRuntimeNode.js";
+import { LiveTreeStorageModel } from "../types/StorageModel.js";
 
 
-
-export type RootRuntimeNode<
-    T extends RootNodeTemplate<any>,
-    R extends RuntimeNode<{
-        type: T['type']
-        metadata: any
-        state: any
-        stateDisplayKey: any
-        childNodes: T['childNodes']
-    }> = RuntimeNode<{
-        type: T['type']
-        metadata: any
-        state: any
-        stateDisplayKey: any
-        childNodes: T['childNodes']
-    }>
-> = {
-    [Property in keyof R as Exclude<Property, 
-        | 'metadata' 
-        | 'state' 
-        | 'stateDisplayKey'
-        | 'useData'
-        | 'mutate'
-        | 'delete'
-    >]: R[Property]
-}
 
 
 export const createRootRuntimeNode = <
-    RootTemplate extends RootNodeTemplate<any>
->(rootLiveNode: rootNodeTemplate: RootTemplate) => {
+    RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>
+>(
+    rootNodeTemplate: RootNodeTemplate,
+    rootLiveTreeNode: RootLiveTreeNode,
+    useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
+) => createRuntimeNode(
+    null,
+    rootLiveTreeNode,
+    rootNodeTemplate,
+    useStorage,
+)
 
-}
-
+export type RootRuntimeNode<
+    RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>
+> = ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>

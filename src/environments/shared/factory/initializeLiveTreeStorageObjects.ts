@@ -3,7 +3,7 @@ import { LiveTreeStorageModel } from "./types/StorageModel.js";
 import { RootLiveTreeNode } from "./types/RootLiveTreeNode.js";
 import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
 
-export const getLiveTreeStorageObjects = async<
+export const initializeLiveTreeStorageObjects = async<
     LiveblocksPresence extends JsonObject
 >(
     liveblocksClient: ReturnType<typeof createClient>,
@@ -16,11 +16,12 @@ export const getLiveTreeStorageObjects = async<
     >(roomId, {
         initialPresence: liveblocksPresence,
         initialStorage: (() => {
-            const rootLiveTreeNode = new RootLiveTreeNode()
+            const liveTreeMap = new LiveTreeMap([])
+            const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap)
             return {
                 liveTreeRoot: rootLiveTreeNode,
                 liveTreeMap: new LiveTreeMap([
-                    [rootLiveTreeNode.get('nodeId'), rootLiveTreeNode as any]
+                    [rootLiveTreeNode.get('nodeId'), rootLiveTreeNode]
                 ])
             }
         })()

@@ -32,6 +32,8 @@ var index_browser_exports = {};
 __export(index_browser_exports, {
   configureLiveTreeStorage: () => configureLiveTreeStorage,
   createNodeEntry: () => createNodeEntry,
+  createNodeTemplate: () => createNodeTemplate,
+  createRootNodeTemplate: () => createRootNodeTemplate,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
 module.exports = __toCommonJS(index_browser_exports);
@@ -255,10 +257,10 @@ var import_client7 = require("@liveblocks/client");
 var import_react3 = require("@liveblocks/react");
 var import_react4 = require("react");
 
-// src/environments/shared/factory/createRootNodeFactory.ts
+// src/environments/shared/factory/RuntimeNode/createRuntimeNode.ts
 var import_client4 = require("@liveblocks/client");
 
-// src/environments/shared/factory/types/LiveTreeNode.ts
+// src/environments/shared/factory/LiveObjects/LiveTreeNode.ts
 var import_client3 = require("@liveblocks/client");
 var LiveTreeNode = class extends import_client3.LiveObject {
   constructor(data) {
@@ -266,96 +268,100 @@ var LiveTreeNode = class extends import_client3.LiveObject {
   }
 };
 
-// src/environments/shared/factory/createRootNodeFactory.ts
+// src/environments/shared/factory/RuntimeNode/createRuntimeNode.ts
 var import_uuid2 = require("uuid");
-
-// src/environments/shared/factory/createNodeTemplateIndex.ts
-var createNodeTemplateIndex = (indexObject, templateTreeNode) => {
-  indexObject[templateTreeNode.type] = {
-    ...templateTreeNode,
-    childNodeTypes: templateTreeNode.childNodes ? Object.keys(templateTreeNode.childNodes) : null
-  };
-  delete indexObject[templateTreeNode.type].childNodes;
-  templateTreeNode.childNodes && Object.values(templateTreeNode.childNodes).forEach((node) => {
-    createNodeTemplateIndex(indexObject, node);
-  });
-  return indexObject;
-};
-
-// src/environments/shared/factory/createRootNodeFactory.ts
-var createRootNodeFactory = (NodeTemplateTree, liveTreeRoot, liveTreeMap, useStorage) => {
-  const nodeTemplateIndex = createNodeTemplateIndex({}, NodeTemplateTree);
-  const createRuntimeNode = (parentRuntimeNode, liveTreeNode) => {
-    const runtimeNode = {
-      ...Object.fromEntries(Object.entries(liveTreeNode.toImmutable()).filter(([key]) => key !== "state")),
-      parentNode: parentRuntimeNode,
-      childNodes: /* @__PURE__ */ new Set(),
-      create: (type) => {
-        const newLiveTreeNode = new LiveTreeNode({
-          metadata: nodeTemplateIndex[type].metadata,
-          nodeId: (0, import_uuid2.v4)(),
-          type,
-          parentNodeId: liveTreeNode.get("nodeId") ?? null,
-          parentType: liveTreeNode.get("type") ?? null,
-          stateDisplayKey: nodeTemplateIndex[type].stateDisplayKey,
-          state: new import_client4.LiveObject(nodeTemplateIndex[type].state),
-          parentNode: liveTreeNode ?? null,
-          childNodes: new import_client4.LiveMap([])
-        });
-        liveTreeMap.set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
-        liveTreeNode.get("childNodes").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
-        const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode);
-        runtimeNode.childNodes.add(newNode);
-        return newNode;
-      },
-      useChildNodes: () => useStorage(() => liveTreeNode.get("childNodes").values()),
-      useRead: (key) => useStorage(() => liveTreeNode.get("state").get(key)),
-      read: (key) => liveTreeNode?.get("state").get(key),
-      update: (key, value) => liveTreeNode?.get("state").set(key, value),
-      delete: () => {
-        const deleteChildren = (liveTreeNode2) => {
-          liveTreeMap.delete(liveTreeNode2.get("nodeId"));
-          liveTreeNode2.get("childNodes").forEach((liveTreeNode3) => {
-            deleteChildren(liveTreeNode3);
-          });
-        };
-        deleteChildren(liveTreeNode);
-        liveTreeNode.get("parentNode")?.get("childNodes").delete(liveTreeNode.get("nodeId"));
-      }
-    };
-    return runtimeNode;
-  };
-  const buildTree = (runtimeNode, liveTreeNode) => {
-    liveTreeNode.get("childNodes").forEach((liveTreeNode2) => {
-      runtimeNode.childNodes.add(buildTree(
-        createRuntimeNode(runtimeNode, liveTreeNode2),
-        liveTreeNode2
-      ));
-    });
-    return runtimeNode;
-  };
-  return buildTree(
-    {
-      type: "Root",
-      childNodes: /* @__PURE__ */ new Set()
+var import_lodash3 = __toESM(require("lodash.isequal"), 1);
+var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, useStorage) => {
+  const runtimeNode = {
+    parentNode: parentRuntimeNode,
+    nodeId: liveTreeNode.get("nodeId"),
+    type: liveTreeNode.get("type"),
+    metadata: liveTreeNode.get("metadata"),
+    childNodes: new Map(
+      [...liveTreeNode.get("childNodes").entries()].map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
+        runtimeNode,
+        nextLiveTreeNode,
+        templateNode.childNodes[nextLiveTreeNode.get("type")],
+        useStorage
+      )])
+    ),
+    create: (type) => {
+      const newLiveTreeNode = new LiveTreeNode({
+        liveTreeMap: liveTreeNode.get("liveTreeMap"),
+        metadata: templateNode.childNodes[type].metadata,
+        nodeId: (0, import_uuid2.v4)(),
+        type,
+        parentNodeId: liveTreeNode.get("nodeId") ?? null,
+        parentType: liveTreeNode.get("type") ?? null,
+        stateDisplayKey: templateNode.childNodes[type].stateDisplayKey,
+        state: new import_client4.LiveObject(templateNode.childNodes[type].state),
+        parentNode: liveTreeNode ?? null,
+        childNodes: new import_client4.LiveMap([])
+      });
+      liveTreeNode.get("liveTreeMap").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
+      liveTreeNode.get("childNodes").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
+      const newNode = createRuntimeNode(runtimeNode, newLiveTreeNode, templateNode.childNodes[type], useStorage);
+      templateNode.childNodes[type].childNodes.push(newNode);
+      return newNode;
     },
-    liveTreeRoot
-  );
+    useData: (key) => useStorage((root) => root.liveTreeMap.get(liveTreeNode.get("nodeId")).state[key]),
+    mutate: (key, value) => liveTreeNode.get("state").set(key, value),
+    delete: () => {
+      const deleteChildren = (liveTreeNode2) => {
+        liveTreeNode2.get("liveTreeMap").delete(liveTreeNode2.get("nodeId"));
+        liveTreeNode2.get("childNodes").forEach((liveTreeNode3) => {
+          deleteChildren(liveTreeNode3);
+        });
+      };
+      deleteChildren(liveTreeNode);
+      liveTreeNode.get("parentNode")?.get("childNodes").delete(liveTreeNode.get("nodeId"));
+    },
+    useChildNodes: () => useStorage((root) => {
+      return new Set([...root.liveTreeMap.get(liveTreeNode.get("nodeId")).childNodes].map(([nodeId, immutableChildNode]) => {
+        return {
+          nodeId: immutableChildNode.nodeId,
+          type: immutableChildNode.type,
+          metadata: immutableChildNode.metadata,
+          create: runtimeNode.childNodes.get(nodeId).create,
+          useChildNodes: runtimeNode.childNodes.get(nodeId).useChildNodes,
+          useData: runtimeNode.childNodes.get(nodeId).useData,
+          mutate: runtimeNode.childNodes.get(nodeId).mutate,
+          delete: runtimeNode.childNodes.get(nodeId).delete
+        };
+      }));
+    }, (a, b) => (0, import_lodash3.default)(a, b))
+  };
+  return runtimeNode;
 };
+
+// src/environments/shared/factory/RuntimeNode/createRootRuntimeNode.ts
+var createRootRuntimeNode = (rootNodeTemplate, rootLiveTreeNode, useStorage) => createRuntimeNode(
+  null,
+  rootLiveTreeNode,
+  rootNodeTemplate,
+  useStorage
+);
 
 // src/environments/shared/factory/types/RootLiveTreeNode.ts
 var import_client5 = require("@liveblocks/client");
-var RootLiveTreeNode = class extends import_client5.LiveObject {
-  constructor() {
+var RootLiveTreeNode = class extends LiveTreeNode {
+  constructor(liveTreeMap) {
     super({
+      liveTreeMap,
       nodeId: "root",
       type: "Root",
+      metadata: {},
+      parentNode: null,
+      parentNodeId: null,
+      parentType: null,
+      state: new import_client5.LiveObject({}),
+      stateDisplayKey: "root",
       childNodes: new import_client5.LiveMap([])
     });
   }
 };
 
-// src/environments/shared/factory/types/LiveTreeMap.ts
+// src/environments/shared/factory/LiveObjects/LiveTreeMap.ts
 var import_client6 = require("@liveblocks/client");
 var LiveTreeMap = class extends import_client6.LiveMap {
   constructor(data) {
@@ -363,12 +369,13 @@ var LiveTreeMap = class extends import_client6.LiveMap {
   }
 };
 
-// src/environments/shared/factory/initializeStorageObjects.ts
-var getLiveTreeStorageObjects = async (liveblocksClient, roomId, liveblocksPresence) => {
+// src/environments/shared/factory/initializeLiveTreeStorageObjects.ts
+var initializeLiveTreeStorageObjects = async (liveblocksClient, roomId, liveblocksPresence) => {
   const room = liveblocksClient.enter(roomId, {
     initialPresence: liveblocksPresence,
     initialStorage: (() => {
-      const rootLiveTreeNode = new RootLiveTreeNode();
+      const liveTreeMap2 = new LiveTreeMap([]);
+      const rootLiveTreeNode = new RootLiveTreeNode(liveTreeMap2);
       return {
         liveTreeRoot: rootLiveTreeNode,
         liveTreeMap: new LiveTreeMap([
@@ -385,7 +392,7 @@ var getLiveTreeStorageObjects = async (liveblocksClient, roomId, liveblocksPrese
 
 // src/environments/shared/factory/configureLiveTreeStorage.tsx
 var import_jsx_runtime2 = require("react/jsx-runtime");
-var configureLiveTreeStorage = (NodeTemplateTree, liveblocksPresence, createClientProps) => {
+var configureLiveTreeStorage = (rootNodeTemplate, liveblocksPresence, createClientProps) => {
   const liveblocksClient = (0, import_client7.createClient)(createClientProps);
   const { suspense: liveblocks } = (0, import_react3.createRoomContext)(liveblocksClient);
   const LiveTreeRootNodeContext = (0, import_react4.createContext)(null);
@@ -397,15 +404,14 @@ var configureLiveTreeStorage = (NodeTemplateTree, liveblocksPresence, createClie
     const [liveTreeRootNode, setLiveTreeRootNode] = (0, import_react4.useState)(null);
     (0, import_react4.useEffect)(() => {
       (async () => {
-        const { liveTreeRoot, liveTreeMap } = await getLiveTreeStorageObjects(
+        const { liveTreeRoot, liveTreeMap } = await initializeLiveTreeStorageObjects(
           liveblocksClient,
           roomId,
           liveblocksPresence
         );
-        setLiveTreeRootNode(createRootNodeFactory(
-          NodeTemplateTree,
+        setLiveTreeRootNode(createRootRuntimeNode(
+          rootNodeTemplate,
           liveTreeRoot,
-          liveTreeMap,
           liveblocks.useStorage
         ));
       })();
@@ -424,9 +430,31 @@ var configureLiveTreeStorage = (NodeTemplateTree, liveblocksPresence, createClie
     useLiveTreeRootNode
   };
 };
+
+// src/environments/shared/factory/NodeTemplate/createNodeTemplate.ts
+var createNodeTemplate = (type, props, childNodes) => {
+  return {
+    type,
+    metadata: props.metadata,
+    stateDisplayKey: props.stateDisplayKey,
+    state: props.state,
+    childNodes: childNodes ?? null
+    // This is perfectly legal to get typescript to handle the optional undefined case.
+    // This happens because you can't mix type parameters and runtime parameters.
+  };
+};
+
+// src/environments/shared/factory/NodeTemplate/createRootNodeTemplate.ts
+var createRootNodeTemplate = (childNodes) => createNodeTemplate("RootNode", {
+  metadata: {},
+  state: { root: "root" },
+  stateDisplayKey: "root"
+}, childNodes);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   configureLiveTreeStorage,
   createNodeEntry,
+  createNodeTemplate,
+  createRootNodeTemplate,
   liveblocksBrowserConfig
 });

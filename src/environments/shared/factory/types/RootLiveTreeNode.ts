@@ -1,17 +1,19 @@
 import { LiveMap, LiveObject } from "@liveblocks/client"
-import { ILiveTreeNode } from "../LiveObjects/LiveTreeNode.js"
+import { ILiveTreeNode, LiveTreeNode } from "../LiveObjects/LiveTreeNode.js"
 
-
-export class RootLiveTreeNode extends LiveObject<{    
-    nodeId: 'root'
-    type: 'Root'
-    childNodes: LiveMap<string, ILiveTreeNode>
-}> {
-    constructor() {
+export class RootLiveTreeNode extends LiveTreeNode {
+    constructor(liveTreeMap: LiveMap<string, ILiveTreeNode>) {
         super({
+            liveTreeMap,
             nodeId: 'root',
             type: 'Root',
-            childNodes: new LiveMap([])
+            metadata: {},
+            parentNode: null,
+            parentNodeId: null,
+            parentType: null,
+            state: new LiveObject({}),
+            stateDisplayKey: 'root',
+            childNodes: new LiveMap([]),
         })
     }
 }

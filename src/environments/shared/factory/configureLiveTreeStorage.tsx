@@ -1,18 +1,16 @@
 import { JsonObject, createClient } from "@liveblocks/client";
-import { NodeTemplate } from "./types/NodeTemplate.js";
 import { createRoomContext } from "@liveblocks/react";
 import { LiveTreeStorageModel } from "./types/StorageModel.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { createRootNodeFactory } from "./createRootNode.js";
-import { RuntimeNodeTree } from "./types/RuntimeNodeTree.js";
-import { getLiveTreeStorageObjects } from "./initializeStorageObjects.js";
+import { createRootNodeTemplate } from "./NodeTemplate/createRootNodeTemplate.js";
+import { RootRuntimeNode, createRootRuntimeNode } from "./RuntimeNode/createRootRuntimeNode.js";
+import { initializeLiveTreeStorageObjects } from "./initializeLiveTreeStorageObjects.js";
 
 export const configureLiveTreeStorage = <
-    TemplateTree extends NodeTemplate<any>,
-    RuntimeTree extends RuntimeNodeTree<TemplateTree>,
-    LiveblocksPresence extends JsonObject
+    LiveblocksPresence extends JsonObject,
+    RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>
 >(
-    NodeTemplateTree: TemplateTree,
+    rootNodeTemplate: RootNodeTemplate,
     liveblocksPresence: LiveblocksPresence,
     createClientProps: Parameters<typeof createClient>[0],
 ) => {
@@ -21,9 +19,8 @@ export const configureLiveTreeStorage = <
         LiveblocksPresence,
         LiveTreeStorageModel
     >(liveblocksClient)
-    type RuntimeTreeRootNode = ReturnType<typeof createRootNodeFactory<TemplateTree, RuntimeTree>>
     const LiveTreeRootNodeContext = createContext<
-        RuntimeTreeRootNode
+        RootRuntimeNode<RootNodeTemplate>
     >(null as any)
     const useLiveTreeRootNode = () => useContext(LiveTreeRootNodeContext)
     const LiveTreeRootNodeProvider: FC<{
@@ -33,18 +30,17 @@ export const configureLiveTreeStorage = <
         roomId,
         children
     }) => {
-        const [liveTreeRootNode, setLiveTreeRootNode] = useState<RuntimeTreeRootNode|null>(null)
+        const [liveTreeRootNode, setLiveTreeRootNode] = useState<RootRuntimeNode<RootNodeTemplate>|null>(null)
         useEffect(() => {
             (async () => {
-                const {liveTreeRoot, liveTreeMap} = await getLiveTreeStorageObjects(
+                const {liveTreeRoot, liveTreeMap} = await initializeLiveTreeStorageObjects(
                     liveblocksClient,
                     roomId,
                     liveblocksPresence
                 )
-                setLiveTreeRootNode(createRootNodeFactory(
-                    NodeTemplateTree,
+                setLiveTreeRootNode(createRootRuntimeNode(
+                    rootNodeTemplate,
                     liveTreeRoot,
-                    liveTreeMap,
                     liveblocks.useStorage
                 ))
             })()
@@ -67,6 +63,3 @@ export const configureLiveTreeStorage = <
         useLiveTreeRootNode,
     }
 }
-
-export { NodeTemplate } from "./types/NodeTemplate.js";
-export type ChildlessNodeTemplate<T extends string> = Omit<NodeTemplate<T>, "childNodes">

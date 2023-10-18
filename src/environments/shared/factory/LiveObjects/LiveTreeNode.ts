@@ -20,7 +20,7 @@ export class LiveTreeNode extends LiveObject<
     ILiveTreeNode extends LiveObject<infer T>? T : never
 > {
     constructor(data: {
-        liveTreeMap: LiveMap<string, LiveTreeNode>
+        liveTreeMap: LiveMap<string, ILiveTreeNode>
         metadata: JsonObject
         nodeId: string
         type: string
@@ -29,7 +29,7 @@ export class LiveTreeNode extends LiveObject<
         stateDisplayKey: string
         state: LiveObject<LsonObject>
         parentNode: LiveTreeNode | null
-        childNodes: LiveMap<string, LiveTreeNode>
+        childNodes: LiveMap<string, ILiveTreeNode>
     }) {
         super(data)
     }

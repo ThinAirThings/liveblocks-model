@@ -2,8 +2,8 @@ import { JsonObject } from "@liveblocks/client"
 
 type NodeTemplateProps <
     S extends JsonObject,
-    M extends JsonObject = {},
->= {
+    M extends JsonObject = {}
+> = {
     metadata: M
     state: S
     stateDisplayKey: keyof S
