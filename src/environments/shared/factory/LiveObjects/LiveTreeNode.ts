@@ -2,6 +2,7 @@ import { JsonObject, LiveMap, LiveObject, LsonObject } from "@liveblocks/client"
 
 
 export type ILiveTreeNode = LiveObject<{
+    liveTreeMap: LiveMap<string, ILiveTreeNode>
     metadata: JsonObject
     nodeId: string
     type: string
@@ -19,6 +20,7 @@ export class LiveTreeNode extends LiveObject<
     ILiveTreeNode extends LiveObject<infer T>? T : never
 > {
     constructor(data: {
+        liveTreeMap: LiveMap<string, LiveTreeNode>
         metadata: JsonObject
         nodeId: string
         type: string

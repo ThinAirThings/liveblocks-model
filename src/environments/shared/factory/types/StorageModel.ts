@@ -1,8 +1,9 @@
-import { LiveTreeMap } from "../LiveObjects/LiveTreeMap.js";
 import { RootLiveTreeNode } from "./RootLiveTreeNode.js";
+import { ILiveTreeNode } from "../LiveObjects/LiveTreeNode.js";
+import { LiveMap } from "@liveblocks/client";
 
 
 export type LiveTreeStorageModel = {
     liveTreeRoot: RootLiveTreeNode
-    liveTreeMap: LiveTreeMap
+    liveTreeMap: LiveMap<string, ILiveTreeNode>
 }

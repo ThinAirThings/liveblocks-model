@@ -1,4 +1,4 @@
-import { createNodeTemplate } from "../createNodeTemplate.js"
+import { createNodeTemplate } from "../NodeTemplate/createNodeTemplate.js"
 
 
 

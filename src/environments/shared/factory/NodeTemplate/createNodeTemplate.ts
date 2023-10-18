@@ -9,7 +9,7 @@ type NodeTemplateProps <
     stateDisplayKey: keyof S
 }
 
-type NodeTemplate<
+export type NodeTemplate<
     Type extends string,
     Metadata extends JsonObject,
     State extends JsonObject,

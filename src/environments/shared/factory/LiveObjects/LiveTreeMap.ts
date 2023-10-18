@@ -1,9 +1,9 @@
 import { LiveMap } from "@liveblocks/client"
-import { LiveTreeNode } from "./LiveTreeNode.js"
+import { ILiveTreeNode } from "./LiveTreeNode.js"
 
 
-export class LiveTreeMap extends LiveMap<string, LiveTreeNode> {
-    constructor(data: [string, LiveTreeNode][]) {
+export class LiveTreeMap extends LiveMap<string, ILiveTreeNode> {
+    constructor(data: [string, ILiveTreeNode][]) {
         super(data)
     }
 }

@@ -7,7 +7,7 @@ import { LiveTreeMap } from "./LiveObjects/LiveTreeMap.js";
 import { NodeTemplate } from "./types/NodeTemplate.js";
 import { RuntimeNode } from "./types/RuntimeNode.js";
 import { RuntimeNodeTree } from "./types/RuntimeNodeTree.js";
-import { createNodeTemplateIndex } from "./createNodeTemplateIndex.js";
+import { createNodeTemplateIndex } from "./NodeTemplate/createNodeTemplateIndex.js";
 
 
 type RuntimeBuilderNode = {
