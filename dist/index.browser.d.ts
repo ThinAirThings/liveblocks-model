@@ -5,7 +5,7 @@ import { createRoomContext } from '@liveblocks/react';
 import * as react from 'react';
 import { FC, ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { JsonObject, createClient, Lson, LiveObject, LsonObject, LiveMap } from '@liveblocks/client';
+import { JsonObject, createClient, Lson, LiveObject, LsonObject, LiveMap, Room } from '@liveblocks/client';
 
 declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>, LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], initialLiveblocksPresence: LiveblocksPresence, initialLiveblocksStorage: LiveblocksStorage) => {
     NodeIndex: TypedNodeIndex<Index, U>;
@@ -24,10 +24,7 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useBroadcastEvent: () => (event: never, options?: _liveblocks_core.BroadcastOptions | undefined) => void;
     useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
     useErrorListener: (callback: (err: Error) => void) => void;
-    useEventListener: (callback: (eventData: {
-        connectionId: number;
-        event: never;
-    }) => void) => void;
+    useEventListener: (callback: (data: _liveblocks_core.RoomEventMessage<LiveblocksPresence, _liveblocks_core.BaseUserMeta, never>) => void) => void;
     useHistory: () => _liveblocks_core.History;
     useUndo: () => () => void;
     useRedo: () => () => void;
@@ -67,19 +64,33 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
         threadId: string;
         commentId: string;
     }) => void;
+    useAddReaction: () => (options: {
+        threadId: string;
+        commentId: string;
+        emoji: string;
+    }) => void;
+    useRemoveReaction: () => (options: {
+        threadId: string;
+        commentId: string;
+        emoji: string;
+    }) => void;
     useStorage: <T_4>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_4, isEqual?: ((prev: T_4, curr: T_4) => boolean) | undefined) => T_4;
     useSelf: {
         (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
         <T_5>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_5, isEqual?: ((prev: T_5, curr: T_5) => boolean) | undefined): T_5;
     };
-    useThreads: () => _liveblocks_core.ThreadData<never>[];
+    useThreads: () => {
+        isLoading: false;
+        threads: _liveblocks_core.ThreadData<never>[];
+        error?: undefined;
+    };
     useUser: (userId: string) => {
-        user?: {
+        isLoading: false;
+        user: {
             [key: string]: _liveblocks_core.Json | undefined;
             name?: string | undefined;
             avatar?: string | undefined;
         } | undefined;
-        isLoading: false;
         error?: undefined;
     };
     useList: <TKey extends Extract<keyof LiveblocksStorage, string>>(key: TKey) => LiveblocksStorage[TKey];
@@ -154,6 +165,10 @@ declare class LiveTreeRootNode extends LiveTreeNode {
     constructor();
 }
 
+type LiveTreeStorageModel = {
+    liveTreeRootNode: LiveTreeRootNode;
+};
+
 type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
     readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property];
 };
@@ -182,8 +197,8 @@ declare const createRootNodeTemplate: <ChildNodes extends Record<string, NodeTem
 
 declare const createRootRuntimeNode: <RootNodeTemplate extends NodeTemplate<"RootNode", {}, {
     root: string;
-}, Record<string, NodeTemplate<any, any, any, any>>>>(rootNodeTemplate: RootNodeTemplate, rootLiveTreeNode: LiveTreeRootNode, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => RuntimeNode<null, RootNodeTemplate>;
-type RootRuntimeNode<RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>> = ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>;
+}, Record<string, NodeTemplate<any, any, any, any>>>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, rootNodeTemplate: RootNodeTemplate, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => Promise<RuntimeNode<null, RootNodeTemplate>>;
+type RootRuntimeNode<RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>> = Awaited<ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>>;
 
 declare const configureLiveTreeStorage: <LiveblocksPresence extends JsonObject, RootNodeTemplate extends NodeTemplate<"RootNode", {}, {
     root: string;

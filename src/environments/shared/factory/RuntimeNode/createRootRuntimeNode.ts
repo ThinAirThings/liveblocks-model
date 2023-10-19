@@ -3,18 +3,20 @@ import { createRootNodeTemplate } from "../NodeTemplate/createRootNodeTemplate.j
 import { createRuntimeNode } from "./createRuntimeNode.js";
 import { LiveTreeStorageModel } from "../types/StorageModel.js";
 import { LiveTreeRootNode } from "../LiveObjects/LiveTreeRootNode.js";
+import { Room } from "@liveblocks/client";
 
 
 
-export const createRootRuntimeNode = <
+export const createRootRuntimeNode = async <
     RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>
 >(
+    liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>,
     rootNodeTemplate: RootNodeTemplate,
-    rootLiveTreeNode: LiveTreeRootNode,
     useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
 ) => createRuntimeNode(
+    liveTreeRoom,
     null,
-    rootLiveTreeNode,
+    (await liveTreeRoom.getStorage()).root.get('liveTreeRootNode'),
     rootNodeTemplate,
     new Map(),
     useStorage,
@@ -22,4 +24,4 @@ export const createRootRuntimeNode = <
 
 export type RootRuntimeNode<
     RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>
-> = ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>
+> = Awaited<ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>>

@@ -2,7 +2,7 @@ import { JsonObject, createClient } from "@liveblocks/client";
 import { LiveTreeStorageModel } from "./types/StorageModel.js";
 import { LiveTreeRootNode } from "./LiveObjects/LiveTreeRootNode.js";
 
-export const initializeLiveTreeRootNode = async<
+export const initializeLiveTreeRoom = <
     LiveblocksPresence extends JsonObject
 >(
     liveblocksClient: ReturnType<typeof createClient>,
@@ -18,6 +18,7 @@ export const initializeLiveTreeRootNode = async<
             liveTreeRootNode: new LiveTreeRootNode()
         }
     })
-    const {root} = await room.getStorage()
-    return root.get('liveTreeRootNode')
+    return room
 }
+    // const {root} = await room.getStorage()
+    // return root.get('liveTreeRootNode')

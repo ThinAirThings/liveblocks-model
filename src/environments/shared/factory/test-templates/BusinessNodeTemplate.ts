@@ -35,8 +35,3 @@ const rootNodeTemplate = createRootNodeTemplate({
 //     rootNodeTemplate,
 // )
 
-const rootRuntimeNode = createRootRuntimeNode(rootNodeTemplate)
-rootRuntimeNode.type
-const businessNode = rootRuntimeNode.create('BusinessNode')
-const employeeNode = businessNode.create('EmployeeNode')
-employeeNode.type

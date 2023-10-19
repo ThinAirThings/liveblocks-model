@@ -1,10 +1,10 @@
 import { JsonObject, createClient } from "@liveblocks/client";
 import { createRoomContext } from "@liveblocks/react";
 import { LiveTreeStorageModel } from "./types/StorageModel.js";
-import { FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { FC, ReactNode, createContext, useContext, useEffect, useRef, useState } from "react";
 import { createRootNodeTemplate } from "./NodeTemplate/createRootNodeTemplate.js";
 import { RootRuntimeNode, createRootRuntimeNode } from "./RuntimeNode/createRootRuntimeNode.js";
-import { initializeLiveTreeRootNode } from "./initializeLiveTreeRootNode.js";
+import { initializeLiveTreeRoom } from "./initializeLiveTreeRoom.js";
 import { LiveTreeRootNode } from "./LiveObjects/LiveTreeRootNode.js";
 
 export const configureLiveTreeStorage = <
@@ -32,18 +32,20 @@ export const configureLiveTreeStorage = <
         children
     }) => {
         const [liveTreeRootNode, setLiveTreeRootNode] = useState<RootRuntimeNode<RootNodeTemplate>|null>(null)
+
         useEffect(() => {
             (async () => {
-                const liveTreeRootNode = await initializeLiveTreeRootNode(
+                const liveTreeRoom = initializeLiveTreeRoom(
                     liveblocksClient,
                     roomId,
                     liveblocksPresence
                 )
-                setLiveTreeRootNode(createRootRuntimeNode(
+                const liveTreeRootNode = await createRootRuntimeNode(
+                    liveTreeRoom,
                     rootNodeTemplate,
-                    liveTreeRootNode,
                     liveblocks.useStorage
-                ))
+                )
+                setLiveTreeRootNode(liveTreeRootNode)
             })()
         }, [])
         return (

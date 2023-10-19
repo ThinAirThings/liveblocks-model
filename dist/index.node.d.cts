@@ -50,10 +50,7 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
     useBroadcastEvent: () => (event: never, options?: _liveblocks_core.BroadcastOptions | undefined) => void;
     useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
     useErrorListener: (callback: (err: Error) => void) => void;
-    useEventListener: (callback: (eventData: {
-        connectionId: number;
-        event: never;
-    }) => void) => void;
+    useEventListener: (callback: (data: _liveblocks_core.RoomEventMessage<LiveblocksPresence, _liveblocks_core.BaseUserMeta, never>) => void) => void;
     useHistory: () => _liveblocks_core.History;
     useUndo: () => () => void;
     useRedo: () => () => void;
@@ -93,40 +90,50 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
         threadId: string;
         commentId: string;
     }) => void;
+    useAddReaction: () => (options: {
+        threadId: string;
+        commentId: string;
+        emoji: string;
+    }) => void;
+    useRemoveReaction: () => (options: {
+        threadId: string;
+        commentId: string;
+        emoji: string;
+    }) => void;
     useStorage: <T_8>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_8, isEqual?: ((prev: T_8 | null, curr: T_8 | null) => boolean) | undefined) => T_8 | null;
     useSelf: {
         (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta> | null;
         <T_9>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_9, isEqual?: ((prev: T_9, curr: T_9) => boolean) | undefined): T_9 | null;
     };
     useThreads: () => {
-        isLoading: true;
-        threads?: undefined;
-        error?: undefined;
-    } | {
-        isLoading: false;
-        threads?: undefined;
-        error: Error;
-    } | {
         isLoading: false;
         threads: _liveblocks_core.ThreadData<never>[];
         error?: undefined;
-    };
-    useUser: (userId: string) => {
-        user?: undefined;
+    } | {
         isLoading: true;
+        threads?: undefined;
         error?: undefined;
     } | {
-        user?: undefined;
         isLoading: false;
+        threads?: undefined;
         error: Error;
-    } | {
-        user?: {
+    };
+    useUser: (userId: string) => {
+        isLoading: false;
+        user: {
             [key: string]: _liveblocks_core.Json | undefined;
             name?: string | undefined;
             avatar?: string | undefined;
         } | undefined;
-        isLoading: false;
         error?: undefined;
+    } | {
+        isLoading: true;
+        user?: undefined;
+        error?: undefined;
+    } | {
+        isLoading: false;
+        user?: undefined;
+        error: Error;
     };
     useList: <TKey extends Extract<keyof LiveblocksStorage, string>>(key: TKey) => LiveblocksStorage[TKey] | null;
     useMap: <TKey_1 extends Extract<keyof LiveblocksStorage, string>>(key: TKey_1) => LiveblocksStorage[TKey_1] | null;
@@ -147,10 +154,7 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
         useBroadcastEvent: () => (event: never, options?: _liveblocks_core.BroadcastOptions | undefined) => void;
         useLostConnectionListener: (callback: (event: _liveblocks_core.LostConnectionEvent) => void) => void;
         useErrorListener: (callback: (err: Error) => void) => void;
-        useEventListener: (callback: (eventData: {
-            connectionId: number;
-            event: never;
-        }) => void) => void;
+        useEventListener: (callback: (data: _liveblocks_core.RoomEventMessage<LiveblocksPresence, _liveblocks_core.BaseUserMeta, never>) => void) => void;
         useHistory: () => _liveblocks_core.History;
         useUndo: () => () => void;
         useRedo: () => () => void;
@@ -190,19 +194,33 @@ declare const liveblocksNodeConfig: <Index extends AirNodeIndex<any>, U extends 
             threadId: string;
             commentId: string;
         }) => void;
+        useAddReaction: () => (options: {
+            threadId: string;
+            commentId: string;
+            emoji: string;
+        }) => void;
+        useRemoveReaction: () => (options: {
+            threadId: string;
+            commentId: string;
+            emoji: string;
+        }) => void;
         useStorage: <T_10>(selector: (root: _liveblocks_core.ToImmutable<LiveblocksStorage>) => T_10, isEqual?: ((prev: T_10, curr: T_10) => boolean) | undefined) => T_10;
         useSelf: {
             (): _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>;
             <T_11>(selector: (me: _liveblocks_core.User<LiveblocksPresence, _liveblocks_core.BaseUserMeta>) => T_11, isEqual?: ((prev: T_11, curr: T_11) => boolean) | undefined): T_11;
         };
-        useThreads: () => _liveblocks_core.ThreadData<never>[];
+        useThreads: () => {
+            isLoading: false;
+            threads: _liveblocks_core.ThreadData<never>[];
+            error?: undefined;
+        };
         useUser: (userId: string) => {
-            user?: {
+            isLoading: false;
+            user: {
                 [key: string]: _liveblocks_core.Json | undefined;
                 name?: string | undefined;
                 avatar?: string | undefined;
             } | undefined;
-            isLoading: false;
             error?: undefined;
         };
         useList: <TKey_3 extends Extract<keyof LiveblocksStorage, string>>(key: TKey_3) => LiveblocksStorage[TKey_3];
