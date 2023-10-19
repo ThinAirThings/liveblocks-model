@@ -44,18 +44,14 @@ export const createRuntimeNode = <
     runtimeNodeMap: Map<string, RuntimeNode<any, any>>,
     useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
 ): RuntimeNode<ParentRuntimeNode, TemplateNode> => {
-    const runtimeNode: RuntimeNode<ParentRuntimeNode, TemplateNode> =  {
+    
+    const runtimeNode: RuntimeNode<ParentRuntimeNode, TemplateNode> = {
         runtimeNodeMap,
         liveTreeNode,
         parentNode: parentRuntimeNode,
         nodeId: liveTreeNode.get('nodeId'),
         type: liveTreeNode.get('type'),
         metadata: liveTreeNode.get('metadata'),
-        childNodes: new Map(
-            [...liveTreeNode.get('childNodes').entries()]
-                .map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
-                    runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')], runtimeNodeMap, useStorage
-                )])),
         create: (type) => {
             const newLiveTreeNode = new LiveTreeNode({
                 metadata: {
@@ -100,7 +96,15 @@ export const createRuntimeNode = <
                     delete: runtimeNode.childNodes.get(nodeId)!.delete,
                 }
             }))
-        }, (a, b) => isEqual(a, b))
+        }, (a, b) => isEqual(a, b)),
+        childNodes: null as any, // Deferred until object is initialized,
     }
+    // Handle self reference. The alternative here is to use a class
+    runtimeNode['childNodes'] = new Map(
+        [...liveTreeNode.get('childNodes').entries()]
+        .map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
+            runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')], runtimeNodeMap, useStorage
+        )])
+    )
     return runtimeNode
 }

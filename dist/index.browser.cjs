@@ -279,15 +279,6 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeN
     nodeId: liveTreeNode.get("nodeId"),
     type: liveTreeNode.get("type"),
     metadata: liveTreeNode.get("metadata"),
-    childNodes: new Map(
-      [...liveTreeNode.get("childNodes").entries()].map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
-        runtimeNode,
-        nextLiveTreeNode,
-        templateNode.childNodes[nextLiveTreeNode.get("type")],
-        runtimeNodeMap,
-        useStorage
-      )])
-    ),
     create: (type) => {
       const newLiveTreeNode = new LiveTreeNode({
         metadata: {
@@ -332,8 +323,19 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeN
           delete: runtimeNode.childNodes.get(nodeId).delete
         };
       }));
-    }, (a, b) => (0, import_lodash3.default)(a, b))
+    }, (a, b) => (0, import_lodash3.default)(a, b)),
+    childNodes: null
+    // Deferred until object is initialized,
   };
+  runtimeNode["childNodes"] = new Map(
+    [...liveTreeNode.get("childNodes").entries()].map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
+      runtimeNode,
+      nextLiveTreeNode,
+      templateNode.childNodes[nextLiveTreeNode.get("type")],
+      runtimeNodeMap,
+      useStorage
+    )])
+  );
   return runtimeNode;
 };
 
