@@ -175,6 +175,7 @@ type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
 type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>> = {
     runtimeNodeMap: Map<string, RuntimeNode<any, any>>;
     liveTreeNode: LiveTreeNode;
+    templateNode: TemplateNode;
     parentNode: ParentRuntimeNode;
     nodeId: string;
     type: TemplateNode['type'];

@@ -73,6 +73,7 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
   const runtimeNode = {
     runtimeNodeMap,
     liveTreeNode,
+    templateNode,
     parentNode: parentRuntimeNode,
     nodeId: liveTreeNode.get("nodeId"),
     type: liveTreeNode.get("type"),
@@ -134,18 +135,18 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
     )])
   );
   runtimeNode["useChildNodes"] = (() => {
-    const baseState = new Set([...liveTreeNode.get("childNodes").toImmutable()].map(([_, immutableChildNode]) => {
-      return {
-        nodeId: immutableChildNode.nodeId,
-        type: immutableChildNode.type,
-        metadata: immutableChildNode.metadata,
-        create: runtimeNode.childNodes.get(immutableChildNode.nodeId).create,
-        useChildNodes: runtimeNode.childNodes.get(immutableChildNode.nodeId).useChildNodes,
-        useData: runtimeNode.childNodes.get(immutableChildNode.nodeId).useData,
-        mutate: runtimeNode.childNodes.get(immutableChildNode.nodeId).mutate,
-        delete: runtimeNode.childNodes.get(immutableChildNode.nodeId).delete
-      };
-    }));
+    const createImmutableRuntimeChildNode = (childNodeId) => ({
+      nodeId: childNodeId,
+      type: runtimeNode.childNodes.get(childNodeId).type,
+      metadata: runtimeNode.childNodes.get(childNodeId).metadata,
+      templateNode: runtimeNode.childNodes.get(childNodeId).templateNode,
+      create: runtimeNode.childNodes.get(childNodeId).create,
+      useChildNodes: runtimeNode.childNodes.get(childNodeId).useChildNodes,
+      useData: runtimeNode.childNodes.get(childNodeId).useData,
+      mutate: runtimeNode.childNodes.get(childNodeId).mutate,
+      delete: runtimeNode.childNodes.get(childNodeId).delete
+    });
+    const baseState = new Set([...liveTreeNode.get("childNodes").toImmutable()].map(([childNodeId]) => createImmutableRuntimeChildNode(childNodeId)));
     return () => useSyncExternalStore(
       (callback) => {
         const unsubscribe = liveTreeRoom.subscribe(liveTreeNode.get("childNodes"), callback);
@@ -155,16 +156,9 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
         const liveNodeIds = /* @__PURE__ */ new Set([...liveTreeNode.get("childNodes").keys()]);
         const draftNodeIds = new Set([...draft].map((node) => node.nodeId));
         draft.forEach((node) => !liveNodeIds.has(node.nodeId) && draft.delete(node));
-        liveNodeIds.forEach((liveNodeId) => !draftNodeIds.has(liveNodeId) && draft.add({
-          nodeId: liveNodeId,
-          type: runtimeNodeMap.get(liveNodeId).type,
-          metadata: runtimeNodeMap.get(liveNodeId).metadata,
-          create: runtimeNode.childNodes.get(liveNodeId).create,
-          useChildNodes: runtimeNode.childNodes.get(liveNodeId).useChildNodes,
-          useData: runtimeNode.childNodes.get(liveNodeId).useData,
-          mutate: runtimeNode.childNodes.get(liveNodeId).mutate,
-          delete: runtimeNode.childNodes.get(liveNodeId).delete
-        }));
+        liveNodeIds.forEach((liveNodeId) => !draftNodeIds.has(liveNodeId) && draft.add(
+          createImmutableRuntimeChildNode(liveNodeId)
+        ));
       })
     );
   })();
