@@ -17,6 +17,7 @@ export type ImmutableRuntimeNode<
     readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property]
 }
 
+
 export type RuntimeNode<
     ParentRuntimeNode extends RuntimeNode<any, any> | null,
     TemplateNode extends NodeTemplate<any, any, any, any>
@@ -28,16 +29,16 @@ export type RuntimeNode<
     nodeId: string
     type: TemplateNode['type']
     metadata: TemplateNode['metadata']
-    childNodes: Map<string, {
-        [Key in keyof TemplateNode['childNodes']]: RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>
-    }[keyof TemplateNode['childNodes']]>
     create: <Type extends keyof TemplateNode['childNodes']>(type: Type) => RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Type]>
-    useChildNodes: () => Set<{
-        [Key in keyof TemplateNode['childNodes']]: ImmutableRuntimeNode<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>>
-    }[keyof TemplateNode['childNodes']]>
     useData: <Key extends keyof TemplateNode['state']>(key: Key) => TemplateNode['state'][Key]
     mutate: <Key extends keyof TemplateNode['state']>(key: Key, value: TemplateNode['state'][Key]) => void
     delete: () => void
+    useChildNodes: () => Set<{
+        [Key in keyof TemplateNode['childNodes']]: ImmutableRuntimeNode<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>>
+    }[keyof TemplateNode['childNodes']]>
+    childNodes: Map<string, {
+        [Key in keyof TemplateNode['childNodes']]: RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>
+    }[keyof TemplateNode['childNodes']]>
 }
 
 export const createRuntimeNode = <
@@ -102,7 +103,7 @@ export const createRuntimeNode = <
                 })
             }
             deleteFromRuntimeMap(runtimeNode)
-            runtimeNodeMap.get(parentRuntimeNode!.nodeId)!.liveTreeNode.get('childNodes').delete(liveTreeNode.get('nodeId'))
+            runtimeNodeMap.get(runtimeNode.parentNode!.nodeId)!.liveTreeNode.get('childNodes').delete(liveTreeNode.get('nodeId'))
         },
         useChildNodes: null as any, // Deferred until object is initialized,
         childNodes: null as any,    // Deferred until object is initialized,
