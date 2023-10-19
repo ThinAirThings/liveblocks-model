@@ -10,10 +10,10 @@ type NodeTemplateProps <
 }
 
 export type NodeTemplate<
-    Type extends string,
-    Metadata extends JsonObject,
-    State extends JsonObject,
-    ChildNodes extends Record<string, NodeTemplate<any, any,  any, any>> | null,
+    Type extends string=string,
+    Metadata extends JsonObject=JsonObject,
+    State extends JsonObject=JsonObject,
+    ChildNodes extends Record<string, NodeTemplate<any, any,  any, any>> | null=null,
 > = {
     type: Type
     metadata: Metadata
