@@ -17,8 +17,8 @@ export type ImmutableRuntimeNode<
 }
 
 export type RuntimeNode<
-    ParentRuntimeNode extends RuntimeNode<any, any> | null,
-    TemplateNode extends NodeTemplate
+    ParentRuntimeNode extends RuntimeNode<any, any> | null=RuntimeNode<any, any> | null,
+    TemplateNode extends NodeTemplate=NodeTemplate
 > = {
     runtimeNodeMap: Map<string, RuntimeNode<any, any>>
     liveTreeNode: LiveTreeNode
