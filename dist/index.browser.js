@@ -85,7 +85,10 @@ var createRuntimeNode = (parentRuntimeNode, liveTreeNode, templateNode, runtimeN
     ),
     create: (type) => {
       const newLiveTreeNode = new LiveTreeNode({
-        metadata: templateNode.childNodes[type].metadata,
+        metadata: {
+          ...templateNode.childNodes[type].metadata,
+          createdAt: (/* @__PURE__ */ new Date()).toISOString()
+        },
         nodeId: uuidv4(),
         type,
         parentNodeId: liveTreeNode.get("nodeId") ?? null,
