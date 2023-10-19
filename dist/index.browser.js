@@ -69,7 +69,7 @@ import isEqual from "lodash.isequal";
 import { useSyncExternalStore } from "react";
 import { enableMapSet, produce } from "immer";
 enableMapSet();
-var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, templateNode, runtimeNodeMap, useStorage) => {
+var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, templateNode, runtimeNodeMap) => {
   const runtimeNode = {
     runtimeNodeMap,
     liveTreeNode,
@@ -94,7 +94,7 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
       });
       runtimeNodeMap.set(runtimeNode.nodeId, runtimeNode);
       liveTreeNode.get("childNodes").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
-      const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage);
+      const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap);
       return newNode;
     },
     // Note, this will need to be beefed up.
@@ -112,52 +112,44 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
     delete: () => {
       const deleteFromRuntimeMap = (runtimeNode2) => {
         runtimeNodeMap.delete(runtimeNode2.nodeId);
-        runtimeNode2.childNodes.forEach((childRuntimeNode) => {
-          deleteFromRuntimeMap(childRuntimeNode);
+        Object.values(runtimeNode2.childNodeTypeSets).forEach((childTypeSet) => {
+          childTypeSet.forEach((childRuntimeNode) => deleteFromRuntimeMap(childRuntimeNode));
         });
       };
       deleteFromRuntimeMap(runtimeNode);
-      runtimeNodeMap.get(parentRuntimeNode.nodeId).liveTreeNode.get("childNodes").delete(liveTreeNode.get("nodeId"));
+      runtimeNode.parentNode && runtimeNode.parentNode.childNodeTypeSets[runtimeNode.type].delete(runtimeNode);
+      runtimeNodeMap.get(runtimeNode.parentNode.nodeId).liveTreeNode.get("childNodes").delete(liveTreeNode.get("nodeId"));
     },
-    useChildNodes: null,
+    useChildNodeTypeSet: null,
     // Deferred until object is initialized,
-    childNodes: null
+    childNodeTypeSets: null
     // Deferred until object is initialized,
   };
-  runtimeNode["childNodes"] = new Map(
-    [...liveTreeNode.get("childNodes").entries()].map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
+  runtimeNode["childNodeTypeSets"] = Object.fromEntries(Object.keys(templateNode.childNodes).map((type) => [type, new Set(
+    [...liveTreeNode.get("childNodes").values()].filter((liveTreeChildNode) => liveTreeChildNode.get("type") === type).map((liveTreeChildNode) => createRuntimeNode(
       liveTreeRoom,
       runtimeNode,
-      nextLiveTreeNode,
-      templateNode.childNodes[nextLiveTreeNode.get("type")],
-      runtimeNodeMap,
-      useStorage
-    )])
-  );
-  runtimeNode["useChildNodes"] = (() => {
-    const createImmutableRuntimeChildNode = (childNodeId) => ({
-      nodeId: childNodeId,
-      type: runtimeNode.childNodes.get(childNodeId).type,
-      metadata: runtimeNode.childNodes.get(childNodeId).metadata,
-      templateNode: runtimeNode.childNodes.get(childNodeId).templateNode,
-      create: runtimeNode.childNodes.get(childNodeId).create,
-      useChildNodes: runtimeNode.childNodes.get(childNodeId).useChildNodes,
-      useData: runtimeNode.childNodes.get(childNodeId).useData,
-      mutate: runtimeNode.childNodes.get(childNodeId).mutate,
-      delete: runtimeNode.childNodes.get(childNodeId).delete
-    });
-    const baseState = new Set([...liveTreeNode.get("childNodes").toImmutable()].map(([childNodeId]) => createImmutableRuntimeChildNode(childNodeId)));
-    return () => useSyncExternalStore(
+      liveTreeChildNode,
+      templateNode.childNodes[type],
+      runtimeNodeMap
+    ))
+  )]));
+  runtimeNode["useChildNodeTypeSet"] = (() => {
+    const baseStateChildNodeTypeSets = Object.fromEntries(Object.keys(templateNode.childNodes).map((type) => [type, new Set(
+      runtimeNode.childNodeTypeSets[type].values()
+    )]));
+    return (type) => useSyncExternalStore(
       (callback) => {
         const unsubscribe = liveTreeRoom.subscribe(liveTreeNode.get("childNodes"), callback);
         return () => unsubscribe();
       },
-      () => produce(baseState, (draft) => {
+      () => produce(baseStateChildNodeTypeSets[type], (draft) => {
         const liveNodeIds = /* @__PURE__ */ new Set([...liveTreeNode.get("childNodes").keys()]);
         const draftNodeIds = new Set([...draft].map((node) => node.nodeId));
         draft.forEach((node) => !liveNodeIds.has(node.nodeId) && draft.delete(node));
         liveNodeIds.forEach((liveNodeId) => !draftNodeIds.has(liveNodeId) && draft.add(
-          createImmutableRuntimeChildNode(liveNodeId)
+          runtimeNodeMap.get(liveNodeId)
+          // This is fine because we know everything is already typed correctly.
         ));
       })
     );
@@ -166,13 +158,12 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
 };
 
 // src/environments/shared/factory/RuntimeNode/createRootRuntimeNode.ts
-var createRootRuntimeNode = async (liveTreeRoom, rootNodeTemplate, useStorage) => createRuntimeNode(
+var createRootRuntimeNode = async (liveTreeRoom, rootNodeTemplate) => createRuntimeNode(
   liveTreeRoom,
   null,
   (await liveTreeRoom.getStorage()).root.get("liveTreeRootNode"),
   rootNodeTemplate,
-  /* @__PURE__ */ new Map(),
-  useStorage
+  /* @__PURE__ */ new Map()
 );
 
 // src/environments/shared/factory/LiveObjects/LiveTreeRootNode.ts
@@ -224,8 +215,7 @@ var configureLiveTreeStorage = (rootNodeTemplate, liveblocksPresence, createClie
         );
         const liveTreeRootNode2 = await createRootRuntimeNode(
           liveTreeRoom,
-          rootNodeTemplate,
-          liveblocks.useStorage
+          rootNodeTemplate
         );
         setLiveTreeRootNode(liveTreeRootNode2);
       })();

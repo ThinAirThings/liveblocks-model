@@ -1,7 +1,6 @@
 import { A as AirNodeIndex, a as AirNodeUnion, L as LiveblocksStorageModel, b as LiveAirNode, T as TypedNodeIndex, c as AirNode, S as StatelessAirNodeUnion } from './data-model-846651b6.js';
 export { d as StatelessAirNode, U as UnionToIntersection, e as createNodeEntry } from './data-model-846651b6.js';
 import * as _liveblocks_react from '@liveblocks/react';
-import { createRoomContext } from '@liveblocks/react';
 import * as react from 'react';
 import { FC, ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
@@ -180,18 +179,16 @@ type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, Templat
     nodeId: string;
     type: TemplateNode['type'];
     metadata: TemplateNode['metadata'];
-    childNodes: Map<string, {
-        [Key in keyof TemplateNode['childNodes']]: RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>;
-    }[keyof TemplateNode['childNodes']]>;
     create: <Type extends keyof TemplateNode['childNodes']>(type: Type) => RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Type]>;
-    useChildNodes: () => Set<{
-        [Key in keyof TemplateNode['childNodes']]: ImmutableRuntimeNode<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>>;
-    }[keyof TemplateNode['childNodes']]>;
     useData: <Key extends keyof TemplateNode['state']>(key: Key) => TemplateNode['state'][Key];
     mutate: <Key extends keyof TemplateNode['state']>(key: Key, value: TemplateNode['state'][Key]) => void;
     delete: () => void;
+    useChildNodeTypeSet: <Type extends keyof TemplateNode['childNodes']>(type: Type) => Set<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Type]>>;
+    childNodeTypeSets: {
+        [Key in keyof TemplateNode['childNodes']]: Set<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>>;
+    };
 };
-declare const createRuntimeNode: <ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, parentRuntimeNode: ParentRuntimeNode, liveTreeNode: LiveTreeNode, templateNode: TemplateNode, runtimeNodeMap: Map<string, RuntimeNode<any, any>>, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => RuntimeNode<ParentRuntimeNode, TemplateNode>;
+declare const createRuntimeNode: <ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, parentRuntimeNode: ParentRuntimeNode, liveTreeNode: LiveTreeNode, templateNode: TemplateNode, runtimeNodeMap: Map<string, RuntimeNode<any, any>>) => RuntimeNode<ParentRuntimeNode, TemplateNode>;
 
 declare const createRootNodeTemplate: <ChildNodes extends Record<string, NodeTemplate<any, any, any, any>>>(childNodes: ChildNodes) => NodeTemplate<"RootNode", {}, {
     root: string;
@@ -199,7 +196,7 @@ declare const createRootNodeTemplate: <ChildNodes extends Record<string, NodeTem
 
 declare const createRootRuntimeNode: <RootNodeTemplate extends NodeTemplate<"RootNode", {}, {
     root: string;
-}, Record<string, NodeTemplate<any, any, any, any>>>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, rootNodeTemplate: RootNodeTemplate, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => Promise<RuntimeNode<null, RootNodeTemplate>>;
+}, Record<string, NodeTemplate<any, any, any, any>>>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, rootNodeTemplate: RootNodeTemplate) => Promise<RuntimeNode<null, RootNodeTemplate>>;
 type RootRuntimeNode<RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>> = Awaited<ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>>;
 
 declare const configureLiveTreeStorage: <LiveblocksPresence extends JsonObject, RootNodeTemplate extends NodeTemplate<"RootNode", {}, {

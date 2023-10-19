@@ -12,14 +12,12 @@ export const createRootRuntimeNode = async <
 >(
     liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>,
     rootNodeTemplate: RootNodeTemplate,
-    useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
 ) => createRuntimeNode(
     liveTreeRoom,
     null,
     (await liveTreeRoom.getStorage()).root.get('liveTreeRootNode'),
     rootNodeTemplate,
     new Map(),
-    useStorage,
 ) 
 
 export type RootRuntimeNode<

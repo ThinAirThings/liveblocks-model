@@ -42,8 +42,7 @@ export const configureLiveTreeStorage = <
                 )
                 const liveTreeRootNode = await createRootRuntimeNode(
                     liveTreeRoom,
-                    rootNodeTemplate,
-                    liveblocks.useStorage
+                    rootNodeTemplate
                 )
                 setLiveTreeRootNode(liveTreeRootNode)
             })()

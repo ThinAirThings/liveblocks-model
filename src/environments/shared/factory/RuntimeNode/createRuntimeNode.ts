@@ -7,16 +7,14 @@ import { LiveTreeStorageModel } from "../types/StorageModel.js"
 import isEqual from "lodash.isequal"
 import { useSyncExternalStore } from "react"
 import { enableMapSet, produce } from "immer"
-
 enableMapSet()
 
-
+// Just keeping this for reference of how to do mapped types. This is not currently used
 export type ImmutableRuntimeNode<
     T extends RuntimeNode<any, any>
 > = {
     readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property]
 }
-
 
 export type RuntimeNode<
     ParentRuntimeNode extends RuntimeNode<any, any> | null,
@@ -33,12 +31,12 @@ export type RuntimeNode<
     useData: <Key extends keyof TemplateNode['state']>(key: Key) => TemplateNode['state'][Key]
     mutate: <Key extends keyof TemplateNode['state']>(key: Key, value: TemplateNode['state'][Key]) => void
     delete: () => void
-    useChildNodes: () => Set<{
-        [Key in keyof TemplateNode['childNodes']]: ImmutableRuntimeNode<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>>
-    }[keyof TemplateNode['childNodes']]>
-    childNodes: Map<string, {
-        [Key in keyof TemplateNode['childNodes']]: RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>
-    }[keyof TemplateNode['childNodes']]>
+    useChildNodeTypeSet: <Type extends keyof TemplateNode['childNodes']>(type: Type) => Set<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Type]>>
+    childNodeTypeSets: {
+        [Key in keyof TemplateNode['childNodes']]: Set<
+            RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>
+        >
+    }
 }
 
 export const createRuntimeNode = <
@@ -50,7 +48,6 @@ export const createRuntimeNode = <
     liveTreeNode: LiveTreeNode,
     templateNode: TemplateNode,
     runtimeNodeMap: Map<string, RuntimeNode<any, any>>,
-    useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage'],
 ): RuntimeNode<ParentRuntimeNode, TemplateNode> => {
     
     const runtimeNode: RuntimeNode<ParentRuntimeNode, TemplateNode> = {
@@ -77,7 +74,7 @@ export const createRuntimeNode = <
             })
             runtimeNodeMap.set(runtimeNode.nodeId, runtimeNode) // Set new live tree node in live tree map
             liveTreeNode.get('childNodes').set(newLiveTreeNode.get('nodeId'), newLiveTreeNode)  // Set new live tree node in parent live tree node
-            const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage)
+            const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap)
             return newNode
         },
         // Note, this will need to be beefed up.
@@ -98,49 +95,45 @@ export const createRuntimeNode = <
         delete: () => {
             const deleteFromRuntimeMap = (runtimeNode: RuntimeNode<any, any>) => {
                 runtimeNodeMap.delete(runtimeNode.nodeId) 
-                runtimeNode.childNodes.forEach((childRuntimeNode) => {
-                    deleteFromRuntimeMap(childRuntimeNode)
+                Object.values(runtimeNode.childNodeTypeSets).forEach((childTypeSet) => {
+                    childTypeSet.forEach((childRuntimeNode) => deleteFromRuntimeMap(childRuntimeNode))
                 })
             }
+            // Delete from Runtime Map
             deleteFromRuntimeMap(runtimeNode)
+            // Delete from Runtime Tree
+            runtimeNode.parentNode && runtimeNode.parentNode.childNodeTypeSets[runtimeNode.type].delete(<RuntimeNode<any, any>> runtimeNode)
+            // Delete from Liveblocks Tree
             runtimeNodeMap.get(runtimeNode.parentNode!.nodeId)!.liveTreeNode.get('childNodes').delete(liveTreeNode.get('nodeId'))
         },
-        useChildNodes: null as any, // Deferred until object is initialized,
-        childNodes: null as any,    // Deferred until object is initialized,
+        useChildNodeTypeSet: null as any, // Deferred until object is initialized,
+        childNodeTypeSets: null as any,    // Deferred until object is initialized,
     }
     // Handle self reference. The alternative here is to use a class
-    runtimeNode['childNodes'] = new Map(
-        [...liveTreeNode.get('childNodes').entries()]
-        .map(([nodeId, nextLiveTreeNode]) => [nodeId, createRuntimeNode(
-            liveTreeRoom, runtimeNode, nextLiveTreeNode, templateNode.childNodes[nextLiveTreeNode.get('type')], runtimeNodeMap, useStorage
-        )])
-    )
-    runtimeNode['useChildNodes'] = (() => {
-        const createImmutableRuntimeChildNode = (childNodeId: string): ImmutableRuntimeNode<RuntimeNode<any, any>> => ({
-            nodeId: childNodeId,
-            type: runtimeNode.childNodes.get(childNodeId)!.type,
-            metadata: runtimeNode.childNodes.get(childNodeId)!.metadata,
-            templateNode: runtimeNode.childNodes.get(childNodeId)!.templateNode,
-            create: runtimeNode.childNodes.get(childNodeId)!.create,
-            useChildNodes: runtimeNode.childNodes.get(childNodeId)!.useChildNodes,
-            useData: runtimeNode.childNodes.get(childNodeId)!.useData,
-            mutate: runtimeNode.childNodes.get(childNodeId)!.mutate,
-            delete: runtimeNode.childNodes.get(childNodeId)!.delete,
-        })
-        const baseState = new Set([...liveTreeNode.get('childNodes').toImmutable()]
-            .map(([childNodeId]) => createImmutableRuntimeChildNode(childNodeId)))
+    runtimeNode['childNodeTypeSets'] = Object.fromEntries(Object.keys(templateNode.childNodes).map((type) => [type as any, new Set(
+        [...liveTreeNode.get('childNodes').values()]
+            .filter((liveTreeChildNode) => liveTreeChildNode.get('type') === type)
+            .map((liveTreeChildNode) => createRuntimeNode(
+                liveTreeRoom, runtimeNode, liveTreeChildNode, templateNode.childNodes[type], runtimeNodeMap
+            ))
+    )]))
 
-        return () => useSyncExternalStore((callback) => {
+    runtimeNode['useChildNodeTypeSet'] = (() => {
+        const baseStateChildNodeTypeSets = Object.fromEntries(Object.keys(templateNode.childNodes).map((type) => [type as any, new Set(
+            runtimeNode.childNodeTypeSets[type].values()
+        )])) as RuntimeNode<ParentRuntimeNode, TemplateNode>['childNodeTypeSets']
+        
+        return (type: keyof TemplateNode["childNodes"]) => useSyncExternalStore((callback) => {
             const unsubscribe = liveTreeRoom.subscribe(liveTreeNode.get('childNodes'), callback)
             return () => unsubscribe()
-        }, () => produce(baseState, (draft) => {
+        }, () => produce(baseStateChildNodeTypeSets[type], (draft) => {
                 const liveNodeIds = new Set([...liveTreeNode.get('childNodes').keys()])
                 const draftNodeIds = new Set([...draft].map((node) => node.nodeId))
                 // If one of the existing nodes does not existing in the new set of liveNodeIds, delete it
                 draft.forEach((node) => !liveNodeIds.has(node.nodeId) && draft.delete(node))
                 // If one of the new liveNodeIds does not exist in the existing set of draftNodeIds, add it
                 liveNodeIds.forEach((liveNodeId) => !draftNodeIds.has(liveNodeId) && draft.add(
-                    createImmutableRuntimeChildNode(liveNodeId)
+                    runtimeNodeMap.get(liveNodeId)! as any  // This is fine because we know everything is already typed correctly.
                 ))
             })
         )
