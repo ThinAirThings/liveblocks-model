@@ -128,7 +128,7 @@ type NodeTemplateProps<S extends JsonObject, M extends JsonObject = {}> = {
     state: S;
     stateDisplayKey: keyof S;
 };
-type NodeTemplate<Type extends string = string, Metadata extends Record<string, JsonObject> = Record<string, JsonObject>, State extends JsonObject = JsonObject, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = Record<string, NodeTemplate<any, any, any, any>>> = {
+type NodeTemplate<Type extends string = string, Metadata extends JsonObject = JsonObject, State extends JsonObject = JsonObject, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = Record<string, NodeTemplate<any, any, any, any>>> = {
     type: Type;
     metadata: Metadata;
     state: State;
