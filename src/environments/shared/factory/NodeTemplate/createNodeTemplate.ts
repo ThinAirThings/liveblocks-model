@@ -11,7 +11,7 @@ type NodeTemplateProps <
 
 export type NodeTemplate<
     Type extends string=string,
-    Metadata extends JsonObject=JsonObject,
+    Metadata extends Record<string, JsonObject>=Record<string, JsonObject>,
     State extends JsonObject=JsonObject,
     ChildNodes extends Record<string, NodeTemplate<any, any,  any, any>> | null=Record<string, NodeTemplate<any, any,  any, any>>,
 > = {
@@ -25,7 +25,7 @@ export type NodeTemplate<
 export const createNodeTemplate = <
     Type extends string,
     S extends JsonObject,
-    M extends JsonObject,
+    M extends Record<string, JsonObject>,
     ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null=null,
 >(
     type: Type, 
