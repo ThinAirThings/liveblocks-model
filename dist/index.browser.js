@@ -118,41 +118,8 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
       deleteFromRuntimeMap(runtimeNode);
       runtimeNodeMap.get(parentRuntimeNode.nodeId).liveTreeNode.get("childNodes").delete(liveTreeNode.get("nodeId"));
     },
-    useChildNodes: (() => {
-      const baseState = new Set([...liveTreeNode.get("childNodes").toImmutable()].map(([_, immutableChildNode]) => {
-        return {
-          nodeId: immutableChildNode.nodeId,
-          type: immutableChildNode.type,
-          metadata: immutableChildNode.metadata,
-          create: runtimeNode.childNodes.get(immutableChildNode.nodeId).create,
-          useChildNodes: runtimeNode.childNodes.get(immutableChildNode.nodeId).useChildNodes,
-          useData: runtimeNode.childNodes.get(immutableChildNode.nodeId).useData,
-          mutate: runtimeNode.childNodes.get(immutableChildNode.nodeId).mutate,
-          delete: runtimeNode.childNodes.get(immutableChildNode.nodeId).delete
-        };
-      }));
-      return () => useSyncExternalStore(
-        (callback) => {
-          const unsubscribe = liveTreeRoom.subscribe(liveTreeNode.get("childNodes"), callback);
-          return () => unsubscribe();
-        },
-        () => produce(baseState, (draft) => {
-          const liveNodeIds = /* @__PURE__ */ new Set([...liveTreeNode.get("childNodes").keys()]);
-          const draftNodeIds = new Set([...draft].map((node) => node.nodeId));
-          draft.forEach((node) => !liveNodeIds.has(node.nodeId) && draft.delete(node));
-          liveNodeIds.forEach((liveNodeId) => !draftNodeIds.has(liveNodeId) && draft.add({
-            nodeId: liveNodeId,
-            type: runtimeNodeMap.get(liveNodeId).type,
-            metadata: runtimeNodeMap.get(liveNodeId).metadata,
-            create: runtimeNode.childNodes.get(liveNodeId).create,
-            useChildNodes: runtimeNode.childNodes.get(liveNodeId).useChildNodes,
-            useData: runtimeNode.childNodes.get(liveNodeId).useData,
-            mutate: runtimeNode.childNodes.get(liveNodeId).mutate,
-            delete: runtimeNode.childNodes.get(liveNodeId).delete
-          }));
-        })
-      );
-    })(),
+    useChildNodes: null,
+    // Deferred until object is initialized,
     childNodes: null
     // Deferred until object is initialized,
   };
@@ -166,6 +133,41 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
       useStorage
     )])
   );
+  runtimeNode["useChildNodes"] = (() => {
+    const baseState = new Set([...liveTreeNode.get("childNodes").toImmutable()].map(([_, immutableChildNode]) => {
+      return {
+        nodeId: immutableChildNode.nodeId,
+        type: immutableChildNode.type,
+        metadata: immutableChildNode.metadata,
+        create: runtimeNode.childNodes.get(immutableChildNode.nodeId).create,
+        useChildNodes: runtimeNode.childNodes.get(immutableChildNode.nodeId).useChildNodes,
+        useData: runtimeNode.childNodes.get(immutableChildNode.nodeId).useData,
+        mutate: runtimeNode.childNodes.get(immutableChildNode.nodeId).mutate,
+        delete: runtimeNode.childNodes.get(immutableChildNode.nodeId).delete
+      };
+    }));
+    return () => useSyncExternalStore(
+      (callback) => {
+        const unsubscribe = liveTreeRoom.subscribe(liveTreeNode.get("childNodes"), callback);
+        return () => unsubscribe();
+      },
+      () => produce(baseState, (draft) => {
+        const liveNodeIds = /* @__PURE__ */ new Set([...liveTreeNode.get("childNodes").keys()]);
+        const draftNodeIds = new Set([...draft].map((node) => node.nodeId));
+        draft.forEach((node) => !liveNodeIds.has(node.nodeId) && draft.delete(node));
+        liveNodeIds.forEach((liveNodeId) => !draftNodeIds.has(liveNodeId) && draft.add({
+          nodeId: liveNodeId,
+          type: runtimeNodeMap.get(liveNodeId).type,
+          metadata: runtimeNodeMap.get(liveNodeId).metadata,
+          create: runtimeNode.childNodes.get(liveNodeId).create,
+          useChildNodes: runtimeNode.childNodes.get(liveNodeId).useChildNodes,
+          useData: runtimeNode.childNodes.get(liveNodeId).useData,
+          mutate: runtimeNode.childNodes.get(liveNodeId).mutate,
+          delete: runtimeNode.childNodes.get(liveNodeId).delete
+        }));
+      })
+    );
+  })();
   return runtimeNode;
 };
 
