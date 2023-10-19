@@ -171,7 +171,7 @@ type LiveTreeStorageModel = {
 type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
     readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property];
 };
-type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null = any, TemplateNode extends NodeTemplate<any, any, any, any> = any> = {
+type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>> = {
     runtimeNodeMap: Map<string, RuntimeNode<any, any>>;
     liveTreeNode: LiveTreeNode;
     templateNode: TemplateNode;
