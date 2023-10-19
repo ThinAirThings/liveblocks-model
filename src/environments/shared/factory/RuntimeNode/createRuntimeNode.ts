@@ -111,7 +111,8 @@ export const createRuntimeNode = <
         childNodeTypeSets: null as any,    // Deferred until object is initialized,
     }
     // Handle self reference. The alternative here is to use a class
-    runtimeNode['childNodeTypeSets'] = Object.fromEntries(Object.keys(templateNode.childNodes).map((type) => [type as any, new Set(
+    // NOTE!!! You need to fix the types to catch the case of calling Object.keys on a null object. 
+    runtimeNode['childNodeTypeSets'] = Object.fromEntries(Object.keys(templateNode.childNodes??{}).map((type) => [type as any, new Set(
         [...liveTreeNode.get('childNodes').values()]
             .filter((liveTreeChildNode) => liveTreeChildNode.get('type') === type)
             .map((liveTreeChildNode) => createRuntimeNode(
