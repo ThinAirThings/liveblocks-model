@@ -301,6 +301,7 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
       runtimeNodeMap.set(runtimeNode.nodeId, runtimeNode);
       liveTreeNode.get("childNodes").set(newLiveTreeNode.get("nodeId"), newLiveTreeNode);
       const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap);
+      runtimeNode.childNodeTypeSets[type].add(newNode);
       return newNode;
     },
     // Note, this will need to be beefed up.

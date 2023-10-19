@@ -75,6 +75,7 @@ export const createRuntimeNode = <
             runtimeNodeMap.set(runtimeNode.nodeId, runtimeNode) // Set new live tree node in live tree map
             liveTreeNode.get('childNodes').set(newLiveTreeNode.get('nodeId'), newLiveTreeNode)  // Set new live tree node in parent live tree node
             const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap)
+            runtimeNode.childNodeTypeSets[type].add(newNode)    // Add to this runtime node's child node type set
             return newNode
         },
         // Note, this will need to be beefed up.
