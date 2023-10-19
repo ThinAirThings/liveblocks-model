@@ -128,7 +128,7 @@ type NodeTemplateProps<S extends JsonObject, M extends JsonObject = {}> = {
     state: S;
     stateDisplayKey: keyof S;
 };
-type NodeTemplate<Type extends string = string, Metadata extends JsonObject = JsonObject, State extends JsonObject = JsonObject, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = null> = {
+type NodeTemplate<Type extends string = string, Metadata extends JsonObject = JsonObject, State extends JsonObject = JsonObject, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = Record<string, NodeTemplate<any, any, any, any>>> = {
     type: Type;
     metadata: Metadata;
     state: State;
@@ -171,7 +171,7 @@ type LiveTreeStorageModel = {
 type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
     readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property];
 };
-type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>> = {
+type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate> = {
     runtimeNodeMap: Map<string, RuntimeNode<any, any>>;
     liveTreeNode: LiveTreeNode;
     templateNode: TemplateNode;
