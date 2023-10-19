@@ -34,6 +34,7 @@ __export(index_browser_exports, {
   createNodeEntry: () => createNodeEntry,
   createNodeTemplate: () => createNodeTemplate,
   createRootNodeTemplate: () => createRootNodeTemplate,
+  createRuntimeNode: () => createRuntimeNode,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
 module.exports = __toCommonJS(index_browser_exports);
@@ -301,6 +302,7 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
       const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage);
       return newNode;
     },
+    // Note, this will need to be beefed up.
     useData: (() => {
       let lastValues = Object.fromEntries(Object.keys(liveTreeNode.toImmutable().state).map((key) => [key, {}]));
       return (key) => (0, import_react3.useSyncExternalStore)((callback) => {
@@ -311,7 +313,6 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
         return (0, import_lodash3.default)(lastValues[key], newValue) ? lastValues[key] : lastValues[key] = newValue;
       });
     })(),
-    // Note, this will need to be beefed up.
     mutate: (key, value) => liveTreeNode.get("state").set(key, value),
     delete: () => {
       const deleteFromRuntimeMap = (runtimeNode2) => {
@@ -482,5 +483,6 @@ var createRootNodeTemplate = (childNodes) => createNodeTemplate("RootNode", {
   createNodeEntry,
   createNodeTemplate,
   createRootNodeTemplate,
+  createRuntimeNode,
   liveblocksBrowserConfig
 });

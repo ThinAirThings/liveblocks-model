@@ -190,6 +190,7 @@ type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null, Templat
     mutate: <Key extends keyof TemplateNode['state']>(key: Key, value: TemplateNode['state'][Key]) => void;
     delete: () => void;
 };
+declare const createRuntimeNode: <ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, parentRuntimeNode: ParentRuntimeNode, liveTreeNode: LiveTreeNode, templateNode: TemplateNode, runtimeNodeMap: Map<string, RuntimeNode<any, any>>, useStorage: ReturnType<typeof createRoomContext<{}, LiveTreeStorageModel>>['suspense']['useStorage']) => RuntimeNode<ParentRuntimeNode, TemplateNode>;
 
 declare const createRootNodeTemplate: <ChildNodes extends Record<string, NodeTemplate<any, any, any, any>>>(childNodes: ChildNodes) => NodeTemplate<"RootNode", {}, {
     root: string;
@@ -210,4 +211,4 @@ declare const configureLiveTreeStorage: <LiveblocksPresence extends JsonObject, 
     useLiveTreeRootNode: () => RootRuntimeNode<RootNodeTemplate>;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, NodeTemplate, StatelessAirNodeUnion, TypedNodeIndex, configureLiveTreeStorage, createNodeTemplate, createRootNodeTemplate, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, ImmutableRuntimeNode, LiveAirNode, LiveblocksStorageModel, NodeTemplate, RuntimeNode, StatelessAirNodeUnion, TypedNodeIndex, configureLiveTreeStorage, createNodeTemplate, createRootNodeTemplate, createRuntimeNode, liveblocksBrowserConfig };

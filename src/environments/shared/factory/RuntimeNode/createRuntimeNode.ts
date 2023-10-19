@@ -77,6 +77,7 @@ export const createRuntimeNode = <
             const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage)
             return newNode
         },
+        // Note, this will need to be beefed up.
         useData: (() => {
             let lastValues = Object.fromEntries(Object.keys(liveTreeNode.toImmutable().state)
                 .map(key => [key, {} as any]))
@@ -89,7 +90,7 @@ export const createRuntimeNode = <
                     ? lastValues[key as string] 
                     : lastValues[key as string] = newValue
             })
-        })(),   // Note, this will need to be beefed up.
+        })(),   
         mutate: (key, value) => liveTreeNode.get('state').set(key as string, value),
         delete: () => {
             const deleteFromRuntimeMap = (runtimeNode: RuntimeNode<any, any>) => {

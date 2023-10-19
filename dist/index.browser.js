@@ -96,6 +96,7 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
       const newNode = createRuntimeNode(liveTreeRoom, runtimeNode, newLiveTreeNode, templateNode.childNodes[type], runtimeNodeMap, useStorage);
       return newNode;
     },
+    // Note, this will need to be beefed up.
     useData: (() => {
       let lastValues = Object.fromEntries(Object.keys(liveTreeNode.toImmutable().state).map((key) => [key, {}]));
       return (key) => useSyncExternalStore((callback) => {
@@ -106,7 +107,6 @@ var createRuntimeNode = (liveTreeRoom, parentRuntimeNode, liveTreeNode, template
         return isEqual(lastValues[key], newValue) ? lastValues[key] : lastValues[key] = newValue;
       });
     })(),
-    // Note, this will need to be beefed up.
     mutate: (key, value) => liveTreeNode.get("state").set(key, value),
     delete: () => {
       const deleteFromRuntimeMap = (runtimeNode2) => {
@@ -276,5 +276,6 @@ export {
   createNodeEntry,
   createNodeTemplate,
   createRootNodeTemplate,
+  createRuntimeNode,
   liveblocksBrowserConfig
 };
