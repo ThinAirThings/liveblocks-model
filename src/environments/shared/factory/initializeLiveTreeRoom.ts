@@ -20,5 +20,3 @@ export const initializeLiveTreeRoom = <
     })
     return room
 }
-    // const {root} = await room.getStorage()
-    // return root.get('liveTreeRootNode')

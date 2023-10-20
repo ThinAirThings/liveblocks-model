@@ -13,7 +13,7 @@ export type NodeTemplate<
     Type extends string=string,
     Metadata extends JsonObject=JsonObject,
     State extends JsonObject=JsonObject,
-    ChildNodes extends Record<string, NodeTemplate<any, any,  any, any>> | null=Record<string, NodeTemplate<any, any,  any, any>>,
+    ChildNodes extends Record<string, NodeTemplate> | null=Record<string, NodeTemplate<string, JsonObject, JsonObject, any>>,
 > = {
     type: Type
     metadata: Metadata
