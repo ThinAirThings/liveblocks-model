@@ -1,20 +1,14 @@
 import { JsonObject } from "@liveblocks/client"
 import { SimpleStateNode } from "./SimpleStateNode.js"
-import { UixNode, UixNodeConstructor } from "./UixNode.js"
+import { UixNode} from "./UixNode.js"
 import { S3ObjectNode } from "./S3ObjectNode.js"
-import { GenericCustomNodeTemplate } from "./CustomNodeTemplate.js"
+import { CustomNodeTemplate } from "./CustomNodeTemplate.js"
 
 
 
-export const UixNodeTypeIndex: {
-    [Key: string]: {
-        State: JsonObject
-        Constructor: UixNodeConstructor<any, any>
-    }
-} = {
+export const UixNodeTypeIndex ={
     'SimpleStateNode': {
         State: <JsonObject> {},
-        Constructor: SimpleStateNode
     },
     'S3ObjectNode': {
         State: {
@@ -22,6 +16,5 @@ export const UixNodeTypeIndex: {
             bucketName: <string> '',
             objectName: <string> ''
         },
-        Constructor: S3ObjectNode
     }
-}
+} as const

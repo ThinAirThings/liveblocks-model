@@ -1,6 +1,6 @@
 import { Room } from "@liveblocks/client"
 import { LiveIndexNode, LiveIndexStorageModel } from "./LiveIndexNode.js"
-import { GenericCustomNodeTemplate } from "./CustomNodeTemplate.js"
+import { CustomNodeTemplate } from "./CustomNodeTemplate.js"
 import { UixNode } from "./UixNode.js"
 
 
@@ -8,7 +8,7 @@ import { UixNode } from "./UixNode.js"
 
 export class S3ObjectNode <
     ParentUixNode extends UixNode | null,
-    NodeTemplate extends GenericCustomNodeTemplate
+    NodeTemplate extends CustomNodeTemplate
 > implements UixNode<ParentUixNode, NodeTemplate>{
     // Index Node Accesses
     liveIndexNode: LiveIndexNode
