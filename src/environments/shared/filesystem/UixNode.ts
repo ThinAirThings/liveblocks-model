@@ -1,50 +1,26 @@
 import { JsonObject, Room } from "@liveblocks/client"
-import {  CustomNodeTemplate } from "./CustomNodeTemplate.js"
+import {  CustomNodeTemplate, NullableCustomNodeTemplateRecord } from "./CustomNodeTemplate.js"
 import { LiveIndexStorageModel } from "./LiveIndexNode.js"
 import { UixNodeTypeIndex } from "./UixNodeTypeIndex.js"
 
-// type ExtractParentNode<T> = 
-//     T extends UixNode<infer ParentNode, infer CustomTemplate> 
-//         ? UixNode<ParentNode, CustomTemplate> 
-//         : never
+
 
 
 export type UixNode<
-    ParentUixNode extends UixNode<any, any, any, any, any, any, any> | null, 
+    ParentUixNode extends UixNode<any, any, any> | null, 
     UixNodeType extends keyof typeof UixNodeTypeIndex,
-    CustomType extends string,
-    Metadata extends JsonObject,
-    State extends typeof UixNodeTypeIndex[UixNodeType]['State'],
-    ImplementationIndex extends Record<string, any>,
-    NullableCustomNodeTemplateRecord extends Record<string, any> | null,
+    ChildRecords extends NullableCustomNodeTemplateRecord,
 > = {
     parentNode: ParentUixNode
-    create: NullableCustomNodeTemplateRecord extends Record<string, any> 
-        ? <ChildType extends keyof NullableCustomNodeTemplateRecord>(childType: ChildType) => void
-        : never
-}
-
-export const createUixNode = <
-    ParentUixNode extends UixNode<any, any, any, any, any, any, any> | null,
-    UixNodeType extends keyof typeof UixNodeTypeIndex,
-    CustomType extends string,
-    Metadata extends JsonObject,
-    State extends typeof UixNodeTypeIndex[UixNodeType]['State'],
-    ImplementationIndex extends Record<string, any>,
-    NullableCustomNodeTemplateRecord extends Record<string, any> | null,
->(
-    parentNode: ParentUixNode,
-    nodeTemplate: CustomNodeTemplate<
-        UixNodeType, 
-        CustomType, 
-        Metadata, 
-        State, 
-        ImplementationIndex, 
-        NullableCustomNodeTemplateRecord
+    create: <
+        ChildType extends keyof ChildRecords,
+    >(childType: ChildType) => UixNode<
+        UixNode<ParentUixNode, UixNodeType, NonNullable<ChildRecords>>, 
+        NonNullable<ChildRecords>[ChildType]['uixNodeType'],
+        NonNullable<ChildRecords>[ChildType]['childCustomNodeTemplateRecord']
     >
-) => {
-
 }
+
 
 
 // & {

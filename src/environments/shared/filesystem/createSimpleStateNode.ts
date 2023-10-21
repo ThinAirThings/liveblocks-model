@@ -1,5 +1,5 @@
 import { JsonObject } from "@liveblocks/client";
-import { CustomNodeTemplate } from "./CustomNodeTemplate.js";
+import { CustomNodeTemplate, NullableCustomNodeTemplateRecord } from "./CustomNodeTemplate.js";
 import { UixNode } from "./UixNode.js";
 import { UixNodeTypeIndex } from "./UixNodeTypeIndex.js";
 
@@ -8,49 +8,32 @@ import { UixNodeTypeIndex } from "./UixNodeTypeIndex.js";
 
 
 export const createSimpleStateNode = <
-    ParentUixNode extends UixNode<any, any, any, any, any, any, any> | null,
+    ParentUixNode extends UixNode<any, any, any> | null,
     UixNodeType extends keyof typeof UixNodeTypeIndex,
     CustomType extends string,
-    Metadata extends JsonObject,
-    State extends typeof UixNodeTypeIndex[UixNodeType]['State'],
-    ImplementationIndex extends Record<string, any>,
-    NullableCustomNodeTemplateRecord extends Record<string, any> | null,
+    ChildRecords extends NullableCustomNodeTemplateRecord,
 >(
     parentNode: ParentUixNode,
-    {childCustomNodeTemplateRecord}: CustomNodeTemplate<
-        UixNodeType, 
-        CustomType, 
-        Metadata, 
-        State, 
-        ImplementationIndex, 
-        NullableCustomNodeTemplateRecord extends Record<string, any> 
-            ? NonNullable<NullableCustomNodeTemplateRecord>
-            : null
-    >
+    nodeTemplate: CustomNodeTemplate<
+        UixNodeType,
+        CustomType,
+        ChildRecords
+    >,
 ) => {
-    const simpleStateNode = childCustomNodeTemplateRecord
-    ?  <UixNode<
+    const childRecords = nodeTemplate.childCustomNodeTemplateRecord
+    const simpleStateNode: UixNode<
         ParentUixNode,
-        UixNodeType, 
-        CustomType, 
-        Metadata, 
-        State, 
-        ImplementationIndex, 
-        NonNullable<NullableCustomNodeTemplateRecord>
-    >> {
-        parentNode: parentNode,
-        create: (childType) => {}
-    }
-    : <UixNode<
-        ParentUixNode,
-        UixNodeType, 
-        CustomType, 
-        Metadata, 
-        State, 
-        ImplementationIndex, 
-        null
-    >> {
-        parentNode: parentNode,
+        UixNodeType,
+        ChildRecords
+    > = {
+        parentNode,
+        create: (childType) => {
+            if(!childRecords) throw new Error(`Cannot create child node of type ${childType as string} for node of type ${nodeTemplate.uixNodeType}`)
+            return createSimpleStateNode(
+                simpleStateNode,
+                childRecords[childType as string]
+            )
+        }
     }
     return simpleStateNode
 }
