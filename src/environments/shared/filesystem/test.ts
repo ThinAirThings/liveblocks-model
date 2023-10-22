@@ -21,4 +21,3 @@ export const ContactNodeTemplate = () => createCustomNodeTemplate(
 const businessTemplate = BusinessNodeTemplate()
 const testChain = createSimpleStateNode(null, businessTemplate)
 const testNode = testChain.create('JobNode')
-testNode.parentNode.create('ContactNode')
