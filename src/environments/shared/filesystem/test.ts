@@ -14,10 +14,13 @@ export const JobNodeTemplate = () =>  createUixNodeTemplate(
     "SimpleStateNode", "JobNode", {
 
     },[
-        ContactNodeTemplate()
+        ContactNodeTemplate(),
+        LogoNodeTemplate()
     ]
 )
-
+export const LogoNodeTemplate = () => createUixNodeTemplate(
+    "S3ObjectNode", "LogoNode", {}
+)
 export const ContactNodeTemplate = () => createUixNodeTemplate(
     "SimpleStateNode", "ContactNode", {}
 )
@@ -30,7 +33,7 @@ const testChain = new SimpleStateNode(
     '',
     businessTemplate
 )
-testChain.childNodeTypeSets['JobNode'].forEach(node=>node.create(''))
-const testNode = testChain.create('JobNode').create('ContactNode')
-testNode.parentNode.create('ContactNode').childNodeTypeSets['']
+testChain.childNodeTypeMaps['JobNode'].forEach(node=>node.create(''))
+const testNode = testChain.create('JobNode').create('LogoNode')
+testNode.parentNode.create('ContactNode').parentNode.parentNode.parentNode
 testNode.parentNode.create('ContactNode').create('')

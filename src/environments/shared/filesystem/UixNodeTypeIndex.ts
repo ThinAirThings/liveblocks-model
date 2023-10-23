@@ -4,6 +4,7 @@ import { JsonObject, Room } from "@liveblocks/client"
 import { UixNode } from "./UixNode.js"
 import { UixNodeTemplate } from "./UixNodeTemplate.js"
 import { LiveIndexStorageModel } from "./LiveIndexNode.js"
+import { useSyncExternalStore } from "react"
 
 
 
@@ -22,8 +23,18 @@ export class SimpleStateNode<
     ){
         super(...args)
     }
+
+    useStorage<Key extends keyof State>(key: Key) {
+        return null as any
+    }
 }
 
+
+type S3ObjectState = {
+    objectState: 'uninitialized' | 'writing' | 'ready' | 'error',
+    bucketName: string,
+    objectName: string
+}
 export class S3ObjectNode<
     ParentUixNode extends UixNode | null,
     CustomType extends string,
@@ -39,7 +50,15 @@ export class S3ObjectNode<
     ){
         super(...args)
     }
+    useStorage<Key extends keyof State>(key: Key) {
+        return null as any
+    }
+    delete(): void {
+        super.delete()
+        // Do Other stuff like cleanup S3
+    }
 }
+
 
 export const UixNodeTypeIndex = {
     'SimpleStateNode': {

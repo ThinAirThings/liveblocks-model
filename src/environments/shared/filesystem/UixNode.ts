@@ -33,10 +33,12 @@ export abstract class UixNode<
     get metadata(){ return this.liveIndexNode.get('metadata')}
     // UixNode Properties
     childNodeTypeMaps: ChildTypeMap<ParentUixNode, State, CTS> 
+    
     // Immer Cache
     #baseStateChildNodeTypeMaps: ChildTypeMap<ParentUixNode, State, CTS>
     // Abstract Methods
-
+    abstract useStorage <Key extends keyof State> (key: Key): State[Key] 
+    // abstract mutate <Key extends keyof State> (key: Key, value: State[Key]): void
     constructor(
         private liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>,
         private liveNodeMap: LiveIndexStorageModel['liveNodeMap'],
@@ -58,11 +60,11 @@ export abstract class UixNode<
             return obj
         }, <ChildTypeMap<ParentUixNode, State, CTS>>{})
     }
-    create = <ChildType extends HasHead<CTS> extends true ? CTS[number]['customType'] : never>(childType: ChildType): UixNode<
+    create <ChildType extends HasHead<CTS> extends true ? CTS[number]['customType'] : never>(childType: ChildType): UixNode<
         UixNode<ParentUixNode, State, CTS>,
         (CTS[number]&{customType: ChildType})['state'],
         (CTS[number]&{customType: ChildType})['childTemplates']
-    >  => {
+    > {
         if (!this.nodeTemplate.childTemplates.filter(template=>template.customType === childType).length) throw new Error(`No child template with customType ${childType} found`)
         const childTemplate = this.nodeTemplate.childTemplates.find(template=>template.customType === childType)!
         const newLiveIndexNode = new LiveIndexNode({
@@ -103,7 +105,7 @@ export abstract class UixNode<
             )
         }))
     
-    delete = () => {
+    delete () {
         const deleteUixNode = (uixNode: UixNode) => {
             this.liveNodeMap.delete(uixNode.nodeId);
             [...this.nodeTemplate.childTemplates].forEach((template) => {
