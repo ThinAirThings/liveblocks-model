@@ -1,39 +1,32 @@
-import { Room } from "@liveblocks/client"
-import { LiveIndexNode, LiveIndexStorageModel } from "./LiveIndexNode.js"
-import { CustomNodeTemplate } from "./CustomNodeTemplate.js"
+import { JsonObject } from "@liveblocks/client"
 import { UixNode } from "./UixNode.js"
+import { UixNodeTemplate } from "./UixNodeTemplate.js"
+import { HasHead } from "./UtilityTypes.js"
 
 
 
 
-export class S3ObjectNode <
-    ParentUixNode extends UixNode | null,
-    NodeTemplate extends CustomNodeTemplate
-> implements UixNode<ParentUixNode, NodeTemplate>{
-    // Index Node Accesses
-    liveIndexNode: LiveIndexNode
-    get nodeId(){ return this.liveIndexNode.get('nodeId')}
-    get type(){ return this.liveIndexNode.get('type') as NodeTemplate['type']}
-    get subtype(){ return this.liveIndexNode.get('subtype') as NodeTemplate['subtype']}
-    get metadata(){ return this.liveIndexNode.get('metadata') as NodeTemplate['metadata']}
-    // UixNode Objects
-    childNodeTypeSets: UixNode<ParentUixNode, NodeTemplate>['childNodeTypeSets']
+export class S3ObjectNode<
+    ParentUixNode extends UixNode<any, any, any, any> | null,
+    CustomType extends string,
+    State extends JsonObject,
+    CTS extends UixNodeTemplate[] | [],
+> implements UixNode<ParentUixNode, 'S3ObjectNode', State, CTS>{
+    parentNode: ParentUixNode
     constructor(
-        private liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>,
-        private liveNodeIndex: LiveIndexStorageModel['liveNodeIndex'],
-        public parentNode: ParentUixNode,
-        nodeId: string,
-        public nodeTemplate: NodeTemplate,
-    ){
-        this.liveIndexNode = liveNodeIndex.get(nodeId)!
-        this.childNodeTypeSets = nodeTemplate.childCustomNodeTemplateRecord ? 
-            Object.fromEntries(
-                Object.keys(nodeTemplate.childCustomNodeTemplateRecord)
-                    .map((type) => [type, new Set(
-                        [...this.liveIndexNode.get('childNodeIds').keys()]
-                        .filter((childNodeId) => this.liveNodeIndex.get(childNodeId)!.get('type') === type)
-                        .map((childNodeId) => new SimpleStateNode(
-                            liveIndexRoom, liveNodeIndex, this, childNodeId, nodeTemplate.childCustomNodeTemplateRecord![type]
-                        ))
+        parentNode: ParentUixNode,
+        public nodeTemplate: UixNodeTemplate<'S3ObjectNode', CustomType, State, CTS>
+    ) {
+        this.parentNode = parentNode
+    }
+    create = <ChildType extends HasHead<CTS> extends true ? CTS[number]['customType'] : never>(childType: ChildType): UixNode<
+        UixNode<ParentUixNode, 'S3ObjectNode', State, CTS>,
+        (CTS[number]&{customType: ChildType})['uixNodeType'], 
+        (CTS[number]&{customType: ChildType})['state'],
+        (CTS[number]&{customType: ChildType})['childTemplates']
+    >  => {
+        return new SimpleStateNode(this, this.nodeTemplate.childTemplates
+            .filter(template=>template.customType === childType)[0]
+        )
     }
 }

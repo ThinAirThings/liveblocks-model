@@ -1,9 +1,8 @@
-import { JsonObject, Room } from "@liveblocks/client"
+import { JsonObject } from "@liveblocks/client"
 // import { SimpleStateNode } from "./SimpleStateNode.js"
 // import { S3ObjectNode } from "./S3ObjectNode.js"
 import { UixNode } from "./UixNode.js"
 import { UixNodeTemplate } from "./UixNodeTemplate.js"
-import { LiveIndexStorageModel } from "./LiveIndexNode.js"
 
 
 
@@ -11,16 +10,18 @@ export class SimpleStateNode<
     ParentUixNode extends UixNode | null,
     CustomType extends string,
     State extends JsonObject,
-    CTS extends UixNodeTemplate[] | [],
+    CTR extends Record<string, UixNodeTemplate>,
 > extends UixNode<
     ParentUixNode,
+    'SimpleStateNode',
     State,
-    CTS
+    CTR
 > {
     constructor(
-        ...args: ConstructorParameters<typeof UixNode<ParentUixNode, State, CTS>>
+        parentNode: ParentUixNode,
+        nodeTemplate: UixNodeTemplate<'SimpleStateNode', CustomType, State, CTR>,
     ){
-        super(...args)
+        super(parentNode, nodeTemplate)
     }
 }
 
@@ -28,18 +29,23 @@ export class S3ObjectNode<
     ParentUixNode extends UixNode | null,
     CustomType extends string,
     State extends JsonObject,
-    CTS extends UixNodeTemplate[] | [],
+    CTR extends Record<string, UixNodeTemplate>,
 > extends UixNode<
     ParentUixNode,
+    'S3ObjectNode',
     State,
-    CTS
+    CTR
 > {
     constructor(
-        ...args: ConstructorParameters<typeof UixNode<ParentUixNode, State, CTS>>
+        parentNode: ParentUixNode,
+        nodeTemplate: UixNodeTemplate<'S3ObjectNode', CustomType, State, CTR>,
     ){
-        super(...args)
+        super(parentNode, nodeTemplate)
     }
 }
+
+
+
 
 export const UixNodeTypeIndex = {
     'SimpleStateNode': {

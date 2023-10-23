@@ -23,14 +23,8 @@ export const ContactNodeTemplate = () => createUixNodeTemplate(
 )
 
 const businessTemplate = BusinessNodeTemplate()
-const testChain = new SimpleStateNode(
-    null as any,
-    null as any,
-    null, 
-    '',
-    businessTemplate
-)
-testChain.childNodeTypeSets['JobNode'].forEach(node=>node.create(''))
+const testChain = new SimpleStateNode(null, businessTemplate)
+testChain.childNodeTypeSets['JobNode']
 const testNode = testChain.create('JobNode').create('ContactNode')
 testNode.parentNode.create('ContactNode').childNodeTypeSets['']
 testNode.parentNode.create('ContactNode').create('')
