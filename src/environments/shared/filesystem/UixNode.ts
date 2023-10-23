@@ -33,18 +33,18 @@ export abstract class UixNode<
     get metadata(){ return this.liveIndexNode.get('metadata')}
     // UixNode Properties
     childNodeTypeMaps: ChildTypeMap<ParentUixNode, State, CTS> 
-    
     // Immer Cache
     #baseStateChildNodeTypeMaps: ChildTypeMap<ParentUixNode, State, CTS>
     // Abstract Methods
     abstract useStorage <Key extends keyof State> (key: Key): State[Key] 
+
     // abstract mutate <Key extends keyof State> (key: Key, value: State[Key]): void
     constructor(
         private liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>,
         private liveNodeMap: LiveIndexStorageModel['liveNodeMap'],
         public parentNode: ParentUixNode,
         nodeId: string,
-        public nodeTemplate: UixNodeTemplate<keyof typeof UixNodeTypeIndex, string, State, CTS>
+        public nodeTemplate: UixNodeTemplate< string, State, CTS>
     ) {
         this.liveIndexNode = liveNodeMap.get(nodeId)!
         this.childNodeTypeMaps= nodeTemplate.childTemplates.reduce((obj, template) => {
@@ -60,7 +60,7 @@ export abstract class UixNode<
             return obj
         }, <ChildTypeMap<ParentUixNode, State, CTS>>{})
     }
-    create <ChildType extends HasHead<CTS> extends true ? CTS[number]['customType'] : never>(childType: ChildType): UixNode<
+    createChild <ChildType extends CTS[number]['customType']>(childType: ChildType): UixNode<
         UixNode<ParentUixNode, State, CTS>,
         (CTS[number]&{customType: ChildType})['state'],
         (CTS[number]&{customType: ChildType})['childTemplates']
@@ -87,7 +87,7 @@ export abstract class UixNode<
         this.childNodeTypeMaps[childType].set(newUixNode.nodeId, newUixNode)
         return newUixNode
     }
-    useChildNodeTypeMap = <ChildType extends HasHead<CTS> extends true ? CTS[number]['customType'] : never>(type: ChildType): Map<string, UixNode<
+    useChildNodeTypeMap = <ChildType extends CTS[number]['customType']>(type: ChildType): Map<string, UixNode<
         UixNode<ParentUixNode, State, CTS>,
         (CTS[number]&{customType: ChildType})['state'],
         (CTS[number]&{customType: ChildType})['childTemplates']

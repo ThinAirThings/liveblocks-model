@@ -1,5 +1,5 @@
 // import { SimpleStateNode } from "./SimpleStateNode.js"
-import { createUixNodeTemplate } from "./UixNodeTemplate.js"
+import { createS3ObjectNodeTemplate, createUixNodeTemplate } from "./UixNodeTemplate.js"
 import { SimpleStateNode } from "./UixNodeTypeIndex.js"
 
 
@@ -8,32 +8,53 @@ export const BusinessNodeTemplate = () => createUixNodeTemplate(
         businessName: <string> 'New Business'
     }, [
         JobNodeTemplate(),
+        ContactNodeTemplate(),
     ]
 )
 export const JobNodeTemplate = () =>  createUixNodeTemplate(
     "SimpleStateNode", "JobNode", {
-
+        jobName: <string> 'New Job'
     },[
         ContactNodeTemplate(),
-        LogoNodeTemplate()
+        LogoNodeTemplate(),
+        ProfilePictureTemplate()
     ]
 )
-export const LogoNodeTemplate = () => createUixNodeTemplate(
-    "S3ObjectNode", "LogoNode", {}
-)
+export const LogoNodeTemplate = () => createS3ObjectNodeTemplate('LogoNode', [
+    ProfilePictureTemplate(),
+])
+export const ProfilePictureTemplate = () => createS3ObjectNodeTemplate('ProfilePictureNode')
+
 export const ContactNodeTemplate = () => createUixNodeTemplate(
-    "SimpleStateNode", "ContactNode", {}
+    "SimpleStateNode", "ContactNode", {
+        contactName: <string> 'New Contact'
+    }, [
+        ProfilePictureTemplate()
+    ]
 )
 
+
 const businessTemplate = BusinessNodeTemplate()
-const testChain = new SimpleStateNode(
+const businessNode = new SimpleStateNode(
     null as any,
     null as any,
     null, 
     '',
     businessTemplate
 )
-testChain.childNodeTypeMaps['JobNode'].forEach(node=>node.create(''))
-const testNode = testChain.create('JobNode').create('LogoNode')
-testNode.parentNode.create('ContactNode').parentNode.parentNode.parentNode
-testNode.parentNode.create('ContactNode').create('')
+businessNode.useStorage('businessName')
+businessNode.childNodeTypeMaps['JobNode'].forEach(node=>node.createChild('LogoNode'))
+const jobNode = businessNode.createChild('JobNode')
+const logoNode = jobNode.createChild('LogoNode')
+const contactNodeFromJobNode = jobNode.createChild('ContactNode')
+contactNodeFromJobNode.useStorage('contactName')   
+contactNodeFromJobNode.createChild('')// Fail
+logoNode.useStorage('bucketName') // Fail
+logoNode.createChild('')
+const contactNodeFromBusinessNode = businessNode.createChild('ContactNode')
+const jobNodeFromBusinessNode = businessNode.createChild('JobNode')
+jobNodeFromBusinessNode.useStorage('jobName') // Success
+contactNodeFromBusinessNode.useStorage('contactName') // Success
+contactNodeFromBusinessNode.createChild('') // Fail
+const profilePicNodeFromJobNode = jobNode.createChild('ProfilePictureNode')
+profilePicNodeFromJobNode.useStorage('objectState')

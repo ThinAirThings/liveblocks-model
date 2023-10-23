@@ -23,10 +23,9 @@ export class SimpleStateNode<
     ){
         super(...args)
     }
-
-    useStorage<Key extends keyof State>(key: Key) {
-        return null as any
-    }
+    // useStorage<Key extends keyof State>(key: Key) {
+    //     return null as any
+    // }
 }
 
 
@@ -42,17 +41,15 @@ export class S3ObjectNode<
     CTS extends UixNodeTemplate[] | [],
 > extends UixNode<
     ParentUixNode,
-    State,
+    S3ObjectState,
     CTS
 > {
-    constructor(
-        ...args: ConstructorParameters<typeof UixNode<ParentUixNode, State, CTS>>
-    ){
+    constructor(...args: ConstructorParameters<typeof UixNode<ParentUixNode, S3ObjectState, CTS>>){
         super(...args)
     }
-    useStorage<Key extends keyof State>(key: Key) {
-        return null as any
-    }
+    // useStorage<Key extends keyof State>(key: Key) {
+    //     return null as any
+    // }
     delete(): void {
         super.delete()
         // Do Other stuff like cleanup S3
@@ -66,7 +63,7 @@ export const UixNodeTypeIndex = {
         Constructor: SimpleStateNode
     },
     'S3ObjectNode': {
-        State: {
+        State: <JsonObject>{
             objectState: <'uninitialized' | 'writing' | 'ready' | 'error'> 'uninitialized',
             bucketName: <string> '',
             objectName: <string> ''
