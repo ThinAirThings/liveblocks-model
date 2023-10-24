@@ -35,6 +35,7 @@ export const ContactNodeTemplate = () => createUixNodeTemplate(
 
 
 const businessTemplate = BusinessNodeTemplate()
+businessTemplate.childTemplates
 const businessNode = new SimpleStateNode(
     null as any,
     null as any,

@@ -1,7 +1,6 @@
-import { JsonObject } from "@liveblocks/client";
-import { UixNodeTypeIndex } from "./UixNodeTypeIndex.js";
-import { HasTail } from "./UtilityTypes.js";
-
+import { JsonObject } from "@liveblocks/client"
+import { UixNodeTypeIndex } from "./UixNodeTypeIndex.js"
+import { HasTail } from "../filesystem/UtilityTypes.js"
 
 export type UixNodeTemplate<
     CustomType extends string=string,
@@ -11,10 +10,11 @@ export type UixNodeTemplate<
     uixNodeType: keyof typeof UixNodeTypeIndex
     customType: CustomType
     state: State
-    childTemplates: HasTail<CTS> extends true ? {
-        [ChildType in CTS[number]['customType']]: CTS[number]//&{customType: ChildType} //* Not sure why this isnt needed
-    }[CTS[number]['customType']][]
-    : []
+    childTemplates: HasTail<CTS> extends true ? {    
+        [Type in CTS[number]['customType']]: (CTS[number] & {customType: Type}) extends UixNodeTemplate<
+            infer CustomType, infer State, infer ChildTemplates extends UixNodeTemplate[] | []
+        > ? UixNodeTemplate<CustomType, State, ChildTemplates> : never
+    }[CTS[number]['customType']][] : []
 }
 
 export const createUixNodeTemplate = <
@@ -50,9 +50,3 @@ export const createS3ObjectNodeTemplate = <
     bucketName: <string>'',
     objectName: <string>''
 }, childTemplates??[])
-
-
-
-
-
-

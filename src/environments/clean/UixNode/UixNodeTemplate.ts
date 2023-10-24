@@ -1,58 +1,58 @@
 import { JsonObject } from "@liveblocks/client";
 import { UixNodeTypeIndex } from "./UixNodeTypeIndex.js";
-import { HasTail } from "./UtilityTypes.js";
 
 
 export type UixNodeTemplate<
+    UixNodeType extends keyof typeof UixNodeTypeIndex= keyof typeof UixNodeTypeIndex,
     CustomType extends string=string,
     State extends JsonObject=JsonObject,
-    CTS extends UixNodeTemplate[] | []=UixNodeTemplate<any, any, any>[] | [],
+    CTR extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate<any, any, any, any>>,
 > = {
-    uixNodeType: keyof typeof UixNodeTypeIndex
+    uixNodeType: UixNodeType
     customType: CustomType
     state: State
-    childTemplates: HasTail<CTS> extends true ? {
-        [ChildType in CTS[number]['customType']]: CTS[number]//&{customType: ChildType} //* Not sure why this isnt needed
-    }[CTS[number]['customType']][]
-    : []
+    childTemplates: {
+        [ChildType in keyof CTR]: UixNodeTemplate<
+            CTR[ChildType]['uixNodeType'],
+            CTR[ChildType]['customType'],
+            CTR[ChildType]['state'],
+            CTR[ChildType]['childTemplates']
+        >
+    }
 }
 
 export const createUixNodeTemplate = <
+    UixNodeType extends keyof typeof UixNodeTypeIndex,
     CustomType extends string,
     State extends JsonObject,
-    CTS extends UixNodeTemplate[] | [],
+    CTR extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
 >(
-    uixNodeType: keyof typeof UixNodeTypeIndex,
+    uixNodeType: string,
     customType: CustomType,
     state: State,
-    childTemplates?: CTS
+    childTemplates?: CTR
 )  => {
     return <UixNodeTemplate<
+        UixNodeType,
         CustomType,
         State,
-        CTS
+        CTR
     >>{
         uixNodeType,
         customType,
         state,
-        childTemplates: childTemplates??[]
+        childTemplates: childTemplates??{}
     }
 }
 
 export const createS3ObjectNodeTemplate = <
     CustomType extends string,
-    CTS extends UixNodeTemplate[] | [],
+    CTR extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
 >(
     customType: CustomType,
-    childTemplates?: CTS
+    childTemplates?: CTR
 ) => createUixNodeTemplate('S3ObjectNode', customType, {
     objectState: <'uninitialized' | 'writing' | 'ready' | 'error'> 'uninitialized',
     bucketName: <string>'',
     objectName: <string>''
-}, childTemplates??[])
-
-
-
-
-
-
+}, childTemplates??{})
