@@ -4,6 +4,7 @@ import { createRoomContext } from "@liveblocks/react";
 import { LiveIndexStorageModel } from "./LiveObjects/LiveIndexNode.js";
 import { FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { RootNode } from "./RootNode/RootNode.js";
+import { LiveIndexRootNode } from "./LiveObjects/LiveIndexRootNode.js";
 
 export const configureLiveFilesystemStorage = <
     LiveblocksPresence extends JsonObject,
@@ -38,7 +39,9 @@ export const configureLiveFilesystemStorage = <
                 >(roomId, {
                     initialPresence: liveblocksPresence,
                     initialStorage: {
-                        liveNodeMap: new LiveMap()
+                        liveNodeMap: new LiveMap([[
+                            "root", new LiveIndexRootNode()
+                        ]])
                     }
                 })
                 const nodeMap = (await room.getStorage()).root.get("liveNodeMap")
@@ -53,7 +56,9 @@ export const configureLiveFilesystemStorage = <
             <liveblocks.RoomProvider
                 id={roomId}
                 initialPresence={liveblocksPresence}
-                initialStorage={{liveNodeMap: new LiveMap()}}
+                initialStorage={{liveNodeMap: new LiveMap([[
+                    "root", new LiveIndexRootNode()
+                ]])}}
             >
                 {filesystemRootNode
                     && <FilesystemRootNodeContext.Provider value={filesystemRootNode}>

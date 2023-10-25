@@ -48,7 +48,7 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
 };
 
 // src/environments/shared/filesystem/configureLiveFilesystemStorage.tsx
-import { LiveMap as LiveMap3, createClient as createClient2 } from "@liveblocks/client";
+import { LiveMap as LiveMap4, createClient as createClient2 } from "@liveblocks/client";
 import { createRoomContext as createRoomContext2 } from "@liveblocks/react";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -197,6 +197,24 @@ var RootNode = class extends UixNode {
 };
 RootNode.nodeType = "RootNode";
 
+// src/environments/shared/filesystem/LiveObjects/LiveIndexRootNode.ts
+import { LiveMap as LiveMap3, LiveObject as LiveObject3 } from "@liveblocks/client";
+var LiveIndexRootNode = class extends LiveIndexNode {
+  constructor() {
+    super({
+      nodeId: "root",
+      metadata: {},
+      uixNodeType: "Root",
+      customType: "Root",
+      parentNodeId: null,
+      parentType: null,
+      stateDisplayKey: "root",
+      state: new LiveObject3({}),
+      childNodeIds: new LiveMap3([])
+    });
+  }
+};
+
 // src/environments/shared/filesystem/configureLiveFilesystemStorage.tsx
 import { jsx as jsx2 } from "react/jsx-runtime";
 var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, rootNodeTemplate) => {
@@ -214,7 +232,10 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
         const room = liveblocksClient.enter(roomId, {
           initialPresence: liveblocksPresence,
           initialStorage: {
-            liveNodeMap: new LiveMap3()
+            liveNodeMap: new LiveMap4([[
+              "root",
+              new LiveIndexRootNode()
+            ]])
           }
         });
         const nodeMap = (await room.getStorage()).root.get("liveNodeMap");
@@ -230,7 +251,10 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
       {
         id: roomId,
         initialPresence: liveblocksPresence,
-        initialStorage: { liveNodeMap: new LiveMap3() },
+        initialStorage: { liveNodeMap: new LiveMap4([[
+          "root",
+          new LiveIndexRootNode()
+        ]]) },
         children: filesystemRootNode && /* @__PURE__ */ jsx2(FilesystemRootNodeContext.Provider, { value: filesystemRootNode, children })
       }
     );

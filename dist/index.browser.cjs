@@ -253,7 +253,7 @@ var liveblocksBrowserConfig = (NodeIndex, createClientProps, initialLiveblocksPr
 };
 
 // src/environments/shared/filesystem/configureLiveFilesystemStorage.tsx
-var import_client5 = require("@liveblocks/client");
+var import_client6 = require("@liveblocks/client");
 var import_react4 = require("@liveblocks/react");
 var import_react5 = require("react");
 
@@ -402,10 +402,28 @@ var RootNode = class extends UixNode {
 };
 RootNode.nodeType = "RootNode";
 
+// src/environments/shared/filesystem/LiveObjects/LiveIndexRootNode.ts
+var import_client5 = require("@liveblocks/client");
+var LiveIndexRootNode = class extends LiveIndexNode {
+  constructor() {
+    super({
+      nodeId: "root",
+      metadata: {},
+      uixNodeType: "Root",
+      customType: "Root",
+      parentNodeId: null,
+      parentType: null,
+      stateDisplayKey: "root",
+      state: new import_client5.LiveObject({}),
+      childNodeIds: new import_client5.LiveMap([])
+    });
+  }
+};
+
 // src/environments/shared/filesystem/configureLiveFilesystemStorage.tsx
 var import_jsx_runtime2 = require("react/jsx-runtime");
 var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, rootNodeTemplate) => {
-  const liveblocksClient = (0, import_client5.createClient)(createClientProps);
+  const liveblocksClient = (0, import_client6.createClient)(createClientProps);
   const { suspense: liveblocks } = (0, import_react4.createRoomContext)(liveblocksClient);
   const FilesystemRootNodeContext = (0, import_react5.createContext)(null);
   const useLiveFilesystemRootNode = () => (0, import_react5.useContext)(FilesystemRootNodeContext);
@@ -419,7 +437,10 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
         const room = liveblocksClient.enter(roomId, {
           initialPresence: liveblocksPresence,
           initialStorage: {
-            liveNodeMap: new import_client5.LiveMap()
+            liveNodeMap: new import_client6.LiveMap([[
+              "root",
+              new LiveIndexRootNode()
+            ]])
           }
         });
         const nodeMap = (await room.getStorage()).root.get("liveNodeMap");
@@ -435,7 +456,10 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
       {
         id: roomId,
         initialPresence: liveblocksPresence,
-        initialStorage: { liveNodeMap: new import_client5.LiveMap() },
+        initialStorage: { liveNodeMap: new import_client6.LiveMap([[
+          "root",
+          new LiveIndexRootNode()
+        ]]) },
         children: filesystemRootNode && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(FilesystemRootNodeContext.Provider, { value: filesystemRootNode, children })
       }
     );
