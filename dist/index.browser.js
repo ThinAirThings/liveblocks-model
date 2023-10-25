@@ -130,6 +130,7 @@ var UixNode = class {
     if (!this.childTypeIsKey(childType))
       throw new Error(`Child type ${childType} does not exist on node type ${this.nodeTemplate.customType}`);
     const childTemplate = this.childTemplatesMap.get(childType);
+    console.log(childTemplate);
     const newLiveIndexNode = new LiveIndexNode({
       nodeId: uuidv4(),
       metadata: {
@@ -285,10 +286,7 @@ import { useSyncExternalStore as useSyncExternalStore2 } from "react";
 import isEqual from "lodash.isequal";
 var SimpleStateNode = class extends UixNode {
   constructor(...args) {
-    const [liveIndexRoom, liveNodeMap, parentNode, nodeId, nodeTemplate] = args;
-    super(liveIndexRoom, liveNodeMap, parentNode, nodeId, {
-      ...nodeTemplate
-    });
+    super(...args);
     this.initialState = this.state.toImmutable();
     this.lastStorageValues = this.state.toImmutable();
   }

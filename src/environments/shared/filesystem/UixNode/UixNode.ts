@@ -84,6 +84,7 @@ export abstract class UixNode<
         
         if (!this.childTypeIsKey(childType)) throw new Error(`Child type ${childType as any} does not exist on node type ${this.nodeTemplate.customType}`)
         const childTemplate = this.childTemplatesMap.get(childType)!
+        console.log(childTemplate)
         const newLiveIndexNode = new LiveIndexNode({
             nodeId: uuidv4(),
             metadata: {

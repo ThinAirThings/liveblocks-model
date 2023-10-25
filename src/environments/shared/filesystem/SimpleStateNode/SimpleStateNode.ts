@@ -19,10 +19,7 @@ export class SimpleStateNode<
     constructor(
         ...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>
     ){
-        const [liveIndexRoom, liveNodeMap, parentNode, nodeId, nodeTemplate] = args;
-        super(liveIndexRoom, liveNodeMap, parentNode, nodeId, {
-            ...nodeTemplate,
-        })
+        super(...args)
         this.initialState = this.state.toImmutable() as State
         this.lastStorageValues = this.state.toImmutable() as State
     }
