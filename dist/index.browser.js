@@ -272,6 +272,7 @@ var createUixNodeTemplate = (customType, UixNodeConstructor, props, childTemplat
     customType,
     Constructor: UixNodeConstructor,
     metadata: props.metadata,
+    initialState: props.initialState,
     childTemplates: childTemplates ?? {}
   };
 };

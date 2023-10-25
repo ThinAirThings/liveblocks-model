@@ -50,6 +50,7 @@ export const createUixNodeTemplate = <
         customType,
         Constructor: UixNodeConstructor,
         metadata: props.metadata,
+        initialState: props.initialState,
         childTemplates: childTemplates??{}
     } as UixNodeTemplate<
         CustomType,
