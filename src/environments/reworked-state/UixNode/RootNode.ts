@@ -8,18 +8,19 @@ import { LiveIndexStorageModel } from "../LiveObjects/LiveIndexNode.js";
 
 
 export class RootNode<
-    CTR extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
+    ChildTemplates extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
 > extends UixNode<
     null,
     'root',
-    {},
-    CTR
+    typeof RootNode,
+    ChildTemplates
 >{
+    initialState: any;
     static nodeType = 'RootNode' as const
     constructor(
         liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>,
         liveNodeMap: LiveIndexStorageModel['liveNodeMap'],
-        rootNodeTemplate: UixNodeTemplate<'root', any, {}, CTR>
+        rootNodeTemplate: UixNodeTemplate<'root', typeof RootNode, {}, ChildTemplates>
     ){
         super(
             liveIndexRoom,

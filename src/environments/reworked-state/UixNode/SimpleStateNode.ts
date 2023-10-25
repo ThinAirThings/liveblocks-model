@@ -1,24 +1,29 @@
-import { JsonObject } from "@liveblocks/client";
+import { JsonObject, LiveObject } from "@liveblocks/client";
 import { UixNode } from "./UixNode.js";
-import { UixNodeTemplate } from "./createUixNodeTemplate.js";
+import { UixNodeConstructor, UixNodeTemplate } from "./createUixNodeTemplate.js";
 import { useSyncExternalStore } from "react";
 import isEqual from "lodash.isequal";
 
 
+
 export class SimpleStateNode<
-    ParentUixNode extends UixNode | null= UixNode<any> | null,
     State extends JsonObject= JsonObject,
+    ParentUixNode extends UixNode | null= UixNode<any> | null,
     CustomType extends string=string,
-    CTR extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
-> extends UixNode<ParentUixNode, CustomType, State, CTR> 
+    ChildTemplates extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
+> extends UixNode<ParentUixNode, CustomType, typeof SimpleStateNode, ChildTemplates> 
 {
     static nodeType = 'SimpleStateNode' as const
-    private lastStorageValues: State
-    pickles: number = 5
+    initialState: State
+    lastStorageValues: State
     constructor(
-        ...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, State, CTR>>
+        ...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>
     ){
-        super(...args)
+        const [liveIndexRoom, liveNodeMap, parentNode, nodeId, nodeTemplate] = args;
+        super(liveIndexRoom, liveNodeMap, parentNode, nodeId, {
+            ...nodeTemplate,
+        })
+        this.initialState = this.state.toImmutable() as State
         this.lastStorageValues = this.state.toImmutable() as State
     }
     mutateStorage<Key extends keyof State>(key: Key, value: State[Key]): void {

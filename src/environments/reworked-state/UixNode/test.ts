@@ -6,7 +6,7 @@ import { createRootNodeTemplate } from "./createRootNodeTemplate.js"
 
 
 export const Level1NodeATemplate = () => createSimpleStateNodeTemplate(
-    'Level1NodeA', {
+    'Level1NodeA', {}, {
         numberType: <number> 5
     }, {
         "Level2NodeA": Level2NodeATemplate(),
@@ -14,7 +14,7 @@ export const Level1NodeATemplate = () => createSimpleStateNodeTemplate(
     }
 )
 export const Level2NodeATemplate = () =>  createSimpleStateNodeTemplate(
-    "Level2NodeA", {
+    "Level2NodeA", {}, {
         stringType: <string> 'New Job'
     }, {        
         "Level3From2ANodeA": Level3From2ANodeATemplate(),
@@ -22,7 +22,7 @@ export const Level2NodeATemplate = () =>  createSimpleStateNodeTemplate(
     }    
 )
 export const Level2NodeBTemplate = () =>  createSimpleStateNodeTemplate(
-    "Level2NodeB", {
+    "Level2NodeB", {}, {
         objectType: {
             a: <string> 'a',
         }
@@ -30,11 +30,14 @@ export const Level2NodeBTemplate = () =>  createSimpleStateNodeTemplate(
 )
 
 export const Level3From2ANodeATemplate = () => createS3ObjectNodeTemplate(
-    'Level3From2ANodeA'
+    'Level3From2ANodeA', {},
+    'Bucket Name'
 )
 
 export const Level3From2ANodeBTemplate = () => createS3ObjectNodeTemplate(
-    'Level3From2ANodeB'
+    'Level3From2ANodeB', {
+        metadata: {}
+    }
 )
 
 
@@ -49,9 +52,9 @@ const Level1NodeA = rootNode.createChild('Level1NodeA')
 Level1NodeA.createChild('')
 const level2NodeA = Level1NodeA.createChild('Level2NodeA')
 level2NodeA.createChild('')
-level2NodeA.useStorage('stringType')
+level2NodeA.useStorage('')
 const level2NodeB = Level1NodeA.createChild('Level2NodeB')
-level2NodeB.createChild('')
+level2NodeB.useStorage('objectType')
 const level3From2ANodeA = level2NodeA.createChild('Level3From2ANodeA')
 const level3From2ANodeB = level2NodeA.createChild('Level3From2ANodeB')
 level3From2ANodeB.parentNode.parentNode.parentNode.createChild('Level1NodeA')

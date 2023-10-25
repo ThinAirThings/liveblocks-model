@@ -15,6 +15,7 @@ export const createS3ObjectNodeTemplate = <
     }
 }, childTemplates??{}) as UixNodeTemplate<
     CustomType,
+    typeof S3ObjectNode,
     S3ObjectState,
     ChildTemplates
 >

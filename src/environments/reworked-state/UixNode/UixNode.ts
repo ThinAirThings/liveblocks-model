@@ -1,5 +1,5 @@
 import { JsonObject, LiveMap, LiveObject, Room } from "@liveblocks/client";
-import { UixNodeTemplate } from "./createUixNodeTemplate.js";
+import { UixNodeConstructor, UixNodeTemplate, UixNodeType } from "./createUixNodeTemplate.js";
 import { v4 as uuidv4 } from 'uuid'
 import { LiveIndexNode, LiveIndexStorageModel } from "../LiveObjects/LiveIndexNode.js";
 import { useSyncExternalStore } from "react";
@@ -13,26 +13,27 @@ type ChildUixNode<
 > = UixNode<
     ThisUixNode,
     ChildTemplates[ChildType]['customType'],
-    ChildTemplates[ChildType]['state'],
+    ChildTemplates[ChildType]['Constructor'],
     ChildTemplates[ChildType]['childTemplates']
 >
 
 export abstract class UixNode<
     ParentUixNode extends UixNode | null= UixNode<any> | null,
     CustomType extends string=string,
-    State extends JsonObject= JsonObject,
+    NodeConstructor extends UixNodeConstructor=UixNodeConstructor,
     ChildTemplates extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate<any, any, any>>,
 >{
     // Static
     declare static nodeType: string
     // Overrides
-    abstract useStorage <Key extends keyof State> (key: Key): State[Key]
-    abstract mutateStorage <Key extends keyof State> (key: Key, value: State[Key]): void
+    abstract initialState: InstanceType<NodeConstructor>['initialState']
+    abstract useStorage <Key extends keyof InstanceType<NodeConstructor>['initialState']> (key: Key): InstanceType<NodeConstructor>['initialState'][Key]
+    abstract mutateStorage <Key extends keyof InstanceType<NodeConstructor>['initialState']> (key: Key, value: InstanceType<NodeConstructor>['initialState'][Key]): void
     // Index Node Accesses
     liveIndexNode: LiveIndexNode
     get nodeId(){ return this.liveIndexNode.get('nodeId')}
     get uixNodeType(){ return this.liveIndexNode.get('uixNodeType')}    // These should be type declared in the Subtype
-    get state(){ return this.liveIndexNode.get('state') as LiveObject<State>} 
+    get state(){ return this.liveIndexNode.get('state') as LiveObject<any>} 
     get customType(){ return this.liveIndexNode.get('customType') as CustomType}
     get metadata(){ return this.liveIndexNode.get('metadata')}
 
@@ -49,7 +50,7 @@ export abstract class UixNode<
         private liveNodeMap: LiveIndexStorageModel['liveNodeMap'],
         public parentNode: ParentUixNode,
         nodeId: string,
-        public nodeTemplate: UixNodeTemplate<CustomType, any, State, ChildTemplates>
+        public nodeTemplate: UixNodeTemplate<CustomType, UixNodeConstructor, any,  ChildTemplates>
     ){
         this.liveIndexNode = this.liveNodeMap.get(nodeId)!
         this.childTemplatesMap = new Map(Object.entries(nodeTemplate.childTemplates))
@@ -75,9 +76,9 @@ export abstract class UixNode<
     createChild <ChildType extends keyof ChildTemplates>(
         childType: ChildType
     ): UixNode<
-        UixNode<ParentUixNode, CustomType, State, ChildTemplates>,
+        UixNode<ParentUixNode, CustomType, NodeConstructor, ChildTemplates>,
         ChildTemplates[ChildType]['customType'],
-        ChildTemplates[ChildType]['state'],
+        ChildTemplates[ChildType]['Constructor'],
         ChildTemplates[ChildType]['childTemplates']
     > {
         
@@ -94,9 +95,7 @@ export abstract class UixNode<
             parentType: this.customType,
             childNodeIds: new LiveMap(),
             stateDisplayKey: '', // Deal with this later,
-            state: new LiveObject({
-                ...childTemplate.state,
-            }),
+            state: new LiveObject(),
         })
         this.liveNodeMap.set(newLiveIndexNode.get('nodeId'), newLiveIndexNode)
         this.liveIndexNode.get('childNodeIds').set(newLiveIndexNode.get('nodeId'), null)
