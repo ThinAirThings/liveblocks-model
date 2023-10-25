@@ -35,6 +35,7 @@ __export(index_browser_exports, {
   createNodeEntry: () => createNodeEntry,
   createRootNodeTemplate: () => createRootNodeTemplate,
   createSimpleStateNodeTemplate: () => createSimpleStateNodeTemplate,
+  createUixNodeTemplate: () => createUixNodeTemplate,
   liveblocksBrowserConfig: () => liveblocksBrowserConfig
 });
 module.exports = __toCommonJS(index_browser_exports);
@@ -524,5 +525,6 @@ var createSimpleStateNodeTemplate = (customType, config, childTemplates) => crea
   createNodeEntry,
   createRootNodeTemplate,
   createSimpleStateNodeTemplate,
+  createUixNodeTemplate,
   liveblocksBrowserConfig
 });

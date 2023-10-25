@@ -317,5 +317,6 @@ export {
   createNodeEntry,
   createRootNodeTemplate,
   createSimpleStateNodeTemplate,
+  createUixNodeTemplate,
   liveblocksBrowserConfig
 };
