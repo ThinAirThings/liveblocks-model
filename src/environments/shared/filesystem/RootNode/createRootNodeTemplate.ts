@@ -9,5 +9,6 @@ export const createRootNodeTemplate = <
 >(
     childTemplates: ChildTemplates
 ) => createUixNodeTemplate('root', RootNode, {
-    metadata: {}
+    metadata: {},
+    stateDisplayKey: 'root'
 }, childTemplates)

@@ -15,6 +15,7 @@ export class S3ObjectNode<
     ChildTemplates extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
 > extends UixNode<ParentUixNode, CustomType, typeof S3ObjectNode, ChildTemplates>{
     static nodeType = 'S3ObjectNode' as const
+    stateDisplayKey: 'objectName' = 'objectName'
     initialState: S3ObjectInterfaceState
     proxyUrl: string
     constructor(
@@ -57,6 +58,9 @@ export class S3ObjectNode<
                 break
             }
         }
+    }
+    useDisplayName(): string {
+        return this.useStorage(this.stateDisplayKey) as string
     }
     useStorage<Key extends keyof S3ObjectInterfaceState>(key: Key): S3ObjectInterfaceState[Key] {
         return null as any

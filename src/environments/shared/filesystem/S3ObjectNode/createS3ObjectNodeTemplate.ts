@@ -19,6 +19,7 @@ export const createS3ObjectNodeTemplate = <
     childTemplates?: ChildTemplates
 ) => createUixNodeTemplate(customType, S3ObjectNode, {
     metadata: config.metadata,
+    stateDisplayKey: "bucketName",
     initialState: {
         bucketProxyUrl: config.bucketProxyUrl,
         fileType: config.fileType,

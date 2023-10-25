@@ -9,6 +9,7 @@ export type UixNodeTemplateProps<
 > = {
     metadata: Metadata,
     initialState?: JsonObject
+    stateDisplayKey: string
 }
 export type UixNodeType = RootNode | S3ObjectNode | SimpleStateNode
 
@@ -24,6 +25,7 @@ export type UixNodeTemplate<
     customType: CustomType
     metadata: Metadata
     initialState?: InstanceType<NodeConstructor>['initialState']
+    stateDisplayKey: keyof InstanceType<NodeConstructor>['initialState']
     Constructor: NodeConstructor
     childTemplates: ChildTemplates extends Record<string, UixNodeTemplate> ?{
         [ChildType in keyof ChildTemplates]: UixNodeTemplate<

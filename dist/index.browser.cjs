@@ -296,6 +296,7 @@ var UixNode = class {
         );
       });
     });
+    this.stateDisplayKey = nodeTemplate.stateDisplayKey;
     this.liveIndexNode = this.liveNodeMap.get(nodeId);
     this.childTemplatesMap = new Map(Object.entries(nodeTemplate.childTemplates));
     this.childNodeTypeMaps = new Map(
@@ -395,6 +396,10 @@ var RootNode = class extends UixNode {
       "root",
       rootNodeTemplate
     );
+    this.stateDisplayKey = "root";
+  }
+  useDisplayName() {
+    throw new Error("Method not implemented.");
   }
   useStorage(key) {
     throw new Error("Method not implemented.");
@@ -486,7 +491,8 @@ var createUixNodeTemplate = (customType, UixNodeConstructor, props, childTemplat
 
 // src/environments/shared/filesystem/RootNode/createRootNodeTemplate.ts
 var createRootNodeTemplate = (childTemplates) => createUixNodeTemplate("root", RootNode, {
-  metadata: {}
+  metadata: {},
+  stateDisplayKey: "root"
 }, childTemplates);
 
 // src/environments/shared/filesystem/SimpleStateNode/SimpleStateNode.ts
@@ -500,6 +506,9 @@ var SimpleStateNode = class extends UixNode {
   }
   mutateStorage(key, value) {
     this.liveIndexNode.get("state").set(key, value);
+  }
+  useDisplayName() {
+    return this.useStorage(this.stateDisplayKey);
   }
   useStorage(key) {
     return (0, import_react6.useSyncExternalStore)((callback) => {
@@ -516,7 +525,8 @@ SimpleStateNode.nodeType = "SimpleStateNode";
 // src/environments/shared/filesystem/SimpleStateNode/createSimpleStateNodeTemplate.ts
 var createSimpleStateNodeTemplate = (customType, config, childTemplates) => createUixNodeTemplate(customType, SimpleStateNode, {
   metadata: config.metadata,
-  initialState: config.state
+  initialState: config.state,
+  stateDisplayKey: config.stateDisplayKey
 }, childTemplates ?? {});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

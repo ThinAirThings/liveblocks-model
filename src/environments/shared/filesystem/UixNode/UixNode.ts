@@ -27,6 +27,7 @@ export abstract class UixNode<
     declare static nodeType: string
     // Overrides
     abstract initialState: InstanceType<NodeConstructor>['initialState']
+    abstract useDisplayName(): string
     abstract useStorage <Key extends keyof InstanceType<NodeConstructor>['initialState']> (key: Key): InstanceType<NodeConstructor>['initialState'][Key]
     abstract mutateStorage <Key extends keyof InstanceType<NodeConstructor>['initialState']> (key: Key, value: InstanceType<NodeConstructor>['initialState'][Key]): void
     // Index Node Accesses
@@ -36,7 +37,7 @@ export abstract class UixNode<
     get state(){ return this.liveIndexNode.get('state') as LiveObject<any>} 
     get customType(){ return this.liveIndexNode.get('customType') as CustomType}
     get metadata(){ return this.liveIndexNode.get('metadata')}
-
+    stateDisplayKey: keyof InstanceType<NodeConstructor>['initialState']
     private childTemplatesMap: Map<
         string,
         UixNodeTemplate<any, any, any>
@@ -52,6 +53,7 @@ export abstract class UixNode<
         nodeId: string,
         public nodeTemplate: UixNodeTemplate<CustomType, UixNodeConstructor, any,  ChildTemplates>
     ){
+        this.stateDisplayKey = nodeTemplate.stateDisplayKey
         this.liveIndexNode = this.liveNodeMap.get(nodeId)!
         this.childTemplatesMap = new Map(Object.entries(nodeTemplate.childTemplates))
         this.childNodeTypeMaps = new Map(

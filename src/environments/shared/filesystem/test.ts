@@ -5,40 +5,50 @@ import { RootNode } from "./RootNode/RootNode.js"
 import { createRootNodeTemplate } from "./RootNode/createRootNodeTemplate.js"
 
 
-export const Level1NodeATemplate = () => createSimpleStateNodeTemplate(
-    'Level1NodeA', {}, {
+export const Level1NodeATemplate = () => createSimpleStateNodeTemplate('Level1NodeA', {
+    metadata: {}, 
+    state: {
+        levelName: <string> 'Level 1',
         numberType: <number> 5
-    }, {
-        "Level2NodeA": Level2NodeATemplate(),
-        "Level2NodeB": Level2NodeBTemplate(),
-    }
-)
-export const Level2NodeATemplate = () =>  createSimpleStateNodeTemplate(
-    "Level2NodeA", {}, {
+    },
+    stateDisplayKey: 'levelName'
+}, {
+    "Level2NodeA": Level2NodeATemplate(),
+    "Level2NodeB": Level2NodeBTemplate(),
+})
+export const Level2NodeATemplate = () =>  createSimpleStateNodeTemplate("Level2NodeA", {
+    metadata: {}, 
+    state: {
+        levelName: <string> 'Level 2',
         stringType: <string> 'New Job'
-    }, {        
-        "Level3From2ANodeA": Level3From2ANodeATemplate(),
-        "Level3From2ANodeB": Level3From2ANodeBTemplate(),
-    }    
+    },
+    stateDisplayKey: 'levelName'
+}, 
+// {        
+//     "Level3From2ANodeA": Level3From2ANodeATemplate(),
+//     "Level3From2ANodeB": Level3From2ANodeBTemplate(),
+// }
 )
-export const Level2NodeBTemplate = () =>  createSimpleStateNodeTemplate(
-    "Level2NodeB", {}, {
+export const Level2NodeBTemplate = () =>  createSimpleStateNodeTemplate("Level2NodeB", {
+    metadata: {}, 
+    state: {
         objectType: {
             a: <string> 'a',
-        }
-    }    
-)
+        },
+        levelName: <string> 'Level 2',
+    },
+    stateDisplayKey: 'levelName'
+})
 
-export const Level3From2ANodeATemplate = () => createS3ObjectNodeTemplate(
-    'Level3From2ANodeA', {},
-    'Bucket Name'
-)
+// export const Level3From2ANodeATemplate = () => createS3ObjectNodeTemplate('Level3From2ANodeA', {},
+//     'Bucket Name'
+// )
 
-export const Level3From2ANodeBTemplate = () => createS3ObjectNodeTemplate(
-    'Level3From2ANodeB', {
-        metadata: {}
-    }
-)
+// export const Level3From2ANodeBTemplate = () => createS3ObjectNodeTemplate(
+//     'Level3From2ANodeB', {
+//         metadata: {}
+//     }
+// )
 
 
 const rootNode = new RootNode(

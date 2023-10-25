@@ -5,8 +5,6 @@ import { UixNode } from "../UixNode/UixNode.js";
 import { UixNodeTemplate } from "../UixNode/createUixNodeTemplate.js";
 import { LiveIndexStorageModel } from "../LiveObjects/LiveIndexNode.js";
 
-
-
 export class RootNode<
     ChildTemplates extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
 > extends UixNode<
@@ -16,13 +14,13 @@ export class RootNode<
     ChildTemplates
 >{
     initialState: any;
+    stateDisplayKey: string | number | symbol = "root";
     static nodeType = 'RootNode' as const
     constructor(
         liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>,
         liveNodeMap: LiveIndexStorageModel['liveNodeMap'],
         rootNodeTemplate: UixNodeTemplate<'root', typeof RootNode, {}, ChildTemplates>
     ){
-        
         super(
             liveIndexRoom,
             liveNodeMap,
@@ -30,6 +28,9 @@ export class RootNode<
             'root',
             rootNodeTemplate
         )
+    }
+    useDisplayName(): string {
+       throw new Error("Method not implemented.");
     }
     useStorage<Key extends never>(key: Key): {}[Key] {
         throw new Error("Method not implemented.");

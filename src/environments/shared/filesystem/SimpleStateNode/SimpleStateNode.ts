@@ -7,7 +7,7 @@ import isEqual from "lodash.isequal";
 
 
 export class SimpleStateNode<
-    State extends JsonObject= JsonObject,
+    State extends JsonObject = JsonObject,
     ParentUixNode extends UixNode | null= UixNode<any> | null,
     CustomType extends string=string,
     ChildTemplates extends Record<string, UixNodeTemplate>=Record<string, UixNodeTemplate>,
@@ -15,7 +15,7 @@ export class SimpleStateNode<
 {
     static nodeType = 'SimpleStateNode' as const
     initialState: State
-    lastStorageValues: State
+    private lastStorageValues: State
     constructor(
         ...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>
     ){
@@ -25,6 +25,9 @@ export class SimpleStateNode<
     }
     mutateStorage<Key extends keyof State>(key: Key, value: State[Key]): void {
         this.liveIndexNode.get('state').set(key as string, value)
+    }
+    useDisplayName(): string {
+        return this.useStorage(this.stateDisplayKey) as string
     }
     useStorage<Key extends keyof State>(key: Key): State[Key] {
         return useSyncExternalStore((callback) => {

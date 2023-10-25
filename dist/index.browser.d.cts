@@ -131,25 +131,29 @@ type S3ObjectInterfaceState = {
 };
 declare class S3ObjectNode<ParentUixNode extends UixNode | null = UixNode<any> | null, CustomType extends string = string, ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>> extends UixNode<ParentUixNode, CustomType, typeof S3ObjectNode, ChildTemplates> {
     static nodeType: "S3ObjectNode";
+    stateDisplayKey: 'objectName';
     initialState: S3ObjectInterfaceState;
     proxyUrl: string;
     constructor(...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>);
     mutateStorage<Key extends keyof S3ObjectInterfaceState>(key: Key, value: S3ObjectInterfaceState[Key]): void;
+    useDisplayName(): string;
     useStorage<Key extends keyof S3ObjectInterfaceState>(key: Key): S3ObjectInterfaceState[Key];
 }
 
 declare class SimpleStateNode<State extends JsonObject = JsonObject, ParentUixNode extends UixNode | null = UixNode<any> | null, CustomType extends string = string, ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>> extends UixNode<ParentUixNode, CustomType, typeof SimpleStateNode, ChildTemplates> {
     static nodeType: "SimpleStateNode";
     initialState: State;
-    lastStorageValues: State;
+    private lastStorageValues;
     constructor(...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>);
     mutateStorage<Key extends keyof State>(key: Key, value: State[Key]): void;
+    useDisplayName(): string;
     useStorage<Key extends keyof State>(key: Key): State[Key];
 }
 
 type UixNodeTemplateProps<Metadata extends JsonObject = JsonObject> = {
     metadata: Metadata;
     initialState?: JsonObject;
+    stateDisplayKey: string;
 };
 type UixNodeType = RootNode | S3ObjectNode | SimpleStateNode;
 type UixNodeConstructor = {
@@ -159,6 +163,7 @@ type UixNodeTemplate<CustomType extends string = string, NodeConstructor extends
     customType: CustomType;
     metadata: Metadata;
     initialState?: InstanceType<NodeConstructor>['initialState'];
+    stateDisplayKey: keyof InstanceType<NodeConstructor>['initialState'];
     Constructor: NodeConstructor;
     childTemplates: ChildTemplates extends Record<string, UixNodeTemplate> ? {
         [ChildType in keyof ChildTemplates]: UixNodeTemplate<ChildTemplates[ChildType]['customType'], ChildTemplates[ChildType]['Constructor'], ChildTemplates[ChildType]['metadata'], ChildTemplates[ChildType]['childTemplates']>;
@@ -202,6 +207,7 @@ declare abstract class UixNode<ParentUixNode extends UixNode | null = UixNode<an
     nodeTemplate: UixNodeTemplate<CustomType, UixNodeConstructor, any, ChildTemplates>;
     static nodeType: string;
     abstract initialState: InstanceType<NodeConstructor>['initialState'];
+    abstract useDisplayName(): string;
     abstract useStorage<Key extends keyof InstanceType<NodeConstructor>['initialState']>(key: Key): InstanceType<NodeConstructor>['initialState'][Key];
     abstract mutateStorage<Key extends keyof InstanceType<NodeConstructor>['initialState']>(key: Key, value: InstanceType<NodeConstructor>['initialState'][Key]): void;
     liveIndexNode: LiveIndexNode;
@@ -210,6 +216,7 @@ declare abstract class UixNode<ParentUixNode extends UixNode | null = UixNode<an
     get state(): LiveObject<any>;
     get customType(): CustomType;
     get metadata(): JsonObject;
+    stateDisplayKey: keyof InstanceType<NodeConstructor>['initialState'];
     private childTemplatesMap;
     private childNodeTypeMaps;
     private baseStateChildNodeTypeMaps;
@@ -222,8 +229,10 @@ declare abstract class UixNode<ParentUixNode extends UixNode | null = UixNode<an
 
 declare class RootNode<ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>> extends UixNode<null, 'root', typeof RootNode, ChildTemplates> {
     initialState: any;
+    stateDisplayKey: string | number | symbol;
     static nodeType: "RootNode";
     constructor(liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>, liveNodeMap: LiveIndexStorageModel['liveNodeMap'], rootNodeTemplate: UixNodeTemplate<'root', typeof RootNode, {}, ChildTemplates>);
+    useDisplayName(): string;
     useStorage<Key extends never>(key: Key): {}[Key];
     mutateStorage<Key extends never>(key: Key, value: {}[Key]): void;
 }
@@ -241,6 +250,7 @@ declare const createRootNodeTemplate: <ChildTemplates extends Record<string, Uix
 type SimpleStateNodeConfig<Metadata extends JsonObject = JsonObject, State extends JsonObject = JsonObject> = {
     metadata: Metadata;
     state: State;
+    stateDisplayKey: keyof State;
 };
 declare const createSimpleStateNodeTemplate: <CustomType extends string, Metadata extends JsonObject, State extends JsonObject, ChildTemplates extends {} | Record<string, UixNodeTemplate> = {}>(customType: CustomType, config: SimpleStateNodeConfig<Metadata, State>, childTemplates?: ChildTemplates | undefined) => UixNodeTemplate<CustomType, {
     new (liveIndexRoom: _liveblocks_core.Room<{}, LiveIndexStorageModel, any, any>, liveNodeMap: _liveblocks_core.LiveMap<string, ILiveIndexNode>, parentNode: UixNode<any, string, UixNodeConstructor, Record<string, UixNodeTemplate<any, any, any>>> | null, nodeId: string, nodeTemplate: UixNodeTemplate<string, UixNodeConstructor, any, Record<string, UixNodeTemplate>>): SimpleStateNode<State, UixNode<any, string, UixNodeConstructor, Record<string, UixNodeTemplate<any, any, any>>> | null, string, Record<string, UixNodeTemplate>>;

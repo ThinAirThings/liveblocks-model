@@ -10,7 +10,8 @@ type SimpleStateNodeConfig<
     State extends JsonObject=JsonObject,
 > = {
     metadata: Metadata
-    state: State
+    state: State,
+    stateDisplayKey: keyof State
 }
 
 export const createSimpleStateNodeTemplate = <
@@ -24,7 +25,8 @@ export const createSimpleStateNodeTemplate = <
     childTemplates?: ChildTemplates
 ) => createUixNodeTemplate(customType, SimpleStateNode<State>, { 
     metadata: config.metadata,
-    initialState: config.state
+    initialState: config.state,
+    stateDisplayKey: config.stateDisplayKey as string
 }, childTemplates??{}) as UixNodeTemplate<
     CustomType,
     typeof SimpleStateNode<State>,
