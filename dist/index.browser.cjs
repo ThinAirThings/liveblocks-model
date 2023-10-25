@@ -30,6 +30,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.browser.ts
 var index_browser_exports = {};
 __export(index_browser_exports, {
+  UixNode: () => UixNode,
   configureLiveFilesystemStorage: () => configureLiveFilesystemStorage,
   createNodeEntry: () => createNodeEntry,
   createRootNodeTemplate: () => createRootNodeTemplate,
@@ -519,6 +520,7 @@ var createSimpleStateNodeTemplate = (customType, config, childTemplates) => crea
 }, childTemplates ?? {});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  UixNode,
   configureLiveFilesystemStorage,
   createNodeEntry,
   createRootNodeTemplate,

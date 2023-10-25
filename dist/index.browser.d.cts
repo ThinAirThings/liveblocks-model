@@ -242,4 +242,4 @@ declare const createSimpleStateNodeTemplate: <CustomType extends string, Metadat
     nodeType: "SimpleStateNode";
 }, Metadata, ChildTemplates>;
 
-export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, configureLiveFilesystemStorage, createRootNodeTemplate, createSimpleStateNodeTemplate, liveblocksBrowserConfig };
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, UixNode, configureLiveFilesystemStorage, createRootNodeTemplate, createSimpleStateNodeTemplate, liveblocksBrowserConfig };

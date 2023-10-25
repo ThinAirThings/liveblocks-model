@@ -313,6 +313,7 @@ var createSimpleStateNodeTemplate = (customType, config, childTemplates) => crea
   initialState: config.state
 }, childTemplates ?? {});
 export {
+  UixNode,
   configureLiveFilesystemStorage,
   createNodeEntry,
   createRootNodeTemplate,
