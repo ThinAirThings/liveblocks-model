@@ -233,7 +233,11 @@ declare const configureLiveFilesystemStorage: <LiveblocksPresence extends JsonOb
 
 declare const createRootNodeTemplate: <ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>>(childTemplates: ChildTemplates) => UixNodeTemplate<"root", typeof RootNode, {}, ChildTemplates>;
 
-declare const createSimpleStateNodeTemplate: <CustomType extends string, Metadata extends JsonObject, State extends JsonObject, ChildTemplates extends {} | Record<string, UixNodeTemplate> = {}>(customType: CustomType, metadata: Metadata, state: State, childTemplates?: ChildTemplates | undefined) => UixNodeTemplate<CustomType, {
+type SimpleStateNodeConfig<Metadata extends JsonObject = JsonObject, State extends JsonObject = JsonObject> = {
+    metadata: Metadata;
+    state: State;
+};
+declare const createSimpleStateNodeTemplate: <CustomType extends string, Metadata extends JsonObject, State extends JsonObject, ChildTemplates extends {} | Record<string, UixNodeTemplate> = {}>(customType: CustomType, config: SimpleStateNodeConfig<Metadata, State>, childTemplates?: ChildTemplates | undefined) => UixNodeTemplate<CustomType, {
     new (liveIndexRoom: _liveblocks_core.Room<{}, LiveIndexStorageModel, any, any>, liveNodeMap: _liveblocks_core.LiveMap<string, ILiveIndexNode>, parentNode: UixNode<any, string, UixNodeConstructor, Record<string, UixNodeTemplate<any, any, any>>> | null, nodeId: string, nodeTemplate: UixNodeTemplate<string, UixNodeConstructor, any, Record<string, UixNodeTemplate>>): SimpleStateNode<State, UixNode<any, string, UixNodeConstructor, Record<string, UixNodeTemplate<any, any, any>>> | null, string, Record<string, UixNodeTemplate>>;
     nodeType: "SimpleStateNode";
 }, Metadata, ChildTemplates>;

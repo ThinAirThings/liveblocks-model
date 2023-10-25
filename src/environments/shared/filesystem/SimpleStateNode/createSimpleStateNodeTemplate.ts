@@ -5,6 +5,13 @@ import { JsonObject } from "@liveblocks/client";
 import { UixNodeTemplate, createUixNodeTemplate } from "../UixNode/createUixNodeTemplate.js";
 import { SimpleStateNode } from "./SimpleStateNode.js";
 
+type SimpleStateNodeConfig<
+    Metadata extends JsonObject=JsonObject,
+    State extends JsonObject=JsonObject,
+> = {
+    metadata: Metadata
+    state: State
+}
 
 export const createSimpleStateNodeTemplate = <
     CustomType extends string,
@@ -13,12 +20,11 @@ export const createSimpleStateNodeTemplate = <
     ChildTemplates extends Record<string, UixNodeTemplate>|{}={},
 >(
     customType: CustomType,
-    metadata: Metadata,
-    state: State,
+    config: SimpleStateNodeConfig<Metadata, State>,
     childTemplates?: ChildTemplates
 ) => createUixNodeTemplate(customType, SimpleStateNode<State>, { 
-    metadata: metadata,
-    initialState: state
+    metadata: config.metadata,
+    initialState: config.state
 }, childTemplates??{}) as UixNodeTemplate<
     CustomType,
     typeof SimpleStateNode<State>,

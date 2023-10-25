@@ -489,9 +489,9 @@ var SimpleStateNode = class extends UixNode {
 SimpleStateNode.nodeType = "SimpleStateNode";
 
 // src/environments/shared/filesystem/SimpleStateNode/createSimpleStateNodeTemplate.ts
-var createSimpleStateNodeTemplate = (customType, metadata, state, childTemplates) => createUixNodeTemplate(customType, SimpleStateNode, {
-  metadata,
-  initialState: state
+var createSimpleStateNodeTemplate = (customType, config, childTemplates) => createUixNodeTemplate(customType, SimpleStateNode, {
+  metadata: config.metadata,
+  initialState: config.state
 }, childTemplates ?? {});
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
