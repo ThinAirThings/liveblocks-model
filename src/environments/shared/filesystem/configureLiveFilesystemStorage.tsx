@@ -21,8 +21,8 @@ export const configureLiveFilesystemStorage = <
     const FilesystemRootNodeContext = createContext<
         RootNode
     >(null as any)
-    const useFilesystemRootNode = () => useContext(FilesystemRootNodeContext)
-    const FilesystemRootNodeProvider: FC<{
+    const useLiveFilesystemRootNode = () => useContext(FilesystemRootNodeContext)
+    const LiveFilesystemRootNodeProvider: FC<{
         roomId: string,
         children: ReactNode
     }> = ({
@@ -64,7 +64,7 @@ export const configureLiveFilesystemStorage = <
         )
     }
     return {
-        FilesystemRootNodeProvider,
-        useFilesystemRootNode,
+        LiveFilesystemRootNodeProvider,
+        useLiveFilesystemRootNode,
     }
 }

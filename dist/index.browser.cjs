@@ -408,8 +408,8 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
   const liveblocksClient = (0, import_client5.createClient)(createClientProps);
   const { suspense: liveblocks } = (0, import_react4.createRoomContext)(liveblocksClient);
   const FilesystemRootNodeContext = (0, import_react5.createContext)(null);
-  const useFilesystemRootNode = () => (0, import_react5.useContext)(FilesystemRootNodeContext);
-  const FilesystemRootNodeProvider = ({
+  const useLiveFilesystemRootNode = () => (0, import_react5.useContext)(FilesystemRootNodeContext);
+  const LiveFilesystemRootNodeProvider = ({
     roomId,
     children
   }) => {
@@ -441,8 +441,8 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
     );
   };
   return {
-    FilesystemRootNodeProvider,
-    useFilesystemRootNode
+    LiveFilesystemRootNodeProvider,
+    useLiveFilesystemRootNode
   };
 };
 

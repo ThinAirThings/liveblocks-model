@@ -224,11 +224,11 @@ type UixNodeTemplate<CustomType extends string = string, NodeConstructor extends
 };
 
 declare const configureLiveFilesystemStorage: <LiveblocksPresence extends JsonObject, RootNodeTemplate extends UixNodeTemplate<"root", typeof RootNode, {}, Record<string, UixNodeTemplate>>>(liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0], rootNodeTemplate: RootNodeTemplate) => {
-    FilesystemRootNodeProvider: FC<{
+    LiveFilesystemRootNodeProvider: FC<{
         roomId: string;
         children: ReactNode;
     }>;
-    useFilesystemRootNode: () => RootNode<Record<string, UixNodeTemplate>>;
+    useLiveFilesystemRootNode: () => RootNode<Record<string, UixNodeTemplate>>;
 };
 
 declare const createRootNodeTemplate: <ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>>(childTemplates: ChildTemplates) => UixNodeTemplate<"root", typeof RootNode, {}, ChildTemplates>;

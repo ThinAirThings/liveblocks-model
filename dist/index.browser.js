@@ -203,8 +203,8 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
   const liveblocksClient = createClient2(createClientProps);
   const { suspense: liveblocks } = createRoomContext2(liveblocksClient);
   const FilesystemRootNodeContext = createContext(null);
-  const useFilesystemRootNode = () => useContext(FilesystemRootNodeContext);
-  const FilesystemRootNodeProvider = ({
+  const useLiveFilesystemRootNode = () => useContext(FilesystemRootNodeContext);
+  const LiveFilesystemRootNodeProvider = ({
     roomId,
     children
   }) => {
@@ -236,8 +236,8 @@ var configureLiveFilesystemStorage = (liveblocksPresence, createClientProps, roo
     );
   };
   return {
-    FilesystemRootNodeProvider,
-    useFilesystemRootNode
+    LiveFilesystemRootNodeProvider,
+    useLiveFilesystemRootNode
   };
 };
 
