@@ -20,7 +20,7 @@ export const configureLiveFilesystemStorage = <
         LiveIndexStorageModel
     >(liveblocksClient)
     const FilesystemRootNodeContext = createContext<
-        RootNode
+        RootNode<RootNodeTemplate['childTemplates']>
     >(null as any)
     const useLiveFilesystemRootNode = () => useContext(FilesystemRootNodeContext)
     const LiveFilesystemRootNodeProvider: FC<{

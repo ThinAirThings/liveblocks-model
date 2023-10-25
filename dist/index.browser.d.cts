@@ -228,7 +228,7 @@ declare const configureLiveFilesystemStorage: <LiveblocksPresence extends JsonOb
         roomId: string;
         children: ReactNode;
     }>;
-    useLiveFilesystemRootNode: () => RootNode<Record<string, UixNodeTemplate>>;
+    useLiveFilesystemRootNode: () => RootNode<RootNodeTemplate["childTemplates"]>;
 };
 
 declare const createRootNodeTemplate: <ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>>(childTemplates: ChildTemplates) => UixNodeTemplate<"root", typeof RootNode, {}, ChildTemplates>;
