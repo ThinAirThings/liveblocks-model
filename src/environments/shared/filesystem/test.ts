@@ -1,73 +1,72 @@
 // import { SimpleStateNode } from "./SimpleStateNode.js"
-import { createS3ObjectNodeTemplate, createUixNodeTemplate } from "./UixNodeTemplate.js"
-import { SimpleStateNode } from "./UixNodeTypeIndex.js"
-import { L } from "ts-toolbelt"
+import { createSimpleStateNodeTemplate } from "./SimpleStateNode/createSimpleStateNodeTemplate.js"
+import { createS3ObjectNodeTemplate } from "./S3ObjectNode/createS3ObjectNodeTemplate.js"
+import { RootNode } from "./RootNode/RootNode.js"
+import { createRootNodeTemplate } from "./RootNode/createRootNodeTemplate.js"
 
-export const BusinessNodeTemplate = () => createUixNodeTemplate(
-    'SimpleStateNode', 'BusinessNode', {
-        businessName: <string> 'New Business'
-    }, [
-        JobNodeTemplate(),
-        ContactNodeTemplate(),
-    ]
-)
-export const JobNodeTemplate = () =>  createUixNodeTemplate(
-    "SimpleStateNode", "JobNode", {
-        jobName: <string> 'New Job'
-    },[
-        ContactNodeTemplate(),
-        LogoNodeTemplate(),
-        ProfilePictureTemplate()
-    ]
-)
-export const LogoNodeTemplate = () => createS3ObjectNodeTemplate('LogoNode', [
-    ProfilePictureTemplate(),
-])
-export const ProfilePictureTemplate = () => createS3ObjectNodeTemplate('ProfilePictureNode')
 
-export const ContactNodeTemplate = () => createUixNodeTemplate(
-    "SimpleStateNode", "ContactNode", {
-        contactName: <string> 'New Contact'
-    }, [
-        ProfilePictureTemplate()
-    ]
+export const Level1NodeATemplate = () => createSimpleStateNodeTemplate(
+    'Level1NodeA', {}, {
+        numberType: <number> 5
+    }, {
+        "Level2NodeA": Level2NodeATemplate(),
+        "Level2NodeB": Level2NodeBTemplate(),
+    }
+)
+export const Level2NodeATemplate = () =>  createSimpleStateNodeTemplate(
+    "Level2NodeA", {}, {
+        stringType: <string> 'New Job'
+    }, {        
+        "Level3From2ANodeA": Level3From2ANodeATemplate(),
+        "Level3From2ANodeB": Level3From2ANodeBTemplate(),
+    }    
+)
+export const Level2NodeBTemplate = () =>  createSimpleStateNodeTemplate(
+    "Level2NodeB", {}, {
+        objectType: {
+            a: <string> 'a',
+        }
+    }    
 )
 
+export const Level3From2ANodeATemplate = () => createS3ObjectNodeTemplate(
+    'Level3From2ANodeA', {},
+    'Bucket Name'
+)
 
-const businessTemplate = BusinessNodeTemplate()
-const businessNode = new SimpleStateNode(
+export const Level3From2ANodeBTemplate = () => createS3ObjectNodeTemplate(
+    'Level3From2ANodeB', {
+        metadata: {}
+    }
+)
+
+
+const rootNode = new RootNode(
     null as any,
     null as any,
-    null, 
-    '',
-    businessTemplate
-)
-businessNode.useStorage('businessName')
-businessNode.childNodeTypeMaps['JobNode'].forEach(node=>node.createChild('LogoNode'))
-const jobNode = businessNode.createChild('JobNode')
-const logoNode = jobNode.createChild('LogoNode')
-const contactNodeFromJobNode = jobNode.createChild('ContactNode')
-contactNodeFromJobNode.useStorage('contactName')   
-contactNodeFromJobNode.createChild('')// Fail
-logoNode.useStorage('bucketName') // Fail
-logoNode.createChild('')
-const contactNodeFromBusinessNode = businessNode.createChild('ContactNode')
-const jobNodeFromBusinessNode = businessNode.createChild('JobNode')
-jobNodeFromBusinessNode.useStorage('jobName') // Success
-contactNodeFromBusinessNode.useStorage('contactName') // Success
-contactNodeFromBusinessNode.createChild('') // Fail
-const profilePicNodeFromJobNode = jobNode.createChild('ProfilePictureNode')
-profilePicNodeFromJobNode.useStorage('objectState')
-profilePicNodeFromJobNode.createChild('')
+    createRootNodeTemplate({
+        "Level1NodeA": Level1NodeATemplate(),
+    })
+) 
+const Level1NodeA = rootNode.createChild('Level1NodeA')
+Level1NodeA.createChild('')
+const level2NodeA = Level1NodeA.createChild('Level2NodeA')
+level2NodeA.createChild('')
+level2NodeA.useStorage('')
+const level2NodeB = Level1NodeA.createChild('Level2NodeB')
+level2NodeB.useStorage('objectType')
+const level3From2ANodeA = level2NodeA.createChild('Level3From2ANodeA')
+const level3From2ANodeB = level2NodeA.createChild('Level3From2ANodeB')
+level3From2ANodeB.parentNode.parentNode.parentNode.createChild('Level1NodeA')
 
+// const rootNode = createUixNode(
+//     null,
+//     businessTemplate
+// )
 
-
-// Typescript Play
-
-type TreeNode<Name extends string, Children extends TreeNode<any, any>[]> = {
-    name: Name,
-    children: Children extends [infer Head, ...infer Tail]
-        ? (Head extends TreeNode<any, any>[]
-            
-            )
-}
+// const jobNode = rootNode.createChild('JobNode')
+// const contactNode = jobNode.createChild('ContactNode')
+// contactNode.parentNode['state']['jobName']
+// contactNode.state['contactName']
+// contactNode.createChild('ProfilePictureNode')
+// jobNode.state['jobName']

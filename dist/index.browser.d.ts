@@ -4,7 +4,7 @@ import * as _liveblocks_react from '@liveblocks/react';
 import * as react from 'react';
 import { FC, ReactNode } from 'react';
 import * as _liveblocks_core from '@liveblocks/core';
-import { JsonObject, createClient, Lson, LiveObject, LsonObject, LiveMap, Room } from '@liveblocks/client';
+import { JsonObject, createClient, Lson, LiveMap, LiveObject, LsonObject, Room } from '@liveblocks/client';
 
 declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U extends AirNodeUnion<Index>, LiveblocksStorage extends LiveblocksStorageModel<LiveAirNode<U>>, LiveblocksPresence extends JsonObject = {}>(NodeIndex: Index, createClientProps: Parameters<typeof createClient>[0], initialLiveblocksPresence: LiveblocksPresence, initialLiveblocksStorage: LiveblocksStorage) => {
     NodeIndex: TypedNodeIndex<Index, U>;
@@ -123,90 +123,119 @@ declare const liveblocksBrowserConfig: <Index extends AirNodeIndex<any>, U exten
     useDeleteNode: () => (nodeId: string) => void;
 };
 
-type NodeTemplateProps<S extends JsonObject, M extends JsonObject = {}> = {
-    metadata: M;
-    state: S;
-    stateDisplayKey: keyof S;
+type LiveIndexStorageModel = {
+    liveNodeMap: LiveMap<string, ILiveIndexNode>;
 };
-type NodeTemplate<Type extends string = string, Metadata extends JsonObject = JsonObject, State extends JsonObject = JsonObject, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = Record<string, NodeTemplate<any, any, any, any>>> = {
-    type: Type;
-    metadata: Metadata;
-    state: State;
-    stateDisplayKey: keyof State;
-    childNodes: ChildNodes;
-};
-declare const createNodeTemplate: <Type extends string, S extends JsonObject, M extends Record<string, JsonObject>, ChildNodes extends Record<string, NodeTemplate<any, any, any, any>> | null = null>(type: Type, props: NodeTemplateProps<S, M>, childNodes?: ChildNodes | undefined) => NodeTemplate<Type, M, S, ChildNodes extends null ? null : NonNullable<ChildNodes>>;
-
-type ILiveTreeNode = LiveObject<{
-    metadata: JsonObject;
+type ILiveIndexNode = LiveObject<{
     nodeId: string;
-    type: string;
+    metadata: JsonObject;
+    uixNodeType: string;
+    customType: string;
     parentNodeId: string | null;
     parentType: string | null;
     stateDisplayKey: string;
     state: LiveObject<LsonObject>;
-    childNodes: LiveMap<string, ILiveTreeNode>;
+    childNodeIds: LiveMap<string, null>;
 }>;
-declare class LiveTreeNode extends LiveObject<ILiveTreeNode extends LiveObject<infer T> ? T : never> {
+declare class LiveIndexNode extends LiveObject<ILiveIndexNode extends LiveObject<infer T> ? T : never> {
     constructor(data: {
-        metadata: JsonObject;
         nodeId: string;
-        type: string;
+        metadata: JsonObject;
+        uixNodeType: string;
+        customType: string;
         parentNodeId: string | null;
         parentType: string | null;
+        childNodeIds: LiveMap<string, null>;
         stateDisplayKey: string;
         state: LiveObject<LsonObject>;
-        childNodes: LiveMap<string, ILiveTreeNode>;
     });
 }
 
-declare class LiveTreeRootNode extends LiveTreeNode {
-    constructor();
+type ChildUixNode<ThisUixNode extends UixNode = UixNode<any>, ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate<any, any, any>>, ChildType extends keyof ChildTemplates = keyof ChildTemplates> = UixNode<ThisUixNode, ChildTemplates[ChildType]['customType'], ChildTemplates[ChildType]['Constructor'], ChildTemplates[ChildType]['childTemplates']>;
+declare abstract class UixNode<ParentUixNode extends UixNode | null = UixNode<any> | null, CustomType extends string = string, NodeConstructor extends UixNodeConstructor = UixNodeConstructor, ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate<any, any, any>>> {
+    liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>;
+    private liveNodeMap;
+    parentNode: ParentUixNode;
+    nodeTemplate: UixNodeTemplate<CustomType, UixNodeConstructor, any, ChildTemplates>;
+    static nodeType: string;
+    abstract initialState: InstanceType<NodeConstructor>['initialState'];
+    abstract useStorage<Key extends keyof InstanceType<NodeConstructor>['initialState']>(key: Key): InstanceType<NodeConstructor>['initialState'][Key];
+    abstract mutateStorage<Key extends keyof InstanceType<NodeConstructor>['initialState']>(key: Key, value: InstanceType<NodeConstructor>['initialState'][Key]): void;
+    liveIndexNode: LiveIndexNode;
+    get nodeId(): string;
+    get uixNodeType(): string;
+    get state(): LiveObject<any>;
+    get customType(): CustomType;
+    get metadata(): JsonObject;
+    private childTemplatesMap;
+    private childNodeTypeMaps;
+    private baseStateChildNodeTypeMaps;
+    private childTypeIsKey;
+    constructor(liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>, liveNodeMap: LiveIndexStorageModel['liveNodeMap'], parentNode: ParentUixNode, nodeId: string, nodeTemplate: UixNodeTemplate<CustomType, UixNodeConstructor, any, ChildTemplates>);
+    createChild<ChildType extends keyof ChildTemplates>(childType: ChildType): UixNode<UixNode<ParentUixNode, CustomType, NodeConstructor, ChildTemplates>, ChildTemplates[ChildType]['customType'], ChildTemplates[ChildType]['Constructor'], ChildTemplates[ChildType]['childTemplates']>;
+    useChildNodeTypeMap: <ChildType extends keyof ChildTemplates>(childType: ChildType) => Map<string, ChildUixNode<this, ChildTemplates, ChildType>>;
+    delete(): void;
 }
 
-type LiveTreeStorageModel = {
-    liveTreeRootNode: LiveTreeRootNode;
+type S3ObjectInterfaceState = {
+    objectState: 'uninitialized' | 'writing' | 'ready' | 'error';
+    objectName: string;
+    data: string;
+    previousUploadResponse: string;
+};
+declare class S3ObjectNode<ParentUixNode extends UixNode | null = UixNode<any> | null, CustomType extends string = string, ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>> extends UixNode<ParentUixNode, CustomType, typeof S3ObjectNode, ChildTemplates> {
+    static nodeType: "S3ObjectNode";
+    initialState: S3ObjectInterfaceState;
+    proxyUrl: string;
+    constructor(...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>);
+    mutateStorage<Key extends keyof S3ObjectInterfaceState>(key: Key, value: S3ObjectInterfaceState[Key]): void;
+    useStorage<Key extends keyof S3ObjectInterfaceState>(key: Key): S3ObjectInterfaceState[Key];
+}
+
+declare class SimpleStateNode<State extends JsonObject = JsonObject, ParentUixNode extends UixNode | null = UixNode<any> | null, CustomType extends string = string, ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>> extends UixNode<ParentUixNode, CustomType, typeof SimpleStateNode, ChildTemplates> {
+    static nodeType: "SimpleStateNode";
+    initialState: State;
+    lastStorageValues: State;
+    constructor(...args: ConstructorParameters<typeof UixNode<ParentUixNode, CustomType, any, ChildTemplates>>);
+    mutateStorage<Key extends keyof State>(key: Key, value: State[Key]): void;
+    useStorage<Key extends keyof State>(key: Key): State[Key];
+}
+
+declare class RootNode<ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>> extends UixNode<null, 'root', typeof RootNode, ChildTemplates> {
+    initialState: any;
+    static nodeType: "RootNode";
+    constructor(liveIndexRoom: Room<{}, LiveIndexStorageModel, any, any>, liveNodeMap: LiveIndexStorageModel['liveNodeMap'], rootNodeTemplate: UixNodeTemplate<'root', typeof RootNode, {}, ChildTemplates>);
+    useStorage<Key extends never>(key: Key): {}[Key];
+    mutateStorage<Key extends never>(key: Key, value: {}[Key]): void;
+}
+
+type UixNodeType = RootNode | S3ObjectNode | SimpleStateNode;
+type UixNodeConstructor = {
+    new (...args: any[]): UixNodeType;
+};
+type UixNodeTemplate<CustomType extends string = string, NodeConstructor extends UixNodeConstructor = UixNodeConstructor, Metadata extends JsonObject = JsonObject, ChildTemplates extends Record<string, UixNodeTemplate> | {} = Record<string, UixNodeTemplate<any, any, any, any>>> = {
+    customType: CustomType;
+    metadata: Metadata;
+    initialState?: InstanceType<NodeConstructor>['initialState'];
+    Constructor: NodeConstructor;
+    childTemplates: ChildTemplates extends Record<string, UixNodeTemplate> ? {
+        [ChildType in keyof ChildTemplates]: UixNodeTemplate<ChildTemplates[ChildType]['customType'], ChildTemplates[ChildType]['Constructor'], ChildTemplates[ChildType]['metadata'], ChildTemplates[ChildType]['childTemplates']>;
+    } : {};
 };
 
-type ImmutableRuntimeNode<T extends RuntimeNode<any, any>> = {
-    readonly [Property in keyof T as Exclude<Property, 'childNodes' | 'parentNode' | "runtimeNodeMap" | 'liveTreeNode'>]: T[Property];
-};
-type RuntimeNode<ParentRuntimeNode extends RuntimeNode<any, any> | null = RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate = NodeTemplate> = {
-    runtimeNodeMap: Map<string, RuntimeNode<any, any>>;
-    liveTreeNode: LiveTreeNode;
-    templateNode: TemplateNode;
-    parentNode: ParentRuntimeNode;
-    nodeId: string;
-    type: TemplateNode['type'];
-    metadata: TemplateNode['metadata'];
-    create: <Type extends keyof TemplateNode['childNodes']>(type: Type) => RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Type]>;
-    useData: <Key extends keyof TemplateNode['state']>(key: Key) => TemplateNode['state'][Key];
-    mutate: <Key extends keyof TemplateNode['state']>(key: Key, value: TemplateNode['state'][Key]) => void;
-    delete: () => void;
-    useChildNodeTypeSet: <Type extends keyof TemplateNode['childNodes']>(type: Type) => Set<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Type]>>;
-    childNodeTypeSets: {
-        [Key in keyof TemplateNode['childNodes']]: Set<RuntimeNode<RuntimeNode<ParentRuntimeNode, TemplateNode>, TemplateNode['childNodes'][Key]>>;
-    };
-};
-declare const createRuntimeNode: <ParentRuntimeNode extends RuntimeNode<any, any> | null, TemplateNode extends NodeTemplate<any, any, any, any>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, parentRuntimeNode: ParentRuntimeNode, liveTreeNode: LiveTreeNode, templateNode: TemplateNode, runtimeNodeMap: Map<string, RuntimeNode<any, any>>) => RuntimeNode<ParentRuntimeNode, TemplateNode>;
-
-declare const createRootNodeTemplate: <ChildNodes extends Record<string, NodeTemplate<any, any, any, any>>>(childNodes: ChildNodes) => NodeTemplate<"RootNode", {}, {
-    root: string;
-}, ChildNodes extends null ? null : NonNullable<ChildNodes>>;
-
-declare const createRootRuntimeNode: <RootNodeTemplate extends NodeTemplate<"RootNode", {}, {
-    root: string;
-}, Record<string, NodeTemplate<any, any, any, any>>>>(liveTreeRoom: Room<{}, LiveTreeStorageModel, any, any>, rootNodeTemplate: RootNodeTemplate) => Promise<RuntimeNode<null, RootNodeTemplate>>;
-type RootRuntimeNode<RootNodeTemplate extends ReturnType<typeof createRootNodeTemplate>> = Awaited<ReturnType<typeof createRootRuntimeNode<RootNodeTemplate>>>;
-
-declare const configureLiveTreeStorage: <LiveblocksPresence extends JsonObject, RootNodeTemplate extends NodeTemplate<"RootNode", {}, {
-    root: string;
-}, Record<string, NodeTemplate<any, any, any, any>>>>(rootNodeTemplate: RootNodeTemplate, liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0]) => {
-    LiveTreeRootNodeProvider: FC<{
+declare const configureLiveFilesystemStorage: <LiveblocksPresence extends JsonObject, RootNodeTemplate extends UixNodeTemplate<"root", typeof RootNode, {}, Record<string, UixNodeTemplate>>>(liveblocksPresence: LiveblocksPresence, createClientProps: Parameters<typeof createClient>[0], rootNodeTemplate: RootNodeTemplate) => {
+    FilesystemRootNodeProvider: FC<{
         roomId: string;
         children: ReactNode;
     }>;
-    useLiveTreeRootNode: () => RootRuntimeNode<RootNodeTemplate>;
+    useFilesystemRootNode: () => RootNode<Record<string, UixNodeTemplate>>;
 };
 
-export { AirNode, AirNodeIndex, AirNodeUnion, ImmutableRuntimeNode, LiveAirNode, LiveblocksStorageModel, NodeTemplate, RuntimeNode, StatelessAirNodeUnion, TypedNodeIndex, configureLiveTreeStorage, createNodeTemplate, createRootNodeTemplate, createRuntimeNode, liveblocksBrowserConfig };
+declare const createRootNodeTemplate: <ChildTemplates extends Record<string, UixNodeTemplate> = Record<string, UixNodeTemplate>>(childTemplates: ChildTemplates) => UixNodeTemplate<"root", typeof RootNode, {}, ChildTemplates>;
+
+declare const createSimpleStateNodeTemplate: <CustomType extends string, Metadata extends JsonObject, State extends JsonObject, ChildTemplates extends {} | Record<string, UixNodeTemplate> = {}>(customType: CustomType, metadata: Metadata, state: State, childTemplates?: ChildTemplates | undefined) => UixNodeTemplate<CustomType, {
+    new (liveIndexRoom: _liveblocks_core.Room<{}, LiveIndexStorageModel, any, any>, liveNodeMap: _liveblocks_core.LiveMap<string, ILiveIndexNode>, parentNode: UixNode<any, string, UixNodeConstructor, Record<string, UixNodeTemplate<any, any, any>>> | null, nodeId: string, nodeTemplate: UixNodeTemplate<string, UixNodeConstructor, any, Record<string, UixNodeTemplate>>): SimpleStateNode<State, UixNode<any, string, UixNodeConstructor, Record<string, UixNodeTemplate<any, any, any>>> | null, string, Record<string, UixNodeTemplate>>;
+    nodeType: "SimpleStateNode";
+}, Metadata, ChildTemplates>;
+
+export { AirNode, AirNodeIndex, AirNodeUnion, LiveAirNode, LiveblocksStorageModel, StatelessAirNodeUnion, TypedNodeIndex, configureLiveFilesystemStorage, createRootNodeTemplate, createSimpleStateNodeTemplate, liveblocksBrowserConfig };
